@@ -8,48 +8,12 @@
                 'dataHero' => $dataHero,
             ])
         @endif
-        @if ($data)
+        @if ($products)
             @include('components.cardProdottoEvidenza', [
-                'data' => $data,
-                'products' => $products,
+                'subdata' => $subdata, 
+                'products' => $products
             ])
         @endif
-
-        <!-- Modale prodotti -->
-        <div x-show="modalOpen" x-cloak
-            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4" x-transition>
-            <div class="bg-white w-full max-w-md md:max-w-xl lg:max-w-2xl rounded-lg p-6 md:p-8 relative"
-                @click.away="modalOpen = false">
-                <button class="absolute top-2 right-2 text-gray-500" @click="modalOpen = false">
-                    <span class="material-symbols-rounded text-2xl">close</span>
-                </button>
-
-                <template x-if="selected">
-                    <div>
-                        <h2 class="text-lg md:text-xl font-bold mb-2" x-text="selected.name"></h2>
-                        <div class="flex gap-2 overflow-x-auto mb-4">
-                            <template x-for="(img, i) in selected.gallery || [selected.image]" :key="i">
-                                <img :src="img" class="w-24 h-24 md:w-32 md:h-32 object-cover rounded border" />
-                            </template>
-                        </div>
-                        <p class="text-green-600 font-semibold text-lg mb-2">€<span x-text="selected.price"></span></p>
-                        <p class="text-sm text-gray-700 mb-3" x-text="selected.description"></p>
-                        <ul class="text-sm list-disc pl-5 mb-4 space-y-1 text-gray-600" x-show="selected.details?.length">
-                            <template x-for="(d, i) in selected.details" :key="i">
-                                <li x-text="d"></li>
-                            </template>
-                        </ul>
-                        <button class="w-full bg-[#45752c] text-white py-2 rounded hover:bg-[#386322] transition">
-                            Aggiungi al carrello
-                        </button>
-                        <button @click="modalOpen = false"
-                            class="w-full mt-2 bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 transition">
-                            Torna indietro
-                        </button>
-                    </div>
-                </template>
-            </div>
-        </div>
 
         <!-- Banner promozionale -->
         <section class="px-4 md:px-8 lg:px-16 py-6 bg-yellow-100 text-center">
