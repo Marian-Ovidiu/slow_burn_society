@@ -1,0 +1,17 @@
+# Ignora dipendenze e build temporanee
+/node_modules/
+/vendor/
+/public/.vite/
+/resources/cache/
+/resources/views/*.php # Blade compilati (se non gestiti come sorgente)
+
+# Ignora file di sistema e IDE
+.DS_Store
+*.log
+*.lock
+*.tmp
+
+# Ignora output di Vite (se rigenerabile)
+public/build/
+/public/*.js
+/public/*.css
