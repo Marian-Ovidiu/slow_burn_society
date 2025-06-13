@@ -2834,3 +2834,51 @@ Stack trace:
 [13-Jun-2025 12:21:49 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [13-Jun-2025 12:23:04 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [13-Jun-2025 12:23:04 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:06:56 UTC] PHP Warning:  require(C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php): Failed to open stream: No such file or directory in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:06:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php' (include_path='.;C:\php\pear') in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php:2
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-settings.php(695): include()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-config.php(104): require_once('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\slow_burn_society\wp-load.php(50): require_once('C:\\MAMP\\htdocs\\...')
+#3 C:\MAMP\htdocs\slow_burn_society\wp-admin\admin-ajax.php(22): require_once('C:\\MAMP\\htdocs\\...')
+#4 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:10 UTC] PHP Warning:  require(C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php): Failed to open stream: No such file or directory in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:10 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php' (include_path='.;C:\php\pear') in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php:2
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-settings.php(695): include()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-config.php(104): require_once('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\slow_burn_society\wp-load.php(50): require_once('C:\\MAMP\\htdocs\\...')
+#3 C:\MAMP\htdocs\slow_burn_society\wp-admin\admin-ajax.php(22): require_once('C:\\MAMP\\htdocs\\...')
+#4 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:14 UTC] PHP Warning:  require(C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php): Failed to open stream: No such file or directory in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:14 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php' (include_path='.;C:\php\pear') in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php:2
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-settings.php(695): include()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-config.php(104): require_once('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\slow_burn_society\wp-load.php(50): require_once('C:\\MAMP\\htdocs\\...')
+#3 C:\MAMP\htdocs\slow_burn_society\wp-admin\admin-ajax.php(22): require_once('C:\\MAMP\\htdocs\\...')
+#4 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:15 UTC] PHP Warning:  require(C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php): Failed to open stream: No such file or directory in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php' (include_path='.;C:\php\pear') in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php:2
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-settings.php(695): include()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-config.php(104): require_once('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\slow_burn_society\wp-load.php(50): require_once('C:\\MAMP\\htdocs\\...')
+#3 C:\MAMP\htdocs\slow_burn_society\wp-admin\admin.php(35): require_once('C:\\MAMP\\htdocs\\...')
+#4 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:51 UTC] PHP Warning:  require(C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php): Failed to open stream: No such file or directory in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:14:51 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure/vendor/autoload.php' (include_path='.;C:\php\pear') in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php:2
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-settings.php(695): include()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-config.php(104): require_once('C:\\MAMP\\htdocs\\...')
+#2 C:\MAMP\htdocs\slow_burn_society\wp-load.php(50): require_once('C:\\MAMP\\htdocs\\...')
+#3 C:\MAMP\htdocs\slow_burn_society\wp-blog-header.php(13): require_once('C:\\MAMP\\htdocs\\...')
+#4 C:\MAMP\htdocs\slow_burn_society\index.php(17): require('C:\\MAMP\\htdocs\\...')
+#5 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
+[13-Jun-2025 13:17:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:17:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
