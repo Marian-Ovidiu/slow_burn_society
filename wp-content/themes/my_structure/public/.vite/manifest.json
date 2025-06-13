@@ -1,0 +1,16 @@
+{
+  "assets/js/main.js": {
+    "file": "js/main-BUyRlVI7.js",
+    "name": "main",
+    "src": "assets/js/main.js",
+    "isEntry": true,
+    "css": [
+      "css/main-DV8PrLMj.css"
+    ]
+  },
+  "assets/scss/style.scss": {
+    "file": "css/style-XPEkQuUq.css",
+    "src": "assets/scss/style.scss",
+    "isEntry": true
+  }
+}

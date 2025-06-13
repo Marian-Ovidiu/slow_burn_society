@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "@alpinejs/intersect": "^3.14.3",
+    "alpinejs": "^3.14.1",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.5",
+    "stripe": "^17.7.0",
+    "swiper": "^11.1.14",
+    "vite": "^6.2.3"
+  },
+  "name": "my_structure",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "sass": "^1.79.5",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.13"
+  }
+}

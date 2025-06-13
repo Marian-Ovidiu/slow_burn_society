@@ -1,0 +1,52 @@
+{
+    "name": "hmari/my_structure",
+    "authors": [
+        {
+            "name": "htn.marian",
+            "email": "h.marian914@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/view": "^8.83.27",
+        "illuminate/collections": "^8.8",
+        "illuminate/container": "^8.8",
+        "illuminate/contracts": "^8.8",
+        "illuminate/events": "^8.8",
+        "illuminate/filesystem": "^8.8",
+        "illuminate/macroable": "^8.8",
+        "illuminate/support": "^8.8",
+        "illuminate/database": "^8.8",
+        "respect/validation": "^2.2",
+        "symfony/var-dumper": "^5.4",
+        "stripe/stripe-php": "^16.2",
+        "phpoption/phpoption": "^1.9",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "type": "wordpress-theme",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "app/Core/",
+            "Helpers\\": "app/Helpers/",
+            "Middleware\\": "app/Middleware/",
+            "Widget\\": "app/Widget/",
+            "Classes\\": "source/Classes/",
+            "Controllers\\": "source/Controllers/",
+            "Models\\": "source/Models/",
+            "Routes\\": "source/routes/",
+            "Assets\\": "source/assets/"
+        },
+        "files": [
+            "app/Helpers/acf_helpers.php",
+            "app/Helpers/theme_helpers.php",
+            "app/Helpers/translation_helpers.php",
+            "app/Helpers/utility_helpers.php"
+        ]
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "require-dev": {
+        "kkomelin/laravel-translatable-string-exporter": "^1.17"
+    }
+}
