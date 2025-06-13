@@ -1,0 +1,9 @@
+.overlap {
+    z-index: 50;
+    margin-top: -150px;
+    transition: margin-top 0.6s ease-in-out, z-index 0s 0.6s;
+}
+
+.out-group {
+    transition: margin-top 0.6s ease-in-out;
+}
