@@ -8,8 +8,6 @@ class ProdottoController extends BaseController
 {
     public function archive()
     {
-        $progetti = Prodotto::all();
-      
         $this->render('archivio-prodotto', []);
     }
 
