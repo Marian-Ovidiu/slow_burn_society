@@ -12,6 +12,7 @@ class OpzioniProdottoFields extends BaseGroupAcf
 
     public function __construct($postId = null)
     {
+        $postId = $postId ?? 'options'; 
         parent::__construct($this->groupKey, $postId);
         $this->defineAttributes();
     }
