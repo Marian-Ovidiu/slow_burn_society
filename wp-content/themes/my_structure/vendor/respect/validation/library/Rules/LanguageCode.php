@@ -1,12 +1,8 @@
 <?php
 
 /*
- * This file is part of Respect/Validation.
- *
- * (c) Alexandre Gomes Gaigalas <alganet@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE file
- * that was distributed with this source code.
+ * Copyright (c) Alexandre Gomes Gaigalas <alganet@gmail.com>
+ * SPDX-License-Identifier: MIT
  */
 
 declare(strict_types=1);
@@ -91,7 +87,7 @@ final class LanguageCode extends AbstractEnvelope
         ['bn', 'ben'], // Bengali
         ['', 'ber'], // Berber languages
         ['', 'bho'], // Bhojpuri
-        ['bh', 'bih'], // Bihari languages
+        ['', 'bih'], // Bihari languages
         ['', 'bik'], // Bikol
         ['', 'bin'], // Bini; Edo
         ['bi', 'bis'], // Bislama
@@ -147,7 +143,7 @@ final class LanguageCode extends AbstractEnvelope
         ['', 'day'], // Land Dayak languages
         ['', 'del'], // Delaware
         ['', 'den'], // Slave (Athapascan)
-        ['', 'dgr'], // Dogrib
+        ['', 'dgr'], // Tlicho; Dogrib
         ['', 'din'], // Dinka
         ['dv', 'div'], // Divehi; Dhivehi; Maldivian
         ['', 'doi'], // Dogri

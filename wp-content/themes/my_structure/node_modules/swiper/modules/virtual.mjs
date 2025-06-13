@@ -1,5 +1,5 @@
 import { g as getDocument } from '../shared/ssr-window.esm.mjs';
-import { s as setCSSProperty, e as elementChildren, c as createElement } from '../shared/utils.mjs';
+import { a as setCSSProperty, e as elementChildren, s as setInnerHTML, c as createElement } from '../shared/utils.mjs';
 
 function Virtual(_ref) {
   let {
@@ -41,7 +41,7 @@ function Virtual(_ref) {
     if (params.renderSlide) {
       slideEl = params.renderSlide.call(swiper, slide, index);
       if (typeof slideEl === 'string') {
-        tempDOM.innerHTML = slideEl;
+        setInnerHTML(tempDOM, slideEl);
         slideEl = tempDOM.children[0];
       }
     } else if (swiper.isElement) {
@@ -51,7 +51,7 @@ function Virtual(_ref) {
     }
     slideEl.setAttribute('data-swiper-slide-index', index);
     if (!params.renderSlide) {
-      slideEl.innerHTML = slide;
+      setInnerHTML(slideEl, slide);
     }
     if (params.cache) {
       swiper.virtual.cache[index] = slideEl;
