@@ -139,7 +139,6 @@ export default function donationFormData(progettoId, thankYouUrl) {
                 if (paymentIntent?.status === 'succeeded') {
                     window.location.href = this.thankYouUrl;
                 }
-
             } catch (err) {
                 console.error('Errore Stripe:', err.message);
             } finally {
