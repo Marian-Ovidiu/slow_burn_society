@@ -1,5 +1,5 @@
 import { a as getWindow } from '../shared/ssr-window.esm.mjs';
-import { n as nextTick, d as now } from '../shared/utils.mjs';
+import { n as nextTick, f as now } from '../shared/utils.mjs';
 
 /* eslint-disable consistent-return */
 function Mousewheel(_ref) {

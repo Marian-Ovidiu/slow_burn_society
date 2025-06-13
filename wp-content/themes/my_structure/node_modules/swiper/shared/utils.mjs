@@ -327,5 +327,17 @@ function getRotateFix(swiper) {
     return v;
   };
 }
+function setInnerHTML(el, html) {
+  if (html === void 0) {
+    html = '';
+  }
+  if (typeof trustedTypes !== 'undefined') {
+    el.innerHTML = trustedTypes.createPolicy('html', {
+      createHTML: s => s
+    }).createHTML(html);
+  } else {
+    el.innerHTML = html;
+  }
+}
 
-export { elementParents as a, elementOffset as b, createElement as c, now as d, elementChildren as e, elementOuterSize as f, getSlideTransformEl as g, elementIndex as h, classesToTokens as i, getTranslate as j, elementTransitionEnd as k, isObject as l, makeElementsArray as m, nextTick as n, getRotateFix as o, elementStyle as p, elementNextAll as q, elementPrevAll as r, setCSSProperty as s, animateCSSModeScroll as t, showWarning as u, elementIsChildOf as v, extend as w, deleteProps as x };
+export { setCSSProperty as a, elementParents as b, createElement as c, elementOffset as d, elementChildren as e, now as f, getSlideTransformEl as g, elementOuterSize as h, elementIndex as i, classesToTokens as j, getTranslate as k, elementTransitionEnd as l, makeElementsArray as m, nextTick as n, isObject as o, getRotateFix as p, elementStyle as q, elementNextAll as r, setInnerHTML as s, elementPrevAll as t, animateCSSModeScroll as u, showWarning as v, elementIsChildOf as w, extend as x, deleteProps as y };
