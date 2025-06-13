@@ -2882,3 +2882,7 @@ Stack trace:
   thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\functions.php on line 2
 [13-Jun-2025 13:17:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [13-Jun-2025 13:17:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:18:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:18:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:18:25 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Jun-2025 13:18:25 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
