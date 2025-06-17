@@ -16,6 +16,7 @@ class Prodotto extends BasePostType
     public $titolo_descrizione;
     public $descrizione;
     public $prezzo;
+    public $categoria;
 
     public function __construct($post = null)
     {
@@ -32,5 +33,6 @@ class Prodotto extends BasePostType
         $this->titolo_descrizione   = get_field('titolo_descrizione', $this->id);
         $this->descrizione   = get_field('descrizione', $this->id);
         $this->prezzo   = get_field('prezzo', $this->id);
+        $this->categoria   = get_field('categoria', $this->id);
     }
 }
