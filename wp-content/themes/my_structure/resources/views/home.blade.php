@@ -10,69 +10,22 @@
         @endif
         @if ($products)
             @include('components.cardProdottoEvidenza', [
-                'subdata' => $subdata, 
-                'products' => $products
+                'subdata' => $subdata,
+                'products' => $products,
             ])
         @endif
 
-        <!-- Banner promozionale -->
-        <section class="px-4 md:px-8 lg:px-16 py-6 bg-yellow-100 text-center">
-            <h2 class="text-xl font-semibold md:text-2xl">🎁 Spedizione gratuita sopra i 30€!</h2>
-            <p class="text-sm">Solo per pochi giorni, approfittane ora.</p>
-        </section>
+        @if ($dataHero)
+            @include('components.bannerPromozionale', [
+                'dataHero' => $dataHero,
+            ])
+        @endif
 
-        <!-- Sezione Novità -->
-        <section class="px-4 md:px-8 lg:px-16 py-6">
-            <h2 class="text-xl md:text-2xl font-bold mb-4">Novità dal bancone 🆕</h2>
-            <div class="space-y-4 md:grid md:grid-cols-3 md:gap-6 md:space-y-0">
-                @foreach ($latest as $item)
-                    <div class="flex items-center gap-4 bg-white rounded shadow p-3 cursor-pointer transition hover:shadow-md"
-                        @click="modalOpen2 = true; selected2 = {{ json_encode($item) }}">
-                        <img src="{{ $item['image'] }}" class="w-16 h-16 object-cover rounded" alt="{{ $item['name'] }}">
-                        <div>
-                            <h3 class="text-sm font-semibold">{{ $item['name'] }}</h3>
-                            <p class="text-xs text-gray-500">€{{ $item['price'] }}</p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </section>
-
-        <!-- Modale novità -->
-        <div x-show="modalOpen2" x-cloak
-            class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center px-4" x-transition>
-            <div class="bg-white w-full max-w-md md:max-w-xl lg:max-w-2xl rounded-lg p-6 md:p-8 relative"
-                @click.away="modalOpen2 = false">
-                <button class="absolute top-2 right-2 text-gray-500" @click="modalOpen2 = false">
-                    <span class="material-symbols-rounded text-2xl">close</span>
-                </button>
-
-                <template x-if="selected2">
-                    <div>
-                        <h2 class="text-lg md:text-xl font-bold mb-2" x-text="selected2.name"></h2>
-                        <div class="flex gap-2 overflow-x-auto mb-4">
-                            <template x-for="(img, i) in selected2.gallery || [selected2.image]" :key="i">
-                                <img :src="img" class="w-24 h-24 md:w-32 md:h-32 object-cover rounded border" />
-                            </template>
-                        </div>
-                        <p class="text-green-600 font-semibold text-lg mb-2">€<span x-text="selected2.price"></span></p>
-                        <p class="text-sm text-gray-700 mb-3" x-text="selected2.description"></p>
-                        <ul class="text-sm list-disc pl-5 mb-4 space-y-1 text-gray-600" x-show="selected2.details?.length">
-                            <template x-for="(d, i) in selected2.details" :key="i">
-                                <li x-text="d"></li>
-                            </template>
-                        </ul>
-                        <button class="w-full bg-[#45752c] text-white py-2 rounded hover:bg-[#386322] transition mb-3">
-                            Aggiungi al carrello
-                        </button>
-                        <button @click="modalOpen2 = false"
-                            class="w-full bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300 transition">
-                            Torna indietro
-                        </button>
-                    </div>
-                </template>
-            </div>
-        </div>
+        @if ($latest)
+            @include('components.kitSection', [
+                'latest' => $latest,
+            ])
+        @endif
 
         <!-- Recensioni -->
         <section class="px-4 md:px-8 lg:px-16 py-6 bg-gray-50">
