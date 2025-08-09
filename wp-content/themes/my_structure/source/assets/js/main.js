@@ -8,9 +8,9 @@ import Alpine from 'alpinejs';
 
 // window.donationFormData = donationFormData;
 // window.axios = axios;
-window.Alpine = Alpine;
+// window.Alpine = Alpine;
 // window.ApiService = ApiService;
 // window.Swiper = Swiper;
 
 // Alpine.plugin(intersect);
-Alpine.start();
+// Alpine.start();
