@@ -43,6 +43,7 @@ abstract class BasePostType
         $defaults = [
             'post_type'      => static::$postType,
             'posts_per_page' => -1,
+            'post_status' => 'publish',
         ];
 
         return static::where(wp_parse_args($args, $defaults));

@@ -1,5 +1,5 @@
   <!-- Chi siamo -->
-  <section class="relative px-4 md:px-8 lg:px-16 py-12 text-center text-white overflow-hidden">
+  <section class="relative px-4 md:px-8 lg:px-16 py-12 text-center text-white overflow-hidden" id="chi-siamo">
       <!-- Sfondo immagine -->
       <div class="absolute inset-0 bg-cover bg-center z-0"
           style="background-image: url('http://slow-burn-society.local/wp-content/uploads/2025/06/Sigaretta_accesa_nella_notte_con_luci_neon_blu_sullo_sfondo.jpg');">

@@ -1,9 +1,12 @@
-@php
+ @php
+    /***
+     *  @var $dataHero[] Core\Bases\BaseGroupAcf\OpzioniGlobaliFields
+    */
     use Models\Options\OpzioniGlobaliFields;
     $dataHero = OpzioniGlobaliFields::get();
 @endphp
 @if (!empty($menu))
-    <header x-data="{ open: false }" class="bg-[#21231E] text-white shadow-lg px-4">
+    <div x-data="{ open: false }" class="bg-[#21231E] text-white shadow-lg px-4">
         <div class="flex justify-between items-center max-w-7xl mx-auto">
 
             <!-- Logo simbolico -->
@@ -41,5 +44,10 @@
                 </div>
             </nav>
         @endif
-    </header>
+    </div>
+      @if ($dataHero)
+        @include('components.heroSection', [
+            'dataHero' => $dataHero,
+        ])
+    @endif
 @endif
