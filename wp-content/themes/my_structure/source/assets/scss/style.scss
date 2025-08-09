@@ -61,7 +61,127 @@
   font-weight: bold;
   font-size: 0.9rem;
 }
+ [x-cloak] {
+     display: none !important
+ }
 
+ .hero-title {
+     position: relative;
+     font-size: clamp(1.875rem, 2vw + 1rem, 3rem);
+     font-weight: 800;
+     letter-spacing: .05em;
+     line-height: 1.2;
+     text-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+     text-align: center;
+ }
+
+ .hero-title::after {
+     content: "";
+     display: block;
+     width: 5rem;
+     height: .25rem;
+     background-color: #45752c;
+     margin: .75rem auto 0;
+     border-radius: .25rem;
+ }
+
+ .section-title {
+     position: relative;
+     font-size: clamp(1.5rem, 1.2vw + 1rem, 2rem);
+     /* ~ text-2xl -> text-3xl */
+     font-weight: 800;
+     letter-spacing: .05em;
+     line-height: 1.2;
+     text-align: center;
+     color: #1f2937;
+     /* text-gray-800 */
+ }
+
+ .section-title::after {
+     content: "";
+     display: block;
+     width: 4rem;
+     /* un filo più corta dell'H1 */
+     height: .25rem;
+     background-color: #45752c;
+     margin: .5rem auto 0;
+     border-radius: .25rem;
+ }
+
+ /* opzionale: nascondi scrollbar thumbnails */
+ .scrollbar-hide::-webkit-scrollbar {
+     display: none
+ }
+
+ .scrollbar-hide {
+     -ms-overflow-style: none;
+     scrollbar-width: none
+ }
+
+ .banner-title {
+     position: relative;
+     font-size: clamp(1.75rem, 1.2vw + 1.1rem, 2.25rem);
+     /* ~ text-3xl -> text-4xl */
+     font-weight: 800;
+     letter-spacing: .01em;
+     /* tracking-tight */
+     line-height: 1.15;
+     text-align: center;
+     text-shadow: 0 2px 4px rgba(0, 0, 0, .4);
+     color: #fff;
+     margin: 0;
+ }
+
+ .banner-title::after {
+     content: "";
+     display: block;
+     width: 4rem;
+     height: .25rem;
+     background-color: #45752c;
+     margin: .6rem auto 0;
+     border-radius: .25rem;
+ }
+
+ .banner-title>p {
+     color: white !important;
+ }
+
+ .banner-subtitle {
+     margin-top: .75rem;
+     font-size: clamp(1rem, .5vw + .9rem, 1.125rem);
+     max-width: 42rem;
+     text-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+     color: #fff;
+ }
+
+ .banner-cta {
+     display: inline-block;
+     margin-top: 1.25rem;
+     font-weight: 600;
+     padding: .6rem 1.25rem;
+     border-radius: .5rem;
+     background: #fff;
+     color: #45752c;
+     transition: filter .2s ease, transform .2s ease;
+     text-decoration: none;
+ }
+
+ .banner-cta:hover {
+     filter: brightness(0.97);
+     transform: translateY(-1px);
+ }
+
+ .banner-cta:focus {
+     outline: 2px solid #fff;
+     outline-offset: 2px;
+ }
+
+ /* riduci motion per chi ha preferenze */
+ @media (prefers-reduced-motion: reduce) {
+     .banner-cta {
+         transition: none;
+     }
+ }
 /* Responsive: 3 colonne da md (768px), 4 colonne da lg (1024px) */
 @media (min-width: 768px) {
   .product-grid {

@@ -1,6 +1,6 @@
 <section class="px-4 md:px-8 lg:px-16 py-10 bg-[#fefcf7] border-t border-gray-200">
     <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900" id="text-left">
             🆕 Non sai cosa prendere? Ci abbiamo già pensato noi!
         </h2>
         <p class="mt-2 text-gray-600 text-sm md:text-base">
@@ -10,19 +10,24 @@
 
     <div class="grid gap-6 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
         @foreach ($latest as $kit)
-            <div class="group relative bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition cursor-pointer"
-                @click="modalOpen2 = true; selected2 = {{ json_encode([
+            @php
+                $selectedKit = [
                     'title' => $kit->nome,
                     'description' => $kit->descrizione,
                     'image' => $kit->immagine_kit['url'] ?? '',
                     'price' => $kit->prezzo,
-                    'products' => collect($kit->prodotti)->map(function ($product) {
-                        return [
-                            'title' => $product->post_title ?? '',
-                            'image' => get_field('immagine_1', $product->ID)['url'] ?? '',
-                        ];
-                    }),
-                ]) }}">
+                    'products' => collect($kit->prodotti)
+                        ->map(function ($product) {
+                            return [
+                                'title' => $product->post_title ?? '',
+                                'image' => get_field('immagine_1', $product->ID)['url'] ?? '',
+                            ];
+                        })
+                        ->toArray()
+                ];
+            @endphp
+            <div class="group relative bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition cursor-pointer"
+                @click="modalOpen2 = true; selected2 = @json($selectedKit)">
 
                 <!-- Immagine -->
                 <div class="overflow-hidden rounded-md mb-2">
@@ -44,6 +49,8 @@
                         €{{ number_format((float) str_replace(['€', ','], ['', '.'], $kit->prezzo), 2, ',', '.') }}
                     </p>
                 </div>
+
+                <!-- Aggiungi al carrello -->
                 <div class="text-left mt-3">
                     <button
                         class="w-full text-sm font-semibold bg-[#45752c] text-white py-2 px-4 rounded hover:bg-[#386322] transition"
@@ -55,7 +62,6 @@
         @endforeach
     </div>
 
-    <!-- Modale Kit -->
     <!-- Modale Kit -->
     <div x-show="modalOpen2" x-cloak class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 py-8"
         @keydown.escape.window="modalOpen2 = false" @click.away="modalOpen2 = false" x-transition>
@@ -74,9 +80,7 @@
 
                 <!-- Prezzo -->
                 <p class="text-lg font-semibold text-[#45752c] mb-2">
-                    €<span
-                        x-text="Number(parseFloat((selected2.price || '').toString().replace('€','').replace(',','.'))).toFixed(2).replace('.', ',')">
-                    </span>
+                    €<span x-text="(selected2.price || '').toString().replace('.', ',')"></span>
                 </p>
 
                 <!-- Descrizione -->
@@ -91,15 +95,14 @@
                                 <div class="flex items-start gap-3">
                                     <img :src="product.image ?? product.immagine_1?.url ?? ''" alt=""
                                         class="w-16 h-16 object-cover rounded border bg-gray-100">
-                                    <span class="text-sm text-gray-700 leading-snug"
-                                        x-text="product.title ?? product.post_title"></span>
+                                    <span class="text-sm text-gray-700 leading-snug" x-text="product.title"></span>
                                 </div>
                             </template>
                         </div>
                     </div>
                 </template>
 
-                <!-- Bottone -->
+                <!-- Bottone Aggiungi al carrello -->
                 <div class="mt-6">
                     <button
                         class="w-full text-sm font-semibold bg-[#45752c] text-white py-3 rounded hover:bg-[#386322] transition"
@@ -111,13 +114,4 @@
         </template>
     </div>
 
-    <!-- 🔽 Bottone Aggiungi al carrello -->
-    <div class="mt-6">
-        <button class="w-full text-sm font-semibold bg-[#45752c] text-white py-3 rounded hover:bg-[#386322] transition"
-            @click="addToCart({ id: selected2.id ?? null, name: selected2.title, price: selected2.price })">
-            Aggiungi al carrello
-        </button>
-    </div>
-
-    </div>
-    </div>
+</section>
