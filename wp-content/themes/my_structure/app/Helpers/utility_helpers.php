@@ -1,8 +1,10 @@
 <?php
+
 use Dotenv\Dotenv;
 
 if (!function_exists('vite_asset')) {
-    function vite_asset($path) {
+    function vite_asset($path)
+    {
         $manifestPath = get_template_directory() . '/public/.vite/manifest.json';
 
         if (!file_exists($manifestPath)) {
@@ -22,14 +24,45 @@ if (!function_exists('vite_asset')) {
     }
 }
 
+if (!function_exists('theme_asset')) {
+    function theme_asset($path = '')
+    {
+        return get_template_directory_uri() . '/' . ltrim($path, '/');
+    }
+}
+
+if (!function_exists('theme_url')) {
+    function theme_url($path = '')
+    {
+        return home_url('/') . ltrim($path, '/');
+    }
+}
+
+if (!function_exists('url')) {
+    function url($path = '')
+    {
+        return home_url($path);
+    }
+}
+
+if (!function_exists('asset')) {
+    function asset($path = '')
+    {
+        return get_template_directory_uri() . '/' . ltrim($path, '/');
+    }
+}
+
+
 if (!function_exists('camelToKebab')) {
-    function camelToKebab($string) {
+    function camelToKebab($string)
+    {
         return strtolower(preg_replace('/(?<!^)([A-Z])/', '-$1', $string));
     }
 }
 
 if (!function_exists('my_env')) {
-    function my_env($key, $default = null) {
+    function my_env($key, $default = null)
+    {
         static $envs = null;
 
         if ($envs === null) {
@@ -42,19 +75,22 @@ if (!function_exists('my_env')) {
 }
 
 if (!function_exists('resource_path')) {
-    function resource_path($path = '') {
+    function resource_path($path = '')
+    {
         return __DIR__ . '/../../resources/' . $path;
     }
 }
 
 if (!function_exists('base_path')) {
-    function base_path($path = '') {
+    function base_path($path = '')
+    {
         return __DIR__ . '/../../' . $path;
     }
 }
 
 if (!function_exists('config')) {
-    function config($key, $default = null) {
+    function config($key, $default = null)
+    {
         $configurations = [
             'laravel-translatable-string-exporter' => [
                 'lang_path' => 'resources/lang',
