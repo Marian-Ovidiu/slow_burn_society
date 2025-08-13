@@ -263,7 +263,6 @@
 
     {{-- Scripts specifici alla pagina --}}
     @yield('scripts')
-
     {!! wp_footer() !!}
 </body>
 

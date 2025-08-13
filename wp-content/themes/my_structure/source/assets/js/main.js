@@ -1,16 +1,16 @@
+// source/assets/js/main.js
+import '../scss/style.scss';
+
 import Alpine from 'alpinejs';
-// import intersect from '@alpinejs/intersect';
-// import axios from 'axios';
-// import ApiService from './Classes/ApiService.js';
-// import Swiper from 'swiper';
-// import 'swiper/css';
-// import donationFormData from './donation.js';
+import { setupCartStore } from './cart.js';
 
-// window.donationFormData = donationFormData;
-// window.axios = axios;
-// window.Alpine = Alpine;
-// window.ApiService = ApiService;
-// window.Swiper = Swiper;
+// esponi Alpine per debug
+window.Alpine = Alpine;
 
-// Alpine.plugin(intersect);
-// Alpine.start();
+// Inizializza Pinia + bridge Alpine (crea Alpine.store('cart', ...) una volta sola)
+setupCartStore();
+
+// Avvia Alpine dopo il bridge
+Alpine.start();
+
+console.log('main.js loaded');
