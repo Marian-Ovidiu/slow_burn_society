@@ -13,8 +13,8 @@ class HomeController extends BaseController
     public function index()
     {
     $dataHero = OpzioniGlobaliFields::get();
-    $subdata = OpzioniProdottoFields::get(); 
-    $this->addJs('cart', 'cart.js', [], false, 1.1);
+    $subdata = OpzioniProdottoFields::get();
+    $this->addJs('cart', 'cart.js');
     $this->render('home', [
             'latest' => Kit::all(),
             'subdata' => $subdata,
