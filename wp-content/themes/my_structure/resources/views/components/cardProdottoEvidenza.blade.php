@@ -5,9 +5,14 @@
         <!-- Countdown TTL carrello -->
         <p class="text-xs text-gray-500" x-show="$store.cartReady && $store.cart.items.length">
             <span
-                x-text="$store.cart.remainingMinutes() > 0
-                ? 'Carrello attivo — scade in ' + $store.cart.remainingMinutes() + ' min'
-                : 'Carrello scaduto'"></span>
+                x-text="(() => {
+    const ms = $store.cart.remainingMs();
+    if (ms <= 0) return 'Carrello scaduto';
+    const m = Math.floor(ms / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    return `Carrello attivo — scade in ${m}m ${String(s).padStart(2,'0')}s`;
+  })()">
+            </span>
         </p>
     </header>
 
@@ -86,7 +91,7 @@
         <div class="bg-white w-full max-w-md p-6 rounded relative max-h-[95vh] overflow-y-auto"
             @click.away="closeModal()">
             <button class="absolute top-2 right-2 text-gray-500" @click="closeModal()" aria-label="Chiudi modale"
-               type="button">✕</button>
+                type="button">✕</button>
 
             <template x-if="selected">
                 <div>
@@ -125,9 +130,11 @@
                         </div>
                     </dl>
 
-                    <button type="button"  class="mt-4 w-full bg-[#45752c] text-white py-2 rounded hover:bg-[#386322] transition disabled:opacity-50 disabled:cursor-not-allowed" :disabled="Number.isFinite(Number(selected?.stock)) 
-           && $store.cart.remainingFor(selected.id, Number(selected.stock)) === 0"
-@click="addSelectedToCart()">
+                    <button type="button"
+                        class="mt-4 w-full bg-[#45752c] text-white py-2 rounded hover:bg-[#386322] transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        :disabled="Number.isFinite(Number(selected?.stock)) &&
+                            $store.cart.remainingFor(selected.id, Number(selected.stock)) === 0"
+                        @click="addSelectedToCart()">
                         Aggiungi al carrello
                     </button>
                 </div>

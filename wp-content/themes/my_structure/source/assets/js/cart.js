@@ -3,10 +3,11 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 30;
+  const TTL_MINUTES = 1;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
+  const pad2 = (n) => String(n).padStart(2, '0');
 
   function safeParse(json, fallback) {
     try { return JSON.parse(json); } catch { return fallback; }
@@ -65,11 +66,21 @@
 
       // --- TTL ---
       remainingMs() {
+        void this._heartbeat; // dipendenza reattiva: forza il ricalcolo ogni tick
         if (!this.expiresAt) return 0;
-        return Math.max(0, this.expiresAt - now());
+        return Math.max(0, this.expiresAt - Date.now());
       },
       remainingMinutes() {
         return Math.ceil(this.remainingMs() / 600000);
+      },
+      remainingSeconds() {
+        return Math.max(0, Math.ceil(this.remainingMs() / 1000));
+      },
+      remainingFormatted() { // "mm:ss"
+        const s = this.remainingSeconds();
+        const m = Math.floor(s / 60);
+        const sec = s % 60;
+        return `${m}:${pad2(sec)}`;
       },
       isExpired() {
         return this.expiresAt && this.expiresAt <= now();
@@ -222,10 +233,21 @@
             window.dispatchEvent(new CustomEvent('cart:expired'));
           }
         }, 15000);
-      }
+      },
+      _heartbeat: 0,            // proprietà reattiva "vuota"
+      _countdownTimerId: null,
+
+      _startCountdownTicker() {
+        if (this._countdownTimerId) clearInterval(this._countdownTimerId);
+        this._countdownTimerId = setInterval(() => {
+          // aggiorno una prop reattiva così Alpine ricalcola i binding
+          this._heartbeat = Date.now();
+        }, 1000);
+      },
     });
 
     Alpine.store('cart')._startExpiryWatcher();
+    Alpine.store('cart')._startCountdownTicker();
     Alpine.store('cartReady', true);
   };
 
@@ -233,7 +255,6 @@
   else document.addEventListener('alpine:init', init);
 })();
 
-window.addEventListener('cart:expired', () => alert('Carrello scaduto 😴'));
 // Esempio toast su superamento stock (customizza come vuoi)
 window.addEventListener('cart:stock_exceeded', (e) => {
   const { name, max } = e.detail;
