@@ -19664,3 +19664,111 @@ Stack trace:
 [12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
 [12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
 [12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 18:37:27 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:37:27 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:37:27 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:27 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:29 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:37:29 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:37:29 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:29 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:34 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:37:34 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:37:34 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:34 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:39 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:37:39 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:37:39 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:39 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:48 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:37:48 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:37:48 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:37:48 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:40:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:40:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:40:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:40:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:40:22 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:40:22 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:40:22 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:40:22 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:41:55 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:41:55 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:41:55 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:41:55 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:42:01 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:42:01 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:42:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:42:01 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:47:30 UTC] PHP Fatal error:  Uncaught ParseError: syntax error, unexpected token "{" in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\90f560f3778c30ff87b0bbb7fa9a73a514dd214e.php:47
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\filesystem\Filesystem.php(108): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
+#1 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire('C:\\MAMP\\htdocs\\...', Array)
+#2 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\CompilerEngine.php(61): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#3 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(139): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#4 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(122): Illuminate\View\View->getContents()
+#5 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(91): Illuminate\View\View->renderContents()
+#6 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\9248a132a9dee5d38b1489991c69d78480a46b1d.php(9): Illuminate\View\View->render()
+#7 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\filesystem\Filesystem.php(107): require('C:\\MAMP\\htdocs\\...')
+#8 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\filesystem\Filesystem.php(108): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
+#9 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire('C:\\MAMP\\htdocs\\...', Array)
+#10 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\CompilerEngine.php(61): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#11 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(139): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#12 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(122): Illuminate\View\View->getContents()
+#13 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(91): Illuminate\View\View->renderContents()
+#14 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(66): Illuminate\View\View->render()
+#15 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\source\Controllers\HomeController.php(63): Core\Bases\BaseController->render('home', Array)
+#16 [internal function]: Controllers\HomeController->index()
+#17 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(15): call_user_func_array(Array, Array)
+#18 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\template-home.php(7): Core\Bases\BaseController::call('index')
+#19 C:\MAMP\htdocs\slow_burn_society\wp-includes\template-loader.php(106): include('C:\\MAMP\\htdocs\\...')
+#20 C:\MAMP\htdocs\slow_burn_society\wp-blog-header.php(19): require_once('C:\\MAMP\\htdocs\\...')
+#21 C:\MAMP\htdocs\slow_burn_society\index.php(17): require('C:\\MAMP\\htdocs\\...')
+#22 {main}
+
+Next Illuminate\View\ViewException: syntax error, unexpected token "{" (View: C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\views\components\cardProdottoEvidenza.blade.php) in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\90f560f3778c30ff87b0bbb7fa9a73a514dd214e.php:47
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\PhpEngine.php(60): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ParseError), 4)
+#1 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\CompilerEngine.php(61): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#2 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(139): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#3 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(122): Illuminate\View\View->getContents()
+#4 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(91): Illuminate\View\View->renderContents()
+#5 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\9248a132a9dee5d38b1489991c69d78480a46b1d.php(9): Illuminate\View\View->render()
+#6 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\filesystem\Filesystem.php(107): require('C:\\MAMP\\htdocs\\...')
+#7 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\filesystem\Filesystem.php(108): Illuminate\Filesystem\Filesystem::Illuminate\Filesystem\{closure}()
+#8 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\PhpEngine.php(58): Illuminate\Filesystem\Filesystem->getRequire('C:\\MAMP\\htdocs\\...', Array)
+#9 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\CompilerEngine.php(61): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#10 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(139): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#11 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(122): Illuminate\View\View->getContents()
+#12 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(91): Illuminate\View\View->renderContents()
+#13 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(66): Illuminate\View\View->render()
+#14 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\source\Controllers\HomeController.php(63): Core\Bases\BaseController->render('home', Array)
+#15 [internal function]: Controllers\HomeController->index()
+#16 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(15): call_user_func_array(Array, Array)
+#17 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\template-home.php(7): Core\Bases\BaseController::call('index')
+#18 C:\MAMP\htdocs\slow_burn_society\wp-includes\template-loader.php(106): include('C:\\MAMP\\htdocs\\...')
+#19 C:\MAMP\htdocs\slow_burn_society\wp-blog-header.php(19): require_once('C:\\MAMP\\htdocs\\...')
+#20 C:\MAMP\htdocs\slow_burn_society\index.php(17): require('C:\\MAMP\\htdocs\\...')
+#21 {main}
+
+Next Illuminate\View\ViewException: syntax error, unexpected token "{" (View: C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\views\components\cardProdottoEvidenza.blade.php) (View: C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\views\components\cardProdottoEvidenza.blade.php) in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\90f560f3778c30ff87b0bbb7fa9a73a514dd214e.php:47
+Stack trace:
+#0 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\PhpEngine.php(60): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(Illuminate\View\ViewException), 2)
+#1 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\Engines\CompilerEngine.php(61): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\MAMP\\htdocs\\...', Array)
+#2 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(139): Illuminate\View\Engines\CompilerEngine->get('C:\\MAMP\\htdocs\\...', Array)
+#3 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(122): Illuminate\View\View->getContents()
+#4 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\vendor\illuminate\view\View.php(91): Illuminate\View\View->renderContents()
+#5 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(66): Illuminate\View\View->render()
+#6 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\source\Controllers\HomeController.php(63): Core\Bases\BaseController->render('home', Array)
+#7 [internal function]: Controllers\HomeController->index()
+#8 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\app\Core\Bases\BaseController.php(15): call_user_func_array(Array, Array)
+#9 C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\template-home.php(7): Core\Bases\BaseController::call('index')
+#10 C:\MAMP\htdocs\slow_burn_society\wp-includes\template-loader.php(106): include('C:\\MAMP\\htdocs\\...')
+#11 C:\MAMP\htdocs\slow_burn_society\wp-blog-header.php(19): require_once('C:\\MAMP\\htdocs\\...')
+#12 C:\MAMP\htdocs\slow_burn_society\index.php(17): require('C:\\MAMP\\htdocs\\...')
+#13 {main}
+  thrown in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\90f560f3778c30ff87b0bbb7fa9a73a514dd214e.php on line 47
+[12-Sep-2025 18:49:53 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 18:49:53 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 18:49:53 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 18:49:53 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
