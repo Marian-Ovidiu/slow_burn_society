@@ -19552,3 +19552,115 @@ Stack trace:
 [12-Sep-2025 16:36:05 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
 [12-Sep-2025 16:36:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [12-Sep-2025 16:36:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:00 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:38:00 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:38:00 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:38:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:05 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:38:05 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:38:05 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:38:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:09 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:38:09 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:38:09 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:38:09 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:38:09 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:44:47 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:44:47 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:44:47 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:44:47 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:44:47 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:47:05 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:47:05 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:47:05 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:47:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:47:05 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:07 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:07 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:07 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:07 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:07 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:10 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:10 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:10 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:10 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:10 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:11 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:23 UTC] Asset non trovato nel manifest: assets/assets/js/main.js
+[12-Sep-2025 16:48:23 UTC] Asset non trovato nel manifest: assets/assets/css/styles.css
+[12-Sep-2025 16:48:23 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[12-Sep-2025 16:48:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:48:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:20 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:25 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
+[12-Sep-2025 16:52:25 UTC] PHP Deprecated:  L'hook rest_enabled è <strong>deprecato</strong> dalla versione 4.7.0! Al suo posto utilizza rest_authentication_errors. La REST API non può più essere completamente disabilitata, In alternativa si può usare il filtro rest_authentication_errors per limitare l'accesso alla API. in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 6121
