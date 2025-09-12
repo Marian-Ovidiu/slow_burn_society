@@ -15,6 +15,7 @@ class HomeController extends BaseController
     $dataHero = OpzioniGlobaliFields::get();
     $subdata = OpzioniProdottoFields::get();
     $this->addJs('cart', 'cart.js');
+    $this->addJs('shop', 'shop.js');
     $this->render('home', [
             'latest' => Kit::all(),
             'subdata' => $subdata,

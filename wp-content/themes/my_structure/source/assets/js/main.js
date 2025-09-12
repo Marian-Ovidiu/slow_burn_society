@@ -4,6 +4,7 @@ import '../scss/style.scss';
 import Alpine from 'alpinejs';
 import { setupCartStore } from './cart.js';
 
+
 // esponi Alpine per debug
 window.Alpine = Alpine;
 
