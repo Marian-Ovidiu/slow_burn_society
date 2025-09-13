@@ -3,7 +3,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 1;
+  const TTL_MINUTES = 5;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -249,6 +249,7 @@
     Alpine.store('cart')._startExpiryWatcher();
     Alpine.store('cart')._startCountdownTicker();
     Alpine.store('cartReady', true);
+    window.dispatchEvent(new CustomEvent('cart:ready'));
   };
 
   if (window.Alpine) init();
