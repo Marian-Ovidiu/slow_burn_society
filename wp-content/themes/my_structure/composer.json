@@ -39,7 +39,9 @@
             "app/Helpers/acf_helpers.php",
             "app/Helpers/theme_helpers.php",
             "app/Helpers/translation_helpers.php",
-            "app/Helpers/utility_helpers.php"
+            "app/Helpers/utility_helpers.php",
+            "app/Helpers/inventory.php",
+            "app/Helpers/migrations.php"
         ]
     },
     "scripts": {

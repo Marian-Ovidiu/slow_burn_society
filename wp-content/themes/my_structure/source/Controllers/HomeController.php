@@ -43,21 +43,23 @@ class HomeController extends BaseController
                 'brand'        => $p->brand ?? null,
             ];
 
+            // 👇 aggiunto type: 'product'
             $forJs['cart'] = [
-                'id'    => $forJs['id'],
+                'id'    => (int) $forJs['id'],
                 'name'  => $forJs['name'],
-                'price' => $forJs['price'],
+                'price' => (float) $forJs['price'],
                 'image' => $forJs['image'],
-                'stock' => $forJs['stock'],
+                'stock' => (int) $forJs['stock'],
+                'type'  => 'product',
             ];
 
             $productsForJs[$p->id] = $forJs;
         }
 
-        // --- KIT -> payload per JS (quello che avevi in Blade) ---
+        // --- KIT -> payload per JS ---
         $latest = Kit::all();
         $kitsForJs = [];
-        foreach ($latest as $key => $k) {
+        foreach ($latest as $k) {
             // prezzo numerico safe: "€ 12,50" -> 12.50
             $priceNumeric = (float) str_replace(['€', ' ', ','], ['', '', '.'], (string) ($k->prezzo ?? 0));
 
@@ -81,24 +83,26 @@ class HomeController extends BaseController
             }
 
             $kitsForJs[$k->id] = [
-                'id'          => $k->id,
-                'title'       => $k->nome,
-                'name'        => $k->nome,
-                'description' => $k->descrizione,
-                'image'       => $k->immagine_kit['url'] ?? '',
-                'price'       => $priceNumeric, // numerico
-                'products'    => $mappedProducts,
+                'id'            => $k->id,
+                'title'         => $k->nome,
+                'name'          => $k->nome,
+                'description'   => $k->descrizione,
+                'image'         => $k->immagine_kit['url'] ?? '',
+                'price'         => $priceNumeric, // numerico
+                'products'      => $mappedProducts,
                 'disponibilita' => $k->disponibilita,
                 // payload pronto per addToCart
-                'cart'        => [
-                    'id'    => $k->id,
-                    'name'  => $k->nome,
-                    'image' => $k->immagine_kit['url'] ?? '',
-                    'price' => $priceNumeric,
+                // 👇 aggiunti kitId e type: 'kit'
+                'cart'          => [
+                    'id'     => (int) $k->id,
+                    'kitId'  => (int) $k->id,   // <— chiave per distinguerlo lato BE
+                    'name'   => $k->nome,
+                    'image'  => $k->immagine_kit['url'] ?? '',
+                    'price'  => (float) $priceNumeric,
+                    'type'   => 'kit',
                 ],
             ];
         }
-
 
         $this->addJs('cart', 'cart.js');
         $this->addJs('shop', 'shop.js');
@@ -109,7 +113,7 @@ class HomeController extends BaseController
             'dataHero'      => $dataHero,
             'products'      => $products,
             'productsForJs' => $productsForJs,
-            'kitsForJs'     => $kitsForJs,   // <<< passa alla view
+            'kitsForJs'     => $kitsForJs,
         ]);
     }
 }
