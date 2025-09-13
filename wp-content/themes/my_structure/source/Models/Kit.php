@@ -23,6 +23,7 @@ class Kit extends BasePostType
     public $immagine_kit;
     public $prodotti;
     public $prezzo;
+    public $disponibilita;
 
     public function __construct($post = null)
     {
@@ -39,6 +40,55 @@ class Kit extends BasePostType
         $this->immagine_kit     = (array)  get_field('immagine_kit', $id) ?: [];
         $this->prodotti         = (array)  get_field('prodotti', $id) ?: [];
         $this->prezzo           = get_field('prezzo', $id);
+        $this->disponibilita    = $this->computeAvailability();
+    }
+
+    public function computeAvailability(): bool
+    {
+        if (empty($this->prodotti)) return false;
+
+        foreach ($this->prodotti as $p) {
+            if (!$this->productAvailable($p)) { // <-- niente "!"
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function productAvailable($product): bool
+    {
+        $pid = is_object($product) ? (int) ($product->ID ?? 0) : (int) $product;
+        if ($pid <= 0) return false;
+
+        $prodotto = Prodotto::find($pid);
+        if (!$prodotto) return false;
+
+        $raw = $prodotto->disponibilita;
+
+        if (is_numeric($raw)) return ((int)$raw) > 0;
+        if (is_bool($raw))    return $raw;
+        if (is_string($raw)) {
+            $v = trim(mb_strtolower($raw));
+            return in_array($v, ['1', 'true', 'si', 'sì', 'disponibile', 'available'], true);
+        }
+        return false;
+    }
+
+    private function productStock($product): int
+    {
+        $pid = is_object($product) ? (int) ($product->ID ?? 0) : (int) $product;
+        if ($pid <= 0) return false;
+
+        $prodotto = Prodotto::find($pid);
+
+        if ($prodotto) {
+            $rawDispon = $prodotto->disponibilita;
+            if (is_numeric($rawDispon)) {
+                return $rawDispon == 0 ? false : true;
+            }
+        }
+
+        return false;
     }
 
     /** URL immagine principale (safe) */
@@ -100,6 +150,7 @@ class Kit extends BasePostType
             'image'       => $this->imageUrl(),
             'price'       => $this->priceFloat(),         // numero: comodo in JS
             'products'    => $this->productsLite(),
+            'disponibilita' => $this->disponibilita,
         ];
     }
 

@@ -17,14 +17,15 @@
 
         @if ($latest)
             @include('components.kitSection', [
-                'latest' => $latest
+                'latest' => $latest,
+                'kitsForJs' => $kitsForJs,
             ])
         @endif
+
 
         <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-[100vw] max-w-[100vw] overflow-x-clip">
             @include('components.chiSono')
         </div>
 
-         @include('components.cartIcon')
-
-@endsection
+        @include('components.cartIcon')
+    @endsection
