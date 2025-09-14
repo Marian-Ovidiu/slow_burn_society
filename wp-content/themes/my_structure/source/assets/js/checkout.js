@@ -1,87 +1,127 @@
 document.addEventListener('alpine:init', () => {
-  Alpine.data('checkout', () => ({
-    loading: false,
-    error: '',
-    stripe: null,
-    elements: null,
-    clientSecret: null,
-    intentId: null,
-    expired: false,
+    Alpine.data('checkout', () => ({
+        loading: false,
+        error: '',
+        stripe: null,
+        elements: null,
+        paymentElement: null,   // <— tieni il riferimento
+        clientSecret: null,
+        intentId: null,
+        expired: false,
+        paymentComplete: false,
+        form: { firstName: '', lastName: '', email: '' },
 
-    // ⚠️ tienilo in sync con cart.js (TTL_MINUTES = 5)
-    TTL_SECONDS: 300,
+        async init() {
+            try {
+                // aspetta lo store cart
+                if (!Alpine.store('cartReady')) {
+                    await new Promise(r => { window.addEventListener('cart:ready', r, { once: true }); setTimeout(r, 800); });
+                }
+                Alpine.store('cart')?.touchExpiry?.();
+                window.addEventListener('cart:expired', () => { this.expired = true; });
 
-    progressWidth() {
-      const rem = (Alpine.store('cart')?.remainingSeconds?.() ?? 0);
-      const pct = Math.max(0, Math.min(100, Math.round((rem / this.TTL_SECONDS) * 100)));
-      return pct;
-    },
+                if (!Alpine.store('cart').items.length) return;
 
-    // ... il tuo form + methods già presenti ...
+                // payload items
+                const items = Alpine.store('cart').items.map(it =>
+                    (it.isKit || it.type === 'kit' || it.kitId)
+                        ? { kitId: it.kitId || it.id, qty: it.qty }
+                        : { id: it.id, qty: it.qty }
+                );
 
-    async init() {
-      // aspetta lo store
-      if (!Alpine.store('cartReady')) {
-        await new Promise(r => {
-          window.addEventListener('cart:ready', r, { once: true });
-          setTimeout(r, 800);
-        });
-      }
+                // crea PaymentIntent
+                const res = await fetch('/create-payment-intent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items })
+                });
+                const json = await res.json();
+                if (!json.success) throw new Error(json.data?.message || 'create-intent failed');
 
-      // dai tutto il tempo in checkout (resetta TTL all’ingresso)
-      if (Alpine.store('cart')?.touchExpiry) {
-        Alpine.store('cart').touchExpiry();
-      }
+                this.clientSecret = json.data.clientSecret;
+                this.intentId = json.data.intentId;
 
-      // se scade mentre sei qui, mostriamo alert e NON blocchiamo il pay se l’intent è già creato
-      window.addEventListener('cart:expired', () => {
-        this.expired = true;
-      });
+                if (!window.STRIPE_PK) throw new Error('Stripe PK mancante');
+                this.stripe = window.Stripe(window.STRIPE_PK);
+                this.elements = this.stripe.elements({
+                    clientSecret: this.clientSecret,
+                    appearance: { theme: 'stripe' }
+                });
 
-      // se il carrello è vuoto e non hai ancora creato un intent, fermati
-      if (!Alpine.store('cart').items.length) return;
-
-      // Stripe init + createIntent come già avevi
-      if (!window.STRIPE_PK) { this.error = 'Stripe PK mancante'; return; }
-      this.stripe = window.Stripe(window.STRIPE_PK);
-      await this._createIntentAndMount();
-    },
-
-    async pay() {
-      this.loading = true; this.error = '';
-      try {
-        const { error, paymentIntent } = await this.stripe.confirmPayment({
-          elements: this.elements,
-          clientSecret: this.clientSecret,
-          confirmParams: {
-            payment_method_data: {
-              billing_details: {
-                name : `${this.form.firstName} ${this.form.lastName}`.trim() || undefined,
-                email: this.form.email || undefined,
-              }
+                // CREA e MONTA il Payment Element UNA sola volta
+                this.paymentElement = this.elements.create('payment', {
+                    layout: 'tabs' // opzionale
+                });
+                this.paymentElement.on('change', (e) => {
+                    this.paymentComplete = !!e.complete;
+                    this.error = e.error?.message || '';
+                });
+                this.paymentElement.mount('#payment-element');
+            } catch (e) {
+                console.error('[checkout:init]', e);
+                this.error = e.message || 'Errore inizializzazione checkout';
             }
-          },
-          redirect: 'if_required'
-        });
-        if (error) throw error;
-        if (!paymentIntent || paymentIntent.status !== 'succeeded') throw new Error('Pagamento non riuscito');
+        },
 
-        // Finalize: scala stock lato server
-        const rf = await fetch('/checkout/finalize', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ intentId: this.intentId })
-        });
-        const jf = await rf.json();
-        if (!jf.success) throw new Error(jf.data?.message || 'Errore finalizzazione');
+        // validazione base
+        isFormValid() {
+            const nameOk = this.form.firstName.trim().length >= 2;
+            const lastOk = this.form.lastName.trim().length >= 2;
+            const mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email.trim());
+            return nameOk && lastOk && mailOk;
+        },
 
-        Alpine.store('cart').clear();
-        window.location = '/grazie';
-      } catch (e) {
-        this.error = e.message || 'Errore imprevisto';
-      } finally {
-        this.loading = false;
-      }
-    }
-  }));
+        canPay() {
+            return !this.loading
+                && !!this.intentId
+                && (Alpine.store('cart')?.items?.length > 0)
+                && this.isFormValid()
+                && this.paymentComplete;
+        },
+
+        async pay() {
+            if (!this.canPay()) return;
+            this.loading = true; this.error = '';
+
+            try {
+                // IMPORTANTISSIMO: chiudi/valida l’Element prima di qualsiasi I/O
+                const { error: submitError } = await this.elements.submit();
+                if (submitError) {
+                    this.error = submitError.message || 'Dati di pagamento incompleti.';
+                    this.loading = false;
+                    return;
+                }
+
+                const { error } = await this.stripe.confirmPayment({
+                    elements: this.elements,
+                    confirmParams: {
+                        payment_method_data: {
+                            billing_details: {
+                                name: `${this.form.firstName} ${this.form.lastName}`.trim() || undefined,
+                                email: this.form.email || undefined,
+                            }
+                        },
+                        return_url: window.location.origin + '/grazie'
+                    },
+                    redirect: 'if_required'
+                });
+
+                if (error) throw error;
+
+                // success
+                Alpine.store('cart').clear();
+                window.location.href = '/grazie';
+            } catch (e) {
+                console.error('[checkout:pay]', e);
+                this.error = e.message || 'Errore pagamento';
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        // label riepilogo
+        shippingLabel() { return 'Calcolata al checkout'; },
+        vatLabel() { return 'IVA inclusa'; },
+        grandTotal() { return Alpine.store('cart').total(); }
+    }));
 });

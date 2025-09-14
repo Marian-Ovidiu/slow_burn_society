@@ -21435,3 +21435,180 @@ Stack trace:
 [13-Sep-2025 11:55:26 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [13-Sep-2025 11:55:26 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
 [13-Sep-2025 11:55:27 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:49:11 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:49:13 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:49:13 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:49:13 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:49:13 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 12:49:13 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 12:49:13 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 12:51:11 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:51:11 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:51:11 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 12:51:11 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 12:51:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 12:51:11 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:03 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:04 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:06 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:14 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:14 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:15 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:15 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:28 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:28 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:33 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:36 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:36 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:41 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:05:51 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:05:51 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 13:06:37 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:07:38 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:09:39 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:11:40 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:13:41 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:15:42 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:17:43 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:19:23 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:19:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:21:23 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:23:22 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:24:22 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 13:25:22 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:34:28 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:34:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:34:36 UTC] Automatic updates starting...
+[13-Sep-2025 16:34:38 UTC]   Automatic plugin updates starting...
+[13-Sep-2025 16:34:38 UTC]   Automatic plugin updates complete.
+[13-Sep-2025 16:34:39 UTC] Automatic updates complete.
+[13-Sep-2025 16:36:28 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:38:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:40:31 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:42:31 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:43:32 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:45:33 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:47:34 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:48:58 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:48:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:48:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:48:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:48:59 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 16:48:59 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 16:48:59 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 16:49:06 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:49:35 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:51:36 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 16:53:37 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:27 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:28 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:28 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:03:28 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:03:28 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:03:45 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:45 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:45 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:03:45 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:03:45 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:03:45 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:04:34 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:04:48 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:04:49 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:04:49 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:06:50 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:07:55 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:07:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:07:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:07:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:07:59 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:07:59 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:07:59 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:08:05 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:08:05 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:08:55 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:10:57 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:12:57 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:14:58 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:15:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:15:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:00 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:00 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:16:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:02 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:09 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:10 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:10 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:10 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:16:10 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:10 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:24 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:16:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:24 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:16:26 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:16:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:19:20 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:19:21 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:19:22 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:19:22 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:19:22 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:19:22 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:19:22 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:19:24 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:20:02 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:20:02 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:20:02 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:20:02 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:20:02 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:20:02 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:20:04 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:20:04 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:29 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:22:29 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:22:29 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:22:31 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:53 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:53 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:53 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:22:53 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:22:53 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:22:53 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:22:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:23:00 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:23:00 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:23:00 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:23:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:23:00 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:23:02 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:23:39 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:26 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:26 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:26 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:26 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:46:26 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:46:26 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:46:56 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:56 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:56 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:46:56 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[13-Sep-2025 17:46:56 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:46:56 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[13-Sep-2025 17:46:59 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[13-Sep-2025 17:47:29 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:36:58 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:36:58 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:37:01 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:37:01 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:37:03 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:37:03 UTC] Il manifest non è stato trovato: C:\MAMP\htdocs\slow_burn_society/wp-content/themes/my_structure/public/.vite/manifest.json
+[14-Sep-2025 08:37:03 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\MAMP\htdocs\slow_burn_society\wp-content\themes\my_structure\resources\cache\51b0bb328114df3c1189ba679b0c749ebc7744dd.php on line 14
+[14-Sep-2025 08:37:03 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
+[14-Sep-2025 08:37:03 UTC] PHP Notice:  ob_end_flush(): Failed to send buffer of zlib output compression (1) in C:\MAMP\htdocs\slow_burn_society\wp-includes\functions.php on line 5471
