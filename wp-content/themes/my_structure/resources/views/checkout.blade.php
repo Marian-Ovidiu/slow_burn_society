@@ -114,7 +114,7 @@
 
                         <template x-if="!$store.cart.items.length">
                             <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
-                                Il carrello è vuoto. <a href="/#shop" class="underline">Torna allo shop</a>
+                                Il carrello è vuoto. <a href="/" class="underline">Torna allo shop</a>
                             </div>
                         </template>
 

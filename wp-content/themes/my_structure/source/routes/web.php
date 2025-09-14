@@ -1,6 +1,7 @@
 <?php
 use Classes\StripePayments;
 use Controllers\CartController;
+use Controllers\PageController;
 
 $router = \Core\Router::getInstance();
 
@@ -16,6 +17,8 @@ $router->get('/cart', [CartController::class, 'get']);
 // Salva i dettagli del carrello (es. se vuoi loggarlo o inviarlo via email)
 $router->post('/cart/save', [CartController::class, 'save']);
 $router->post('/webhooks/stripe', [\Classes\StripeWebhookController::class, 'handle']);
+
+$router->get('/grazie', [PageController::class, 'grazie']);
 // // Checkout page (visualizzazione)
 // $router->get('/checkout', [Core\Bases\BaseController\CheckoutController::class, 'show']);
 
