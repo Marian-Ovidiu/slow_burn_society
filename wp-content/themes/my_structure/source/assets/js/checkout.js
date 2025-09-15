@@ -41,8 +41,14 @@ document.addEventListener('alpine:init', () => {
         if (!items.length) return;
         await this.createOrReplacePI(items);
 
-        // Quando il carrello cambia, aggiorna (debounced) il PaymentIntent e rimonta l'Element
-        window.addEventListener('cart:changed', () => this.debouncedRefreshPI());
+        await this.refreshInventoryAndClamp();
+
+        window.addEventListener('cart:changed', () => {
+          // quando cambiano le qty, aggiorna PI e riallinea stock (debounced)
+          this.debouncedRefreshPI();
+          this.refreshInventoryAndClamp();
+        });
+
       } catch (e) {
         console.error('[checkout:init]', e);
         this.error = e.message || 'Errore inizializzazione checkout';
@@ -269,5 +275,67 @@ document.addEventListener('alpine:init', () => {
       const subtotal = Alpine.store('cart')?.total?.() || 0;
       return subtotal + this.shippingAmount();
     },
+    // --- INVENTARIO / STOCK (checkout) ---
+   // --- INVENTARIO / STOCK (checkout) ---
+async refreshInventoryAndClamp() {
+  try {
+    const cart = Alpine.store('cart');
+    const items = cart?.items || [];
+    if (!items.length) return;
+
+    // Lista ID per l'endpoint (supporto kit:ID)
+    const ids = items.map(it => (it.kitId ? `kit:${it.kitId}` : String(it.id)));
+    const url = `/wp-json/sbs/v1/inventory?ids=${encodeURIComponent(ids.join(','))}`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('Inventory fetch failed');
+    const data = await res.json(); // es: [{id:'123', available: 2}, {id:'kit:5', available: 1}]
+
+    // helper: estrai numero sicuro (ignora boolean)
+    const toNum = (v) => {
+      if (typeof v === 'boolean') return null;
+      if (v === null || v === undefined || v === '') return null;
+      const n = Number(v);
+      return Number.isFinite(n) && n >= 0 ? n : null;
+    };
+    const readStock = (row) => {
+      return (
+        toNum(row.available) ??
+        toNum(row.availability) ??
+        toNum(row.stock) ??
+        toNum(row.qty) ??
+        toNum(row.remaining) ??
+        null
+      );
+    };
+
+    // Mappa id -> disponibilità numerica
+    const map = new Map(
+      data.map(r => [String(r.id), readStock(r)])
+    );
+
+    // Aggiorna maxQty e clampa se necessario
+    let changed = false;
+    cart.items.forEach((it) => {
+      const key = it.kitId ? `kit:${it.kitId}` : String(it.id);
+      const stock = map.get(key);
+      if (stock !== null && stock !== undefined) {
+        // imposta lo stock reale
+        it.maxQty = stock;
+
+        if (it.qty > stock) {
+          cart.setQty(it.id, stock); // clamp + persist + cart:changed
+          changed = true;
+        }
+      }
+    });
+
+    // se non abbiamo fatto clamp, persistiamo comunque la nuova maxQty
+    if (!changed) cart.save();
+  } catch (e) {
+    console.warn('[checkout] refreshInventoryAndClamp error', e);
+  }
+},
+
+
   }));
 });

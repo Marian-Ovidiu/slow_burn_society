@@ -33,14 +33,23 @@
 
   // Helpers stock
   const toNum = (v) => {
+    // NON convertire booleani: true/false non sono stock
+    if (typeof v === 'boolean') return null;
+    if (v === null || v === undefined || v === '') return null;
     const n = Number(v);
     return Number.isFinite(n) && n >= 0 ? n : null;
   };
-  const pickMaxFromItem = (item) => {
-    // supporta più nomi: maxQty | stock | available | availability
-    return toNum(item?.maxQty) ?? toNum(item?.stock) ?? toNum(item?.available) ?? toNum(item?.availability);
-  };
 
+  const pickMaxFromItem = (item) => {
+    // Prendi solo campi NUMERICI; 'available' boolean viene ignorato
+    // Ordine di preferenza: maxQty > stock > availability > available
+    return (
+      toNum(item?.maxQty) ??
+      toNum(item?.stock) ??
+      toNum(item?.availability) ??     // se usi questo nome come numero
+      toNum(item?.available)           // valido SOLO se numerico (grazie a toNum aggiornato)
+    );
+  };
   const init = () => {
     if (Alpine.store('cart')) return;
 
