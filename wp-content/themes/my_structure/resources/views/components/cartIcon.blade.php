@@ -21,7 +21,7 @@
 
         <!-- BOLLA CARRELLO – stile ripristinato + 50px margin right/bottom -->
         <div x-data="{
-            threshold: 49,
+            threshold: 35,
             crossed: false,
             glowActive: false,
             get qty() { return ($store.cart?.items || []).reduce((a, i) => a + Number(i.qty || 0), 0) },

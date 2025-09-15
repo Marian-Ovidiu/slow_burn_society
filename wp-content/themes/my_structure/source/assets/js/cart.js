@@ -1,9 +1,10 @@
+// resources/assets/js/cart.js
 (function () {
   if (window.__cartStoreInitialized) return;
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 5;
+  const TTL_MINUTES = 10;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -53,12 +54,11 @@
     }
 
     Alpine.store('cart', {
-      // item: { id, name, image, price, qty, maxQty? }  (maxQty è opzionale e solo se FINITO)
+      // item shape: { id, name, image, price, qty, maxQty? }  (maxQty solo se finito)
       items: data.items.map(i => ({
         ...i,
         qty: Number(i.qty || 1),
         price: Number(i.price),
-        // garantisco maxQty numerico o undefined
         maxQty: toNum(i.maxQty) ?? undefined
       })),
 
@@ -66,17 +66,17 @@
 
       // --- TTL ---
       remainingMs() {
-        void this._heartbeat; // dipendenza reattiva: forza il ricalcolo ogni tick
+        void this._heartbeat; // dipendenza reattiva: forza ricalcolo ogni tick
         if (!this.expiresAt) return 0;
         return Math.max(0, this.expiresAt - Date.now());
       },
       remainingMinutes() {
-        return Math.ceil(this.remainingMs() / 600000);
+        return Math.ceil(this.remainingMs() / 60000); // <- FIX: 60.000 ms = 1 min
       },
       remainingSeconds() {
         return Math.max(0, Math.ceil(this.remainingMs() / 1000));
       },
-      remainingFormatted() { // "mm:ss"
+      remainingFormatted() { // "m:ss"
         const s = this.remainingSeconds();
         const m = Math.floor(s / 60);
         const sec = s % 60;
@@ -115,7 +115,7 @@
       add(item) {
         // item atteso: { id, name, image, price, [stock|maxQty|available|availability] }
         const price = Number(item.price);
-        if (Number.isNaN(price)) {
+        if (!Number.isFinite(price)) {
           console.warn('[cart] price non valido per item', item);
           return;
         }
@@ -123,7 +123,7 @@
         const capFromInput = pickMaxFromItem(item);   // cap totale (se fornito)
         const found = this.items.find(i => i.id === item.id);
 
-        // Calcolo il cap effettivo da applicare:
+        // cap effettivo:
         // 1) se l'item in cart ha già un maxQty finito → usa quello
         // 2) altrimenti, se add() riceve un cap finito → usalo e salvalo
         // 3) altrimenti cap = illimitato (null)
@@ -133,20 +133,16 @@
         if (found) {
           const next = found.qty + 1;
           if (cap != null && next > cap) {
-            // blocca oltre stock
             window.dispatchEvent(new CustomEvent('cart:stock_exceeded', {
               detail: { id: item.id, name: found.name, max: cap }
             }));
             return;
           }
           found.qty = next;
-          // se prima non avevo maxQty ma ora sì, salvo
           if (capExisting == null && capFromInput != null) found.maxQty = capFromInput;
         } else {
-          // primo inserimento
           const initialQty = 1;
           if (cap != null && initialQty > cap) {
-            // cap = 0? allora non aggiungo proprio
             window.dispatchEvent(new CustomEvent('cart:stock_exceeded', {
               detail: { id: item.id, name: item.name, max: cap }
             }));
@@ -156,10 +152,10 @@
             id: item.id,
             name: item.name,
             image: item.image,
-            price: price,
+            price,
             qty: initialQty
           };
-          if (cap != null) payload.maxQty = cap; // salvo solo se finito
+          if (cap != null) payload.maxQty = cap;
           this.items.push(payload);
         }
 
@@ -214,13 +210,21 @@
       // --- Persistenza ---
       save() {
         const exp = this.items.length ? this.expiresAt : 0;
-        // Evito di salvare maxQty = null/undefined
         const itemsToSave = this.items.map(i => {
           const out = { ...i };
-          if (toNum(out.maxQty) == null) delete out.maxQty;
+          if (toNum(out.maxQty) == null) delete out.maxQty; // non salvare null/undefined
           return out;
         });
         saveToStorage(itemsToSave, exp);
+
+        // Notifica cambiamenti del carrello (checkout ricalcola PI)
+        window.dispatchEvent(new CustomEvent('cart:changed', {
+          detail: {
+            items: itemsToSave,
+            expiresAt: exp,
+            total: this.total()
+          }
+        }));
       },
 
       // --- Timer scadenza ---
@@ -236,7 +240,6 @@
       },
       _heartbeat: 0,            // proprietà reattiva "vuota"
       _countdownTimerId: null,
-
       _startCountdownTicker() {
         if (this._countdownTimerId) clearInterval(this._countdownTimerId);
         this._countdownTimerId = setInterval(() => {

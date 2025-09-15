@@ -96,3 +96,13 @@ add_action('acf/save_post', function ($post_id) {
     $stock = is_numeric($raw) ? (int)$raw : 0;
     \Classes\InventoryRepo::instance()->setStock((int)$post_id, max(0, $stock));
 }, 20);
+
+function sbs_update_product_disponibilita_field(int $productId, int $newStock): void
+{
+    // Preferisci ACF se presente
+    if (function_exists('update_field')) {
+        update_field('disponibilita', $newStock, $productId);
+    } else {
+        update_post_meta($productId, 'disponibilita', $newStock);
+    }
+}

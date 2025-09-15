@@ -19,11 +19,3 @@ $router->post('/cart/save', [CartController::class, 'save']);
 $router->post('/webhooks/stripe', [\Classes\StripeWebhookController::class, 'handle']);
 
 $router->get('/grazie', [PageController::class, 'grazie']);
-// // Checkout page (visualizzazione)
-// $router->get('/checkout', [Core\Bases\BaseController\CheckoutController::class, 'show']);
-
-// // Endpoint per confermare l’ordine (invocato dopo il pagamento riuscito)
-// $router->post('/checkout/confirm', [Core\Bases\BaseController\CheckoutController::class, 'confirm']);
-
-// // Webhook Stripe (riceve conferma da Stripe in backend — importante!)
-// $router->post('/webhooks/stripe', [App\Controllers\StripeWebhookController::class, 'handle']);
