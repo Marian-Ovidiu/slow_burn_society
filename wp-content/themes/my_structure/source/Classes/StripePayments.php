@@ -1,86 +1,203 @@
 <?php
 
-// source/Classes/StripePayments.php (estratto rilevante)
 namespace Classes;
 
-use Stripe\Stripe;
-use Stripe\PaymentIntent;
-use Models\Prodotto;
-use Models\Kit;
+use Stripe\StripeClient;
 
 class StripePayments
 {
-    // Espandi items del carrello in [{id, qty}] (prodotti puri) partendo da prodotti/kit
-    public static function expandItems(array $items): array {
-        if (function_exists('sbs_expand_cart_items')) return \sbs_expand_cart_items($items);
-        $flat = [];
-        foreach ($items as $line) {
-            $qtyLine = max(1, (int)($line['qty'] ?? 1));
-            if (!empty($line['kitId'])) {
-                $kitId = (int)$line['kitId'];
-                $kit = new Kit(get_post($kitId));
-                foreach (($kit->prodotti ?? []) as $p) {
-                    $pid = is_object($p) ? (int)($p->ID ?? 0) : (int)$p;
-                    if ($pid > 0) $flat[$pid] = ($flat[$pid] ?? 0) + $qtyLine;
-                }
-            } else {
-                $pid = (int)($line['id'] ?? 0);
-                if ($pid > 0) $flat[$pid] = ($flat[$pid] ?? 0) + $qtyLine;
-            }
-        }
-        return array_map(fn($pid,$q)=>['id'=>(int)$pid,'qty'=>(int)$q], array_keys($flat), $flat);
-    }
-
-    // Calcolo totale in centesimi (EUR) lato server
-    private static function totalFromItems(array $items): int {
-        $sum = 0;
-        foreach ($items as $line) {
-            if (!empty($line['kitId'])) {
-                $kit = new Kit(get_post((int)$line['kitId']));
-                $price = (float) str_replace([',','€',' '], ['.','',''], (string)($kit->prezzo ?? 0));
-                $sum += (int) round($price * 100) * max(1,(int)$line['qty']);
-            } else {
-                $p = Prodotto::find((int)$line['id']);
-                $price = (float) ($p->prezzo ?? 0);
-                $sum += (int) round($price * 100) * max(1,(int)$line['qty']);
-            }
-        }
-        return max(0, $sum);
-    }
-
-    public static function createIntent()
+    /**
+     * POST /create-payment-intent
+     */
+    public function createIntent()
     {
-        Stripe::setApiKey(my_env('SECRET_KEY'));
-
-        $body  = json_decode(file_get_contents('php://input'), true) ?: [];
-        $items = is_array($body['items'] ?? null) ? $body['items'] : [];
-
-        if (!$items) {
-            wp_send_json_error(['message'=>'items missing'], 400);
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'data' => ['message' => 'Metodo non consentito']]);
             return;
         }
 
-        $amount = self::totalFromItems($items); // in centesimi
-        if ($amount <= 0) {
-            wp_send_json_error(['message'=>'amount invalid'], 400);
+        header('Content-Type: application/json');
+
+        // --- Input -----------------------------------------------------------
+        $raw     = file_get_contents('php://input');
+        $payload = json_decode($raw, true) ?: [];
+
+        $items = is_array($payload['items'] ?? null) ? $payload['items'] : [];
+        $email = isset($payload['email']) ? sanitize_email($payload['email']) : null;
+
+        // cart_token obbligatorio
+        $cartToken = preg_replace('/[^a-f0-9\-]/i', '', $payload['cart_token'] ?? '');
+        if (!$items || !$cartToken) {
+            echo json_encode(['success' => false, 'data' => ['message' => 'Items o cart_token mancanti']]);
             return;
         }
 
-        // crea PI
-        $pi = PaymentIntent::create([
-            'amount'   => $amount,
-            'currency' => 'eur',
-            'automatic_payment_methods' => ['enabled' => true],
-            // opzionale: metadata
-            'metadata' => ['source' => 'sbs_custom_checkout'],
-        ]);
+        // --- Calcolo importi lato server (fonte di verità) -------------------
+        try {
+            $amounts = $this->calculateAmounts($items); // centesimi
+        } catch (\Throwable $e) {
+            echo json_encode(['success' => false, 'data' => ['message' => $e->getMessage()]]); // es. totale < 0,50€
+            return;
+        }
 
-        // salva gli items legati a questo PI (per il webhook)
-        \Classes\IntentRepo::instance()->save($pi->id, $items);
+        try {
+            // --- Stripe client ------------------------------------------------
+            $sk = my_env('STRIPE_SK');
+            if (!$sk) throw new \Exception('Stripe SK mancante');
+            $sc = new StripeClient($sk);
 
-        wp_send_json_success([
-            'clientSecret' => $pi->client_secret,
-            'intentId'     => $pi->id,
-        ]);
+            // Idempotency key “nuova” (evita riuso di PI chiusi)
+            $idempotencyKey = 'pi:' . $cartToken . ':' . $amounts['amount_total'] . ':' . bin2hex(random_bytes(8));
+
+            // Metadata minificati per poterli usare nel webhook
+            $itemsJson = wp_json_encode($this->normalizeItems($items), JSON_UNESCAPED_UNICODE);
+            if (strlen($itemsJson) > 450) {
+                // Stripe metadata value limit ~500 chars => ruduce/limita
+                $itemsJson = substr($itemsJson, 0, 450);
+            }
+
+            $pi = $sc->paymentIntents->create(
+                [
+                    'amount'    => (int)$amounts['amount_total'],
+                    'currency'  => 'eur',
+                    'automatic_payment_methods' => ['enabled' => true],
+                    'metadata'  => [
+                        'cart_token'       => $cartToken,
+                        'email'            => $email ?: '',
+                        'items_json'       => $itemsJson,
+                        'amount_subtotal'  => (string)$amounts['amount_subtotal'],
+                        'amount_shipping'  => (string)$amounts['amount_shipping'],
+                        'amount_discount'  => (string)$amounts['amount_discount'],
+                        'amount_tax'       => (string)$amounts['amount_tax'],
+                        'amount_total'     => (string)$amounts['amount_total'],
+                        'currency'         => 'EUR',
+                    ],
+                    // facoltativo: mostra ricevuta da Stripe
+                    'receipt_email' => $email ?: null,
+                ],
+                ['idempotency_key' => $idempotencyKey]
+            );
+
+            echo json_encode([
+                'success' => true,
+                'data'    => [
+                    'intentId'     => $pi->id,
+                    'clientSecret' => $pi->client_secret,
+                ]
+            ]);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            error_log('Stripe API error: ' . $e->getMessage());
+            echo json_encode(['success' => false, 'data' => ['message' => $e->getMessage()]]); // es. importo invalido
+        } catch (\Throwable $e) {
+            error_log('PI create failure: ' . $e->getMessage());
+            echo json_encode(['success' => false, 'data' => ['message' => 'Errore server creazione pagamento']]);
+        }
+    }
+
+    /**
+     * (Opzionale ma consigliato) Aggiorna l’email sul PI prima della conferma,
+     * così il webhook avrà l’email finale anche se non scriviamo nulla a DB ora.
+     *
+     * POST /update-intent-email
+     */
+    public function updateIntentEmail()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            exit;
+        }
+        header('Content-Type: application/json');
+
+        $raw = file_get_contents('php://input');
+        $payload = json_decode($raw, true) ?: [];
+
+        $intentId = isset($payload['intent_id']) ? trim($payload['intent_id']) : '';
+        $email    = isset($payload['email']) ? sanitize_email($payload['email']) : '';
+
+        if (!$intentId || !is_email($email)) {
+            echo json_encode(['success' => false, 'data' => ['message' => 'Intent o email non validi']]);
+            return;
+        }
+
+        try {
+            $sk = my_env('STRIPE_SK');
+            $sc = new \Stripe\StripeClient($sk);
+            $sc->paymentIntents->update($intentId, [
+                'metadata'      => ['email' => $email],
+                'receipt_email' => $email,
+            ]);
+
+            global $wpdb;
+            $table = $wpdb->prefix . 'sbs_payment_intents';
+            $wpdb->update(
+                $table,
+                [
+                    'email'      => $email,
+                    'updated_at' => current_time('mysql'),
+                ],
+                ['intent_id' => $intentId],
+                ['%s', '%s'],
+                ['%s']
+            );
+
+            // NOTA: in questo nuovo flusso NON aggiorniamo più il DB qui.
+            // Scriveremo tutto solo nel webhook a pagamento riuscito.
+
+            echo json_encode(['success' => true]);
+        } catch (\Throwable $e) {
+            error_log('updateIntentEmail error: ' . $e->getMessage());
+            echo json_encode(['success' => false, 'data' => ['message' => 'Impossibile aggiornare email']]);
+        }
+    }
+
+    /* ========================== HELPERS ========================== */
+
+    private function calculateAmounts(array $items): array
+    {
+        $subtotal = 0;
+        foreach ($items as $it) {
+            $qty  = max(1, (int)($it['qty'] ?? 1));
+            $unit = $this->getUnitPriceCents($it);
+            $subtotal += ($unit * $qty);
+        }
+
+        $shipping = ($subtotal >= 3500) ? 0 : 499;
+        $discount = 0;
+        $tax      = 0;
+        $total    = $subtotal + $shipping - $discount + $tax;
+
+        if ($total < 50) {
+            throw new \Exception('Totale ordine troppo basso o nullo');
+        }
+
+        return [
+            'amount_subtotal' => (int)$subtotal,
+            'amount_shipping' => (int)$shipping,
+            'amount_discount' => (int)$discount,
+            'amount_tax'      => (int)$tax,
+            'amount_total'    => (int)$total,
+        ];
+    }
+
+    private function getUnitPriceCents(array $it): int
+    {
+        if (isset($it['price'])) {
+            $n = (float)$it['price'];
+            if ($n > 0) return (int)round($n * 100);
+        }
+        return 0;
+    }
+
+    private function normalizeItems(array $items): array
+    {
+        return array_map(function ($it) {
+            return [
+                'id'    => $it['id']    ?? null,
+                'kitId' => $it['kitId'] ?? null,
+                'qty'   => (int)($it['qty'] ?? 1),
+            ];
+        }, $items);
     }
 }

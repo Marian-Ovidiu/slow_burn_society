@@ -1,21 +1,25 @@
 <?php
-use Classes\StripePayments;
 use Controllers\CartController;
 use Controllers\PageController;
+use Controllers\PaymentsController;
 
 $router = \Core\Router::getInstance();
 
-/*$router->post('/create-payment-intent', StripePayments::class, 'createIntent');*/
-$router->post('/create-payment-intent', [StripePayments::class, 'createIntent']);
-$router->post('/checkout/finalize', [StripePayments::class, 'finalize']);
-
+/** Checkout + Stripe */
 $router->get('/checkout', [\Controllers\CheckoutController::class, 'show']);
 
-// Recupera gli articoli del carrello (opzionale se lo gestisci lato client)
-$router->get('/cart', [CartController::class, 'get']);
-
-// Salva i dettagli del carrello (es. se vuoi loggarlo o inviarlo via email)
-$router->post('/cart/save', [CartController::class, 'save']);
+$router->post('/create-payment-intent', [PaymentsController::class, 'createPaymentIntent']);
+$router->post('/update-intent-email',   [\Classes\StripePayments::class, 'updateIntentEmail']);
+$router->post('/checkout/finalize', [\Controllers\PaymentsController::class, 'finalize']);
 $router->post('/webhooks/stripe', [\Classes\StripeWebhookController::class, 'handle']);
 
+/** Cart (client-side ma con audit server) */
+$router->get('/cart',        [CartController::class, 'get']);   // opzionale
+$router->post('/cart/save',  [CartController::class, 'save']);  // opzionale
+$router->post('/cart/event', [CartController::class, 'event']); // audit eventi (beacon)
+
+
 $router->get('/grazie', [PageController::class, 'grazie']);
+// app/routes.php (o dove definisci le rotte)
+$router->post('/update-intent-email', [\Classes\StripePayments::class, 'updateIntentEmail']);
+

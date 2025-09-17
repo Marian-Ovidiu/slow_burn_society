@@ -33,23 +33,14 @@
         </nav>
 
         @php
-            // $o arriva dal controller
-            $get = function ($row, $key, $default = null) {
-                if (is_array($row)) {
-                    return $row[$key] ?? $default;
-                }
-                if (is_object($row)) {
-                    return $row->{$key} ?? $default;
-                }
-                return $default;
-            };
-
-            $hasItems = isset($o) && !empty($o->items) && is_array($o->items);
+            // $o è array di prodotti (ogni prodotto porta anche info ordine)
+            $hasItems = isset($o) && is_array($o) && count($o) > 0;
+            $first = $hasItems ? $o[0] : null;
 
             $when = null;
-            if (!empty($o->created_at)) {
-                $ts = is_numeric($o->created_at) ? (int) $o->created_at : @strtotime((string) $o->created_at);
-                $when = $ts ? date('d/m/Y H:i', $ts) : (string) $o->created_at;
+            if ($first && !empty($first->created_at)) {
+                $ts = is_numeric($first->created_at) ? (int) $first->created_at : @strtotime((string) $first->created_at);
+                $when = $ts ? date('d/m/Y H:i', $ts) : (string) $first->created_at;
             }
 
             $thanksTitle = isset($fields->title) ? $fields->title : 'Grazie per l’ordine!';
@@ -57,6 +48,7 @@
                 ? $fields->subtitle
                 : 'Ti abbiamo inviato una mail di conferma con tutti i dettagli.';
         @endphp
+
 
         <div class="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
             {{-- SX: conferma + info --}}
@@ -70,56 +62,37 @@
                         <p class="mt-2 text-sm text-gray-600">{{ $thanksSubtitle }}</p>
                     </div>
 
-                    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        @if (!empty($o->number) || !empty($o->id))
-                            <div>
-                                <p class="text-sm text-gray-500">Ordine</p>
-                                <p class="font-semibold">{{ $o->number ?? '#' . $o->id }}</p>
-                            </div>
-                        @endif
+                    @if ($first)
+                        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            @if (!empty($first->id))
+                                <div>
+                                    <p class="text-sm text-gray-500">Ordine</p>
+                                    <p class="font-semibold">#{{ $first->id }}</p>
+                                </div>
+                            @endif
 
-                        @if ($when)
-                            <div>
-                                <p class="text-sm text-gray-500">Data</p>
-                                <p class="font-semibold">{{ $when }}</p>
-                            </div>
-                        @endif
+                            @if ($when)
+                                <div>
+                                    <p class="text-sm text-gray-500">Data</p>
+                                    <p class="font-semibold">{{ $when }}</p>
+                                </div>
+                            @endif
 
-                        @if (!empty($o->email))
-                            <div>
-                                <p class="text-sm text-gray-500">Email</p>
-                                <p class="text-sm font-medium">{{ $o->email }}</p>
-                            </div>
-                        @endif
+                            @if (!empty($first->email))
+                                <div>
+                                    <p class="text-sm text-gray-500">Email</p>
+                                    <p class="text-sm font-medium">{{ $first->email }}</p>
+                                </div>
+                            @endif
 
-                        @if (!empty($o->payment_method))
-                            <div>
-                                <p class="text-sm text-gray-500">Metodo di pagamento</p>
-                                <p class="text-sm font-medium">{{ $o->payment_method }}</p>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <a href="/"
-                            class="inline-flex items-center justify-center rounded bg-[#45752c] px-4 py-2 text-white text-sm hover:bg-[#386322] transition">
-                            Continua lo shopping
-                        </a>
-
-                        @if (!empty($o->view_url))
-                            <a href="{{ $o->view_url }}"
-                                class="inline-flex items-center justify-center rounded border px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition">
-                                Vedi ordine
-                            </a>
-                        @endif
-
-                        @if (!empty($o->invoice_url))
-                            <a href="{{ $o->invoice_url }}"
-                                class="inline-flex items-center justify-center rounded border px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition">
-                                Scarica fattura
-                            </a>
-                        @endif
-                    </div>
+                            @if (!empty($first->payment_method))
+                                <div>
+                                    <p class="text-sm text-gray-500">Metodo di pagamento</p>
+                                    <p class="text-sm font-medium">{{ $first->payment_method }}</p>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
                 <div class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 shadow-sm">
@@ -145,13 +118,13 @@
                             </div>
                         @else
                             <ul class="divide-y divide-gray-200">
-                                @foreach ($o->items as $item)
+                                @foreach ($o as $item)
                                     @php
-                                        $name = $get($item, 'name', 'Prodotto');
-                                        $qty = (int) $get($item, 'qty', 1);
-                                        $price = (float) $get($item, 'price', 0);
-                                        $img = $get($item, 'image');
-                                        $sub = (float) $get($item, 'subtotal', $qty * $price);
+                                        $name = $item->name ?? 'Prodotto';
+                                        $qty = (int) ($item->qty ?? 1);
+                                        $price = (float) ($item->price ?? 0);
+                                        $sub = (float) ($item->subtotal ?? $qty * $price);
+                                        $img = $item->image ?? null;
                                     @endphp
                                     <li class="py-3">
                                         <div class="flex items-start gap-3">
@@ -164,7 +137,8 @@
                                                     <p class="truncate text-sm font-medium text-gray-900">
                                                         {{ $name }}</p>
                                                     <p class="text-sm font-semibold text-gray-900">€
-                                                        {{ number_format($sub, 2, ',', '') }}</p>
+                                                        {{ number_format($item->subtotal_item, 2, ',', '') }}
+                                                    </p>
                                                 </div>
                                                 <div class="mt-1 flex items-center justify-between text-xs text-gray-500">
                                                     <span>Qtà: <strong>{{ $qty }}</strong></span>
@@ -177,38 +151,41 @@
                             </ul>
 
                             <div class="mt-4 space-y-2 text-sm">
-                                @if (isset($o->subtotal))
-                                    <div class="flex justify-between text-gray-600">
-                                        <span>Subtotale</span>
-                                        <span>€ {{ number_format((float) $o->subtotal, 2, ',', '') }}</span>
-                                    </div>
-                                @endif
-                                @if (isset($o->shipping))
+                                <div class="flex justify-between text-gray-600">
+                                    @if (isset($first->subtotal_order))
+                                        <div class="flex justify-between text-gray-600">
+                                            <span>Subtotale € 
+                                                {{ number_format((float) $first->subtotal_order, 2, ',', '') }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                                @if (isset($first->shipping))
                                     <div class="flex justify-between text-gray-600">
                                         <span>Spedizione</span>
-                                        @if ((float) $o->shipping == 0 || strtolower((string) $o->shipping) === 'gratis')
+                                        @if ((float) $first->shipping == 0)
                                             <span class="text-emerald-700 font-semibold">Spedizione gratuita</span>
                                         @else
-                                            <span>€ {{ number_format((float) $o->shipping, 2, ',', '') }}</span>
+                                            <span>€ {{ number_format((float) $first->shipping, 2, ',', '') }}</span>
                                         @endif
                                     </div>
                                 @endif
 
-                                @if (!empty($o->discount))
+                                @if (!empty($first->discount))
                                     <div class="flex justify-between text-gray-600">
                                         <span>Sconto</span>
-                                        <span>-€ {{ number_format((float) $o->discount, 2, ',', '') }}</span>
+                                        <span>-€ {{ number_format((float) $first->discount, 2, ',', '') }}</span>
                                     </div>
                                 @endif
-                                @if (isset($o->total))
+                                @if (isset($first->total))
                                     <div class="border-t pt-2"></div>
                                     <div class="flex justify-between text-base font-bold text-gray-900">
                                         <span>Totale</span>
-                                        <span>€ {{ number_format((float) $o->total, 2, ',', '') }}</span>
+                                        <span>€ {{ number_format((float) $first->total, 2, ',', '') }}</span>
                                     </div>
                                 @endif
                             </div>
                         @endif
+
                     </div>
 
                     <p class="text-[11px] leading-snug text-gray-500">
@@ -218,4 +195,23 @@
             </aside>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const pi = new URLSearchParams(location.search).get('pi');
+            if (!pi) return;
+            try {
+                await fetch('/checkout/finalize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        pi
+                    })
+                });
+            } catch (e) {
+                // opzionale: console.warn('finalize failed', e);
+            }
+        });
+    </script>
 @endsection

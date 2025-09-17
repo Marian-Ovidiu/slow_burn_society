@@ -4,7 +4,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 10;
+  const TTL_MINUTES = 1;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -70,6 +70,18 @@
         price: Number(i.price),
         maxQty: toNum(i.maxQty) ?? undefined
       })),
+      token: null,
+
+      ensureToken() {
+        if (this.token) return this.token;
+        let t = window.localStorage.getItem('cart_token');
+        if (!t) {
+          t = (crypto?.randomUUID?.()) || ('ct_' + Math.random().toString(36).slice(2) + '_' + Date.now());
+          try { window.localStorage.setItem('cart_token', t); } catch { }
+        }
+        this.token = t;
+        return t;
+      },
 
       expiresAt: data.expiresAt || (data.items.length ? now() + TTL_MS : 0),
 
@@ -172,26 +184,18 @@
         this.save();
       },
 
+      // dentro cart.js
       setQty(id, qty) {
-        qty = Math.max(0, Number(qty || 0));
         const it = this.items.find(i => i.id === id);
         if (!it) return;
-
-        const cap = toNum(it.maxQty);
-        if (cap != null && qty > cap) {
-          qty = cap; // clamp
-          window.dispatchEvent(new CustomEvent('cart:stock_exceeded', {
-            detail: { id, name: it.name, max: cap }
-          }));
-        }
-
-        if (qty === 0) {
-          this.remove(id);
-          return;
-        }
-        it.qty = qty;
-        this.touchExpiry();
+        let v = Math.max(1, Math.floor(Number(qty) || 1));
+        const max = Number.isFinite(it.maxQty) ? it.maxQty
+          : (Number.isFinite(it.stock) ? it.stock : null);
+        if (max != null) v = Math.min(v, max);
+        if (v === 0) return this.remove(id);
+        it.qty = v;
         this.save();
+        this.emitChanged?.();
       },
 
       remove(id) {
@@ -257,11 +261,14 @@
         }, 1000);
       },
     });
+    const store = Alpine.store('cart');
+    store.ensureToken();
+    store._startExpiryWatcher();
+    store._startCountdownTicker();
 
-    Alpine.store('cart')._startExpiryWatcher();
-    Alpine.store('cart')._startCountdownTicker();
     Alpine.store('cartReady', true);
     window.dispatchEvent(new CustomEvent('cart:ready'));
+
   };
 
   if (window.Alpine) init();

@@ -10,8 +10,20 @@ class CheckoutController extends BaseController
     {
         $this->addJs('cart', 'cart.js');
         $this->addJs('checkout', 'checkout.js');
-        $this->render('checkout', []);
+
+        global $wpdb;
+        $table = $wpdb->prefix . 'sbs_inventory';
+        $rows  = $wpdb->get_results("SELECT product_id, stock FROM {$table}", ARRAY_A);
+        $inventoryMap = [];
+        foreach ($rows as $r) {
+            $inventoryMap[(int)$r['product_id']] = max(0, (int)$r['stock']);
+        }
+
+        $this->render('checkout', [
+            'inventoryMap' => $inventoryMap,
+        ]);
     }
+
 
     // <-- NUOVO: il checkout JS postera' qui l'ordine dopo pagamento OK
     public function storeOrder()

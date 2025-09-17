@@ -11,7 +11,16 @@ document.addEventListener('alpine:init', () => {
     intentId: null,
     expired: false,
     paymentComplete: false,
-    form: { firstName: '', lastName: '', email: '' },
+    form: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      street: '',
+      streetNo: '',
+      city: '',
+      cap: '',
+      province: '',
+    },
 
     // Attende che lo store cart sia pronto
     waitForCartReady() {
@@ -27,7 +36,7 @@ document.addEventListener('alpine:init', () => {
     async init() {
       try {
         await this.waitForCartReady();
-
+        const cartToken = await this.waitForCartToken();
         // mantieni vivo il TTL finché sei nella pagina
         Alpine.store('cart')?.touchExpiry?.();
         window.addEventListener('cart:expired', () => { this.expired = true; });
@@ -39,7 +48,7 @@ document.addEventListener('alpine:init', () => {
         // Primo mount basato sul carrello corrente
         const items = this.serializeCartItems();
         if (!items.length) return;
-        await this.createOrReplacePI(items);
+        await this.createOrReplacePI(items, cartToken);
 
         await this.refreshInventoryAndClamp();
 
@@ -70,7 +79,14 @@ document.addEventListener('alpine:init', () => {
       const nameOk = this.form.firstName.trim().length >= 2;
       const lastOk = this.form.lastName.trim().length >= 2;
       const mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email.trim());
-      return nameOk && lastOk && mailOk;
+
+      const streetOk = this.form.street.trim().length >= 3;
+      const streetNoOk = this.form.streetNo.trim().length >= 1; // es. "12/A"
+      const cityOk = this.form.city.trim().length >= 2;
+      const capOk = /^\d{5}$/.test(this.form.cap.trim());
+      const provOk = /^[A-Za-z]{2}$/.test(this.form.province.trim());
+
+      return nameOk && lastOk && mailOk && streetOk && streetNoOk && cityOk && capOk && provOk;
     },
 
     // Abilitazione bottone "Paga"
@@ -107,6 +123,14 @@ document.addEventListener('alpine:init', () => {
         total: Number(cart.total().toFixed(2)),
         invoice_url: null,
         view_url: null,
+        shipping_address: {
+          name: `${this.form.firstName} ${this.form.lastName}`.trim(),
+          line1: `${this.form.street} ${this.form.streetNo}`.trim(),
+          city: this.form.city,
+          postal_code: this.form.cap,
+          state: (this.form.province || '').toUpperCase(),
+          country: 'IT',
+        },
       };
     },
 
@@ -150,13 +174,23 @@ document.addEventListener('alpine:init', () => {
           return;
         }
 
+        const fullName = `${this.form.firstName} ${this.form.lastName}`.trim();
+        const line1 = `${this.form.street} ${this.form.streetNo}`.trim();
+
         const { error } = await this.stripe.confirmPayment({
           elements: this.elements,
           confirmParams: {
             payment_method_data: {
               billing_details: {
-                name: `${this.form.firstName} ${this.form.lastName}`.trim() || undefined,
+                name: fullName || undefined,
                 email: this.form.email || undefined,
+                address: {
+                  line1: line1 || undefined,
+                  city: this.form.city || undefined,
+                  postal_code: this.form.cap || undefined,
+                  state: (this.form.province || '').toUpperCase() || undefined,
+                  country: 'IT',
+                }
               }
             },
             return_url: thankYouUrl
@@ -181,13 +215,39 @@ document.addEventListener('alpine:init', () => {
     // ——— Instances & mount aggiornabili ———
     _elementsInstance: null,   // per gestire smontaggio pulito
 
-    async createOrReplacePI(items) {
-      // Opzione semplice: crea sempre un nuovo PI con gli items correnti
+    async createOrReplacePI(items, forcedToken = null) {
+      const cart = Alpine.store('cart');
+      const cartToken = forcedToken || this.getCartToken();
+      if (!cartToken) throw new Error('cart_token mancante');
+
+      const totalCents = Math.round((cart?.total?.() || 0) * 100);
+
       const res = await fetch('/create-payment-intent', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items })
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          items,
+          cart_token: cartToken,
+          total_cents: totalCents,
+          customer: {
+            first_name: this.form.firstName,
+            last_name: this.form.lastName,
+            email: this.form.email
+          },
+          shipping: {
+            street: this.form.street,
+            street_no: this.form.streetNo,
+            city: this.form.city,
+            cap: this.form.cap,
+            province: (this.form.province || '').toUpperCase(),
+            country: 'IT'
+          }
+        })
       });
+
       const json = await res.json();
       if (!json || !json.success) {
         throw new Error(json?.data?.message || 'Impossibile creare il pagamento');
@@ -195,22 +255,16 @@ document.addEventListener('alpine:init', () => {
       this.clientSecret = json.data.clientSecret;
       this.intentId = json.data.intentId;
 
-      // Smonta eventuali Elements precedenti per evitare conflitti di clientSecret
       try {
         if (this.paymentElement) this.paymentElement.unmount();
         this.paymentElement = null;
-        if (this._elementsInstance && this._elementsInstance.destroy) {
-          this._elementsInstance.destroy();
-        }
-      } catch (_) { }
+        if (this._elementsInstance?.destroy) this._elementsInstance.destroy();
+      } catch { }
 
-      // Crea nuovo Elements legato al nuovo clientSecret
       this._elementsInstance = this.stripe.elements({
         clientSecret: this.clientSecret,
         appearance: { theme: 'stripe' }
       });
-
-      // *** punto chiave: manteniamo `this.elements` sempre riferito all'istanza attuale ***
       this.elements = this._elementsInstance;
 
       this.paymentElement = this._elementsInstance.create('payment', { layout: 'tabs' });
@@ -220,6 +274,7 @@ document.addEventListener('alpine:init', () => {
       });
       this.paymentElement.mount('#payment-element');
     },
+
 
     _debouncer: null,
     debouncedRefreshPI() {
@@ -276,65 +331,104 @@ document.addEventListener('alpine:init', () => {
       return subtotal + this.shippingAmount();
     },
     // --- INVENTARIO / STOCK (checkout) ---
-   // --- INVENTARIO / STOCK (checkout) ---
-async refreshInventoryAndClamp() {
-  try {
-    const cart = Alpine.store('cart');
-    const items = cart?.items || [];
-    if (!items.length) return;
+    _inClamp: false,
+    async refreshInventoryAndClamp() {
+      if (this._inClamp) return;      // evita re-entrancy
+      this._inClamp = true;
 
-    // Lista ID per l'endpoint (supporto kit:ID)
-    const ids = items.map(it => (it.kitId ? `kit:${it.kitId}` : String(it.id)));
-    const url = `/wp-json/sbs/v1/inventory?ids=${encodeURIComponent(ids.join(','))}`;
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error('Inventory fetch failed');
-    const data = await res.json(); // es: [{id:'123', available: 2}, {id:'kit:5', available: 1}]
+      try {
+        const cart = Alpine.store('cart');
+        const items = cart?.items || [];
+        if (!items.length) return;
 
-    // helper: estrai numero sicuro (ignora boolean)
-    const toNum = (v) => {
-      if (typeof v === 'boolean') return null;
-      if (v === null || v === undefined || v === '') return null;
-      const n = Number(v);
-      return Number.isFinite(n) && n >= 0 ? n : null;
-    };
-    const readStock = (row) => {
-      return (
-        toNum(row.available) ??
-        toNum(row.availability) ??
-        toNum(row.stock) ??
-        toNum(row.qty) ??
-        toNum(row.remaining) ??
-        null
-      );
-    };
+        // ✅ FIX: supporto kit:ID
+        const ids = items.map(it => (it.kitId ? `kit:${it.kitId}` : String(it.id)));
+        const url = `/wp-json/sbs/v1/inventory?ids=${encodeURIComponent(ids.join(','))}`;
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) throw new Error('Inventory fetch failed');
+        const data = await res.json();
 
-    // Mappa id -> disponibilità numerica
-    const map = new Map(
-      data.map(r => [String(r.id), readStock(r)])
-    );
+        const toNum = (v) => {
+          if (typeof v === 'boolean') return null;
+          if (v === null || v === undefined || v === '') return null;
+          const n = Number(v);
+          return Number.isFinite(n) && n >= 0 ? n : null;
+        };
+        const readStock = (row) => (
+          toNum(row.available) ??
+          toNum(row.availability) ??
+          toNum(row.stock) ??
+          toNum(row.qty) ??
+          toNum(row.remaining) ??
+          null
+        );
 
-    // Aggiorna maxQty e clampa se necessario
-    let changed = false;
-    cart.items.forEach((it) => {
-      const key = it.kitId ? `kit:${it.kitId}` : String(it.id);
-      const stock = map.get(key);
-      if (stock !== null && stock !== undefined) {
-        // imposta lo stock reale
-        it.maxQty = stock;
+        const map = new Map(data.map(r => [String(r.id), readStock(r)]));
 
-        if (it.qty > stock) {
-          cart.setQty(it.id, stock); // clamp + persist + cart:changed
-          changed = true;
-        }
+        let changed = false;
+        cart.items.forEach((it) => {
+          // ✅ chiave coerente con la chiamata
+          const key = it.kitId ? `kit:${it.kitId}` : String(it.id);
+          const stock = map.get(key);
+
+          if (stock !== null && stock !== undefined) {
+            it.maxQty = stock;
+
+            if (it.qty > stock) {
+              // clamp (rimuove se 0)
+              cart.setQty(it.id, stock);
+              changed = true;
+            }
+          }
+        });
+
+        // evita loop inutili
+        if (changed) cart.save();
+      } catch (e) {
+        console.warn('[checkout] refreshInventoryAndClamp error', e);
+      } finally {
+        this._inClamp = false;
       }
-    });
+    },
+    waitForCartToken() {
+      return new Promise((resolve, reject) => {
+        const started = Date.now();
 
-    // se non abbiamo fatto clamp, persistiamo comunque la nuova maxQty
-    if (!changed) cart.save();
-  } catch (e) {
-    console.warn('[checkout] refreshInventoryAndClamp error', e);
-  }
-},
+        const tryGet = () => {
+          const cart = Alpine.store('cart');
+
+          // 1) Se lo store ha ensureToken, usalo
+          if (cart?.ensureToken) {
+            const t = cart.ensureToken();
+            if (t) return resolve(t);
+          }
+
+          // 2) Token già esistente?
+          const t2 = cart?.token || window.localStorage.getItem('cart_token');
+          if (t2) return resolve(t2);
+
+          // 3) Dopo 1s, crealo noi (proattivo)
+          if (Date.now() - started > 1000) {
+            const newTok = (window.crypto?.randomUUID?.())
+              || ('ct_' + Math.random().toString(36).slice(2) + '_' + Date.now());
+            try { window.localStorage.setItem('cart_token', newTok); } catch { }
+            if (cart) cart.token = newTok;
+            return resolve(newTok);
+          }
+
+          // 4) Continua a riprovare fino a 10s
+          if (Date.now() - started > 10000)
+            return reject(new Error('cart_token non disponibile'));
+
+          setTimeout(tryGet, 50);
+        };
+
+        tryGet();
+      });
+    },
+    getCartToken() {
+      return Alpine.store('cart')?.token || window.localStorage.getItem('cart_token') || null;
+    },
 
 
   }));

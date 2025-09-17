@@ -18,142 +18,131 @@ class PageController extends BaseController
 
     public function grazie()
     {
-        // $this->addJs('cart', 'cart.js');  // se ti serve per x-init che svuota il carrello, ok
         $this->addJs('cart', 'cart.js');
         $this->addJs('checkout', 'checkout.js');
 
-        if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+        $order = [];
 
-        // 1) dalla sessione (se pay() ha chiamato persistOrder)
-        $order = $_SESSION['last_order'] ?? null;
+        // 1) Payment Intent ID dalla query (?pi=... | ?payment_intent=...)
+        $piId = $_GET['pi'] ?? $_GET['payment_intent'] ?? null;
+        if (!$piId) {
+            return $this->render('grazie', ['o' => $order]);
+        }
 
-        unset($_SESSION['last_order']);
+        global $wpdb;
 
-        // 2) fallback opzionale: se c'è ?pi=xxx prova a recuperare gli items salvati all'Intent
-        if (!$order && !empty($_GET['pi'])) {
-            try {
-                $piId = (string)$_GET['pi'];
-                if (class_exists(\Classes\IntentRepo::class)) {
-                    $items = \Classes\IntentRepo::instance()->load($piId); // es: [{id,qty}] o [{kitId,qty}]
-                    if ($items) {
-                        $orderItems = [];
-                        $subtotal   = 0.0;
+        // 2) Possono esserci più righe (in pratica 1), ma teniamoci larghi
+        $rows = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM {$wpdb->prefix}sbs_payment_intents WHERE intent_id = %s", $piId)
+        );
+        if (!$rows) {
+            return $this->render('grazie', ['o' => $order]);
+        }
 
-                        // helper: prezzo -> float
-                        $toFloat = static function ($v): float {
-                            $s = (string)$v;
-                            $s = str_replace(['€', ' '], '', $s);
-                            $s = str_replace(',', '.', $s);
-                            return (float)$s;
-                        };
-                        // helper: prima immagine se presente
-                        $imgUrl = static function ($m): ?string {
-                            // adatta ai tuoi campi
-                            return $m->immagine_1['url'] ?? $m->image_url ?? null;
-                        };
-                        // helper: nome
-                        $titleOf = static function ($m): string {
-                            return $m->pretitolo ?? $m->title ?? $m->nome ?? 'Prodotto';
-                        };
-
-                        foreach ($items as $line) {
-                            $qty = max(1, (int)($line['qty'] ?? 1));
-
-                            if (!empty($line['kitId'])) {
-                                $kitId = (int)$line['kitId'];
-                                if ($kitId > 0 && ($kit = \Models\Kit::find($kitId))) {
-                                    $price = $toFloat($kit->prezzo ?? 0);
-                                    $sub   = $price * $qty;
-                                    $orderItems[] = [
-                                        'name'     => $titleOf($kit),
-                                        'qty'      => $qty,
-                                        'price'    => $price,
-                                        'subtotal' => $sub,
-                                        'image'    => $imgUrl($kit),
-                                    ];
-                                    $subtotal += $sub;
-                                }
-                            } else {
-                                $pid = (int)($line['id'] ?? 0);
-                                if ($pid > 0 && ($p = \Models\Prodotto::find($pid))) {
-                                    $price = $toFloat($p->prezzo ?? 0);
-                                    $sub   = $price * $qty;
-                                    $orderItems[] = [
-                                        'name'     => $titleOf($p),
-                                        'qty'      => $qty,
-                                        'price'    => $price,
-                                        'subtotal' => $sub,
-                                        'image'    => $imgUrl($p),
-                                    ];
-                                    $subtotal += $sub;
-                                }
-                            }
-                        }
-
-                        // spedizione & totale
-                        $shipping = ($subtotal > 35) ? 0.0 : 4.99;
-                        $total    = $subtotal + $shipping;
-
-                        $order = (object)[
-                            'id'             => null,
-                            'number'         => null,
-                            'created_at'     => date('Y-m-d H:i:s'),
-                            'email'          => null,
-                            'payment_method' => 'Carta',
-                            'items'          => $orderItems,  // <-- con qty!
-                            'subtotal'       => $subtotal,
-                            'shipping'       => $shipping,
-                            'discount'       => 0.0,
-                            'total'          => $total,
-                            'invoice_url'    => null,
-                            'view_url'       => null,
-                        ];
-                    }
+        // ---------- Helpers locali ----------
+        $toFloat = function ($val): float {
+            if ($val === null || $val === '') return 0.0;
+            $s = str_replace(['€', ' '], '', (string)$val);
+            if (strpos($s, ',') !== false && strpos($s, '.') !== false) {
+                if (substr_count($s, '.') > substr_count($s, ',')) {
+                    $s = str_replace('.', '', $s);
+                    $s = str_replace(',', '.', $s);
+                } else {
+                    $s = str_replace(',', '', $s);
                 }
-            } catch (\Throwable $e) {
-                // fallback silenzioso
+            } else {
+                $s = str_replace(',', '.', $s);
             }
+            return (float)$s;
+        };
+
+        $getName = function ($model): string {
+            return $model->title ?? $model->nome ?? $model->pretitolo ?? 'Prodotto';
+        };
+
+        $getImage = function (int $postId, $model, bool $isKit): ?string {
+            if ($isKit) {
+                $img = $model->immagine_kit['url'] ?? null;
+                if ($img) return $img;
+            } else {
+                $img = $model->immagine_1['url'] ?? ($model->immagine_2['url'] ?? null);
+                if ($img) return $img;
+            }
+            $thumb = get_the_post_thumbnail_url($postId, 'medium');
+            if ($thumb) return $thumb;
+            return $model->featured_image ?? null;
+        };
+        // -----------------------------------
+
+        $grandSubtotal = 0.0;
+
+        foreach ($rows as $row) {
+            $items = json_decode($row->items_json ?? '[]', true) ?: [];
+
+            foreach ($items as $it) {
+                $qty = max(1, (int)($it['qty'] ?? 1));
+                $postId = (int)($it['id'] ?? ($it['kitId'] ?? 0));
+                if ($postId <= 0) continue;
+
+                $postType = get_post_type($postId) ?: '';
+
+                if ($postType === 'kit') {
+                    // KIT
+                    $kit = \Models\Kit::find($postId);
+                    if (!$kit) continue;
+
+                    $price = $toFloat($kit->prezzo ?? $kit->price ?? 0);
+                    $lineSubtotal = $price * $qty;
+                    $grandSubtotal += $lineSubtotal;
+
+                    $order[] = (object)[
+                        'id'             => $row->intent_id,
+                        'created_at'     => $row->created_at,
+                        'email'          => $row->email,
+                        'payment_method' => $row->payment_method ?? 'Carta',
+                        'product_id'     => $postId,
+                        'name'           => $getName($kit),
+                        'qty'            => $qty,
+                        'price'          => $price,
+                        'subtotal_item'  => $lineSubtotal,
+                        'image'          => $getImage($postId, $kit, true),
+                        'shipping'       => $row->amount_shipping / 100,
+                        'discount'       => $row->amount_discount / 100,
+                        'total'          => $row->amount_total / 100,
+                    ];
+                } else {
+                    // PRODOTTO
+                    $prod = \Models\Prodotto::find($postId);
+                    if (!$prod) continue;
+
+                    $price = $toFloat($prod->prezzo ?? $prod->price ?? 0);
+                    $lineSubtotal = $price * $qty;
+                    $grandSubtotal += $lineSubtotal;
+
+                    $order[] = (object)[
+                        'id'             => $row->intent_id,
+                        'created_at'     => $row->created_at,
+                        'email'          => $row->email,
+                        'payment_method' => $row->payment_method ?? 'Carta',
+                        'product_id'     => $postId,
+                        'name'           => $getName($prod),
+                        'qty'            => $qty,
+                        'price'          => $price,
+                        'subtotal_item'  => $lineSubtotal,
+                        'image'          => $getImage($postId, $prod, false),
+                        'shipping'       => $row->amount_shipping / 100,
+                        'discount'       => $row->amount_discount / 100,
+                        'total'          => $row->amount_total / 100,
+                    ];
+                }
+            }
+        }
+
+        // Imposta il subtotale ordine su ogni riga (comodo per la view)
+        foreach ($order as $line) {
+            $line->subtotal_order = $grandSubtotal;
         }
 
         return $this->render('grazie', ['o' => $order]);
-    }
-
-
-    protected function buildOrderFromQuery(array $q): object
-    {
-        $items = [];
-        if (!empty($q['items']) && is_array($q['items'])) {
-            foreach ($q['items'] as $i) {
-                $qty   = (int)($i['qty'] ?? 1);
-                $price = (float)($i['price'] ?? 0);
-                $items[] = [
-                    'name'     => $i['name'] ?? 'Prodotto',
-                    'qty'      => $qty,
-                    'price'    => $price,
-                    'subtotal' => isset($i['subtotal']) ? (float)$i['subtotal'] : ($qty * $price),
-                    'image'    => $i['image'] ?? null,
-                ];
-            }
-        }
-
-        $subtotal = isset($q['subtotal']) ? (float)$q['subtotal'] : array_sum(array_map(fn($i) => $i['subtotal'] ?? 0, $items));
-        $shipping = (float)($q['shipping'] ?? 0);
-        $discount = (float)($q['discount'] ?? 0);
-        $total    = isset($q['total']) ? (float)$q['total'] : max(0, $subtotal + $shipping - $discount);
-
-        return (object)[
-            'id'         => $q['order_id'] ?? $q['id'] ?? null,
-            'number'     => $q['order'] ?? $q['number'] ?? null,
-            'created_at' => date('Y-m-d H:i:s'),
-            'email'      => $q['email'] ?? null,
-            'payment_method' => $q['pm'] ?? null,
-            'items'      => $items,
-            'subtotal'   => $subtotal,
-            'shipping'   => $shipping,
-            'discount'   => $discount,
-            'total'      => $total,
-            'invoice_url' => $q['invoice_url'] ?? null,
-            'view_url'   => $q['view_url'] ?? null,
-        ];
     }
 }
