@@ -38,7 +38,7 @@
             <div class="mt-2 h-1.5 w-full overflow-hidden rounded bg-gray-200">
                 {{-- usa inline calc o la tua progressWidth() se l’hai nel componente --}}
                 <div class="h-full bg-[#45752c] transition-all"
-                    :style="`width: ${Math.max(0, Math.min(100, Math.round(($store.cart.remainingSeconds() / 300) * 100)))}%`">
+                    :style="`width: ${Math.max(0, Math.min(100, Math.round(($store.cart.remainingSeconds() / 120) * 100)))}%`">
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
                         {{-- Via --}}
                         <div class="md:col-span-4">
                             <label class="mb-1 block text-sm text-gray-700">Via</label>
-                            <input type="text" x-model="form.street"
+                            <input type="text" x-model.lazy="form.street"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="Via Roma">
                         </div>
@@ -110,7 +110,7 @@
                         {{-- Numero civico --}}
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">N. civico</label>
-                            <input type="text" x-model="form.streetNo"
+                            <input type="text" x-model.lazy="form.streetNo"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="12/A">
                         </div>
@@ -118,7 +118,7 @@
                         {{-- CAP --}}
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">CAP</label>
-                            <input type="text" x-model="form.cap" inputmode="numeric" maxlength="5" pattern="\d{5}"
+                            <input type="text" x-model.lazy="form.cap" inputmode="numeric" maxlength="5" pattern="\d{5}"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="00100">
                         </div>
@@ -126,7 +126,7 @@
                         {{-- Città --}}
                         <div class="md:col-span-3">
                             <label class="mb-1 block text-sm text-gray-700">Città</label>
-                            <input type="text" x-model="form.city"
+                            <input type="text" x-model.lazy="form.city"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="Roma">
                         </div>
@@ -134,7 +134,7 @@
                         {{-- Provincia --}}
                         <div class="md:col-span-1">
                             <label class="mb-1 block text-sm text-gray-700">Prov.</label>
-                            <input type="text" x-model="form.province" maxlength="2"
+                            <input type="text" x-model.lazy="form.province" maxlength="2"
                                 @input="form.province = (form.province || '').toUpperCase().replace(/[^A-Z]/g,'')"
                                 class="w-full uppercase rounded-lg border-gray-300 focus:border-black focus:ring-black text-center"
                                 placeholder="RM">
@@ -163,7 +163,7 @@
                     <div class="mt-4 space-y-3">
                         <button
                             class="w-full rounded-xl bg-[#45752c] py-3 font-semibold text-white shadow hover:bg-[#386322] disabled:cursor-not-allowed disabled:opacity-50"
-                            :disabled="!canPay()" @click="pay">
+                            :disabled="!canPay()" @click="pay()">
                             <span x-show="!loading">Paga ora</span>
                             <span x-show="loading">Elaboro…</span>
                         </button>

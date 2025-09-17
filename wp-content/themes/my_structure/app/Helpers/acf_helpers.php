@@ -150,7 +150,11 @@ if (!function_exists('my_custom_options_page_html')) {
                     'actionUrl' => admin_url('admin-post.php'),
                 ];
 
-                echo App::blade()->make('optionPages.ordini', $data)->render();
+                $intents = $wpdb->get_results($sql, ARRAY_A) ?: [];
+                echo App::blade()->make('optionPages.ordini', [
+                    'orders'    => $intents,   // <--- passa le righe "grezze" della tabella
+                    'actionUrl' => admin_url('admin-post.php'),
+                ])->render();
                 break;
         }
 

@@ -3,19 +3,9 @@
 namespace Controllers;
 
 use Core\Bases\BaseController;
-use Models\GalleriaFields;
-use Models\Kit;
-use Models\Prodotto;
 
 class PageController extends BaseController
 {
-    public function galleria()
-    {
-        $this->addJs('highlight', 'highlight.js', [], true);
-        $this->addVarJs('highlight', 'highlights', GalleriaFields::get()->highlights);
-        $this->render('galleria', ['galleria' => GalleriaFields::get()]);
-    }
-
     public function grazie()
     {
         $this->addJs('cart', 'cart.js');

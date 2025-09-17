@@ -4,6 +4,7 @@ document.addEventListener('alpine:init', () => {
     editMode: false,
     loading: false,
     error: '',
+    isPaying: false,
     stripe: null,
     elements: null,          // <- useremo sempre questa, aggiornata da createOrReplacePI()
     paymentElement: null,
@@ -37,15 +38,12 @@ document.addEventListener('alpine:init', () => {
       try {
         await this.waitForCartReady();
         const cartToken = await this.waitForCartToken();
-        // mantieni vivo il TTL finché sei nella pagina
         Alpine.store('cart')?.touchExpiry?.();
         window.addEventListener('cart:expired', () => { this.expired = true; });
 
-        // Inizializza Stripe una volta sola
         if (!window.STRIPE_PK) throw new Error('Stripe PK mancante');
         this.stripe = window.Stripe(window.STRIPE_PK);
 
-        // Primo mount basato sul carrello corrente
         const items = this.serializeCartItems();
         if (!items.length) return;
         await this.createOrReplacePI(items, cartToken);
@@ -53,16 +51,22 @@ document.addEventListener('alpine:init', () => {
         await this.refreshInventoryAndClamp();
 
         window.addEventListener('cart:changed', () => {
-          // quando cambiano le qty, aggiorna PI e riallinea stock (debounced)
           this.debouncedRefreshPI();
           this.refreshInventoryAndClamp();
         });
+
+        // 👇 AGGANCI I WATCHER QUI
+        ['firstName', 'lastName', 'email', 'street', 'streetNo', 'city', 'cap', 'province']
+          .forEach((k) => {
+            this.$watch(`form.${k}`, () => this.debouncedSyncIntent());
+          });
 
       } catch (e) {
         console.error('[checkout:init]', e);
         this.error = e.message || 'Errore inizializzazione checkout';
       }
     },
+
 
     serializeCartItems() {
       const cart = Alpine.store('cart');
@@ -134,46 +138,45 @@ document.addEventListener('alpine:init', () => {
       };
     },
 
-    // Salvataggio best-effort su sessione server
-    async persistOrder(payload) {
-      try {
-        if (navigator.sendBeacon) {
-          const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-          navigator.sendBeacon('/checkout/store-order', blob);
-          return;
-        }
-      } catch { }
-      try {
-        await fetch('/checkout/store-order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      } catch (e) {
-        console.warn('[persistOrder] fallita', e);
-      }
-    },
-
     // Azione "Paga"
     async pay() {
       if (!this.canPay()) return;
       this.loading = true; this.error = '';
+      this.isPaying = true; // <- blocca refresh PI mentre paghi (vedi patch sotto)
 
-      // URL con PI per la thank-you (serve anche come return_url per 3DS)
       const thankYouUrl = `${window.location.origin}/grazie?pi=${encodeURIComponent(this.intentId)}`;
-
-      // snapshot PRIMA di toccare il carrello
       const payload = this.buildOrderPayload();
 
       try {
-        // valida/chiudi i campi dell’Element (sempre quello attuale)
-        const { error: submitError } = await this.elements.submit();
-        if (submitError) {
-          this.error = submitError.message || 'Dati di pagamento incompleti.';
-          this.loading = false;
+        // 0) Preflight: stato attuale del PI
+        const { paymentIntent } = await this.stripe.retrievePaymentIntent(this.clientSecret);
+        const st = paymentIntent?.status;
+
+        if (st === 'succeeded') {
+          Alpine.store('cart').clear();
+          window.location.href = thankYouUrl;
+          return;
+        }
+        if (st === 'processing') {
+          this.error = 'Pagamento in elaborazione: attendi qualche secondo e aggiorna la pagina.';
+          return;
+        }
+        if (st === 'canceled') {
+          // PI non confermabile: rigenera e fai riprovare
+          const items = this.serializeCartItems();
+          await this.createOrReplacePI(items);
+          this.error = 'Sessione di pagamento scaduta: riprova.';
           return;
         }
 
+        // 1) Valida i campi dell’Element
+        const { error: submitError } = await this.elements.submit();
+        if (submitError) {
+          this.error = submitError.message || 'Dati di pagamento incompleti.';
+          return;
+        }
+
+        // 2) Conferma
         const fullName = `${this.form.firstName} ${this.form.lastName}`.trim();
         const line1 = `${this.form.street} ${this.form.streetNo}`.trim();
 
@@ -198,19 +201,41 @@ document.addEventListener('alpine:init', () => {
           redirect: 'if_required'
         });
 
-        if (error) throw error;
+        if (error) {
+          // Gestione specifica stato inatteso
+          if (error.code === 'payment_intent_unexpected_state') {
+            const status = error.payment_intent?.status;
+            if (status === 'succeeded') {
+              Alpine.store('cart').clear();
+              window.location.href = thankYouUrl;
+              return;
+            }
+            if (status === 'processing') {
+              this.error = 'Pagamento in elaborazione: attendi qualche secondo.';
+              return;
+            }
+            if (status === 'canceled') {
+              const items = this.serializeCartItems();
+              await this.createOrReplacePI(items);
+              this.error = 'Sessione di pagamento scaduta: riprova.';
+              return;
+            }
+          }
+          throw error;
+        }
 
-        // Caso “no redirect”: pagamento già riuscito
-        await this.persistOrder(payload);
         Alpine.store('cart').clear();
         window.location.href = thankYouUrl;
+
       } catch (e) {
         console.error('[checkout:pay]', e);
         this.error = e.message || 'Errore pagamento';
       } finally {
         this.loading = false;
+        this.isPaying = false; // riabilita eventuali refresh
       }
     },
+
 
     // ——— Instances & mount aggiornabili ———
     _elementsInstance: null,   // per gestire smontaggio pulito
@@ -254,7 +279,7 @@ document.addEventListener('alpine:init', () => {
       }
       this.clientSecret = json.data.clientSecret;
       this.intentId = json.data.intentId;
-
+      this.paymentComplete = false;
       try {
         if (this.paymentElement) this.paymentElement.unmount();
         this.paymentElement = null;
@@ -277,7 +302,9 @@ document.addEventListener('alpine:init', () => {
 
 
     _debouncer: null,
+    // patch a debouncedRefreshPI
     debouncedRefreshPI() {
+      if (this.isPaying) return; // evita replacement del PI durante il pay
       clearTimeout(this._debouncer);
       this._debouncer = setTimeout(async () => {
         try {
@@ -290,11 +317,37 @@ document.addEventListener('alpine:init', () => {
         }
       }, 400);
     },
+    async syncIntentDetails() {
+      if (!this.intentId) return; // serve un PI esistente
+      try {
+        const payload = {
+          intent_id: this.intentId,
+          first_name: this.form.firstName,
+          last_name: this.form.lastName,
+          email: this.form.email,
+          street: this.form.street,
+          street_no: this.form.streetNo,
+          city: this.form.city,
+          cap: this.form.cap,
+          province: (this.form.province || '').toUpperCase(),
+          country: 'IT'
+        };
+        await fetch('/update-intent-details', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.warn('[syncIntentDetails] failed', e);
+      }
+    },
+    _debounceSync: null,
+    debouncedSyncIntent() {
+      clearTimeout(this._debounceSync);
+      this._debounceSync = setTimeout(() => this.syncIntentDetails(), 500);
+    },
 
     // Util UI
-    shippingLabel() { return 'Calcolata al checkout'; },
-    vatLabel() { return 'IVA inclusa'; },
-    grandTotal() { return Alpine.store('cart')?.total?.() || 0; },
     remainingSeconds() {
       const ms = Alpine.store('cart')?.remainingMs?.() ?? 0;
       return Math.max(0, Math.round(ms / 1000));

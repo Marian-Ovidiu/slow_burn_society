@@ -4,7 +4,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 1;
+  const TTL_MINUTES = 2;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -192,7 +192,6 @@
         const max = Number.isFinite(it.maxQty) ? it.maxQty
           : (Number.isFinite(it.stock) ? it.stock : null);
         if (max != null) v = Math.min(v, max);
-        if (v === 0) return this.remove(id);
         it.qty = v;
         this.save();
         this.emitChanged?.();

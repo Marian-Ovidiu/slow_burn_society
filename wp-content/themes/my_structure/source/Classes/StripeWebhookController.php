@@ -20,6 +20,7 @@ class StripeWebhookController
         }
 
         try {
+            // Restituisce \Stripe\Event (OGGETTO), NON array
             $event = \Stripe\Webhook::constructEvent($payload, $sig, $whsec);
         } catch (\UnexpectedValueException $e) {
             http_response_code(400);
@@ -31,28 +32,32 @@ class StripeWebhookController
             return;
         }
 
-        $type = $event['type'] ?? '';
+        $type = $event->type ?? '';
         switch ($type) {
-            case 'payment_intent.succeeded':
-                $pi = $event['data']['object'] ?? null;
-                if ($pi && !empty($pi['id'])) {
-                    $this->onPaymentIntentSucceeded($pi); // passiamo l’oggetto completo
+            case 'payment_intent.succeeded': {
+                    // \Stripe\PaymentIntent
+                    $pi = $event->data->object;
+                    if ($pi && !empty($pi->id)) {
+                        $this->onPaymentIntentSucceeded($pi);
+                    }
+                    break;
                 }
-                break;
 
-            case 'payment_intent.payment_failed':
-                $pi = $event['data']['object'] ?? null;
-                if ($pi && !empty($pi['id'])) {
-                    $this->updateIntentStatus($pi['id'], 'payment_failed');
+            case 'payment_intent.payment_failed': {
+                    $pi = $event->data->object;
+                    if ($pi && !empty($pi->id)) {
+                        $this->updateIntentStatus($pi->id, 'payment_failed');
+                    }
+                    break;
                 }
-                break;
 
-            case 'payment_intent.canceled':
-                $pi = $event['data']['object'] ?? null;
-                if ($pi && !empty($pi['id'])) {
-                    $this->updateIntentStatus($pi['id'], 'canceled');
+            case 'payment_intent.canceled': {
+                    $pi = $event->data->object;
+                    if ($pi && !empty($pi->id)) {
+                        $this->updateIntentStatus($pi->id, 'canceled');
+                    }
+                    break;
                 }
-                break;
         }
 
         echo json_encode(['ok' => true]);
@@ -60,34 +65,80 @@ class StripeWebhookController
 
     /* ===================== SUCCESS HANDLER ====================== */
 
-    private function onPaymentIntentSucceeded(array $pi): void
+    /**
+     * @param \Stripe\PaymentIntent $pi
+     */
+    private function onPaymentIntentSucceeded($pi): void
     {
         global $wpdb;
-        $intentId  = $pi['id'];
-        $tablePI   = $wpdb->prefix . 'sbs_payment_intents';
-        // 1) Upsert snapshot DAL PAYMENTINTENT (fonte-verità)
-        $meta      = (array)($pi['metadata'] ?? []);
 
-        $cartToken = (string)($meta['cart_token'] ?? '');
-        $email     = sanitize_email($pi['receipt_email'] ?? ($meta['email'] ?? ''));
-        $currency  = strtoupper((string)($pi['currency'] ?? 'eur')); // es. 'eur'
-        $amountTotal = (int)($pi['amount'] ?? 0);
+        $intentId = $pi->id;
+        $tablePI  = $wpdb->prefix . 'sbs_payment_intents';
 
-        // Totali dai metadata se presenti (altrimenti fallback)
-        $amountSubtotal = isset($meta['amount_subtotal']) ? (int)$meta['amount_subtotal'] : $amountTotal;
-        $amountShipping = isset($meta['amount_shipping']) ? (int)$meta['amount_shipping'] : 0;
-        $amountDiscount = isset($meta['amount_discount']) ? (int)$meta['amount_discount'] : 0;
-        $amountTax      = isset($meta['amount_tax'])      ? (int)$meta['amount_tax']      : 0;
+        // --- Metadata / shipping (StripeObject -> array) ---
+        $metaArr = $pi->metadata ? $pi->metadata->toArray() : [];
+        $ship    = $pi->shipping ?: null;
+        $addr    = $ship && isset($ship->address) ? $ship->address : null;
 
-        // Items: presi dai metadata (minificati alla creazione)
-        $items = [];
-        if (!empty($meta['items_json'])) {
-            $items = json_decode((string)$meta['items_json'], true);
-            if (!is_array($items)) $items = [];
+        $firstName = sanitize_text_field($metaArr['first_name'] ?? '');
+        $lastName  = sanitize_text_field($metaArr['last_name']  ?? '');
+        if (!$firstName && !$lastName) {
+            $full = $ship && !empty($ship->name) ? trim((string)$ship->name) : '';
+            if ($full !== '') {
+                $parts = preg_split('/\s+/', $full, 2);
+                $firstName = sanitize_text_field($parts[0] ?? '');
+                $lastName  = sanitize_text_field($parts[1] ?? '');
+            }
         }
 
-        // Upsert riga PI: stato direttamente 'paid' (write-after-success)
-        $wpdb->replace($tablePI, [
+        $shippingJson = wp_json_encode([
+            'line1'       => $addr ? trim((string)($addr->line1 ?? '')) : '',
+            'city'        => $addr ? (string)($addr->city ?? '') : '',
+            'postal_code' => $addr ? (string)($addr->postal_code ?? '') : '',
+            'state'       => $addr ? (string)($addr->state ?? '') : '',
+            'country'     => strtoupper($addr ? (string)($addr->country ?? 'IT') : 'IT'),
+        ], JSON_UNESCAPED_UNICODE);
+
+        $cartToken   = (string)($metaArr['cart_token'] ?? '');
+        $email       = sanitize_email($pi->receipt_email ?? ($metaArr['email'] ?? ''));
+        $currency    = strtoupper((string)($pi->currency ?? 'eur'));
+        $amountTotal = (int)($pi->amount ?? 0);
+
+        // Totali dai metadata se presenti (altrimenti fallback)
+        $amountSubtotal = isset($metaArr['amount_subtotal']) ? (int)$metaArr['amount_subtotal'] : $amountTotal;
+        $amountShipping = isset($metaArr['amount_shipping']) ? (int)$metaArr['amount_shipping'] : 0;
+        $amountDiscount = isset($metaArr['amount_discount']) ? (int)$metaArr['amount_discount'] : 0;
+        $amountTax      = isset($metaArr['amount_tax'])      ? (int)$metaArr['amount_tax']      : 0;
+
+        // Items: preferisci metadata 'items_json', altrimenti eventuale snapshot già a DB
+        $items = [];
+        if (!empty($metaArr['items_json'])) {
+            $tmp = json_decode((string)$metaArr['items_json'], true);
+            if (is_array($tmp)) $items = $tmp;
+        }
+        // Supporto eventuale 'items_compact' (p:123x2,k:45x1, …)
+        if (!$items && !empty($metaArr['items_compact'])) {
+            $items = [];
+            foreach (explode(',', (string)$metaArr['items_compact']) as $chunk) {
+                if (preg_match('/^(p|k):(\d+)x(\d+)$/', $chunk, $m)) {
+                    $items[] = $m[1] === 'p'
+                        ? ['id' => (int)$m[2], 'qty' => (int)$m[3]]
+                        : ['kitId' => (int)$m[2], 'qty' => (int)$m[3]];
+                }
+            }
+        }
+        if (!$items) {
+            $row = $wpdb->get_row($wpdb->prepare(
+                "SELECT items_json FROM {$tablePI} WHERE intent_id = %s LIMIT 1",
+                $intentId
+            ), ARRAY_A);
+            if (!empty($row['items_json'])) {
+                $items = json_decode($row['items_json'], true) ?: [];
+            }
+        }
+
+        // --- Upsert snapshot PI ---
+        $result = $wpdb->replace($tablePI, [
             'intent_id'       => $intentId,
             'cart_token'      => $cartToken,
             'status'          => 'paid',
@@ -102,8 +153,8 @@ class StripeWebhookController
             'user_id'         => get_current_user_id() ?: null,
             'expires_at'      => gmdate('Y-m-d H:i:s', time() + 10 * 60),
             'client_ip'       => $this->clientIp(),
-            'user_agent'      => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 255),
-            'referrer'        => substr($_SERVER['HTTP_REFERER'] ?? '', 512),
+            'user_agent'      => substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255),
+            'referrer'        => substr($_SERVER['HTTP_REFERER'] ?? '', 0, 512),
             'utm_json'        => null,
             'created_at'      => current_time('mysql'),
             'updated_at'      => current_time('mysql'),
@@ -128,17 +179,17 @@ class StripeWebhookController
             '%s'
         ]);
 
-        // 2) Decremento stock (usando items ora presenti)
-        $decrements = $this->expandDecrements($this->normalizeItems($items));
-        foreach ($decrements as $pid => $qty) {
-            $pid = (int)$pid;
-            $qty = max(0, (int)$qty);
-            if ($pid > 0 && $qty > 0) {
-                $this->decrementStock($pid, $qty);
-            }
+        if ($result === false) {
+            error_log('sbs_payment_intents REPLACE failed: ' . $wpdb->last_error);
         }
 
-        // 3) Event log (opzionale)
+        // --- Decremento stock ---
+        $decrements = $this->expandDecrements($this->normalizeItems($items));
+        foreach ($decrements as $pid => $qty) {
+            $this->decrementStock((int)$pid, (int)$qty);
+        }
+
+        // --- Event log (opzionale) ---
         $this->logCartEvent(
             $cartToken,
             'stock_decremented',
@@ -146,7 +197,7 @@ class StripeWebhookController
             $intentId
         );
 
-        // 4) Invio email (leggerà dal DB appena scritto)
+        // --- Invio email (best-effort) ---
         try {
             $mailer = new \Classes\OrderMailer();
             $mailer->sendReceiptForIntent($intentId);

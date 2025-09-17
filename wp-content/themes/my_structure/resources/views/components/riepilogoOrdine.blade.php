@@ -63,12 +63,10 @@
                                     </div>
 
                                     <!-- Label max anche in MODIFICA -->
-                                    <template
-                                        x-if="(it.maxQty ?? $store.cart.maxFor(it.kitId ? `kit:${it.kitId}` : it.id)) !== null">
+                                    <template x-if="(it.maxQty ?? $store.cart.maxFor(it.id)) !== null">
                                         <span class="ml-2 text-[11px] text-gray-500">
                                             Max:
-                                            <span
-                                                x-text="(it.maxQty ?? $store.cart.maxFor(it.kitId ? `kit:${it.kitId}` : it.id))"></span>
+                                            <span x-text="(it.maxQty ?? $store.cart.maxFor(it.id))"></span>
                                         </span>
                                     </template>
 
@@ -80,8 +78,7 @@
                                             class="h-8 w-8 rounded-lg ring-1 ring-gray-300 text-gray-700 hover:bg-gray-50 disabled:opacity-40"
                                             :disabled="it.qty <= 1"
                                             @click="
-    const key = it.kitId ? `kit:${it.kitId}` : it.id;
-    const max = (it.maxQty ?? $store.cart.maxFor(key));
+    const max = (it.maxQty ?? $store.cart.maxFor(it.id));
     const next = Math.max(1, (Number(it.qty) || 1) - 1);
     $store.cart.setQty(it.id, max != null ? Math.min(next, max) : next);
   "
@@ -96,14 +93,12 @@
                                                 :value="it.qty" min="1" readonly @keydown.prevent
                                                 @paste.prevent
                                                 :title="(() => {
-                                                    const key = it.kitId ? `kit:${it.kitId}` : it.id;
-                                                    const max = (it.maxQty ?? $store.cart.maxFor(key));
+                                                    const max = (it.maxQty ?? $store.cart.maxFor(it.id));
                                                     return max != null ? `Massimo ${max} disponibili` : 'Quantità';
                                                 })()">
                                             <template
                                                 x-if="(() => {
-            const key = it.kitId ? `kit:${it.kitId}` : it.id;
-            return $store.cart.maxFor(key) !== null;
+            return $store.cart.maxFor(it.id) !== null;
           })()">
                                                 <span class="text-[11px] text-gray-500 whitespace-nowrap">
                                                     / <span
@@ -116,14 +111,13 @@
                                         <!-- + -->
                                         <button type="button"
                                             x-show="(() => {
-    const key = it.kitId ? `kit:${it.kitId}` : it.id;
-    const max = (it.maxQty ?? $store.cart.maxFor(key));
+  
+    const max = (it.maxQty ?? $store.cart.maxFor(it.id));
     return !(max != null && (Number(it.qty) || 1) >= max);
   })()"
                                             class="h-8 w-8 rounded-lg ring-1 ring-gray-300 text-gray-700 hover:bg-gray-50"
                                             @click="
-    const key = it.kitId ? `kit:${it.kitId}` : it.id;
-    const max = (it.maxQty ?? $store.cart.maxFor(key));
+    const max = (it.maxQty ?? $store.cart.maxFor(it.id));
     const next = (Number(it.qty) || 1) + 1;
     $store.cart.setQty(it.id, max != null ? Math.min(next, max) : next);
   "
