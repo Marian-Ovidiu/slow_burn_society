@@ -11,6 +11,10 @@
 *.lock
 *.tmp
 
+.env
+.env.*
+*.env
+
 # Ignora output di Vite (se rigenerabile)
 public/build/
 /public/*.js
