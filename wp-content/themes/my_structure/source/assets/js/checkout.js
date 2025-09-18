@@ -22,6 +22,20 @@ document.addEventListener('alpine:init', () => {
       cap: '',
       province: '',
     },
+    parseKit(it) {
+      // Rileva kit da id o da property kitId/type
+      const rawId = String(it?.id ?? '');
+      if (rawId.startsWith('kit:')) {
+        const num = rawId.slice(4);
+        return { isKit: true, kitId: num, kitKey: `kit:${num}` };
+      }
+      if (it?.kitId != null) {
+        const raw = String(it.kitId);
+        const num = raw.replace(/^kit:/, '');
+        return { isKit: true, kitId: num, kitKey: `kit:${num}` };
+      }
+      return { isKit: false, kitId: null, kitKey: null };
+    },
 
     // Attende che lo store cart sia pronto
     waitForCartReady() {
@@ -66,16 +80,43 @@ document.addEventListener('alpine:init', () => {
         this.error = e.message || 'Errore inizializzazione checkout';
       }
     },
+    async finalizePI(pi) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 8000); // timeout difensivo
+      try {
+        await fetch('/checkout/finalize', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' },
+          body: new URLSearchParams({ pi }),
+          signal: ctrl.signal
+        });
+      } catch (e) {
+        console.warn('[finalizePI] failed (proseguo lo stesso)', e);
+      } finally {
+        clearTimeout(t);
+      }
+    },
 
+    async finalizeAndRedirect() {
+      const pi = this.intentId;
+      await this.finalizePI(pi);              
+      Alpine.store('cart').clear();
+      window.location.href = `${window.location.origin}/grazie?pi=${encodeURIComponent(pi)}`;
+    },
 
     serializeCartItems() {
       const cart = Alpine.store('cart');
       if (!cart || !Array.isArray(cart.items)) return [];
-      return cart.items.map(it =>
-        (it.isKit || it.type === 'kit' || it.kitId)
-          ? { kitId: it.kitId || it.id, qty: Number(it.qty || 1) }
-          : { id: it.id, qty: Number(it.qty || 1) }
-      );
+      return cart.items.map(it => {
+        const k = this.parseKit(it);
+        console.table(Alpine.store('cart').items)
+        console.table(k)
+        if (k.isKit) {
+          // verso il backend invia "kitId" SENZA prefisso
+          return { kitId: k.kitId, qty: Number(it.qty || 1) };
+        }
+        return { id: it.id, qty: Number(it.qty || 1) };
+      });
     },
 
     // Validazione form
@@ -154,6 +195,7 @@ document.addEventListener('alpine:init', () => {
 
         if (st === 'succeeded') {
           Alpine.store('cart').clear();
+          await this.finalizeAndRedirect();
           window.location.href = thankYouUrl;
           return;
         }
@@ -207,6 +249,7 @@ document.addEventListener('alpine:init', () => {
             const status = error.payment_intent?.status;
             if (status === 'succeeded') {
               Alpine.store('cart').clear();
+              await this.finalizeAndRedirect();
               window.location.href = thankYouUrl;
               return;
             }
@@ -225,6 +268,7 @@ document.addEventListener('alpine:init', () => {
         }
 
         Alpine.store('cart').clear();
+        await this.finalizeAndRedirect();
         window.location.href = thankYouUrl;
 
       } catch (e) {

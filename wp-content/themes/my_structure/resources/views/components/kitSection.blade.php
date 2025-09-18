@@ -1,16 +1,35 @@
 <section x-data="{
     modalOpen2: false,
     selected2: null,
+
+    // true se l'item (kit) è già nel carrello
+    isInCart(item) {
+        const raw = String(item?.id ?? '');
+        if (!raw) return false;
+        const kid = raw.replace(/^kit:/, '');
+        const key = `kit:${kid}`;
+        return ($store.cart.items || []).some(i => i.id === key);
+    },
+
     addToCart(item) {
-        // Normalizza per il nuovo store
+        // blocca se già in cart
+        if (this.isInCart(item)) return;
+
         const toNumber = (v) => {
             if (typeof v === 'number') return v;
             if (!v) return 0;
-            // gestisce '12,50' e '€12,50'
             return Number(String(v).replace(/[€\s]/g, '').replace(',', '.')) || 0;
         };
+
+        // normalizza sempre come kit
+        const raw = String(item.id ?? '');
+        const kid = raw.replace(/^kit:/, '');
+        const id = `kit:${kid}`;
+
         $store.cart.add({
-            id: item.id,
+            id,
+            kitId: kid,
+            type: 'kit',
             name: item.name ?? item.title,
             image: item.image ?? '',
             price: toNumber(item.price)
@@ -38,13 +57,12 @@
         @foreach ($latest as $kit)
             @php
                 $kitJs = $kitsForJs[$kit->id] ?? null;
-                $available = $kitJs['disponibilita'];
+                $available = !empty(($kitsForJs[$kit->id] ?? [])['disponibilita']);
             @endphp
 
             <div class="group relative bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition cursor-pointer"
                 @click="modalOpen2 = true; selected2 = @js($kitJs ?? (object) [])">
 
-                {{-- Badge stato (opzionale ma utile) --}}
                 @if (!$available)
                     <span
                         class="absolute top-2 right-2 text-[11px] font-semibold px-2 py-1 rounded bg-red-100 text-red-700">
@@ -77,50 +95,41 @@
                     </p>
                 </div>
 
-                <!-- Aggiungi al carrello -->
-                @php $available = !empty($kitJs['disponibilita']); @endphp
-
-                <button @disabled(!$available)
-                    class="w-full text-sm font-semibold py-2 px-4 rounded transition
-         {{ $available ? 'bg-[#45752c] text-white hover:bg-[#386322]' : 'bg-gray-300 text-gray-600 cursor-not-allowed' }}
-         disabled:opacity-50 disabled:cursor-not-allowed" @click.stop="addToCart(@js($kitJs['cart'] ?? (object) []))">
-                    Aggiungi al carrello
+                <!-- Aggiungi al carrello (CARD) -->
+                <button :disabled="!@js($available) || isInCart(@js($kitJs['cart'] ?? (object) []))"
+                    @click.stop="addToCart(@js($kitJs['cart'] ?? (object) []))"
+                    class="w-full text-sm font-semibold py-2 px-4 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    :class="(!@js($available) || isInCart(@js($kitJs['cart'] ?? (object) []))) ?
+                    'bg-gray-300 text-gray-600 cursor-not-allowed' :
+                    'bg-[#45752c] text-white hover:bg-[#386322]'">
+                    <span x-text="isInCart(@js($kitJs['cart'] ?? (object) [])) ? 'Nel carrello' : 'Aggiungi al carrello'">
+                    </span>
                 </button>
             </div>
         @endforeach
     </div>
 
-
-
-
-    <!-- Overlay -->
+    <!-- Overlay / Modal -->
     <div x-show="modalOpen2" x-cloak class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4 py-8"
         @keydown.escape.window="modalOpen2 = false; selected2 = null" @click.self="modalOpen2 = false; selected2 = null"
         x-transition>
 
-        <!-- Pannello -->
         <div class="bg-white w-full max-w-lg rounded-lg shadow-lg overflow-y-auto max-h-[95vh] relative p-6"
             @click.away="modalOpen2 = false; selected2 = null">
 
-            <!-- Chiudi -->
             <button class="absolute top-2 right-2 text-gray-400 hover:text-black text-xl"
                 @click="modalOpen2 = false; selected2 = null">✕</button>
 
-            <!-- Immagine -->
             <img :src="selected2?.image || ''" alt="" class="w-full max-h-[400px] object-contain rounded mb-4">
 
-            <!-- Titolo -->
             <h2 class="text-2xl font-bold mb-2 text-gray-900" x-text="selected2?.title ?? selected2?.name"></h2>
 
-            <!-- Prezzo -->
             <p class="text-lg font-semibold text-[#45752c] mb-2">
                 €<span x-text="Number(selected2?.price || 0).toFixed(2).replace('.', ',')"></span>
             </p>
 
-            <!-- Descrizione -->
             <div class="text-sm text-gray-700 mb-4" x-html="selected2?.description || ''"></div>
 
-            <!-- Lista Prodotti -->
             <template x-if="selected2?.products && selected2.products.length">
                 <div class="mt-4">
                     <h3 class="text-base font-semibold text-gray-800 mb-3">Contenuto del Kit:</h3>
@@ -131,11 +140,10 @@
                                     class="w-16 h-16 object-cover rounded border bg-gray-100">
                                 <span class="text-sm text-gray-700 leading-snug" x-text="product.title"></span>
                                 <p class="mt-1 text-xs"
-                                    :class="(product.available ?? (Number(product.disponibilita) > 0)) ?
-                                    'text-green-600' : 'text-red-600'">
+                                    :class="(product.available ?? (Number(product.disponibilita) > 0)) ? 'text-green-600' :
+                                    'text-red-600'">
                                     <span
-                                        x-text="(product.available ?? (Number(product.disponibilita) > 0))
-           ? 'Disponibile' : 'Non disponibile'"></span>
+                                        x-text="(product.available ?? (Number(product.disponibilita) > 0)) ? 'Disponibile' : 'Non disponibile'"></span>
                                 </p>
                             </div>
                         </template>
@@ -143,20 +151,19 @@
                 </div>
             </template>
 
-            <!-- Bottone Aggiungi al carrello -->
+            <!-- Bottone Aggiungi al carrello (MODAL) -->
             <div class="text-left mt-3">
-                <!-- Bottone nel modal -->
-                <button type="button" :disabled="!Boolean(selected2?.disponibilita)"
-                    class="w-full text-sm font-semibold bg-[#45752c] text-white py-2 px-4 rounded
-               hover:bg-[#386322] transition disabled:opacity-50 disabled:cursor-not-allowed"
-                    @click.stop="addToCart(selected2?.cart || {})">
-                    <span
-                        x-text="Boolean(selected2?.disponibilita) ? 'Aggiungi al carrello' : 'Non disponibile'"></span>
+                <button type="button" :disabled="!Boolean(selected2?.disponibilita) || isInCart(selected2?.cart || {})"
+                    @click.stop="addToCart(selected2?.cart || {})"
+                    class="w-full text-sm font-semibold py-2 px-4 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    :class="(!Boolean(selected2?.disponibilita) || isInCart(selected2?.cart || {})) ?
+                    'bg-gray-300 text-gray-600 cursor-not-allowed' :
+                    'bg-[#45752c] text-white hover:bg-[#386322]'">
+                    <span x-text="isInCart(selected2?.cart || {}) ? 'Nel carrello' : 'Aggiungi al carrello'">
+                    </span>
                 </button>
-
             </div>
 
         </div>
     </div>
-
 </section>

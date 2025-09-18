@@ -71,11 +71,15 @@ class PageController extends BaseController
 
             foreach ($items as $it) {
                 $qty = max(1, (int)($it['qty'] ?? 1));
-                $postId = (int)($it['id'] ?? ($it['kitId'] ?? 0));
+                // prima di decidere il post type
+                $raw = $it['kitId'] ?? $it['id'] ?? 0;           // preferisci kitId se presente
+                if (is_string($raw)) {
+                    $raw = preg_replace('/^kit:/', '', $raw);    // rimuovi "kit:" se c'è
+                }
+                $postId = (int) $raw;
                 if ($postId <= 0) continue;
 
                 $postType = get_post_type($postId) ?: '';
-
                 if ($postType === 'kit') {
                     // KIT
                     $kit = \Models\Kit::find($postId);

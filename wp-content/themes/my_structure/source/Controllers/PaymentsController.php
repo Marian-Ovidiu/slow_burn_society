@@ -174,10 +174,11 @@ class PaymentsController extends BaseController
     /** Calcola importi in centesimi (server = fonte di verità) */
     private function calculateAmounts(array $items): array
     {
+        $items = $this->normalizeItems($items); // 👈 normalizza SEMPRE qui
         $subtotal = 0;
 
         foreach ($items as $it) {
-            $unit = $this->getUnitPriceCents($it);          // lookup server
+            $unit = $this->getUnitPriceCents($it);   // lookup server
             $qty  = \max(1, (int)($it['qty'] ?? 1));
             if ($unit < 0) $unit = 0;
             $subtotal += $unit * $qty;
@@ -186,7 +187,6 @@ class PaymentsController extends BaseController
         $shipping = ($subtotal >= self::FREE_SHIP_THRESHOLD_CENTS) ? 0 : self::SHIPPING_FEE_CENTS;
         $discount = 0;
         $tax      = 0;
-
         $total    = $subtotal + $shipping - $discount + $tax;
 
         return [
@@ -198,23 +198,34 @@ class PaymentsController extends BaseController
         ];
     }
 
+
     /** ID/kitId → prezzo in centesimi (da meta WP + fallback) */
     private function getUnitPriceCents(array $it): int
     {
-        // Hook per override esterno
+        // Hook override
         $filtered = \apply_filters('sbs_get_unit_price_cents', null, $it);
         if ($filtered !== null && \is_numeric($filtered)) {
             return \max(0, (int)$filtered);
         }
 
-        if (!empty($it['kitId'])) {
-            return $this->getKitPriceCents((int)$it['kitId']);
+        // Tolleranza: se "id" arriva come "kit:123", trattalo come kitId=123
+        $id    = $it['id']    ?? null;
+        $kitId = $it['kitId'] ?? null;
+
+        if (\is_string($id) && \strpos($id, 'kit:') === 0) {
+            $kitId = \substr($id, 4);
+            $id    = null;
         }
-        if (!empty($it['id'])) {
-            return $this->getProductPriceCents((int)$it['id']);
+
+        if (!empty($kitId)) {
+            return $this->getKitPriceCents((int)$kitId);
+        }
+        if (!empty($id)) {
+            return $this->getProductPriceCents((int)$id);
         }
         return 0;
     }
+
 
     /** Prezzo prodotto (post ID) in centesimi */
     private function getProductPriceCents(int $postId): int
@@ -339,13 +350,33 @@ class PaymentsController extends BaseController
 
     private function normalizeItems(array $items): array
     {
-        return array_map(function ($it) {
-            return [
-                'id'    => $it['id']    ?? null,
-                'kitId' => $it['kitId'] ?? null,
-                'qty'   => (int)($it['qty'] ?? 1),
+        $out = [];
+        foreach ($items as $it) {
+            $rawId    = $it['id']    ?? null;
+            $rawKitId = $it['kitId'] ?? null;
+
+            // Se "id" arriva come "kit:123", spostalo in kitId
+            if (\is_string($rawId) && \strpos($rawId, 'kit:') === 0) {
+                $rawKitId = \substr($rawId, 4);
+                $rawId    = null;
+            }
+
+            // Togli l'eventuale prefisso "kit:" anche su kitId per sicurezza
+            if (\is_string($rawKitId) && \strpos($rawKitId, 'kit:') === 0) {
+                $rawKitId = \substr($rawKitId, 4);
+            }
+
+            $pid   = \is_numeric($rawId)    ? (int)$rawId    : null;
+            $kid   = \is_numeric($rawKitId) ? (int)$rawKitId : null;
+            $qty   = \max(1, (int)($it['qty'] ?? 1));
+
+            $out[] = [
+                'id'    => $pid ?: null,
+                'kitId' => $kid ?: null,
+                'qty'   => $qty,
             ];
-        }, $items);
+        }
+        return $out;
     }
 
     private function mapStripeStatus(string $status): string

@@ -40,6 +40,8 @@
     return Number.isFinite(n) && n >= 0 ? n : null;
   };
 
+  const isKitId = (id) => (typeof id === 'string' && id.startsWith('kit:'));
+
   const pickMaxFromItem = (item) => {
     // Prendi solo campi NUMERICI; 'available' boolean viene ignorato
     // Ordine di preferenza: maxQty > stock > availability > available
@@ -68,10 +70,11 @@
         ...i,
         qty: Number(i.qty || 1),
         price: Number(i.price),
+        basePrice: Number(i.basePrice ?? i.price),
         maxQty: toNum(i.maxQty) ?? undefined
       })),
       token: null,
-
+      
       ensureToken() {
         if (this.token) return this.token;
         let t = window.localStorage.getItem('cart_token');
@@ -174,6 +177,7 @@
             name: item.name,
             image: item.image,
             price,
+            basePrice: price,
             qty: initialQty
           };
           if (cap != null) payload.maxQty = cap;
@@ -188,6 +192,15 @@
       setQty(id, qty) {
         const it = this.items.find(i => i.id === id);
         if (!it) return;
+
+        // I kit non devono cambiare quantità via UI / clamp esterni
+        if (isKitId(it.id)) {
+          if (it.qty !== 1) it.qty = 1;
+          this.save();
+          this.emitChanged?.();
+          return;
+        }
+
         let v = Math.max(1, Math.floor(Number(qty) || 1));
         const max = Number.isFinite(it.maxQty) ? it.maxQty
           : (Number.isFinite(it.stock) ? it.stock : null);
@@ -221,15 +234,38 @@
 
       // --- Persistenza ---
       save() {
+        // Protezione KIT: prezzo e qty fissi
+        this.items.forEach(it => {
+          if (isKitId(it.id)) {
+            const p = Number(it.price);
+            const bp = Number(it.basePrice);
+            if ((!Number.isFinite(p) || p <= 0) && Number.isFinite(bp) && bp > 0) {
+              it.price = bp; // ripristina
+            }
+            if (it.qty !== 1) it.qty = 1;   // forza qty 1
+          }
+        });
+
         const exp = this.items.length ? this.expiresAt : 0;
+
         const itemsToSave = this.items.map(i => {
           const out = { ...i };
-          if (toNum(out.maxQty) == null) delete out.maxQty; // non salvare null/undefined
+          // normalizza numeri
+          out.price = Number(out.price);
+          if (Number.isFinite(Number(out.basePrice))) {
+            out.basePrice = Number(out.basePrice);
+          } else {
+            out.basePrice = Number(out.price); // fallback
+          }
+          // non salvare maxQty null/undefined
+          if (toNum(out.maxQty) == null) delete out.maxQty;
           return out;
         });
+
+        // ✅ PERSISTENZA SU LS
         saveToStorage(itemsToSave, exp);
 
-        // Notifica cambiamenti del carrello (checkout ricalcola PI)
+        // 🔔 Notifica (checkout ricalcola PI)
         window.dispatchEvent(new CustomEvent('cart:changed', {
           detail: {
             items: itemsToSave,
