@@ -415,7 +415,7 @@ class PaymentsController extends BaseController
             if (!empty($v)) return $v;
         }
 
-        return 'sk_test_51S6smBItz3qkEFXxHRWm65G9MghvpZ7baeQXC7AwXbjlWY6CFfAeC3h8uzNdLAR0I6hy3RdBWuHMFkI1PPI36xjY00ddNrTG3G';
+        return my_env('STRIPE_SECRET');
     }
 
     private function clientIp(): string
