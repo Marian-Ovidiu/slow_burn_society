@@ -11,6 +11,7 @@
 namespace RankMath\Sitemap;
 
 use RankMath\Helper;
+use RankMath\Helpers\DB as DB_Helper;
 use RankMath\Helpers\Sitepress;
 use RankMath\Traits\Hooker;
 use RankMath\Sitemap\Html\Sitemap as Html_Sitemap;
@@ -114,10 +115,11 @@ class Sitemap {
 	 * @return string
 	 */
 	public function rank_math_build_sitemap_filter( $type ) {
-		global $sitepress_settings;
-		if ( isset( $sitepress_settings['language_negotiation_type'] ) && absint( $sitepress_settings['language_negotiation_type'] ) === 2 ) {
+		if ( Sitepress::get()->is_per_domain() ) {
 			return $type;
 		}
+
+		global $sitepress_settings;
 
 		// Before to build the sitemap and as we are on front-end just make sure the links won't be translated. The setting should not be updated in DB.
 		$sitepress_settings['auto_adjust_ids'] = 0;
@@ -236,7 +238,7 @@ class Sitemap {
 				GROUP BY p.post_type
 				ORDER BY p.post_modified_gmt DESC";
 
-				foreach ( $wpdb->get_results( $sql ) as $obj ) { // phpcs:ignore
+				foreach ( DB_Helper::get_results( $sql ) as $obj ) {
 					$post_type_dates[ $obj->post_type ] = $obj->date;
 				}
 			}

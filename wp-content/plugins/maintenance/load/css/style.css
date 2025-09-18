@@ -655,27 +655,27 @@ input[type="submit"]:hover{
 	}
 
 	.site-content h2.heading {
-		font-size: 24px
+		font-size: 30px;
 	}
 
 	.site-content .description h3 {
-		font-size: 18px
+		font-size: 18px;
 	}
 
 	.btn-open-login-form {
 		top: 10%;
-		font-size: 21px;
-		left: -44px;
-		width: 44px;
+		font-size: 32px;
+		left: -52px;
+		width: 52px;
 	}
 	#btn-sound {
 		margin-top:40px;
 	}
 
 	body > .login-form-container {
-		min-width: 266px;
-		max-width: 266px;
-		right: -266px
+		min-width: 290px;
+		max-width: 290px;
+		right: -293px;
 	}
 
 	.login-form input[type="text"],.login-form input[type="password"] {

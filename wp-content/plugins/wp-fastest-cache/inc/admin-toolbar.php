@@ -31,12 +31,11 @@
 		}
 
 		public function print_my_inline_script() {
-			?>
-			<script type="text/javascript">
-				var wpfc_ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";
-				var wpfc_nonce = "<?php echo wp_create_nonce("wpfc"); ?>";
-			</script>
-			<?php
+			$script = "
+				var wpfc_ajaxurl = '" . admin_url('admin-ajax.php') . "';
+				var wpfc_nonce = '" . wp_create_nonce("wpfc") . "';
+			";
+			echo wp_print_inline_script_tag($script);
 		}
 
 		public function wpfc_tweaked_toolbar_on_frontpage() {

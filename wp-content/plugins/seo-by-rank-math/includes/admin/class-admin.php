@@ -13,6 +13,7 @@ namespace RankMath\Admin;
 use RankMath\Runner;
 use RankMath\Helper;
 use RankMath\Helpers\Str;
+use RankMath\Helpers\DB as DB_Helper;
 use RankMath\Helpers\Param;
 use RankMath\Admin\Admin_Helper;
 use RankMath\Traits\Ajax;
@@ -41,8 +42,12 @@ class Admin implements Runner {
 		$this->action( 'save_post', 'canonical_check_notice' );
 		$this->action( 'cmb2_save_options-page_fields', 'update_is_configured_value', 10, 2 );
 		$this->filter( 'action_scheduler_pastdue_actions_check_pre', 'as_exclude_pastdue_actions' );
-		$this->action( 'rank_math/pro_badge', 'offer_icon' );
+		$this->filter( 'rank_math/pro_badge', 'offer_icon' );
 		$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
+
+		// Use woocommerce textdomain for the Actiion scheduler strings.
+		$this->filter( 'gettext', 'remap_action_scheduler_translation', 10, 3 );
+		$this->filter( 'gettext_with_context', 'remap_action_scheduler_translation_with_context', 10, 4 );
 
 		// AJAX.
 		$this->ajax( 'search_pages', 'search_pages' );
@@ -196,7 +201,7 @@ class Admin implements Runner {
 		}
 
 		global $wpdb;
-		$pages = $wpdb->get_results( // phpcs:ignore
+		$pages = DB_Helper::get_results(
 			$wpdb->prepare(
 				"SELECT ID, post_title FROM {$wpdb->prefix}posts WHERE post_type = 'page' AND post_status = 'publish' AND post_title LIKE %s",
 				"%{$wpdb->esc_like( $term )}%"
@@ -251,7 +256,7 @@ class Admin implements Runner {
 		}
 		$query .= sprintf( '%1$s.meta_key = \'rank_math_focus_keyword\' and ( %1$s.meta_value = %2$s OR %1$s.meta_value like %3$s ) and %1$s.%4$s_id != %5$d', $meta, '%s', '%s', $object_type, $object_id );
 
-		$data = $wpdb->get_row( $wpdb->prepare( $query, $keyword, $wpdb->esc_like( $keyword ) . ',%' ) ); // phpcs:ignore
+		$data = DB_Helper::get_row( $wpdb->prepare( $query, $keyword, $wpdb->esc_like( $keyword ) . ',%' ) );
 
 		$result['isNew'] = empty( $data );
 
@@ -320,6 +325,33 @@ class Admin implements Runner {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Remap Action Scheduler translation to use WooCommerce's text domain (no context).
+	 *
+	 * @param string $translated Translated text.
+	 * @param string $text       Original text.
+	 * @param string $domain     Text domain.
+	 * @return string Modified translated text.
+	 */
+	public function remap_action_scheduler_translation( $translated, $text, $domain ) {
+		// phpcs:ignore -- Use WooCommerce text domain for Action Scheduler strings.
+		return $domain === 'action-scheduler' && Helper::is_woocommerce_active() ? __( $text, 'woocommerce' ) : $translated;
+	}
+
+	/**
+	 * Remap Action Scheduler translation to use WooCommerce's text domain (with context).
+	 *
+	 * @param string $translated Translated text.
+	 * @param string $text       Original text.
+	 * @param string $context    Context information for translators.
+	 * @param string $domain     Text domain.
+	 * @return string Modified translated text.
+	 */
+	public function remap_action_scheduler_translation_with_context( $translated, $text, $context, $domain ) {
+		// phpcs:ignore -- Use WooCommerce text domain for Action Scheduler strings.
+		return $domain === 'action-scheduler' && Helper::is_woocommerce_active() ? _x( $text, $context, 'woocommerce' ) : $translated;
 	}
 
 	/**
@@ -462,6 +494,7 @@ class Admin implements Runner {
 		$holiday_start_time     = gmmktime( 17, 00, 00, 12, 20, $current_year ); // 20 Dec.
 		$holiday_end_time       = gmmktime( 17, 00, 00, 01, 07, 2023 ); // 07 Jan.
 
+		ob_start();
 		if (
 			( $time > $anniversary_start_time && $time < $anniversary_end_time ) ||
 			( $time > $holiday_start_time && $time < $holiday_end_time )
@@ -472,6 +505,8 @@ class Admin implements Runner {
 			</a>
 			<?php
 		}
+
+		return ob_get_clean();
 	}
 
 	/**

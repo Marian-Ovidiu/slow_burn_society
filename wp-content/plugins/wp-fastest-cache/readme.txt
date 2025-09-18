@@ -2,9 +2,9 @@
 Contributors: emrevona
 Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
-Requires at least: 3.3
+Requires at least: 5.3
 Tested up to: 6.8
-Stable tag: 1.3.7
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,7 +58,7 @@ WP Fastest Cache is not only a wp cache plugin but also a speed optimization wor
 
 <h4>Premium Performance Optimization</h4>
 
-The free version is enough to speed up your site but in the premium version there are extra features such as Mobile Cache, Widget Cache, Minify HTML Plus, Minify CSS Plus, Minify JS, Combine JS Plus, Defer Javascript, Optimize Images, Convert WebP, Database Cleanup, Google Fonts Async, Lazy Load for super fast load times.
+The free version is enough to speed up your site but in the premium version there are extra features such as Mobile Cache, Widget Cache, Minify HTML Plus, Minify CSS Plus, Minify JS, Combine JS Plus, Defer Javascript, Optimize Images, Convert WebP, Database Cleanup, Google Fonts Async, Lazy Load and Delay JS for super fast load times.
 
 1. Mobile Cache
 2. Widget Cache
@@ -72,6 +72,7 @@ The free version is enough to speed up your site but in the premium version ther
 10. Database Cleanup - The Database Cleanup feature clears out all of the garbage datas such as post revisions, trashed posts & pages, comments from trash & spam, trackbacks and pingbacks, transient options etc.
 11. Google Fonts Async
 12. Lazy Load - Defer offscreen images. Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive
+12. Delay JS - The Delay JavaScript feature helps reduce the 'Reduce unused JavaScript' warning in the Google PageSpeed Insights tool
 
 <h4>Information</h4>
 
@@ -116,6 +117,19 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.4.0 =
+* Fixed: support both old (elementor_experiment-e_element_cache) and new (elementor_element_cache_ttl) Elementor cache options for compatibility
+
+= 1.3.9 =
+* <strong>[Improvement]</strong> Replaced manual <script> output in print_my_inline_script() with wp_print_inline_script_tag() for better compatibility and cleaner code
+* Fixed: RewriteCond syntax to correctly detect HTTPS connections
+
+= 1.3.8 =
+* Added a condition to exclude <script type="module"> tags from js combining 
+* Fixed: Issue where the cache was not being cleared when a page was deleted
+* Fixed: PHP fatal error caused by an undefined function current_datetime() in cache.php on line 1130
+* Added support for fetching and processing multiple pages of Cloudflare zones to ensure all potential matches are considered
 
 = 1.3.7 =
 * <strong>[Improvement]</strong> Serve cached content via .htaccess rules instead of PHP when URLs include the fbclid query string

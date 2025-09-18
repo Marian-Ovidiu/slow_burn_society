@@ -14,6 +14,7 @@
 namespace RankMath\Sitemap\Providers;
 
 use RankMath\Helper;
+use RankMath\Helpers\DB as DB_Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Sitemap\Router;
 use RankMath\Sitemap\Sitemap;
@@ -128,7 +129,7 @@ class Post_Type implements Provider {
 					)
 					x WHERE rownum %% %d = 0 ORDER BY post_modified_gmt DESC";
 
-				$all_dates = $wpdb->get_col( $wpdb->prepare( $sql, $post_type, $max_entries ) ); // phpcs:ignore
+				$all_dates = DB_Helper::get_col( $wpdb->prepare( $sql, $post_type, $max_entries ) );
 			}
 
 			for ( $page_counter = 0; $page_counter < $max_pages; $page_counter++ ) {
@@ -238,6 +239,32 @@ class Post_Type implements Provider {
 	}
 
 	/**
+	 * Update the query to exclude canonical posts.
+	 *
+	 * @param string $join_filter  The join filter.
+	 * @param string $where_filter The where filter.
+	 * @param array  $post_types   The post types.
+	 *
+	 * @return void
+	 */
+	private function maybe_update_query_to_exclude_posts_with_canonical_urls( &$join_filter, &$where_filter, $post_types ) {
+		/**
+		 * Allows to decide if canonical urls should be excluded from the sitemap.
+		 *
+		 * @param bool $exlude_posts_with_canonical_urls
+		 * @param array|string $post_types The post types.
+		 */
+		$exlude_posts_with_canonical_urls = $this->do_filter( 'sitemap/exlude_posts_with_canonical_urls', false, $post_types );
+		if ( ! $exlude_posts_with_canonical_urls ) {
+			return;
+		}
+
+		global $wpdb;
+		$join_filter  .= " LEFT JOIN {$wpdb->postmeta} AS pm_canonical ON ( p.ID = pm_canonical.post_id AND pm_canonical.meta_key = 'rank_math_canonical_url' )";
+		$where_filter .= ' AND pm_canonical.meta_value IS NULL';
+	}
+
+	/**
 	 * Get count of posts for post type.
 	 *
 	 * @param string $post_types Post types to retrieve count for.
@@ -266,6 +293,8 @@ class Post_Type implements Provider {
 		 */
 		$where_filter = $this->do_filter( 'sitemap/post_count/where', '', $post_types );
 
+		$this->maybe_update_query_to_exclude_posts_with_canonical_urls( $join_filter, $where_filter, $post_types );
+
 		$sql = "SELECT COUNT( DISTINCT p.ID ) as count FROM {$wpdb->posts} as p
 		{$join_filter}
 		LEFT JOIN {$wpdb->postmeta} AS pm ON ( p.ID = pm.post_id AND pm.meta_key = 'rank_math_robots' )
@@ -277,7 +306,7 @@ class Post_Type implements Provider {
 		AND p.ID != '{$posts_to_exclude}'
 		{$where_filter}";
 
-		return (int) $wpdb->get_var( $sql ); // phpcs:ignore
+		return (int) DB_Helper::get_var( $sql );
 	}
 
 	/**
@@ -374,6 +403,8 @@ class Post_Type implements Provider {
 		 */
 		$where_filter = $this->do_filter( 'sitemap/get_posts/where', '', $post_types );
 
+		$this->maybe_update_query_to_exclude_posts_with_canonical_urls( $join_filter, $where_filter, [ $post_types ] );
+
 		$sql = "
 			SELECT l.ID, post_title, post_content, post_name, post_parent, post_author, post_modified_gmt, post_date, post_date_gmt, post_type
 			FROM (
@@ -392,7 +423,7 @@ class Post_Type implements Provider {
 			o JOIN {$wpdb->posts} l ON l.ID = o.ID
 		";
 
-		$posts = $wpdb->get_results( $wpdb->prepare( $sql, $count, $offset ) ); // phpcs:ignore
+		$posts = DB_Helper::get_results( $wpdb->prepare( $sql, $count, $offset ) );
 
 		$post_ids = [];
 		foreach ( $posts as $post ) {

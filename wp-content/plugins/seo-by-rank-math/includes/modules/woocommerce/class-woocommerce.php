@@ -14,6 +14,7 @@ use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Helpers\Str;
 use RankMath\Helpers\Param;
+use RankMath\Helpers\DB as DB_Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -59,12 +60,35 @@ class WooCommerce extends WC_Vars {
 
 		$this->integrations();
 
-		if ( $this->remove_product_base || $this->remove_category_base ) {
+		if ( $this->should_redirect() ) {
 			new Product_Redirection();
+			new Permalink_Watcher();
 		}
 
-		new Permalink_Watcher();
 		parent::__construct();
+	}
+
+	/**
+	 * Check if we should redirect product permalinks.
+	 *
+	 * @return bool
+	 */
+	private function should_redirect() {
+		$remove_base = $this->remove_product_base || $this->remove_category_base;
+		if ( ! $remove_base ) {
+			return false;
+		}
+
+		if ( ! function_exists( 'affiliate_wp' ) || ! isset( $_SERVER['REQUEST_URI'] ) ) {
+			return $remove_base;
+		}
+
+		$referral_var = affiliate_wp()->tracking->get_referral_var();
+		if ( strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), '/' . $referral_var . '/' ) === false ) {
+			return $remove_base;
+		}
+
+		return false;
 	}
 
 	/**
@@ -120,18 +144,18 @@ class WooCommerce extends WC_Vars {
 			$slug           = array_pop( $url );
 		}
 
-		if ( 0 === strpos( $slug, 'comment-page-' ) ) {
+		if ( ! empty( $slug ) && 0 === strpos( $slug, 'comment-page-' ) ) {
 			$replace['cpage'] = substr( $slug, strlen( 'comment-page-' ) );
 			$slug             = array_pop( $url );
 		}
 
-		if ( 0 === strpos( $slug, 'schema-preview' ) ) {
+		if ( ! empty( $slug ) && 0 === strpos( $slug, 'schema-preview' ) ) {
 			$replace['schema-preview'] = '';
 			$slug                      = array_pop( $url );
 		}
 
 		$query = "SELECT COUNT(ID) as count_id FROM {$wpdb->posts} WHERE post_name = %s AND post_type = %s";
-		$num   = intval( $wpdb->get_var( $wpdb->prepare( $query, [ $slug, 'product' ] ) ) ); // phpcs:ignore
+		$num   = intval( DB_Helper::get_var( $wpdb->prepare( $query, [ $slug, 'product' ] ) ) );
 		if ( $num > 0 ) {
 			$replace['page']      = '';
 			$replace['name']      = $slug;

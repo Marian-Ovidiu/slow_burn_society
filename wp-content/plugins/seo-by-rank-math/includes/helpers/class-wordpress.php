@@ -20,6 +20,7 @@ use RankMath\Helpers\Param;
 use RankMath\Helpers\Security;
 use stdClass;
 use WP_Screen;
+use WP_Error;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -112,6 +113,20 @@ trait WordPress {
 	}
 
 	/**
+	 * Get settings url.
+	 *
+	 * @param string $type Setting type.
+	 * @param string $page Page id.
+	 * @return string
+	 */
+	public static function get_settings_url( $type, $page ) {
+		$type = "options-{$type}";
+		$page = Helper::is_react_enabled() ? "&view=$page" : "#setting-panel-{$page}";
+
+		return self::get_admin_url( $type . $page );
+	}
+
+	/**
 	 * Get Rank Math Connect URL.
 	 *
 	 * @since 1.0.19
@@ -148,7 +163,7 @@ trait WordPress {
 		$business_type = [ 'news', 'business', 'webshop', 'otherbusiness' ];
 
 		if ( in_array( $site_type, $business_type, true ) ) {
-			return self::get_admin_url( 'options-titles#setting-panel-local' );
+			return self::get_settings_url( 'titles', 'local' );
 		}
 		return admin_url( 'admin.php?page=rank-math&view=modules' );
 	}
@@ -641,6 +656,7 @@ trait WordPress {
 		global $wp_filesystem;
 
 		if ( empty( $wp_filesystem ) ) {
+			global $wp_file_descriptions;
 			require_once ABSPATH . '/wp-admin/includes/file.php'; // @phpstan-ignore-line
 			WP_Filesystem();
 		}
@@ -756,15 +772,25 @@ trait WordPress {
 	 * to permit the upload of plain text (.txt) and JSON (.json) files via the media uploader.
 	 * It ensures the correct MIME types and file extensions are accepted.
 	 *
-	 * @return array Array of upload results, including file URL, path, and type, or error information.
+	 * @return array|WP_Error Array of upload results, including file URL, path, and type, or error information.
 	 */
 	public static function handle_file_upload() {
 		// Add upload hooks.
 		add_filter( 'upload_mimes', [ __CLASS__, 'allow_txt_upload' ] );
 		add_filter( 'wp_check_filetype_and_ext', [ __CLASS__, 'filetype_and_ext' ], 10, 3 );
 
-		// Do the upload.
-		$file = isset( $_FILES['import-me'] ) ? wp_handle_upload( $_FILES['import-me'], [ 'test_form' => false ] ) : '';
+		if ( isset( $_FILES['import-me'] ) ) {
+			// Do the upload.
+			if ( ! function_exists( 'wp_handle_upload' ) ) {
+				$required_file = ABSPATH . 'wp-admin/includes/file.php';
+				if ( file_exists( $required_file ) ) {
+					require_once $required_file; // @phpstan-ignore-line
+				}
+			}
+			$file = wp_handle_upload( $_FILES['import-me'], [ 'test_form' => false ] );
+		} else {
+			$file = new WP_Error( 'missing_file', __( 'No file selected for upload.', 'rank-math' ) );
+		}
 
 		// Remove upload hooks.
 		remove_filter( 'upload_mimes', [ __CLASS__, 'allow_txt_upload' ] );

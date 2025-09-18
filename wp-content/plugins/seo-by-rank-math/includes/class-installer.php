@@ -15,6 +15,7 @@ namespace RankMath;
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Watcher;
 use RankMath\Helper;
+use RankMath\Helpers\DB as DB_Helper;
 use RankMath\Admin\Admin_Helper;
 use RankMath\Role_Manager\Capability_Manager;
 
@@ -110,7 +111,7 @@ class Installer {
 	private function network_activate_deactivate( $activate ) {
 		global $wpdb;
 
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs WHERE archived = '0' AND spam = '0' AND deleted = '0'" );
+		$blog_ids = DB_Helper::get_col( "SELECT blog_id FROM $wpdb->blogs WHERE archived = '0' AND spam = '0' AND deleted = '0'" );
 		if ( empty( $blog_ids ) ) {
 			return;
 		}
@@ -308,6 +309,7 @@ class Installer {
 		}
 
 		add_option( 'rank_math_modules', $modules );
+		add_option( 'rank_math_react_settings_ui', 'on', '', false );
 		self::create_tables( $modules );
 	}
 
@@ -354,8 +356,6 @@ class Installer {
 					'console_caching_control'             => '90',
 					'console_email_reports'               => 'on',
 					'console_email_frequency'             => 'monthly',
-					'link_builder_links_per_page'         => '7',
-					'link_builder_links_per_target'       => '1',
 					'wc_remove_product_base'              => 'off',
 					'wc_remove_category_base'             => 'off',
 					'wc_remove_category_parent_slugs'     => 'off',
@@ -375,6 +375,7 @@ class Installer {
 					'analytics_stats'                     => 'on',
 					'toc_block_title'                     => 'Table of Contents',
 					'toc_block_list_style'                => 'ul',
+					'llms_post_types'                     => array_keys( $post_types ),
 				]
 			)
 		);
@@ -508,7 +509,7 @@ class Installer {
 		];
 
 		$defaults = [
-			'robots'       => [],
+			'robots'       => [ 'index' ],
 			'is_custom'    => 'off',
 			'rich_snippet' => isset( $rich_snippets[ $post_type ] ) ? $rich_snippets[ $post_type ] : 'off',
 			'article_type' => 'post' === $post_type ? 'BlogPosting' : 'Article',
@@ -570,7 +571,7 @@ class Installer {
 	 */
 	private function get_taxonomy_defaults( $taxonomy ) {
 		$defaults = [
-			'robots'    => [],
+			'robots'    => [ 'index' ],
 			'is_custom' => 'off',
 			'metabox'   => 'category' === $taxonomy ? 'on' : 'off',
 		];

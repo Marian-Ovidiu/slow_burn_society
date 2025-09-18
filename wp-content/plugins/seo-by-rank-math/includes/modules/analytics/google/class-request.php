@@ -12,6 +12,7 @@ namespace RankMath\Google;
 
 use RankMath\Helper;
 use WP_Error;
+use RankMath\Helpers\Schedule;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -348,7 +349,18 @@ class Request {
 			return;
 		}
 
-		$this->last_error = esc_html__( 'Unknown error, call get_response() to find out what happened.', 'rank-math' );
+		$message = esc_html__( 'Unknown error, call get_response() to find out what happened.', 'rank-math' );
+		$body    = wp_remote_retrieve_body( $response );
+		if ( ! empty( $body ) ) {
+			$body = json_decode( $body, true );
+			if ( ! empty( $body['error'] ) && ! empty( $body['error']['message'] ) ) {
+				$message = $body['error']['message'];
+			} elseif ( ! empty( $body['errors'] ) && is_array( $body['errors'] ) && ! empty( $body['errors'][0]['message'] ) ) {
+				$message = $body['errors'][0]['message'];
+			}
+		}
+
+		$this->last_error = $message;
 	}
 
 	/**
@@ -480,7 +492,7 @@ class Request {
 			return;
 		}
 
-		as_schedule_single_action(
+		Schedule::single_action(
 			time() + 60,
 			"rank_math/analytics/get_{$action}_data",
 			[ $start_date ],

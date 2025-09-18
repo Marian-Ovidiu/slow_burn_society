@@ -3,9 +3,9 @@ Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact form, schema-woven validation
 Tested up to: 6.8
-Requires at least: 6.6
+Requires at least: 6.7
 Requires PHP: 7.4
-Stable tag: 6.0.6
+Stable tag: 6.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,7 @@ If you activate certain features in this plugin, the contact form submitter's pe
 * [Constant Contact](https://www.constantcontact.com/legal/privacy-center)
 * [Brevo](https://www.brevo.com/legal/privacypolicy/)
 * [Stripe](https://stripe.com/privacy)
+* Turnstile ([Cloudflare](https://www.cloudflare.com/turnstile-privacy-policy/))
 
 == Installation ==
 
@@ -67,9 +68,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
-= 6.0.6 =
+= 6.1.1 =
 
-[https://contactform7.com/contact-form-7-606/](https://contactform7.com/contact-form-7-606/)
+[https://contactform7.com/contact-form-7-611/](https://contactform7.com/contact-form-7-611/)
+
+= 6.1 =
+
+[https://contactform7.com/contact-form-7-61/](https://contactform7.com/contact-form-7-61/)
 
 = 6.0.5 =
 
@@ -96,33 +101,5 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 = 6.0 =
 
 [https://contactform7.com/contact-form-7-60/](https://contactform7.com/contact-form-7-60/)
-
-= 5.9.7 =
-
-[https://contactform7.com/contact-form-7-597/](https://contactform7.com/contact-form-7-597/)
-
-= 5.9.6 =
-
-[https://contactform7.com/contact-form-7-596/](https://contactform7.com/contact-form-7-596/)
-
-= 5.9.5 =
-
-[https://contactform7.com/contact-form-7-595/](https://contactform7.com/contact-form-7-595/)
-
-= 5.9.4 =
-
-[https://contactform7.com/contact-form-7-594/](https://contactform7.com/contact-form-7-594/)
-
-= 5.9.3 =
-
-[https://contactform7.com/contact-form-7-593/](https://contactform7.com/contact-form-7-593/)
-
-= 5.9.2 =
-
-[https://contactform7.com/contact-form-7-592/](https://contactform7.com/contact-form-7-592/)
-
-= 5.9 =
-
-[https://contactform7.com/contact-form-7-59/](https://contactform7.com/contact-form-7-59/)
 
 == Upgrade Notice ==

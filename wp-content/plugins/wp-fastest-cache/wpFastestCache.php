@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 1.3.7
+Version: 1.4.0
 Author: Emre Vona
 Author URI: https://www.wpfastestcache.com/
 Text Domain: wp-fastest-cache
@@ -1491,7 +1491,7 @@ GNU General Public License for more details.
 
 
 				//for trash contents
-				if(preg_match("/\/\?p\=\d+/i", $permalink)){
+				if(preg_match("/\/\?(p|page_id)\=\d+/i", $permalink)){
 					$post = get_post($post_id);
 
 					$clone_post = clone $post;
