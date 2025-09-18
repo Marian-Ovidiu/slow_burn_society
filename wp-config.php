@@ -19,14 +19,14 @@
  */
 
 // ** Database settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
-define( 'DB_NAME', 'slow_burn' );
 
-/** Database username */
-define( 'DB_USER', 'root' );
+// define( 'DB_NAME', 'slow_burn' );
+// define( 'DB_USER', 'root' );
+// define( 'DB_PASSWORD', 'root' );
 
-/** Database password */
-define( 'DB_PASSWORD', 'root' );
+define( 'DB_NAME', 'u597020236_sbs' );
+define( 'DB_USER', 'u597020236_sbs' );
+define( 'DB_PASSWORD', '414984.Hmo' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
