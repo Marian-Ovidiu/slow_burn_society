@@ -1,0 +1,100 @@
+.hostinger-reach-block-dialog {
+	display: block;
+	flex-direction: column;
+	align-content: flex-start;
+	background: #fff;
+	color: #1D1E20;
+	padding: 20px;
+	gap: 14px;
+	font-size: 14px;
+	line-height: 20px;
+	bottom: 80px;
+	left: 20px;
+	position: fixed;
+	z-index: 100001;
+	max-width: 400px;
+	border-radius: 16px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.05);
+
+	&__actions {
+		display: flex;
+		justify-content: flex-start;
+		gap: 10px;
+	}
+
+	&__button_indicator {
+		height: 16px;
+		width: 16px;
+	}
+
+	&__button {
+		cursor: pointer;
+		text-align: center;
+		background: #673DE6;
+		color: #fff;
+		font-weight: 700;
+		font-size: 12px;
+		padding: 6px 16px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 10px;
+		border-radius: 8px;
+
+		&:hover {
+			background: #5029c2;
+		}
+
+		a {
+			text-decoration: none;
+
+			&:hover, &:focus, &:active {
+				color: #fff;
+				box-shadow: none;
+				outline: none;
+			}
+
+
+		}
+
+		svg {
+			height: 16px;
+			width: 16px;
+
+			path {
+				fill: #fff;
+			}
+		}
+
+	}
+
+	&__close {
+		cursor: pointer;
+
+		&:before, &:after {
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 2px;
+			background-color: #1D1E20;
+			top: 26px;
+			right: 16px;
+		}
+
+		&:before {
+			transform: rotate(45deg);
+		}
+
+		&:after {
+			transform: rotate(-45deg);
+		}
+
+		&:hover:before, &:hover:after {
+			background-color: #727272;
+		}
+	}
+}
+
+
+
+

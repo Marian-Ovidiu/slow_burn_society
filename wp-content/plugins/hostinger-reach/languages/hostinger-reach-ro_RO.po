@@ -1,0 +1,571 @@
+# Copyright (C) 2025 Hostinger
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Hostinger Reach 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hostinger-reach\n"
+"Last-Translator: \n"
+"Language-Team: Romanian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
+"PO-Revision-Date: 2025-08-17 13:16+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: hostinger-reach\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 :(((n%100>19)||(( n%100==0)&&(n!"
+"=0)))? 2 : 1));\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+
+#: src/Setup/Assets.php:135
+msgid "(no title)"
+msgstr "(fără titlu)"
+
+#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+msgid "Active"
+msgstr "Activ"
+
+#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+msgid "Add form"
+msgstr "Adaugă formular"
+
+#: hostinger-reach.php:49
+msgid "Attention:"
+msgstr "Atenție:"
+
+#: src/Setup/Assets.php:87
+msgid "Average CTOR"
+msgstr "CTOR mediu"
+
+#: src/Setup/Assets.php:111
+msgid "Background image for"
+msgstr "Imagine de fundal pentru"
+
+#: src/Setup/Assets.php:110
+msgid "Banner background image for"
+msgstr "Banner imagine de fundal pentru"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block description"
+msgid "Subscription form for Hostinger Reach"
+msgstr "Formular de abonare pentru Hostinger Reach"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block title"
+msgid "Reach Subscription Form"
+msgstr "Formular de abonare Reach"
+
+#: src/Setup/Assets.php:85
+msgid "Campaigns"
+msgstr "Campanii"
+
+#: src/Setup/Assets.php:118
+msgid "Cancel "
+msgstr "Anulează"
+
+#: src/Setup/Assets.php:97
+#| msgid ""
+#| "Choose how you’d like to manage forms on your website. Create a new form "
+#| "with Hostinger Reach or connect a third-party plugin."
+msgid ""
+"Choose how you'd like to manage forms on your website. Create a new form "
+"with Hostinger Reach or connect a third-party plugin."
+msgstr ""
+"Alege modul în care dorești să gestionezi formularele de pe site-ul tău. "
+"Creează un formular nou cu Hostinger Reach sau conectează un plugin de la un "
+"terț."
+
+#: src/Setup/Assets.php:113
+msgid ""
+"Click-to-open rate tells you what percent of opens resulted in a click too. "
+"A good CTOR is 6-17%, depending on your industry."
+msgstr ""
+"Rata click-to-open îți spune ce procent din deschideri au dus și la un click."
+" Un CTOR bun este de 6-17%, în funcție de industrie."
+
+#: src/Setup/Assets.php:133
+msgid "Collapse {pluginName} details"
+msgstr "Închide detaliile {pluginName}"
+
+#: src/Setup/Assets.php:146
+msgid "Connect"
+msgstr "Conectează"
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:16
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:49
+msgid "Connect Now"
+msgstr "Conectează acum"
+
+#: src/Setup/Assets.php:74
+msgid "Connect site"
+msgstr "Conectează site-ul"
+
+#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+msgid "Contact Form 7"
+msgstr "Formular de contact 7"
+
+#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:240
+msgid "Contact List"
+msgstr "Lista de contacte"
+
+#: src/Setup/Assets.php:92
+msgid "Create campaign"
+msgstr "Creează campanie"
+
+#: src/Setup/Assets.php:70
+msgid ""
+"Create email campaigns using AI-crafted templates that match your style. "
+"Instantly sync with your WordPress site and connect with your audience "
+"easily."
+msgstr ""
+"Creează campanii de email folosind șabloane create de AI care se potrivesc "
+"stilului tău. Sincronizează instantaneu cu site-ul tău WordPress și "
+"conectează-te facil cu publicul tău."
+
+#: src/Setup/Assets.php:141
+msgid "Create form"
+msgstr "Creează formular"
+
+#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:243
+msgid "Create New List"
+msgstr "Creează o listă nouă"
+
+#: src/Setup/Assets.php:93
+msgid "Create template"
+msgstr "Creează un șablon"
+
+#: src/Setup/Assets.php:145
+msgid "Disconnect"
+msgstr "Deconectează"
+
+#: src/Setup/Assets.php:119
+msgid "Disconnect "
+msgstr "Deconectează"
+
+#: src/Setup/Assets.php:72
+msgid "Disconnect it to link this site instead."
+msgstr "Deconectează-l pentru a lega acest site în schimb."
+
+#: src/Setup/Assets.php:128
+msgid "Disconnect plugin"
+msgstr "Deconectează pluginul"
+
+#: src/Setup/Assets.php:116
+msgid "Disconnect plugin?"
+msgstr "Deconectezi pluginul?"
+
+#: src/Setup/Assets.php:117
+msgid ""
+"Disconnecting will stop new contacts from being collected. You can reconnect "
+"or use a different form anytime."
+msgstr ""
+"Deconectarea va opri colectarea de noi contacte. Poți reconecta sau poți "
+"utiliza un alt formular oricând."
+
+#: src/Setup/Assets.php:126
+msgid "Edit form"
+msgstr "Editează formularul"
+
+#: src/Blocks/SubscriptionFormBlock.php:59
+#: frontend/blocks/subscription-block/src/edit.js:181
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:289
+msgid "Email"
+msgstr "Email"
+
+#: src/Admin/Menus.php:20 src/Admin/Menus.php:21 src/Admin/Menus.php:34
+msgid "Email Marketing"
+msgstr "Email marketing"
+
+#: src/Setup/Assets.php:77
+msgid "Email marketing background with gradient design"
+msgstr "Fundal email marketing cu design gradient"
+
+#: src/Setup/Assets.php:78
+msgid ""
+"Email marketing illustration featuring envelopes and communication icons"
+msgstr "Ilustrație email marketing cu plicuri și pictograme de comunicare"
+
+#: src/Setup/Assets.php:82
+msgid "Emails"
+msgstr "Emailuri"
+
+#: src/Setup/Assets.php:121
+msgid "Entries"
+msgstr "Intrări"
+
+#: src/Setup/Assets.php:132
+msgid "Expand {pluginName} details"
+msgstr "Extinde detaliile {pluginName}"
+
+#: src/Setup/Assets.php:102
+msgid "FAQ"
+msgstr "Întrebări frecvente"
+
+#: frontend/blocks/subscription-block/src/edit.js:127
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:235
+msgid "Form ID"
+msgstr "ID formular"
+
+#: src/Setup/Assets.php:95
+msgid "Forms"
+msgstr "Formulare"
+
+#: src/Setup/Assets.php:127
+msgid "Go to plugin"
+msgstr "Mergi la plugin"
+
+#: src/Setup/Assets.php:75
+msgid "Go to Reach"
+msgstr "Mergi la Reach"
+
+#. Author of the plugin
+#: hostinger-reach.php
+msgid "Hostinger"
+msgstr "Hostinger"
+
+#. Plugin Name of the plugin
+#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
+#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+msgid "Hostinger Reach"
+msgstr "Hostinger Reach"
+
+#: src/Setup/Assets.php:104
+msgid ""
+"Hostinger Reach is an AI-powered email marketing tool for small businesses "
+"and creators. It supports your entire email marketing journey—from building "
+"contact lists to sending campaigns and tracking results."
+msgstr ""
+"Hostinger Reach este un instrument de email marketing bazat pe AI pentru "
+"întreprinderile mici și creatori. Acesta te sprijină în călătoria ta de "
+"email marketing - de la crearea listelor de contacte la trimiterea "
+"campaniilor și urmărirea rezultatelor."
+
+#: src/Setup/Assets.php:106
+msgid ""
+"Hostinger Reach is built for simplicity, speed, and results – no design or "
+"marketing experience needed. Unlike most email tools, at the core of Reach "
+"is its AI-powered template creator. Whether it is a product launch, special "
+"offer, or newsletter update, it instantly crafts a professional, mobile-"
+"friendly email. It not only writes the content for you; it also suggests the "
+"best layout for your message and saves your style settings so you're never "
+"starting from scratch.<br><br>Every template is customizable, so your emails "
+"reflect your brand's look, feel, and voice. And because the templates are "
+"built using proven best practices, they're optimized for readability, "
+"accessibility, and reader engagement."
+msgstr ""
+"Hostinger Reach este creat pentru simplitate, viteză și rezultate - nu ai "
+"nevoie de experiență în design sau marketing. Spre deosebire de majoritatea "
+"instrumentelor de email, în centrul Reach se află creatorul său de șabloane "
+"cu AI. Fie că este vorba de lansarea unui produs, de o ofertă specială sau "
+"de actualizarea buletinului informativ, acesta creează instantaneu un email "
+"profesional, adaptabil pentru dispozitive mobile. Nu numai că scrie "
+"conținutul pentru tine, dar îți sugerează și cel mai bun aspect pentru "
+"mesajul tău și salvează setările de stil, astfel încât să nu o iei niciodată "
+"de la zero.<br><br>Orice șablon este personalizabil, astfel încât emailurile "
+"tale să reflecte aspectul, senzația și vocea brandului tău. Și pentru că "
+"șabloanele sunt create folosind cele mai bune practici dovedite, ele sunt "
+"optimizate pentru lizibilitate, accesibilitate și implicarea cititorilor."
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:51
+msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
+msgstr "Hostinger Reach necesită minim o versiune PHP <b>%s</b>."
+
+#: src/Setup/Assets.php:105
+msgid "How is Hostinger Reach different from other email marketing apps?"
+msgstr ""
+"Care este diferența dintre Hostinger Reach și alte aplicații de email "
+"marketing?"
+
+#: src/Setup/Assets.php:107
+msgid "How much does it cost to use Hostinger Reach?"
+msgstr "Cât costă să folosești Hostinger Reach?"
+
+#. Plugin URI of the plugin
+#: hostinger-reach.php
+msgid "https://hostinger.com"
+msgstr "https://hostinger.com"
+
+#. Author URI of the plugin
+#: hostinger-reach.php
+msgid "https://www.hostinger.com/email-marketing"
+msgstr "https://www.hostinger.com/email-marketing"
+
+#: src/Setup/Assets.php:124
+msgid "Inactive"
+msgstr "Inactiv"
+
+#: src/Setup/Assets.php:144
+msgid "Install and connect"
+msgstr "Instalează și conectează"
+
+#: src/Setup/Assets.php:143
+msgid "Installed plugins"
+msgstr "Plugin-uri instalate"
+
+#. Description of the plugin
+#: hostinger-reach.php
+msgid "Integrate your WordPress site with Hostinger Reach."
+msgstr "Integrează site-ul WordPress cu Hostinger Reach."
+
+#: src/Setup/Assets.php:139
+msgid ""
+"Make sure the people you contact expect your emails and are okay with "
+"receiving them."
+msgstr ""
+"Asigură-te că persoanele pe care le contactezi așteaptă emailurile tale și "
+"sunt de acord să le primească."
+
+#: src/Setup/Assets.php:73
+msgid "Manage"
+msgstr "Gestionează"
+
+#: src/Blocks/SubscriptionFormBlock.php:67
+#: frontend/blocks/subscription-block/src/edit.js:188
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:296
+msgid "Name"
+msgstr "Nume"
+
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:263
+msgid "Name for the new Contact List"
+msgstr "Nume pentru noua listă de contacte"
+
+#: src/Setup/Assets.php:140
+msgid "New contact form"
+msgstr "Formular de contact nou"
+
+#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:258
+msgid "New Contact List"
+msgstr "Listă de contacte nouă"
+
+#: src/Setup/Assets.php:100
+msgid "New page"
+msgstr "Pagină nouă"
+
+#: src/Setup/Assets.php:89
+msgid "New subscribers"
+msgstr "Abonați noi"
+
+#: src/Setup/Assets.php:134
+msgid "No forms found for this integration."
+msgstr "Nu s-au găsit formulare pentru această integrare."
+
+#: src/Setup/Assets.php:101
+msgid "No pages available. Create a new page to get started."
+msgstr "Nu există pagini disponibile. Creează o pagină nouă pentru a începe."
+
+#: src/Setup/Assets.php:109
+msgid "opens in new tab"
+msgstr "se deschide în fila nouă"
+
+#: src/Setup/Assets.php:120
+msgid "Plugin"
+msgstr "Plugin"
+
+#: src/Setup/Assets.php:136
+msgid "Plugin connected successfully"
+msgstr "Plugin conectat cu succes"
+
+#: src/Setup/Assets.php:137
+msgid "Plugin disconnected successfully"
+msgstr "Plugin deconectat cu succes"
+
+#: src/Setup/Assets.php:71
+msgid "Reach is already connected to another site."
+msgstr "Reach este deja conectat la un alt site."
+
+#: src/Setup/Assets.php:108
+#| msgid ""
+#| "Reach offers a free plan for one year– perfect for getting started. Paid "
+#| "plans are based on how many unique contacts you aim to reach and how many "
+#| "emails you send monthly. As your audience grows, you can upgrade to a "
+#| "plan that fits your needs. Reach does not limit your contact list, so you "
+#| "don't need to worry about lost data and can consistently grow your "
+#| "audience."
+msgid ""
+"Reach offers a <b>free plan</b> for one year– perfect for getting started. "
+"Paid plans are based on how many unique contacts you aim to reach and how "
+"many emails you send monthly. As your audience grows, you can upgrade to a "
+"plan that fits your needs. Reach does not limit your contact list, so you "
+"don't need to worry about lost data and can consistently grow your audience."
+msgstr ""
+"Reach oferă un plan gratuit pentru un an - perfect pentru început. Planurile "
+"plătite se bazează pe numărul de contacte unice la care dorești să ajungi și "
+"pe numărul de emailuri pe care le trimiți lunar. Pe măsură ce audiența ta "
+"crește, poți face upgrade la un plan care se potrivește nevoilor tale. Reach "
+"nu-ți limitează lista de contacte, astfel încât nu trebuie să-ți faci griji "
+"cu privire la pierderea datelor și îți poți crește constant audiența."
+
+#: frontend/blocks/subscription-block/src/index.js:9
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:444
+msgid "Reach Subscription Form"
+msgstr "Formular de abonare Reach"
+
+#: src/Setup/Assets.php:84
+msgid "Remaining"
+msgstr "Rămase "
+
+#: src/Setup/Assets.php:114
+msgid "Select page"
+msgstr "Selectează pagina"
+
+#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+msgid "Sent"
+msgstr "Trimis"
+
+#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:231
+msgid "Settings"
+msgstr "Setări"
+
+#: frontend/blocks/subscription-block/src/edit.js:158
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:266
+msgid "Show Name Field?"
+msgstr "Afișezi câmpul Nume?"
+
+#: frontend/blocks/subscription-block/src/edit.js:166
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:274
+msgid "Show Surname Field?"
+msgstr "Afișezi câmpul de Nume de familie?"
+
+#: src/Setup/Assets.php:68
+msgid "Something went wrong"
+msgstr "Ceva nu a mers bine"
+
+#: frontend/blocks/subscription-block/src/edit.js:111
+#: frontend/blocks/subscription-block/src/edit.js:116
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:219
+#: frontend/dist/blocks/subscription.js:224
+msgid "Something went wrong. Please try again"
+msgstr "Ceva nu a mers bine. Te rugăm să încerci din nou"
+
+#: src/Blocks/SubscriptionFormBlock.php:19
+msgid "Something went wrong. Please try again."
+msgstr "Ceva nu a mers bine. Te rugăm să încerci din nou."
+
+#: src/Setup/Assets.php:96
+msgid "Start collecting form submissions"
+msgstr "Începe să colectezi formulare"
+
+#: src/Setup/Assets.php:122
+msgid "Status"
+msgstr "Statut"
+
+#: src/Blocks/SubscriptionFormBlock.php:83
+msgid "Subscribe"
+msgstr "Abonează-te"
+
+#: src/Setup/Assets.php:88
+msgid "Subscribers"
+msgstr "Abonați "
+
+#: src/Blocks/SubscriptionFormBlock.php:75
+#: frontend/blocks/subscription-block/src/edit.js:194
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:302
+msgid "Surname"
+msgstr "Nume de familie"
+
+#: frontend/blocks/subscription-block/src/edit.js:108
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:216
+msgid "Thanks for subscribing"
+msgstr "Îți mulțumim pentru abonament"
+
+#: src/Blocks/SubscriptionFormBlock.php:18
+msgid "Thanks for subscribing."
+msgstr "Îți mulțumim pentru abonament."
+
+#: src/Setup/Assets.php:79
+msgid "This month"
+msgstr "Luna aceasta "
+
+#: src/Setup/Assets.php:91
+msgid "Total subscribers"
+msgstr "Total abonați "
+
+#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:237
+msgid "Unique identifier for this form"
+msgstr "Identificator unic pentru acest formular"
+
+#: src/Setup/Assets.php:90
+msgid "Unsubscribes"
+msgstr "Dezabonare"
+
+#: src/Setup/Assets.php:81
+msgid "Upgrade"
+msgstr "Upgrade"
+
+#: src/Setup/Assets.php:112
+msgid "usage statistics"
+msgstr "statistici de utilizare "
+
+#: src/Setup/Assets.php:125
+msgid "View form"
+msgstr "Vezi formularul"
+
+#: src/Setup/Assets.php:142
+msgid "View supported plugins"
+msgstr "Vezi pluginurile acceptate"
+
+#: src/Setup/Assets.php:69
+msgid "Welcome to Reach"
+msgstr "Bine ai venit la Reach"
+
+#: src/Setup/Assets.php:103
+msgid "What is Hostinger Reach email marketing service?"
+msgstr "Ce este serviciul de email marketing Hostinger Reach?"
+
+#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+msgid "WP Forms Lite"
+msgstr "WP Forms Lite "
+
+#. translators: %s - form id.
+#: src/Integrations/WpFormsLiteIntegration.php:41
+msgid "WP Forms Lite %s"
+msgstr "WP Forms Lite %s "
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:7
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:40
+msgid "You are not connected to Hostinger Reach"
+msgstr "Nu ești conectat la Hostinger Reach"
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:10
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:43
+msgid ""
+"You are not connected to Hostinger Reach. To gain full access to this block, "
+"you need to connect your Hostinger Reach account."
+msgstr ""
+"Nu ești conectat la Hostinger Reach. Pentru a obține acces complet la acest "
+"bloc, trebuie să te conectezi la contul Hostinger Reach."
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:55
+msgid "You are running <b>%s</b> PHP version."
+msgstr "Utilizezi versiunea PHP <b>%s</b>."
+
+#: src/Setup/Assets.php:80
+msgid "Your plan"
+msgstr "Planul tău"

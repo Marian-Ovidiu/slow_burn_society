@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Hostinger WordPress Menu management package\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-21T05:56:52+00:00\n"
+"PO-Revision-Date: 2025-08-18 12:11+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: hostinger-wp-menu-package\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+
+#: src/Menus.php:224
+msgid "Action Required:"
+msgstr "必要なアクション："
+
+#: src/Menus.php:241
+msgid "Affected plugins:"
+msgstr "影響を受けるプラグイン："
+
+#: src/Menus.php:221
+msgid "Attention! Outdated Plugins Detected"
+msgstr "注：未更新のプラグインが検出されました"
+
+#: src/templates/menu.php:73
+msgid "Go to hPanel"
+msgstr "hPanelへ"
+
+#: src/Menus.php:63 src/Menus.php:117 src/Menus.php:118
+msgid "Hostinger"
+msgstr "Hostinger"
+
+#. Name of the plugin
+#, fuzzy
+msgid "Hostinger WordPress Menu management package"
+msgstr "Hostinger WordPress メニュー管理パッケージ"
+
+#. URI of the plugin
+#, fuzzy
+msgid "https://hostinger.com"
+msgstr "https://hostinger.com"
+
+#. Description of the plugin
+#, fuzzy
+msgid "Menu management package."
+msgstr "メニュー管理パッケージ。"
+
+#: src/Menus.php:233
+msgid "Outdated plugins:"
+msgstr "未更新のプラグイン："
+
+# Assuming this is a CTA button.
+#: src/Menus.php:250
+msgid "Update plugins"
+msgstr "プラグインを更新"
+
+#: src/Menus.php:224
+msgid ""
+"Your website has some outdated plugins that might prevent new features from "
+"working properly."
+msgstr "Webサイトに以前のバージョンのプラグインが含まれているため、新しい機能が正常に動作しない可能性があります。"

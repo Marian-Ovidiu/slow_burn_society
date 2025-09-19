@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Hostinger WordPress Menu management package\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-21T05:56:52+00:00\n"
+"PO-Revision-Date: 2025-08-18 12:12+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: hostinger-wp-menu-package\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+
+#: src/Menus.php:224
+msgid "Action Required:"
+msgstr "Yêu cầu hành động:"
+
+#: src/Menus.php:241
+msgid "Affected plugins:"
+msgstr "Plugin bị ảnh hưởng:"
+
+#: src/Menus.php:221
+msgid "Attention! Outdated Plugins Detected"
+msgstr "Chú ý! Phát hiện plugin lỗi thời"
+
+#: src/templates/menu.php:73
+msgid "Go to hPanel"
+msgstr "Đi đến hPanel"
+
+#: src/Menus.php:63 src/Menus.php:117 src/Menus.php:118
+msgid "Hostinger"
+msgstr "Hostinger"
+
+#. Name of the plugin
+#, fuzzy
+msgid "Hostinger WordPress Menu management package"
+msgstr "Gói quản lý menu WordPress của Hostinger"
+
+#. URI of the plugin
+#, fuzzy
+msgid "https://hostinger.com"
+msgstr "https://hostinger.com"
+
+#. Description of the plugin
+#, fuzzy
+msgid "Menu management package."
+msgstr "Gói quản lý menu."
+
+#: src/Menus.php:233
+msgid "Outdated plugins:"
+msgstr "Plugin lỗi thời:"
+
+#: src/Menus.php:250
+msgid "Update plugins"
+msgstr "Cập nhật plugin"
+
+#: src/Menus.php:224
+msgid ""
+"Your website has some outdated plugins that might prevent new features from "
+"working properly."
+msgstr ""
+"Trang web của bạn có một số plugin lỗi thời có thể làm một số tính năng mới "
+"không hoạt động được."

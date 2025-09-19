@@ -1,0 +1,476 @@
+# Copyright (C) 2025 Hostinger
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Hostinger Reach 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hostinger-reach\n"
+"Last-Translator: \n"
+"Language-Team: Hindi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
+"PO-Revision-Date: 2025-08-19 09:11+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: hostinger-reach\n"
+"Language: hi_IN\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+
+#. Plugin Name of the plugin
+#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:83
+#: src/Setup/Assets.php:128
+msgid "Hostinger Reach"
+msgstr "Hostinger Reach"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: hostinger-reach.php
+msgid "https://hostinger.com"
+msgstr "https://www.hostinger.com/in-hi"
+
+#. Description of the plugin
+#: hostinger-reach.php
+msgid "Integrate your WordPress site with Hostinger Reach."
+msgstr "अपनी WordPress साइट Hostinger Reach के साथ जोड़ें।"
+
+#. Author of the plugin
+#: hostinger-reach.php
+msgid "Hostinger"
+msgstr "Hostinger"
+
+#: hostinger-reach.php:50
+msgid "Attention:"
+msgstr "ध्यान दें:"
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:52
+msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
+msgstr "Hostinger Reach के लिए <b>%s</b> का न्यूनतम PHP संस्करण आवश्यक है।"
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:56
+msgid "You are running <b>%s</b> PHP version."
+msgstr "आप  <b>%s</b> PHP संस्करण चला रहे हैं।"
+
+#: src/Admin/Menus.php:20 src/Admin/Menus.php:21 src/Admin/Menus.php:34
+msgid "Email Marketing"
+msgstr "ईमेल मार्केटिंग"
+
+#: src/Blocks/SubscriptionFormBlock.php:18
+msgid "Thanks for subscribing."
+msgstr "सब्सक्राइब करने के लिए धन्यवाद।"
+
+#: src/Blocks/SubscriptionFormBlock.php:19
+msgid "Something went wrong. Please try again."
+msgstr "कोई त्रुटि आ गई। कृपया दोबारा प्रयास करें।"
+
+#: src/Blocks/SubscriptionFormBlock.php:59
+#: frontend/blocks/subscription-block/src/edit.js:153
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:239
+msgid "Email"
+msgstr "ईमेल"
+
+#: src/Blocks/SubscriptionFormBlock.php:67
+#: frontend/blocks/subscription-block/src/edit.js:160
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:246
+msgid "Name"
+msgstr "नाम"
+
+#: src/Blocks/SubscriptionFormBlock.php:75
+#: frontend/blocks/subscription-block/src/edit.js:166
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:252
+msgid "Surname"
+msgstr "उपनाम"
+
+#: src/Blocks/SubscriptionFormBlock.php:83
+msgid "Subscribe"
+msgstr "सब्सक्राइब करें"
+
+#: src/Integrations/ContactForm7Integration.php:79
+msgid "Contact Form 7"
+msgstr "कॉन्टैक्ट फॉर्म 7"
+
+#. translators: %s - form id.
+#: src/Integrations/WpFormsLiteIntegration.php:38
+msgid "WP Forms Lite %s"
+msgstr "WP Forms Lite %s"
+
+#: src/Integrations/WpFormsLiteIntegration.php:76
+msgid "WP Forms Lite"
+msgstr "WP Forms Lite"
+
+#: src/Setup/Assets.php:68
+msgid "Something went wrong"
+msgstr "कोई त्रुटि आ गई"
+
+#: src/Setup/Assets.php:69
+msgid "Welcome to Reach"
+msgstr "Reach में आपका स्वागत है"
+
+#: src/Setup/Assets.php:70
+msgid ""
+"Create email campaigns using AI-crafted templates that match your style. "
+"Instantly sync with your WordPress site and connect with your audience "
+"easily."
+msgstr ""
+"AI-निर्मित टेम्प्लेट्स  के साथ ऐसे ईमेल कैंपेन बनाएं जो आपकी शैली को दर्शाते "
+"हों। इन्हें तुरंत अपनी WordPress साइट के साथ सिंक करें और आसानी से अपनी "
+"ऑडियंस के साथ कनेक्ट करें।"
+
+#: src/Setup/Assets.php:71
+msgid "Reach is already connected to another site."
+msgstr "Reach पहले से ही किसी अन्य साइट के साथ कनेक्टेड है।"
+
+#: src/Setup/Assets.php:72
+msgid "Disconnect it to link this site instead."
+msgstr "इसे डिस्कनेक्ट करके यह साइट लिंक करें"
+
+#: src/Setup/Assets.php:73
+msgid "Manage"
+msgstr "प्रबंधित करें"
+
+#: src/Setup/Assets.php:74
+msgid "Start for free"
+msgstr "फ्री ट्रायल शुरू करें"
+
+#: src/Setup/Assets.php:75
+msgid "This month"
+msgstr "वर्तमान महीना"
+
+#: src/Setup/Assets.php:76
+msgid "Your plan"
+msgstr "आपका प्लान"
+
+#: src/Setup/Assets.php:77
+msgid "Upgrade"
+msgstr "अपग्रेड करें"
+
+#: src/Setup/Assets.php:78
+msgid "Emails"
+msgstr "ईमेल्स"
+
+#: src/Setup/Assets.php:79 src/Setup/Assets.php:82
+msgid "Sent"
+msgstr "भेज दिया गया है"
+
+# Please follow this structure while inserting variables:
+# {number} ईमेल शेष हैं
+#: src/Setup/Assets.php:80 src/Setup/Assets.php:107
+msgid "Remaining"
+msgstr "ईमेल शेष हैं"
+
+#: src/Setup/Assets.php:81 src/Setup/Assets.php:88
+msgid "Campaigns"
+msgstr "कैंपेंस"
+
+#: src/Setup/Assets.php:83
+msgid "Average CTOR"
+msgstr "औसतन CTOR"
+
+#: src/Setup/Assets.php:84
+msgid "Subscribers"
+msgstr "सब्सक्राइबर्स"
+
+#: src/Setup/Assets.php:85
+msgid "New subscribers"
+msgstr "नए सब्सक्राइबर्स"
+
+#: src/Setup/Assets.php:86
+msgid "Unsubscribes"
+msgstr "इतने लोगों ने अनसब्सक्राइब किया"
+
+#: src/Setup/Assets.php:87
+msgid "Total subscribers"
+msgstr "कुल सब्सक्राइबर्स"
+
+#: src/Setup/Assets.php:89
+msgid "Templates"
+msgstr "टेम्प्लेट्स"
+
+#: src/Setup/Assets.php:90 frontend/blocks/subscription-block/src/edit.js:97
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:183
+msgid "Settings"
+msgstr "सेटिंग्स"
+
+#: src/Setup/Assets.php:91
+msgid "Forms"
+msgstr "फार्म्स"
+
+#: src/Setup/Assets.php:92 src/Setup/Assets.php:95 src/Setup/Assets.php:98
+msgid "Add form"
+msgstr "फॉर्म जोड़ें"
+
+#: src/Setup/Assets.php:93
+msgid "Start collecting form submissions"
+msgstr "जमा हुए फॉर्म्स इकट्ठा करना शुरू करें"
+
+#: src/Setup/Assets.php:94
+msgid ""
+"Choose how you’d like to manage forms on your website. Create a new form "
+"with Hostinger Reach or connect a third-party plugin."
+msgstr ""
+"आप अपनी वेबसाइट पर फॉर्म्स का प्रबंधन कैसे करना चाहते हैं इसका चयन करें। "
+"Hostinger Reach के साथ एक नया फॉर्म बनाएं या एक तृतीय-पक्ष प्लगइन कनेक्ट "
+"करें।"
+
+#: src/Setup/Assets.php:96
+msgid "Add more forms"
+msgstr "अधिक फॉर्म जोड़ें"
+
+#: src/Setup/Assets.php:97
+msgid ""
+"Connect more forms to expand your contact list and capture leads from "
+"different pages."
+msgstr ""
+"अपने कॉन्टैक्ट्स की सूची बढ़ाने के लिए अधिक फॉर्म्स कनेक्ट करें और विभिन्न "
+"पेजों से लीड्स इकट्ठा करें।"
+
+#: src/Setup/Assets.php:99
+msgid "New page"
+msgstr "नया पेज"
+
+#: src/Setup/Assets.php:100
+msgid "FAQ"
+msgstr "सामान्यत: पूछे जाने वाले प्रश्न"
+
+#: src/Setup/Assets.php:101
+msgid "What is Hostinger Reach email marketing service?"
+msgstr "Hostinger Reach की ईमेल मार्केटिंग सेवा क्या है?"
+
+#: src/Setup/Assets.php:102
+msgid ""
+"Hostinger Reach is an AI-powered email marketing tool for small businesses "
+"and creators. It supports your entire email marketing journey—from building "
+"contact lists to sending campaigns and tracking results."
+msgstr ""
+"Hostinger Reach छोटे व्यवसायों और क्रिएटर्स के लिए बनाया गया AI-संचालित ईमेल "
+"मार्केटिंग टूल है। आपके ईमेल मार्केटिंग सफर में यह आपका पूरा साथ देता है – "
+"कॉन्टैक्ट सूचियां बनाने से लेकर कैंपेन भेजने और परिणाम ट्रैक करने तक।"
+
+#: src/Setup/Assets.php:103
+msgid "How is Hostinger Reach different from other email marketing apps?"
+msgstr "Hostinger Reach और अन्य ईमेल मार्केटिंग ऐप्स में क्या अंतर है?"
+
+#: src/Setup/Assets.php:104
+msgid ""
+"Hostinger Reach is built for simplicity, speed, and results – no design or "
+"marketing experience needed. Unlike most email tools, at the core of Reach "
+"is its AI-powered template creator. Whether it is a product launch, special "
+"offer, or newsletter update, it instantly crafts a professional, mobile-"
+"friendly email. It not only writes the content for you; it also suggests the "
+"best layout for your message and saves your style settings so you're never "
+"starting from scratch.<br><br>Every template is customizable, so your emails "
+"reflect your brand's look, feel, and voice. And because the templates are "
+"built using proven best practices, they're optimized for readability, "
+"accessibility, and reader engagement."
+msgstr ""
+"Hostinger Reach सरलता, गति और उत्तम परिणामों के लिए बनाया गया है। इसमें किसी "
+"डिज़ाइन या मार्केटिंग अनुभव की आवश्यकता नहीं है। अधिकतम ईमेल टूल्स के विपरीत,"
+" इसके शीर्ष पर इसका AI-संचालित टेम्पलेट क्रिएटर होता है। यह प्रोडक्ट लॉन्च, "
+"विशेष ऑफर, या न्यूजलेटर अपडेट जैसे अन्य इवेंट्स के लिए तुरंत प्रोफेशनल और "
+"मोबाइल-फ्रेंडली ईमेल बनाता है। यह न केवल आपका ईमेल लिखता है, बल्कि आपके "
+"संदेश के लिए उपयुक्त लेआउट भी सुझाता है और आपकी स्टाइल सेटिंग्स को भी सेव "
+"करता है, जिससे आपको अगली बार शुरू से शुरुआत न करनी पड़े।<br><br>आप प्रत्येक "
+"टेम्पलेट को कस्टमाइज़ कर सकते हैं, जिससे आपका ईमेल आपके ब्रांड का लुक, उसकी "
+"अनुभूति और टोन दर्शा पाए। क्योंकि हमारे टेम्पलेट्स सिद्ध सर्वोत्तम प्रथाओं "
+"के अनुरूप बनाए गए हैं, यह पढ़ने और ऐक्सेस करने में आसानी और पाठकों के साथ "
+"जुड़ाव बनाने के लिए ऑप्टिमाइज किए गए हैं।"
+
+#: src/Setup/Assets.php:105
+msgid "How much does it cost to use Hostinger Reach?"
+msgstr "Hostinger Reach का उपयोग करने की कीमत क्या है?"
+
+#: src/Setup/Assets.php:106
+msgid ""
+"Reach offers a free plan for one year– perfect for getting started. Paid "
+"plans are based on how many unique contacts you aim to reach and how many "
+"emails you send monthly. As your audience grows, you can upgrade to a plan "
+"that fits your needs. Reach does not limit your contact list, so you don't "
+"need to worry about lost data and can consistently grow your audience."
+msgstr ""
+"Reach पहले वर्ष के लिए निःशुल्क प्लान प्रदान करता है, जो शुरुआती लोगों के "
+"लिए उपयुक्त है। आप कितने नए कॉन्टैक्ट टारगेट करना चाहते हैं और कितने मासिक "
+"ईमेल भेजना चाहते हैं उसके आधार पर अपने सशुल्क प्लान का चयन करें। एक बार आपकी "
+"ऑडियंस बढ़ने लगे, तो आप अपनी आवश्यकताओं के अनुसार प्लान अपग्रेड कर सकते हैं। "
+"Reach के साथ आप असीमित कॉन्टैक्ट सूचियां बना सकते हैं। तो आप अपना डेटा खोने "
+"की चिंता किए बिना निरंतर अपनी ऑडियंस बढ़ा सकते हैं।"
+
+#: src/Setup/Assets.php:108
+msgid "opens in new tab"
+msgstr "नए टैब में खुलता है"
+
+# Please include the colon in the Hindi version.
+#: src/Setup/Assets.php:109
+msgid "Banner background image for"
+msgstr "बैनर बैकग्राउंड इमेज इसके लिए है:"
+
+# Please include the colon in the Hindi version.
+#: src/Setup/Assets.php:110
+msgid "Background image for"
+msgstr "बैकग्राउंड इमेज इसके लिए है:"
+
+#: src/Setup/Assets.php:111
+msgid "usage statistics"
+msgstr "उपयोग के आंकड़ें"
+
+# Please follow this structure while inserting variables:
+# {number} में से शेष हैं
+#: src/Setup/Assets.php:112
+msgid "remaining out of"
+msgstr "में से शेष हैं"
+
+#: src/Setup/Assets.php:113
+msgid "total"
+msgstr "कुल"
+
+#: src/Setup/Assets.php:114
+msgid "Progress: {current} of {total} used ({percentage}%)"
+msgstr "प्रगति: {total} में से {current} उपयोग किए गए ({percentage}%)"
+
+#: src/Setup/Assets.php:115
+msgid ""
+"Click-to-open rate tells you what percent of opens resulted in a click too. "
+"A good CTOR is 6-17%, depending on your industry."
+msgstr ""
+"क्लिक-टू-ओपन दर यह दर्शाता है कि कितने प्रतिशत ओपंस क्लिक्स में परिवर्तित "
+"हुए। एक अच्छा CTOR 6 से 17% के बीच होता है, और यह आपके उद्योग पर निर्भर करता "
+"है।"
+
+#: src/Setup/Assets.php:116
+msgid "Add form clicked"
+msgstr "फॉर्म जोड़ें"
+
+#: src/Setup/Assets.php:117
+msgid "Select page"
+msgstr "पेज चुनें"
+
+#: src/Setup/Assets.php:118
+msgid "Plugin"
+msgstr "प्लगइन"
+
+#: src/Setup/Assets.php:119
+msgid "Entries"
+msgstr "प्रविष्टियां"
+
+#: src/Setup/Assets.php:120
+msgid "Status"
+msgstr "स्टेटस"
+
+#: src/Setup/Assets.php:121
+msgid "Active"
+msgstr "सक्रिय"
+
+#: src/Setup/Assets.php:122
+msgid "Inactive"
+msgstr "असक्रिय"
+
+#: src/Setup/Assets.php:123
+msgid "Go to plugin"
+msgstr "प्लगइन पर जाएं"
+
+#: src/Setup/Assets.php:124
+msgid "Disconnect"
+msgstr "डिस्कनेक्ट करें"
+
+#: src/Setup/Assets.php:125
+msgid "View form"
+msgstr "फॉर्म देखें"
+
+#: src/Setup/Assets.php:126
+msgid "Edit form"
+msgstr "फॉर्म एडिट करें"
+
+#: src/Setup/Assets.php:127
+msgid "Loading plugins..."
+msgstr "प्लगइंस लोड किए जा रहे हैं..."
+
+#: src/Setup/Assets.php:129
+msgid "Expand {pluginName} details"
+msgstr "{pluginName} विवरण खोलें"
+
+#: src/Setup/Assets.php:130
+msgid "Collapse {pluginName} details"
+msgstr "{pluginName} विवरण बंद करें"
+
+#: frontend/blocks/subscription-block/src/edit.js:82
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:168
+msgid "Thanks for subscribing"
+msgstr "सब्सक्राइब करने के लिए धन्यवाद"
+
+#: frontend/blocks/subscription-block/src/edit.js:85
+#: frontend/blocks/subscription-block/src/edit.js:90
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:171
+#: frontend/dist/blocks/subscription.js:176
+msgid "Something went wrong. Please try again"
+msgstr "कोई त्रुटि आ गई। कृपया दोबारा प्रयास करें"
+
+#: frontend/blocks/subscription-block/src/edit.js:100
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:186
+msgid "Form ID"
+msgstr "फॉर्म ID"
+
+#: frontend/blocks/subscription-block/src/edit.js:102
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:188
+msgid "Unique identifier for this form"
+msgstr "इस फॉर्म का यूनीक आइडेंटिफायर"
+
+#: frontend/blocks/subscription-block/src/edit.js:105
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:191
+msgid "Contact List"
+msgstr "कॉन्टैक्ट्स की सूची"
+
+#: frontend/blocks/subscription-block/src/edit.js:108
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:194
+msgid "Create New List"
+msgstr "नई सूची बनाएं"
+
+#: frontend/blocks/subscription-block/src/edit.js:123
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:209
+msgid "New Contact List"
+msgstr "नई कॉन्टैक्ट सूची"
+
+#: frontend/blocks/subscription-block/src/edit.js:128
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:214
+msgid "Name for the new Contact List"
+msgstr "नई कॉन्टैक्ट सूची का नाम"
+
+#: frontend/blocks/subscription-block/src/edit.js:131
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:217
+msgid "Show Name Field?"
+msgstr "नाम वाला फील्ड दिखाएं?"
+
+#: frontend/blocks/subscription-block/src/edit.js:139
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:225
+msgid "Show Surname Field?"
+msgstr "उपनाम वाला फील्ड दिखाएं?"
+
+#: frontend/blocks/subscription-block/src/index.js:9
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:394
+msgid "Reach Subscription Form"
+msgstr "Reach सब्सक्रिप्शन फॉर्म"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block title"
+msgid "Reach Subscription Form"
+msgstr "Reach सब्सक्रिप्शन फॉर्म"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block description"
+msgid "Subscription form for Hostinger Reach"
+msgstr "Hostinger Reach का सब्सक्रिप्शन फॉर्म"

@@ -1,0 +1,66 @@
+.hostinger-reach-block-subscription-form {
+
+	.hostinger-reach-block-form-fields {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		&--inline {
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: end;
+			width: 100%;
+			gap: 0.5rem;
+
+			.hostinger-reach-block-form-field {
+				min-width: 70%
+			}
+
+			.hostinger-reach-block-submit {
+				min-width: 30%;
+			}
+		}
+	}
+
+	.hostinger-reach-block-submit {
+		border-width: 0;
+		margin-top: var(--wp--preset--spacing--20);
+		align-content: center;
+		box-sizing: border-box;
+		cursor: pointer;
+		display: inline-block;
+		height: 100%;
+		text-align: center;
+		width: 100%;
+		word-break: break-word;
+		font-weight: 500;
+		min-height: 40px;
+	}
+
+	.hostinger-reach-block-form-field {
+		margin-top: 8px;
+	}
+
+	label {
+		display: block;
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 1.4;
+		text-transform: uppercase;
+		margin-bottom: calc(8px);
+		padding: 0;
+	}
+
+	input {
+		display: block;
+		width: 100%;
+		padding: 3px 10px;
+		min-height: 40px;
+		box-shadow: 0 0 0 transparent;
+		border-radius: 4px;
+		border: 1px solid #8c8f94;
+		background-color: #fff;
+		color: #2c3338;
+		box-sizing: border-box;
+	}
+}

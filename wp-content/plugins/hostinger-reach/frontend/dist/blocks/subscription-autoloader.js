@@ -1,0 +1,2 @@
+wp.domReady(function(){new Promise(function(e){var t=wp.data.subscribe(function(){(wp.data.select("core/editor").isCleanNewPost()||wp.data.select("core/block-editor").getBlockCount()>0)&&(t(),e())})}).then(function(){var e=wp.blocks.createBlock("hostinger-reach/subscription",{});setTimeout(function(){wp.data.dispatch("core/block-editor").insertBlocks(e)},0)})});
+//# sourceMappingURL=subscription-autoloader.js.map

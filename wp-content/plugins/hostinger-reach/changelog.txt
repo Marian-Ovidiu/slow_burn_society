@@ -1,0 +1,72 @@
+Changelog
+=========
+
+1.0.0 (2025-08-06)
+
+- Initial release
+
+1.0.1 (2025-08-06)
+
+- Bump version logic
+
+1.0.2 (2025-08-12)
+
+- Update translations
+- Fix: loader in select page redirection
+- Fix: Apostrophe is not displayed correctly in page name on Select page modal
+- Fix: Link Go to Reach in welcome screen should open in new tab
+- Fix: Buttons are not aligned in Forms
+- Fix: Subscription form not being auto-loaded sometimes
+- Fix: Change Menu load priority
+- Tweak: Toasts UI
+- Tweak:  Add scrollbar to select page modal
+- Tweak: Add header to overview page
+
+1.0.3 (2025-08-21)
+
+- Fix: Replace Connect Hero image
+- Fix: Reach plugin content not visible when no other Hostinger plugin is installed
+- Feat: Implement ServerSideRendering component in the Gutenberg Block
+
+1.0.4 (2025-08-25)
+
+- Fix: Lock background scroll if a modal is open
+- Fix: Remove Warnings when running FE linter
+- Fix: Footer and View form links
+- Feat: Add satisfaction survey
+
+1.0.5 (2025-08-26)
+
+- Fix: Assets compiler flag
+
+1.0.6 (2025-09-01)
+
+- Feature: Elementor integration
+- Tweak: Load plugin entries if any 3rd party plugin is active
+- Tweak: Update translations
+- Tweak: Remove Bootstrap dependencies
+- Fix: update Reach URLs to use new route structure
+
+1.0.7 (2025-09-08)
+
+- Feature: Add Dialog when a post is published with Reach Block
+- Fix: Add/edit forms for elementor pages doesn't open Elementor
+- Fix: Elementor pages with Reach forms not recognized
+- Fix: Submit button style overrides theme styles
+- Fix: Prevent Toggle On/Off an invalid form
+- Dev: Update PR templates
+- Dev: Add staging support for Reach API
+- Dev: Fix Lint workflow
+- Dev: Implement JavaScript unit test coverage
+
+1.0.8 (2025-09-11)
+
+- Feature: Integration with WooCommerce Checkout
+- Tweak: Include Add Form entry in the Integrations menu
+- Fix: Routes not working with simple Permalinks
+
+1.0.9 (2025-09-15)
+
+- Feature: Send metadata with contacts
+- Feature: Readme update
+- Feature: Dependency update

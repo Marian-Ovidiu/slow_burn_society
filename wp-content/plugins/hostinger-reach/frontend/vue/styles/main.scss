@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+
+@import "./tooltip.scss";
+@import "./surveys.scss";
+
+#hostinger-reach-app {
+	@import "./utilities.scss";
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	.flex-container {
+		min-width: 0;
+		overflow: hidden;
+	}
+}

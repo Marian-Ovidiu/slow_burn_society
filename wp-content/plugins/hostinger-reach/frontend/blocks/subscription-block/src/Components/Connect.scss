@@ -1,0 +1,27 @@
+.hostinger-reach-block-connect {
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	background: #fff6e9;
+	padding: 14px;
+	font-size: 14px;
+	margin: 28px 0 14px;
+
+
+	&__title {
+		color: #1d1e20;
+		font-weight: 700;
+		margin-bottom: 4px;
+	}
+
+	&__subtitle {
+		color: #727586;
+		margin-bottom: 4px;
+	}
+
+	a {
+		color: rgba(var(--bs-link-color-rgb), var(--bs-link-opacity, 1));
+		text-decoration: underline;
+	}
+
+}

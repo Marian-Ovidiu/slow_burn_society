@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "hostinger-reach/subscription",
+	"title": "Reach Subscription Form",
+	"category": "common",
+	"icon": "email",
+	"description": "Subscription form for Hostinger Reach",
+	"textdomain": "hostinger-reach",
+	"attributes": {
+    "formId": {
+      "type": "string",
+      "default": ""
+    },
+		"showName": {
+			"type": "boolean",
+			"default": false
+		},
+		"showSurname": {
+			"type": "boolean",
+			"default": false
+		},
+		"contactList": {
+			"type": "string",
+			"default": ""
+		},
+    "layout": {
+      "type": "string",
+      "default": "default",
+      "enum": ["default", "inline"]
+    }
+  },
+	"supports": {
+		"html": false
+	}
+}

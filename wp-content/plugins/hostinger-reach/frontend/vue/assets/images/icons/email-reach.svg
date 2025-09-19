@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Email envelope -->
+  <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Reach/broadcast waves -->
+  <path d="M16 2c3.5 3.5 3.5 6.5 0 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <path d="M18 4c2 2 2 4 0 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  
+  <!-- Small connecting dot -->
+  <circle cx="15" cy="7" r="1.5" fill="currentColor"/>
+</svg> 

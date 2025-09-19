@@ -1,0 +1,541 @@
+# Copyright (C) 2025 Hostinger
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Hostinger Reach 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hostinger-reach\n"
+"Last-Translator: Teresia Triutami\n"
+"Language-Team: Chinese (China)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
+"PO-Revision-Date: 2025-08-26 14:04+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: hostinger-reach\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+
+#: src/Setup/Assets.php:135
+msgid "(no title)"
+msgstr "(无标题）"
+
+#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+msgid "Active"
+msgstr "已激活"
+
+#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+msgid "Add form"
+msgstr "添加表单"
+
+#: hostinger-reach.php:49
+msgid "Attention:"
+msgstr "请注意："
+
+#: src/Setup/Assets.php:87
+msgid "Average CTOR"
+msgstr "平均 CTOR"
+
+#: src/Setup/Assets.php:111
+msgid "Background image for"
+msgstr "背景图片"
+
+#: src/Setup/Assets.php:110
+msgid "Banner background image for"
+msgstr "横幅背景图片"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block description"
+msgid "Subscription form for Hostinger Reach"
+msgstr "Hostinger Reach订阅表"
+
+#: frontend/blocks/subscription-block/block.json
+msgctxt "block title"
+msgid "Reach Subscription Form"
+msgstr "订阅表单"
+
+#: src/Setup/Assets.php:85
+msgid "Campaigns"
+msgstr "营销活动"
+
+#: src/Setup/Assets.php:118
+msgid "Cancel "
+msgstr "取消"
+
+#: src/Setup/Assets.php:97
+#| msgid ""
+#| "Choose how you’d like to manage forms on your website. Create a new form "
+#| "with Hostinger Reach or connect a third-party plugin."
+msgid ""
+"Choose how you'd like to manage forms on your website. Create a new form "
+"with Hostinger Reach or connect a third-party plugin."
+msgstr "选择管理网站表单的方式。使用Hostinger Reach创建新表单或连接第三方插件。"
+
+#: src/Setup/Assets.php:113
+msgid ""
+"Click-to-open rate tells you what percent of opens resulted in a click too. "
+"A good CTOR is 6-17%, depending on your industry."
+msgstr "点击打开率告诉您有多少百分比的打开也会带来点击。良好的点击打开率为 6-17%，具体取决于您所在的行业。"
+
+#: src/Setup/Assets.php:133
+msgid "Collapse {pluginName} details"
+msgstr "折叠 {pluginName} 详情"
+
+#: src/Setup/Assets.php:146
+msgid "Connect"
+msgstr "连接"
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:16
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:49
+msgid "Connect Now"
+msgstr "立即连接"
+
+#: src/Setup/Assets.php:74
+msgid "Connect site"
+msgstr "连接网站"
+
+#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+msgid "Contact Form 7"
+msgstr "联系表单 7"
+
+#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:240
+msgid "Contact List"
+msgstr "联系人列表"
+
+#: src/Setup/Assets.php:92
+msgid "Create campaign"
+msgstr "创建活动"
+
+#: src/Setup/Assets.php:70
+msgid ""
+"Create email campaigns using AI-crafted templates that match your style. "
+"Instantly sync with your WordPress site and connect with your audience "
+"easily."
+msgstr "使用符合您风格的AI模板创建电子邮件营销活动。与您的 WordPress 网站即时同步，轻松与受众建立联系。"
+
+#: src/Setup/Assets.php:141
+msgid "Create form"
+msgstr "创建表单"
+
+#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:243
+msgid "Create New List"
+msgstr "创建新列表"
+
+#: src/Setup/Assets.php:93
+msgid "Create template"
+msgstr "创建模板"
+
+#: src/Setup/Assets.php:145
+msgid "Disconnect"
+msgstr "断开"
+
+#: src/Setup/Assets.php:119
+msgid "Disconnect "
+msgstr "断开"
+
+#: src/Setup/Assets.php:72
+msgid "Disconnect it to link this site instead."
+msgstr "断开连接，转而链接本网站。"
+
+#: src/Setup/Assets.php:128
+msgid "Disconnect plugin"
+msgstr "断开插件"
+
+#: src/Setup/Assets.php:116
+msgid "Disconnect plugin?"
+msgstr "是否断开插件？"
+
+#: src/Setup/Assets.php:117
+msgid ""
+"Disconnecting will stop new contacts from being collected. You can reconnect "
+"or use a different form anytime."
+msgstr "断开连接将停止收集新的联系人。您可以随时重新连接或使用其他表单。"
+
+#: src/Setup/Assets.php:126
+msgid "Edit form"
+msgstr "编辑表单"
+
+#: src/Blocks/SubscriptionFormBlock.php:59
+#: frontend/blocks/subscription-block/src/edit.js:181
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:289
+msgid "Email"
+msgstr "电子邮件"
+
+#: src/Admin/Menus.php:20 src/Admin/Menus.php:21 src/Admin/Menus.php:34
+msgid "Email Marketing"
+msgstr "电子邮件营销"
+
+#: src/Setup/Assets.php:77
+msgid "Email marketing background with gradient design"
+msgstr "具有渐变设计的电子邮件营销背景"
+
+#: src/Setup/Assets.php:78
+msgid ""
+"Email marketing illustration featuring envelopes and communication icons"
+msgstr "以信封和通信图标为特色的电子邮件营销插图"
+
+#: src/Setup/Assets.php:82
+msgid "Emails"
+msgstr "电子邮件"
+
+#: src/Setup/Assets.php:121
+msgid "Entries"
+msgstr "记录"
+
+#: src/Setup/Assets.php:132
+msgid "Expand {pluginName} details"
+msgstr "展开 {pluginName} 的详细信息"
+
+#: src/Setup/Assets.php:102
+msgid "FAQ"
+msgstr "常见问题"
+
+#: frontend/blocks/subscription-block/src/edit.js:127
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:235
+msgid "Form ID"
+msgstr "表单 ID"
+
+#: src/Setup/Assets.php:95
+msgid "Forms"
+msgstr "表单"
+
+#: src/Setup/Assets.php:127
+msgid "Go to plugin"
+msgstr "转到插件"
+
+#: src/Setup/Assets.php:75
+msgid "Go to Reach"
+msgstr "转到Reach"
+
+#. Author of the plugin
+#: hostinger-reach.php
+msgid "Hostinger"
+msgstr "Hostinger"
+
+#. Plugin Name of the plugin
+#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
+#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+msgid "Hostinger Reach"
+msgstr "Hostinger Reach"
+
+#: src/Setup/Assets.php:104
+msgid ""
+"Hostinger Reach is an AI-powered email marketing tool for small businesses "
+"and creators. It supports your entire email marketing journey—from building "
+"contact lists to sending campaigns and tracking results."
+msgstr ""
+"Hostinger Reach是一款面向小型企业和创作者的人工智能电子邮件营销工具。它支持整个电子邮件营销过程--"
+"从建立联系人列表到发送营销活动和跟踪结果。"
+
+#: src/Setup/Assets.php:106
+msgid ""
+"Hostinger Reach is built for simplicity, speed, and results – no design or "
+"marketing experience needed. Unlike most email tools, at the core of Reach "
+"is its AI-powered template creator. Whether it is a product launch, special "
+"offer, or newsletter update, it instantly crafts a professional, mobile-"
+"friendly email. It not only writes the content for you; it also suggests the "
+"best layout for your message and saves your style settings so you're never "
+"starting from scratch.<br><br>Every template is customizable, so your emails "
+"reflect your brand's look, feel, and voice. And because the templates are "
+"built using proven best practices, they're optimized for readability, "
+"accessibility, and reader engagement."
+msgstr ""
+"Hostinger "
+"Reach简单、快速、高效，无需设计或营销经验。与大多数电子邮件工具不同，Reach的核心是其AI驱动的模板创建器。无论是产品发布、特别优惠还是时事通讯更新，它都能立即制作出专业、移动友好的电子邮件。它不仅能为您编写内容，还能为您的信息提出最佳布局建议，并保存您的风格设置，让您无需从头开始。<br"
+"><br>"
+"每个模板都可自定义，因此您的电子邮件都能反映出您的品牌外观、感觉和声音。此外，由于这些模板是采用经过验证的最佳实践构建的，因此它们在可读性、可访问性和读者参与度方面都得到了优化。"
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:51
+msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
+msgstr "Hostinger Reach要求最低PHP版本<b>%s</b>。"
+
+#: src/Setup/Assets.php:105
+msgid "How is Hostinger Reach different from other email marketing apps?"
+msgstr "Hostinger Reach与其他电子邮件营销应用程序有何不同？"
+
+#: src/Setup/Assets.php:107
+msgid "How much does it cost to use Hostinger Reach?"
+msgstr "使用Hostinger Reach的费用是多少？"
+
+#. Plugin URI of the plugin
+#: hostinger-reach.php
+msgid "https://hostinger.com"
+msgstr "https://hostinger.com"
+
+#. Author URI of the plugin
+#: hostinger-reach.php
+msgid "https://www.hostinger.com/email-marketing"
+msgstr "https://www.hostinger.com/email-marketing"
+
+#: src/Setup/Assets.php:124
+msgid "Inactive"
+msgstr "未激活"
+
+#: src/Setup/Assets.php:144
+msgid "Install and connect"
+msgstr "安装和连接"
+
+#: src/Setup/Assets.php:143
+msgid "Installed plugins"
+msgstr "已安装的插件"
+
+#. Description of the plugin
+#: hostinger-reach.php
+msgid "Integrate your WordPress site with Hostinger Reach."
+msgstr "将您的WordPress网站与Hostinger Reach整合。"
+
+#: src/Setup/Assets.php:139
+msgid ""
+"Make sure the people you contact expect your emails and are okay with "
+"receiving them."
+msgstr "确保联系人希望收到您的电子邮件，并同意接收。"
+
+#: src/Setup/Assets.php:73
+msgid "Manage"
+msgstr "管理"
+
+#: src/Blocks/SubscriptionFormBlock.php:67
+#: frontend/blocks/subscription-block/src/edit.js:188
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:296
+msgid "Name"
+msgstr "名称"
+
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:263
+msgid "Name for the new Contact List"
+msgstr "新联系人列表的名称"
+
+#: src/Setup/Assets.php:140
+msgid "New contact form"
+msgstr "新的联系表单"
+
+#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:258
+msgid "New Contact List"
+msgstr "新联系人名单"
+
+#: src/Setup/Assets.php:100
+msgid "New page"
+msgstr "新页面"
+
+#: src/Setup/Assets.php:89
+msgid "New subscribers"
+msgstr "新用户"
+
+#: src/Setup/Assets.php:134
+msgid "No forms found for this integration."
+msgstr "未找到该整合的表格。"
+
+#: src/Setup/Assets.php:101
+msgid "No pages available. Create a new page to get started."
+msgstr "没有可用页面。创建新页面。"
+
+#: src/Setup/Assets.php:109
+msgid "opens in new tab"
+msgstr "在新标签页打开"
+
+#: src/Setup/Assets.php:120
+msgid "Plugin"
+msgstr "插件"
+
+#: src/Setup/Assets.php:136
+msgid "Plugin connected successfully"
+msgstr "插件连接成功"
+
+#: src/Setup/Assets.php:137
+msgid "Plugin disconnected successfully"
+msgstr "插件成功断开连接"
+
+#: src/Setup/Assets.php:71
+msgid "Reach is already connected to another site."
+msgstr "Reach 已连接到另一个站点。"
+
+#: src/Setup/Assets.php:108
+#| msgid ""
+#| "Reach offers a free plan for one year– perfect for getting started. Paid "
+#| "plans are based on how many unique contacts you aim to reach and how many "
+#| "emails you send monthly. As your audience grows, you can upgrade to a "
+#| "plan that fits your needs. Reach does not limit your contact list, so you "
+#| "don't need to worry about lost data and can consistently grow your "
+#| "audience."
+msgid ""
+"Reach offers a <b>free plan</b> for one year– perfect for getting started. "
+"Paid plans are based on how many unique contacts you aim to reach and how "
+"many emails you send monthly. As your audience grows, you can upgrade to a "
+"plan that fits your needs. Reach does not limit your contact list, so you "
+"don't need to worry about lost data and can consistently grow your audience."
+msgstr ""
+"Reach "
+"提供为期一年的免费套餐，非常适合新手入门。付费套餐根据触达的联系人数量以及每月发送电子邮件数量而定。随着受众的增加，您可以升级到更适合您需要的套餐。Reach"
+" 不会限制您的联系人列表，因此您不必担心数据丢失，可以持续增加您的受众。"
+
+#: frontend/blocks/subscription-block/src/index.js:9
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:444
+msgid "Reach Subscription Form"
+msgstr "订阅表单"
+
+#: src/Setup/Assets.php:84
+msgid "Remaining"
+msgstr "剩余"
+
+#: src/Setup/Assets.php:114
+msgid "Select page"
+msgstr "选择页面"
+
+#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+msgid "Sent"
+msgstr "已发送"
+
+#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:231
+msgid "Settings"
+msgstr "设置"
+
+#: frontend/blocks/subscription-block/src/edit.js:158
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:266
+msgid "Show Name Field?"
+msgstr "是否显示姓氏字段？"
+
+#: frontend/blocks/subscription-block/src/edit.js:166
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:274
+msgid "Show Surname Field?"
+msgstr "是否显示姓氏字段？"
+
+#: src/Setup/Assets.php:68
+msgid "Something went wrong"
+msgstr "出错了"
+
+#: frontend/blocks/subscription-block/src/edit.js:111
+#: frontend/blocks/subscription-block/src/edit.js:116
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:219
+#: frontend/dist/blocks/subscription.js:224
+msgid "Something went wrong. Please try again"
+msgstr "出错了。请重试"
+
+#: src/Blocks/SubscriptionFormBlock.php:19
+msgid "Something went wrong. Please try again."
+msgstr "出错了。请重试。"
+
+#: src/Setup/Assets.php:96
+msgid "Start collecting form submissions"
+msgstr "开始收集提交的表单"
+
+#: src/Setup/Assets.php:122
+msgid "Status"
+msgstr "状态"
+
+#: src/Blocks/SubscriptionFormBlock.php:83
+msgid "Subscribe"
+msgstr "订阅"
+
+#: src/Setup/Assets.php:88
+msgid "Subscribers"
+msgstr "订阅者"
+
+#: src/Blocks/SubscriptionFormBlock.php:75
+#: frontend/blocks/subscription-block/src/edit.js:194
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:302
+msgid "Surname"
+msgstr "姓氏"
+
+#: frontend/blocks/subscription-block/src/edit.js:108
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:216
+msgid "Thanks for subscribing"
+msgstr "感谢您的订阅"
+
+#: src/Blocks/SubscriptionFormBlock.php:18
+msgid "Thanks for subscribing."
+msgstr "感谢您的订阅。"
+
+#: src/Setup/Assets.php:79
+msgid "This month"
+msgstr "本月"
+
+#: src/Setup/Assets.php:91
+msgid "Total subscribers"
+msgstr "订阅总数"
+
+#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:237
+msgid "Unique identifier for this form"
+msgstr "该表格的唯一标识符"
+
+#: src/Setup/Assets.php:90
+msgid "Unsubscribes"
+msgstr "退订"
+
+#: src/Setup/Assets.php:81
+msgid "Upgrade"
+msgstr "升级"
+
+#: src/Setup/Assets.php:112
+msgid "usage statistics"
+msgstr "使用统计"
+
+#: src/Setup/Assets.php:125
+msgid "View form"
+msgstr "查看表单"
+
+#: src/Setup/Assets.php:142
+msgid "View supported plugins"
+msgstr "查看支持的插件"
+
+#: src/Setup/Assets.php:69
+msgid "Welcome to Reach"
+msgstr "欢迎来到Reach"
+
+#: src/Setup/Assets.php:103
+msgid "What is Hostinger Reach email marketing service?"
+msgstr "什么是Hostinger Reach电子邮件营销服务？"
+
+#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+msgid "WP Forms Lite"
+msgstr "WP 表单精简版"
+
+#. translators: %s - form id.
+#: src/Integrations/WpFormsLiteIntegration.php:41
+msgid "WP Forms Lite %s"
+msgstr "WP 表单精简版 %s"
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:7
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:40
+msgid "You are not connected to Hostinger Reach"
+msgstr "您没有连接到Hostinger Reach"
+
+#: frontend/blocks/subscription-block/src/Components/Connect.js:10
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:43
+msgid ""
+"You are not connected to Hostinger Reach. To gain full access to this block, "
+"you need to connect your Hostinger Reach account."
+msgstr "您还没有连接到Hostinger Reach。您需要连接您的Hostinger Reach账户，才能完全访问该区块。"
+
+#. translators: %s: PHP version
+#: hostinger-reach.php:55
+msgid "You are running <b>%s</b> PHP version."
+msgstr "您运行的是 <b>%s</b> PHP 版本。"
+
+#: src/Setup/Assets.php:80
+msgid "Your plan"
+msgstr "您的套餐"
