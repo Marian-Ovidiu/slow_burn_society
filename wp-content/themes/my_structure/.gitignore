@@ -5,6 +5,10 @@
 /resources/cache/
 /resources/views/*.php # Blade compilati (se non gestiti come sorgente)
 
+/wp-config.php
+/wp-config-local.php
+/.htaccess
+
 # Ignora file di sistema e IDE
 .DS_Store
 *.log
@@ -14,8 +18,3 @@
 .env
 .env.*
 *.env
-
-# Ignora output di Vite (se rigenerabile)
-public/build/
-/public/*.js
-/public/*.css
