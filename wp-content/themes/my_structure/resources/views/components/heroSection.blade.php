@@ -5,7 +5,7 @@
     $heroSub =
         trim($dataHero->sottotitolo ?? '') ?:
         'Kit consigliati e prodotti singoli: qualunque sia il tuo rituale, qui trovi qualità e praticità.';
-    $ctaUrl = $dataHero->cta['url'] ?? '#shop';
+    $ctaUrl = $dataHero->cta['url'] ?? '#shop-title';
     $ctaText = $dataHero->cta['title'] ?? 'Scopri lo shop';
 @endphp
 
@@ -31,7 +31,7 @@
         <div class="text-center text-white max-w-3xl mx-auto">
             <h1 id="hero-title"
                 class="font-extrabold tracking-tight drop-shadow
-                 text-[clamp(1.8rem,4.5vw,3rem)] leading-tight">
+                 text-[clamp(1.8rem,4.5vw,3rem)] text-white leading-tight">
                 {!! $heroTitle !!}
             </h1>
 
@@ -51,7 +51,7 @@
                     {{ $ctaText }}
                 </a>
 
-                <a href="#kit"
+                <a href="#shop-title"
                     class="inline-flex items-center justify-center px-6 py-3 rounded-lg
                   bg-white/95 text-gray-900 font-semibold shadow hover:bg-white
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"

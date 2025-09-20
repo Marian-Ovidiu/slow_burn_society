@@ -1,5 +1,5 @@
 @extends('layouts.mainLayout')
-
+@section('trippy', true)
 @section('content')
     <script>
         window.STRIPE_PK = window.STRIPE_PK || "{{ my_env('STRIPE_PK') ?? '' }}";
@@ -82,19 +82,19 @@
                         <div>
                             <label class="mb-1 block text-sm text-gray-700">Nome</label>
                             <input type="text" x-model="form.firstName"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="Mario">
                         </div>
                         <div>
                             <label class="mb-1 block text-sm text-gray-700">Cognome</label>
                             <input type="text" x-model="form.lastName"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="Rossi">
                         </div>
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">Email</label>
                             <input type="email" x-model="form.email"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="mario@esempio.it">
                         </div>
                     </div>
@@ -107,21 +107,21 @@
                         <div class="md:col-span-4">
                             <label class="mb-1 block text-sm text-gray-700">Via</label>
                             <input type="text" x-model.lazy="form.street"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="Via Roma">
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">N. civico</label>
                             <input type="text" x-model.lazy="form.streetNo"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="12/A">
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">CAP</label>
                             <input type="text" x-model.lazy="form.cap" inputmode="numeric" maxlength="5" pattern="\d{5}"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="00100">
                         </div>
 

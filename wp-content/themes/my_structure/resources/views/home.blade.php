@@ -1,5 +1,5 @@
 @extends('layouts.mainLayout')
-
+@section('trippy', true)
 @section('content')
     <div x-data="{ modalOpen: false, selected: null, modalOpen2: false, selected2: null }">
         @if ($dataHero)

@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 
-define( 'DB_NAME', 'slow_burn' );
-define( 'DB_USER', 'root' );
-define( 'DB_PASSWORD', 'root' );
+// define( 'DB_NAME', 'slow_burn' );
+// define( 'DB_USER', 'root' );
+// define( 'DB_PASSWORD', 'root' );
 
-// define( 'DB_NAME', 'u597020236_sbs' );
-// define( 'DB_USER', 'u597020236_sbs' );
-// define( 'DB_PASSWORD', '414984.Hmo' );
+define( 'DB_NAME', 'u597020236_sbs' );
+define( 'DB_USER', 'u597020236_sbs' );
+define( 'DB_PASSWORD', '414984.Hmo' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
@@ -92,6 +92,7 @@ define( 'WP_DEBUG_DISPLAY', true );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
+define('WP_IMAGE_EDITORS', array('WP_Image_Editor_GD'));
 
 
 /* That's all, stop editing! Happy publishing. */
