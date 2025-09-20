@@ -128,7 +128,7 @@
                         <div class="md:col-span-3">
                             <label class="mb-1 block text-sm text-gray-700">Città</label>
                             <input type="text" x-model.lazy="form.city"
-                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
+                                class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="Roma">
                         </div>
 
@@ -136,7 +136,7 @@
                             <label class="mb-1 block text-sm text-gray-700">Prov.</label>
                             <input type="text" x-model.lazy="form.province" maxlength="2"
                                 @input="form.province = (form.province || '').toUpperCase().replace(/[^A-Z]/g,'')"
-                                class="w-full uppercase rounded-lg border-gray-300 focus:border-black focus:ring-black text-center"
+                                class="w-full uppercase rounded-lg border-gray-300 focus:border-black focus:ring-black text-center bg-white text-gray-900 placeholder-gray-400"
                                 placeholder="RM">
                         </div>
                     </div>

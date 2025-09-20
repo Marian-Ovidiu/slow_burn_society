@@ -217,7 +217,7 @@ text-gray-800
     </main>
 
     {{-- FOOTER --}}
-    <footer class="bg-gray-800 text-white text-sm py-6 mt-auto relative z-10" role="contentinfo">
+    <footer class="bg-[#292524] text-white text-sm py-6 mt-auto relative z-10" role="contentinfo">
         @widget('FooterMenu')
     </footer>
 

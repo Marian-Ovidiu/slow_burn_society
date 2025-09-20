@@ -4,7 +4,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 2;
+  const TTL_MINUTES = 10;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();

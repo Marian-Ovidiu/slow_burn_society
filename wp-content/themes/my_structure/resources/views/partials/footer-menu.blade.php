@@ -1,5 +1,5 @@
 <!-- Footer stile “Cassa” -->
-<footer class="bg-[#292524] text-white text-sm py-6">
+<section class="bg-[#292524] text-white text-sm py-6">
     <div class="max-w-7xl mx-auto text-center space-y-3 px-4">
         <p>&copy; 2024 <strong>Slow Burn Society</strong> – Tutti i diritti riservati</p>
 
@@ -12,4 +12,4 @@
             Creato con ♥ da Marian – Il tuo tabacchino di fiducia online.
         </p>
     </div>
-</footer>
+</section>

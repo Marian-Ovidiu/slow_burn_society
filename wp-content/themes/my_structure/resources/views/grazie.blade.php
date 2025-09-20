@@ -1,5 +1,5 @@
 @extends('layouts.mainLayout')
-
+@section('trippy', true)
 @section('content')
     <section x-data x-init="(() => {
         try {
@@ -67,28 +67,28 @@
                             @if (!empty($first->id))
                                 <div>
                                     <p class="text-sm text-gray-500">Ordine</p>
-                                    <p class="font-semibold">#{{ $first->id }}</p>
+                                    <p class="font-semibold text-black">#{{ $first->id }}</p>
                                 </div>
                             @endif
 
                             @if ($when)
                                 <div>
                                     <p class="text-sm text-gray-500">Data</p>
-                                    <p class="font-semibold">{{ $when }}</p>
+                                    <p class="font-semibold text-black">{{ $when }}</p>
                                 </div>
                             @endif
 
                             @if (!empty($first->email))
                                 <div>
                                     <p class="text-sm text-gray-500">Email</p>
-                                    <p class="text-sm font-medium">{{ $first->email }}</p>
+                                    <p class="text-sm font-medium text-black">{{ $first->email }}</p>
                                 </div>
                             @endif
 
                             @if (!empty($first->payment_method))
                                 <div>
                                     <p class="text-sm text-gray-500">Metodo di pagamento</p>
-                                    <p class="text-sm font-medium">{{ $first->payment_method }}</p>
+                                    <p class="text-sm font-medium text-black">{{ $first->payment_method }}</p>
                                 </div>
                             @endif
                         </div>
@@ -96,8 +96,8 @@
                 </div>
 
                 <div class="rounded-2xl border border-gray-200 bg-white p-5 md:p-6 shadow-sm">
-                    <h2 class="mb-2 text-lg font-bold tracking-tight">Serve aiuto?</h2>
-                    <p class="text-sm text-gray-600">
+                    <h2 class="mb-2 text-lg font-bold tracking-tight text-black">Serve aiuto?</h2>
+                    <p class="text-sm text-black">
                         Scrivici a <a href="mailto:info@slowburnsociety.it" class="underline">info@slowburnsociety.it</a>.
                     </p>
                 </div>
