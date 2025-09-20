@@ -1,7 +1,7 @@
 <section x-data="shop()" class="relative px-4 py-8" id="shop" aria-labelledby="shop-title">
     <!-- Titolo sezione -->
     <header class="mb-8 text-center">
-        <h2 class="section-title" id="shop-title">Shop</h2>
+        <h2 class="section-title" id="shop-title">Oppure componi il tuo  kit da solo</h2>
         <!-- Countdown TTL carrello -->
         <p class="text-xs text-gray-500" x-show="$store.cartReady && $store.cart.items.length">
             <span

@@ -1,0 +1,63 @@
+Log created: 2025-09-19 10:28:41
+Type: backup
+[2025-09-19 10:28:42][notice]Start backing up.
+[2025-09-19 10:28:42][notice]server info fcgi:Off max execution time: 300 wp version:6.8.2 php version:8.2.24 db version:5.7.24 php ini:safe_mode: memory_limit:512M memory_get_usage:54,90 MB memory_get_peak_usage:55,70 MB extensions:PDO enabled curl enabled zlib enabled   is_multisite:0
+[2025-09-19 10:28:42][notice]Prepare to backup backup_db files.
+[2025-09-19 10:28:42][notice]Start exporting database.
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_sbs_inventory
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_links
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_term_relationships
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_commentmeta
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_term_taxonomy
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_termmeta
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_terms
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_usermeta
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_cart_reservations
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_sbs_cart_events
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_users
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_sbs_payment_intents
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_comments
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_posts
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_postmeta
+[2025-09-19 10:28:42][notice]Preparing to dump table wp_options
+[2025-09-19 10:28:42][notice]Exporting database finished.
+[2025-09-19 10:28:42][notice]Start compressing database
+[2025-09-19 10:28:42][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_db.sql
+[2025-09-19 10:28:42][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_db.part001.zip, filesize: 1,08 MB
+[2025-09-19 10:28:43][notice]Compressing database completed
+[2025-09-19 10:28:43][notice]Backing up backup_db completed.
+[2025-09-19 10:28:43][notice]Prepare to backup backup_themes files.
+[2025-09-19 10:28:47][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_themes.part001.zip index:7855
+[2025-09-19 10:31:08][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_themes.part001.zip success. index:7855 file size:69,67 MB
+[2025-09-19 10:31:08][notice]Backing up backup_themes completed.
+[2025-09-19 10:31:08][notice]Prepare to backup backup_plugin files.
+[2025-09-19 10:31:10][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_plugin.part001.zip index:3423
+[2025-09-19 10:32:32][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_plugin.part001.zip success. index:3423 file size:58,46 MB
+[2025-09-19 10:32:32][notice]Backing up backup_plugin completed.
+[2025-09-19 10:32:32][notice]Prepare to backup backup_uploads files.
+[2025-09-19 10:32:32][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_uploads.part001.zip index:55
+[2025-09-19 10:32:32][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_uploads.part001.zip success. index:55 file size:13,15 MB
+[2025-09-19 10:32:32][notice]Backing up backup_uploads completed.
+[2025-09-19 10:32:32][notice]Prepare to backup backup_content files.
+[2025-09-19 10:32:32][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_content.part001.zip index:141
+[2025-09-19 10:32:34][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_content.part001.zip success. index:141 file size:11,92 MB
+[2025-09-19 10:32:34][notice]Backing up backup_content completed.
+[2025-09-19 10:32:34][notice]Prepare to backup backup_core files.
+[2025-09-19 10:32:35][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_core.part001.zip index:2803
+[2025-09-19 10:33:35][notice]Compressing zip file:slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_core.part001.zip success. index:2803 file size:57,99 MB
+[2025-09-19 10:33:35][notice]Backing up backup_core completed.
+[2025-09-19 10:33:35][notice]Prepare to backup backup_merge files.
+[2025-09-19 10:33:35][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_db.zip
+[2025-09-19 10:33:35][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 1,09 MB
+[2025-09-19 10:33:35][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_themes.zip
+[2025-09-19 10:33:38][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 18,33 MB
+[2025-09-19 10:33:38][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_plugin.zip
+[2025-09-19 10:33:40][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 38,74 MB
+[2025-09-19 10:33:40][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_uploads.zip
+[2025-09-19 10:33:40][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 51,89 MB
+[2025-09-19 10:33:40][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_content.zip
+[2025-09-19 10:33:40][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 63,82 MB
+[2025-09-19 10:33:41][notice]Prepare to zip file. file: slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_core.zip
+[2025-09-19 10:33:44][notice]Adding zip files completed.slow-burn-society.local_wpvivid-ff7892276e781_2025-09-19-10-28_backup_all.part001.zip, filesize: 76,89 MB
+[2025-09-19 10:33:44][notice]Backing up backup_merge completed.
+[2025-09-19 10:33:44][notice]Backup completed.
