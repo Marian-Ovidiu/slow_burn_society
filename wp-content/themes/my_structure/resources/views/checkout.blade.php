@@ -8,17 +8,17 @@
 
         document.addEventListener('alpine:init', () => {
             const cart = Alpine.store('cart');
-            const map  = window.inventoryMax || {};
+            const map = window.inventoryMax || {};
 
             // Precarica maxQty sugli item del carrello (prodotti)
             if (cart && Array.isArray(cart.items)) {
-            cart.items.forEach(it => {
-                if (it.kitId) return; // i kit hanno logica separata via API
-                const mx = map[it.id];
-                if (Number.isFinite(mx)) it.maxQty = mx;
-            });
-            cart.save?.();
-            cart.emitChanged?.();
+                cart.items.forEach(it => {
+                    if (it.kitId) return; // i kit hanno logica separata via API
+                    const mx = map[it.id];
+                    if (Number.isFinite(mx)) it.maxQty = mx;
+                });
+                cart.save?.();
+                cart.emitChanged?.();
             }
         });
     </script>
@@ -36,9 +36,8 @@
                 </p>
             </div>
             <div class="mt-2 h-1.5 w-full overflow-hidden rounded bg-gray-200">
-                {{-- usa inline calc o la tua progressWidth() se l’hai nel componente --}}
                 <div class="h-full bg-[#45752c] transition-all"
-                    :style="`width: ${Math.max(0, Math.min(100, Math.round(($store.cart.remainingSeconds() / 120) * 100)))}%`">
+                    :style="`width:${Math.max(0, Math.min(100, Math.round(($store.cart.remainingSeconds() / $store.cart.ttlSeconds) * 100)))}%`">
                 </div>
             </div>
         </div>
@@ -52,17 +51,20 @@
         {{-- Stepper --}}
         <nav class="mb-6 md:mb-8">
             <ol class="flex items-center gap-2 text-xs md:text-sm">
-                <li class="flex items-center gap-2"><span
-                        class="grid h-6 w-6 place-items-center rounded-full bg-[#45752c] text-white">1</span><span
-                        class="font-semibold">Carrello</span></li>
+                <li class="flex items-center gap-2">
+                    <span class="grid h-6 w-6 place-items-center rounded-full bg-[#45752c] text-white">1</span>
+                    <span class="font-semibold">Carrello</span>
+                </li>
                 <span class="h-px w-6 bg-gray-300 md:w-12"></span>
-                <li class="flex items-center gap-2"><span
-                        class="grid h-6 w-6 place-items-center rounded-full bg-black text-white">2</span><span
-                        class="font-semibold">Checkout</span></li>
+                <li class="flex items-center gap-2">
+                    <span class="grid h-6 w-6 place-items-center rounded-full bg-black text-white">2</span>
+                    <span class="font-semibold">Checkout</span>
+                </li>
                 <span class="h-px w-6 bg-gray-300 md:w-12"></span>
-                <li class="flex items-center gap-2 opacity-50"><span
-                        class="grid h-6 w-6 place-items-center rounded-full border border-gray-300">3</span><span
-                        class="font-semibold">Conferma</span></li>
+                <li class="flex items-center gap-2 opacity-50">
+                    <span class="grid h-6 w-6 place-items-center rounded-full border border-gray-300">3</span>
+                    <span class="font-semibold">Conferma</span>
+                </li>
             </ol>
         </nav>
 
@@ -77,17 +79,20 @@
                 <div class="rounded-2xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
                     <h2 class="mb-4 text-lg font-bold tracking-tight">Dati cliente</h2>
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <div><label class="mb-1 block text-sm text-gray-700">Nome</label>
+                        <div>
+                            <label class="mb-1 block text-sm text-gray-700">Nome</label>
                             <input type="text" x-model="form.firstName"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="Mario">
                         </div>
-                        <div><label class="mb-1 block text-sm text-gray-700">Cognome</label>
+                        <div>
+                            <label class="mb-1 block text-sm text-gray-700">Cognome</label>
                             <input type="text" x-model="form.lastName"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="Rossi">
                         </div>
-                        <div class="md:col-span-2"><label class="mb-1 block text-sm text-gray-700">Email</label>
+                        <div class="md:col-span-2">
+                            <label class="mb-1 block text-sm text-gray-700">Email</label>
                             <input type="email" x-model="form.email"
                                 class="w-full rounded-lg border-gray-300 focus:border-black focus:ring-black"
                                 placeholder="mario@esempio.it">
@@ -99,7 +104,6 @@
                     <h2 class="mb-4 text-lg font-bold tracking-tight">Indirizzo di spedizione</h2>
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-6">
-                        {{-- Via --}}
                         <div class="md:col-span-4">
                             <label class="mb-1 block text-sm text-gray-700">Via</label>
                             <input type="text" x-model.lazy="form.street"
@@ -107,7 +111,6 @@
                                 placeholder="Via Roma">
                         </div>
 
-                        {{-- Numero civico --}}
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">N. civico</label>
                             <input type="text" x-model.lazy="form.streetNo"
@@ -115,7 +118,6 @@
                                 placeholder="12/A">
                         </div>
 
-                        {{-- CAP --}}
                         <div class="md:col-span-2">
                             <label class="mb-1 block text-sm text-gray-700">CAP</label>
                             <input type="text" x-model.lazy="form.cap" inputmode="numeric" maxlength="5" pattern="\d{5}"
@@ -123,7 +125,6 @@
                                 placeholder="00100">
                         </div>
 
-                        {{-- Città --}}
                         <div class="md:col-span-3">
                             <label class="mb-1 block text-sm text-gray-700">Città</label>
                             <input type="text" x-model.lazy="form.city"
@@ -131,7 +132,6 @@
                                 placeholder="Roma">
                         </div>
 
-                        {{-- Provincia --}}
                         <div class="md:col-span-1">
                             <label class="mb-1 block text-sm text-gray-700">Prov.</label>
                             <input type="text" x-model.lazy="form.province" maxlength="2"
@@ -141,10 +141,10 @@
                         </div>
                     </div>
 
-                    <p class="mt-2 text-[11px] text-gray-500">Spediamo solo in Italia. Inserisci CAP a 5 cifre e provincia a
-                        2 lettere.</p>
+                    <p class="mt-2 text-[11px] text-gray-500">
+                        Spediamo solo in Italia. Inserisci CAP a 5 cifre e provincia a 2 lettere.
+                    </p>
                 </div>
-
 
                 <div class="rounded-2xl border border-gray-200 bg-white p-4 md:p-6 shadow-sm">
                     <h2 class="mb-4 text-lg font-bold tracking-tight">Pagamento</h2>
@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </div>
-            
+
             @include('components.riepilogoOrdine')
         </div>
     </section>

@@ -66,9 +66,11 @@ class HomeController extends BaseController
             // mappa i prodotti del kit (titolo + immagine_1 ACF)
             $mappedProducts = [];
             if (!empty($k->prodotti) && is_iterable($k->prodotti)) {
-                foreach ($k->prodotti as $product) {
-                    $img1 = function_exists('get_field') ? (get_field('immagine_1', $product->ID) ?: []) : [];
-                    $prod = Prodotto::find($product->ID);
+                $prodotti = $k->prodotti;
+                foreach ($prodotti as $product) {
+                    $pid = $product->ID;
+                    $img1 = function_exists('get_field') ? (get_field('immagine_1', $pid) ?: []) : [];
+                    $prod = Prodotto::find($pid);
                     $disp = true;
                     if (!$prod->disponibilita) {
                         $disp = false;

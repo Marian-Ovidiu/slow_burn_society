@@ -1,4 +1,5 @@
 <?php
+
 namespace Core\Bases;
 
 use WP_Query;
@@ -91,4 +92,9 @@ abstract class BasePostType
         return get_template_directory_uri() . '/assets/images/placeholder.png';
     }
 
+    public static function findBySlug(string $slug)
+    {
+        $post = get_page_by_path($slug, OBJECT, static::$postType);
+        return $post ? new static($post) : null;
+    }
 }

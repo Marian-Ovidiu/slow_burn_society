@@ -45,9 +45,4 @@
             </nav>
         @endif
     </div>
-      @if ($dataHero)
-        @include('components.heroSection', [
-            'dataHero' => $dataHero,
-        ])
-    @endif
 @endif

@@ -2,7 +2,11 @@
 
 @section('content')
     <div x-data="{ modalOpen: false, selected: null, modalOpen2: false, selected2: null }">
-
+        @if ($dataHero)
+            @include('components.heroSection', [
+                'dataHero' => $dataHero,
+            ])
+        @endif
         @if ($latest)
             @include('components.kitSection', [
                 'latest' => $latest,

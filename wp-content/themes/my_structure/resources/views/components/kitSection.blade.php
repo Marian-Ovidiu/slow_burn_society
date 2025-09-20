@@ -1,10 +1,12 @@
 <section x-data="{
     modalOpen2: false,
     selected2: null,
+    selectedImage2: null, // <-- AGGIUNTA
+
     // true se l'item (kit) è già nel carrello
     isInCart(item) {
         const raw = String(item?.id ?? '');
-        if (!raw) return false;
+        if (!raw || !$store?.cart?.items) return false;
         const kid = raw.replace(/^kit:/, '');
         const key = `kit:${kid}`;
         return ($store.cart.items || []).some(i => i.id === key);
@@ -29,7 +31,7 @@
         });
     }
 }" class="px-4 md:px-8 lg:px-16 py-10 bg-[#fefcf7] border-t border-gray-200"
-    aria-labelledby="kit-section-title">
+    aria-labelledby="kit-section-title" id="kit-title">
     <header class="text-center mb-6">
         <h2 class="text-xl md:text-2xl font-extrabold tracking-tight text-gray-900" id="kit-section-title">
             🆕 Non sai cosa prendere? Ci abbiamo già pensato noi!
