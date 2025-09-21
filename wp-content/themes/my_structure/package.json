@@ -11,10 +11,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "watch": "vite build --watch",
     "dev": "vite",
     "build": "vite build",
-    "watch": "vite build --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:prod": "vite build --mode production",
+    "preview": "vite preview --host"
   },
   "keywords": [],
   "author": "",
