@@ -2,6 +2,7 @@
 use Controllers\CartController;
 use Controllers\PageController;
 use Controllers\PaymentsController;
+use Controllers\RelatedController;
 
 $router = \Core\Router::getInstance();
 
@@ -17,6 +18,7 @@ $router->get('/cart',        [CartController::class, 'get']);   // opzionale
 $router->post('/cart/save',  [CartController::class, 'save']);  // opzionale
 $router->post('/cart/event', [CartController::class, 'event']); // audit eventi (beacon)
 $router->post('/checkout/finalize', [\Controllers\PaymentsController::class, 'finalize']);
+$router->get('/related', [RelatedController::class, 'related']);
 $router->get('/grazie', [PageController::class, 'grazie']);
 // app/routes.php (o dove definisci le rotte)
 // $router->post('/update-intent-email', [\Classes\StripePayments::class, 'updateIntentEmail']);

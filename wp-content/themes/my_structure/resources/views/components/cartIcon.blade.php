@@ -38,7 +38,6 @@
     threshold: 35,
     crossed: false,
     glowActive: false,
-    // formatter € locale IT
     fmt(val) { try { return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(Number(val || 0)); } catch (e) { return '€' + (Number(val || 0)).toFixed(2).replace('.', ','); } },
     get qty() { return ($store.cart?.items || []).reduce((a, i) => a + Number(i.qty || 0), 0) },
     get total() { return (typeof $store.cart?.total === 'function') ? $store.cart.total() : 0 },
@@ -46,22 +45,23 @@
     get leftToThreshold() { const left = this.threshold - this.total; return left > 0 ? left : 0 },
     announce(msg) {
         const n = this.$root.querySelector('[data-live]');
-        if (n) { n.textContent = '';
-            requestAnimationFrame(() => n.textContent = msg); }
+        if (n) {
+            n.textContent = '';
+            requestAnimationFrame(() => n.textContent = msg);
+        }
     },
     init() {
-        // bump morbido su qty
         this.$watch(() => this.qty, (nv, ov) => {
             const btn = this.$root.querySelector('[data-cart-btn]');
             if (!btn) return;
             btn.classList.remove('scale-100');
             btn.classList.add('scale-110');
-            setTimeout(() => { btn.classList.remove('scale-110');
-                btn.classList.add('scale-100'); }, 150);
+            setTimeout(() => {
+                btn.classList.remove('scale-110');
+                btn.classList.add('scale-100');
+            }, 150);
             this.announce(`Carrello aggiornato: ${nv} articoli`);
         });
-
-        // crossing free-shipping threshold
         this.$watch(() => this.total, (val, old) => {
             if (old < this.threshold && val >= this.threshold && !this.crossed) {
                 this.crossed = true;
@@ -76,48 +76,40 @@
     }
 }" x-cloak x-show="$store.cart ? $store.cartReady : true"
     class="cart-floating fixed z-[9999] print:hidden"
-    style="right:clamp(12px, 3vw, 50px); bottom:calc(clamp(12px, 3vw, 50px) + env(safe-area-inset-bottom));"
-    @keydown.enter.window.prevent="location.href='/checkout'">
-    <!-- live region invisibile per SR -->
+    style="right:clamp(12px,3vw,50px); bottom:calc(clamp(12px,3vw,50px) + env(safe-area-inset-bottom));"
+    @keydown.enter.window.prevent="$dispatch('suggest:open')">
+
     <span data-live class="sr-only" aria-live="polite"></span>
 
     <div class="relative w-10 h-10">
-        <!-- Glow layer -->
         <div class="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-300"
             :class="glowActive ? 'opacity-100 glow-pulse' : 'opacity-0'"></div>
 
-        <a href="/checkout"
+        <!-- APRE IL MODAL -->
+        <button type="button" @click.prevent="$dispatch('suggest:open')"
             class="absolute inset-0 block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#386322] rounded-full"
-            :aria-label="qty > 0 ?
-                `Vai al checkout. Articoli: ${qty}. Totale: ${fmt(total)}` :
-                'Vai al checkout. Carrello vuoto'"
-            @keydown.space.prevent="location.href='/checkout'">
-            <!-- Ghiera progressiva -->
+            :aria-label="qty > 0 ? `Apri suggerimenti. Articoli: ${qty}. Totale: ${fmt(total)}` : 'Apri suggerimenti. Carrello vuoto'">
+
             <div class="absolute -inset-[5px] rounded-full pointer-events-none"
                 :style="`background: conic-gradient(#45752c ${progress}%, #e5e7eb ${progress}% 100%);
-                                    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
-                                    mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
-                                    transition: background 140ms linear;`">
+                                                          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
+                                                          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
+                                                          transition: background 140ms linear;`">
             </div>
 
-            <!-- Pulsante -->
             <div data-cart-btn
                 class="absolute inset-0 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg transition-transform scale-100 will-change-transform">
                 <span class="material-symbols-rounded text-black text-2xl leading-none"
                     aria-hidden="true">shopping_cart</span>
-
-                <!-- Badge quantità -->
                 <span x-show="qty > 0" x-transition
                     class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-[4px] rounded-full bg-[#45752c] text-white text-[10px] font-bold flex items-center justify-center leading-none">
                     <span x-text="qty"></span>
                 </span>
             </div>
-        </a>
+        </button>
 
-        <!-- Tooltip accessibile -->
         <div x-show="qty > 0" x-transition role="status" aria-live="polite"
-            class="absolute top-full left-1/2 -translate-x-1/2 mt-1 max-w-[240px] whitespace-nowrap
-                bg-white border border-gray-200 rounded px-2 py-1 shadow text-gray-700 text-[10px]">
+            class="absolute top-full left-1/2 -translate-x-1/2 mt-1 max-w-[240px] whitespace-nowrap bg-white border border-gray-200 rounded px-2 py-1 shadow text-gray-700 text-[10px]">
             <template x-if="total < threshold">
                 <span>Ancora <b x-text="fmt(leftToThreshold)"></b><br> per <b>sped. gratis</b> 🚀</span>
             </template>

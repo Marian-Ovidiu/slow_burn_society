@@ -30,4 +30,5 @@
         </div>
 
         @include('components.cartIcon')
+        @include('components.cartSuggestModal')
     @endsection
