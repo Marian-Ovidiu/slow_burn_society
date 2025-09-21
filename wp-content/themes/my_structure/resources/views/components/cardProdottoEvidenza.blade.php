@@ -18,7 +18,7 @@
       </p>
     </header>
 
-  <ul class="grid gap-6 grid-cols-1 min-[480px]:grid-cols-2 min-[768px]:grid-cols-3 min-[1024px]:grid-cols-4" role="list"
+  <ul class="grid gap-6 grid-cols-2 min-[480px]:grid-cols-2 min-[768px]:grid-cols-3 min-[1024px]:grid-cols-4" role="list"
         aria-describedby="shop-title">
       @foreach ($products as $product)
         @php

@@ -4,7 +4,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 10;
+  const TTL_MINUTES = 1;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -41,27 +41,12 @@
 
   const isKitId = (id) => (typeof id === 'string' && id.startsWith('kit:'));
 
-  // ---- NEW: normalizzazione item per merge/rehydrate
-  const normalizeItem = (i) => {
-    return {
-      id: i.id,
-      name: i.name,
-      image: i.image,
-      price: Number(i.price),
-      basePrice: Number(i.basePrice ?? i.price ?? 0),
-      qty: Number(i.qty || 1),
-      ...(toNum(i.maxQty) != null ? { maxQty: toNum(i.maxQty) } : {})
-    };
-  };
-
-  const pickMaxFromItem = (item) => {
-    return (
-      toNum(item?.maxQty) ??
-      toNum(item?.stock) ??
-      toNum(item?.availability) ??
-      toNum(item?.available)
-    );
-  };
+  const pickMaxFromItem = (item) => (
+    toNum(item?.maxQty) ??
+    toNum(item?.stock) ??
+    toNum(item?.availability) ??
+    toNum(item?.available)
+  );
 
   const init = () => {
     if (Alpine.store('cart')) return;
@@ -75,10 +60,27 @@
       data.expiresAt = 0;
     }
 
+    const canonicalId = (id) => {
+      const s = String(id ?? '');
+      return s.startsWith('kit:') ? s : s;
+    };
+
     Alpine.store('cart', {
-      // item shape: { id, name, image, price, qty, maxQty? }
-      items: data.items.map(i => normalizeItem(i)),
+      // State
+      items: data.items.map(i => ({
+        ...i,
+        id: canonicalId(i.id),
+        qty: Number(i.qty || 1),
+        price: Number(i.price),
+        basePrice: Number(i.basePrice ?? i.price),
+        maxQty: toNum(i.maxQty) ?? undefined
+      })),
       token: null,
+
+      _expiredHandled: false,      // 👈 guard contro doppi eventi
+      _expiryTimerId: null,
+      _countdownTimerId: null,
+      _heartbeat: 0,
 
       ensureToken() {
         if (this.token) return this.token;
@@ -93,31 +95,7 @@
 
       expiresAt: data.expiresAt || (data.items.length ? now() + TTL_MS : 0),
 
-      // ---- NEW: rehydrate/merge con localStorage (anti-clobber multi-istanza)
-      rehydrateFromStorage(merge = true) {
-        const ls = loadFromStorage();
-        if (!ls) return;
-        const lsItems = Array.isArray(ls.items) ? ls.items : [];
-        if (!merge) {
-          this.items = lsItems.map(normalizeItem);
-        } else {
-          const map = new Map(this.items.map(i => [String(i.id), i]));
-          lsItems.forEach(lsi => {
-            const key = String(lsi.id);
-            if (!map.has(key)) {
-              this.items.push(normalizeItem(lsi));
-            }
-          });
-        }
-        // tieni il TTL più “lungo”
-        if (ls.expiresAt) {
-          this.expiresAt = Math.max(this.expiresAt || 0, ls.expiresAt || 0);
-        }
-        // Forza tick reattivo
-        this.items = this.items.slice();
-      },
-
-      // --- TTL ---
+      // TTL
       remainingMs() {
         void this._heartbeat;
         if (!this.expiresAt) return 0;
@@ -132,11 +110,14 @@
         return `${m}:${pad2(sec)}`;
       },
       isExpired() { return this.expiresAt && this.expiresAt <= now(); },
-      touchExpiry() { this.expiresAt = now() + TTL_MS; },
+      touchExpiry() {
+        this.expiresAt = now() + TTL_MS;
+        this._expiredHandled = false;
+      },
 
-      // --- Stock Helpers ---
-      qtyFor(id) { const it = this.items.find(i => i.id === id); return it ? Number(it.qty) : 0; },
-      maxFor(id) { const it = this.items.find(i => i.id === id); return toNum(it?.maxQty) ?? null; },
+      // Stock helpers
+      qtyFor(id) { const it = this.items.find(i => String(i.id) === String(id)); return it ? Number(it.qty) : 0; },
+      maxFor(id) { const it = this.items.find(i => String(i.id) === String(id)); return toNum(it?.maxQty) ?? null; },
       remainingFor(id, totalStock) {
         const cap = toNum(totalStock) ?? this.maxFor(id);
         if (cap == null) return null;
@@ -144,19 +125,18 @@
         return Math.max(0, cap - inCart);
       },
 
-      // --- CRUD con limiti di stock ---
+      // CRUD
       add(item) {
-        // 🔒 Merge difensivo con LS PRIMA di modificare (anti overwrite)
-        this.rehydrateFromStorage(true);
-
+        // id canonico (stringa); per i kit DEVE arrivare già tipo 'kit:123'
+        const incomingId = canonicalId(item.id);
         const price = Number(item.price);
-        if (!Number.isFinite(price)) {
-          console.warn('[cart] price non valido per item', item);
-          return;
-        }
+        if (!Number.isFinite(price)) { console.warn('[cart] price non valido', item); return; }
+
+        // prima idrato da LS per evitare rimpiazzi strani
+        this._hydrateFromStorageSafely();
 
         const capFromInput = pickMaxFromItem(item);
-        const found = this.items.find(i => i.id === item.id);
+        const found = this.items.find(i => String(i.id) === String(incomingId));
 
         const capExisting = toNum(found?.maxQty);
         const cap = capExisting ?? capFromInput ?? null;
@@ -165,7 +145,7 @@
           const next = found.qty + 1;
           if (cap != null && next > cap) {
             window.dispatchEvent(new CustomEvent('cart:stock_exceeded', {
-              detail: { id: item.id, name: found.name, max: cap }
+              detail: { id: incomingId, name: found.name, max: cap }
             }));
             return;
           }
@@ -175,25 +155,30 @@
           const initialQty = 1;
           if (cap != null && initialQty > cap) {
             window.dispatchEvent(new CustomEvent('cart:stock_exceeded', {
-              detail: { id: item.id, name: item.name, max: cap }
+              detail: { id: incomingId, name: item.name, max: cap }
             }));
             return;
           }
-          const payload = normalizeItem({ ...item, basePrice: item.basePrice ?? item.price, qty: initialQty });
+          const payload = {
+            id: incomingId,
+            name: item.name,
+            image: item.image,
+            price,
+            basePrice: price,
+            qty: initialQty
+          };
           if (cap != null) payload.maxQty = cap;
           this.items.push(payload);
         }
 
         this.touchExpiry();
-
-        // Forza reattività Alpine (array copy)
-        this.items = this.items.slice();
-
+        this.items = this.items.slice();   // reattività
         this.save();
       },
 
+
       setQty(id, qty) {
-        const it = this.items.find(i => i.id === id);
+        const it = this.items.find(i => String(i.id) === String(id));
         if (!it) return;
 
         if (isKitId(it.id)) {
@@ -209,14 +194,16 @@
         if (max != null) v = Math.min(v, max);
         it.qty = v;
 
+        this.touchExpiry();
         this.items = this.items.slice();
         this.save();
         this.emitChanged?.();
       },
 
       remove(id) {
-        this.items = this.items.filter(i => i.id !== id);
-        if (this.items.length) this.touchExpiry();
+        this.items = this.items.filter(i => String(i.id) !== String(id));
+        if (this.items.length) this.touchExpiry(); else this.expiresAt = 0;
+        this._expiredHandled = false;
         this.items = this.items.slice();
         this.save();
       },
@@ -224,30 +211,20 @@
       clear() {
         this.items = [];
         this.expiresAt = 0;
+        this._expiredHandled = true;   // evita doppio fire
         this.items = this.items.slice();
         this.save();
       },
 
-      // --- Totali ---
+      // Totali
       lineSubtotal(item) { return Number(item.qty) * Number(item.price); },
       total() { return this.items.reduce((sum, i) => sum + (Number(i.qty) * Number(i.price)), 0); },
       lineSubtotalFormatted(item) { return formatMoney(this.lineSubtotal(item)); },
       totalFormatted() { return formatMoney(this.total()); },
 
-      // --- Persistenza ---
+      // Persistenza
       save() {
-        // 🔒 Merge con LS anche prima di salvare (anti clobber)
-        const existing = loadFromStorage();
-        const existingItems = Array.isArray(existing?.items) ? existing.items : [];
-        const map = new Map(this.items.map(i => [String(i.id), i]));
-        existingItems.forEach(ei => {
-          const key = String(ei.id);
-          if (!map.has(key)) {
-            this.items.push(normalizeItem(ei));
-          }
-        });
-
-        // Protezione KIT: prezzo e qty fissi
+        // Protezione KIT
         this.items.forEach(it => {
           if (isKitId(it.id)) {
             const p = Number(it.price);
@@ -259,44 +236,72 @@
           }
         });
 
-        // TTL più lungo
-        const exp = this.items.length ? Math.max(this.expiresAt || 0, existing?.expiresAt || 0) : 0;
-        this.expiresAt = exp;
+        const exp = this.items.length ? this.expiresAt : 0;
 
         const itemsToSave = this.items.map(i => {
           const out = { ...i };
           out.price = Number(out.price);
-          out.basePrice = Number(Number.isFinite(Number(out.basePrice)) ? out.basePrice : out.price);
+          out.basePrice = Number.isFinite(Number(out.basePrice)) ? Number(out.basePrice) : Number(out.price);
           if (toNum(out.maxQty) == null) delete out.maxQty;
           return out;
         });
 
-        // ✅ persist
         saveToStorage(itemsToSave, exp);
 
-        // 🔔 Notify
+        // Notifica globale
         window.dispatchEvent(new CustomEvent('cart:changed', {
           detail: { items: itemsToSave, expiresAt: exp, total: this.total() }
         }));
       },
+      _hydrateFromStorageSafely() {
+        const data = (function () {
+          try { return JSON.parse(localStorage.getItem(LS_KEY) || ''); } catch { return null; }
+        })();
+        const lsItems = Array.isArray(data?.items) ? data.items : [];
 
-      // --- Timer scadenza ---
-      _expiryTimerId: null,
+        if (!lsItems.length) return;
+
+        // mappa attuale per id
+        const byId = new Map(this.items.map(it => [String(it.id), it]));
+
+        // unisci elementi presenti in LS che magari la UI locale non ha ancora
+        lsItems.forEach(raw => {
+          const key = String(raw.id);
+          if (!byId.has(key)) {
+            byId.set(key, {
+              ...raw,
+              id: canonicalId(raw.id),
+              qty: Number(raw.qty || 1),
+              price: Number(raw.price || 0),
+              basePrice: Number(raw.basePrice ?? raw.price ?? 0),
+              maxQty: toNum(raw.maxQty) ?? undefined
+            });
+          }
+        });
+
+        this.items = Array.from(byId.values());
+      },
+
+      // Timer scadenza
       _startExpiryWatcher() {
         if (this._expiryTimerId) clearInterval(this._expiryTimerId);
         this._expiryTimerId = setInterval(() => {
-          if (this.isExpired()) {
+          if (!this._expiredHandled && this.isExpired()) {
             this.clear();
             window.dispatchEvent(new CustomEvent('cart:expired'));
           }
-        }, 15000);
+        }, 15000); // fallback
       },
-      _heartbeat: 0,
-      _countdownTimerId: null,
+
       _startCountdownTicker() {
         if (this._countdownTimerId) clearInterval(this._countdownTimerId);
         this._countdownTimerId = setInterval(() => {
-          this._heartbeat = Date.now();
+          this._heartbeat = Date.now(); // aggiorna UI timer
+          // check ogni 1s ⬇
+          if (!this._expiredHandled && this.isExpired()) {
+            this.clear();
+            window.dispatchEvent(new CustomEvent('cart:expired'));
+          }
         }, 1000);
       },
     });
@@ -308,19 +313,13 @@
 
     Alpine.store('cartReady', true);
     window.dispatchEvent(new CustomEvent('cart:ready'));
-
-    // ---- opzionale: sincronizza quando cambia il LS da altre istanze (stessa tab)
-    window.addEventListener('cart:changed', () => {
-      // ricarica (merge) in memoria: evita discrepanze grafica/checkout
-      store.rehydrateFromStorage(true);
-    });
   };
 
   if (window.Alpine) init();
   else document.addEventListener('alpine:init', init);
 })();
 
-// Esempio toast su superamento stock
+// Esempio toast su superamento stock (customizza come vuoi)
 window.addEventListener('cart:stock_exceeded', (e) => {
   const { name, max } = e.detail;
   alert(`${name}: limite raggiunto (${max})`);

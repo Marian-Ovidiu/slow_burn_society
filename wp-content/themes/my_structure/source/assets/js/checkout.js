@@ -53,7 +53,12 @@ document.addEventListener('alpine:init', () => {
         await this.waitForCartReady();
         const cartToken = await this.waitForCartToken();
         Alpine.store('cart')?.touchExpiry?.();
-        window.addEventListener('cart:expired', () => { this.expired = true; });
+        window.addEventListener('cart:expired', () => {
+          this.expired = true;
+          this.paymentComplete = false;
+          // se vuoi, smonta l'element:
+          try { this.paymentElement?.unmount?.(); } catch { }
+        });
 
         if (!window.STRIPE_PK) throw new Error('Stripe PK mancante');
         this.stripe = window.Stripe(window.STRIPE_PK);
@@ -99,7 +104,7 @@ document.addEventListener('alpine:init', () => {
 
     async finalizeAndRedirect() {
       const pi = this.intentId;
-      await this.finalizePI(pi);              
+      await this.finalizePI(pi);
       Alpine.store('cart').clear();
       window.location.href = `${window.location.origin}/grazie?pi=${encodeURIComponent(pi)}`;
     },

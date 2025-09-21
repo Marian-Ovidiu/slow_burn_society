@@ -7,34 +7,35 @@
     <div x-cloak x-show="openModal" x-transition
         class="fixed inset-0 z-[10001] grid place-items-center p-4 vvh pointer-events-none">
 
-        <!-- WRAPPER modale: box centrato, cliccabile -->
-        <div class="relative w-full max-w-lg rounded-2xl overflow-hidden trippy-bg pointer-events-auto"
-            @keydown.escape.window="close()" role="dialog" aria-modal="true" aria-labelledby="cs-title"
-            style="max-height:min(90svh,90vh);">
+        <!-- WRAPPER modale (box) -->
+        <div class="relative w-full max-w-xl rounded-2xl overflow-hidden trippy-bg pointer-events-auto"
+            @keydown.escape.window="close()" role="dialog" aria-modal="true" aria-labelledby="cs-title">
 
-            <!-- PANNELLO interno (sopra ai layer trippy) -->
-            <div class="trippy-panel text-white overflow-y-auto">
+            <!-- PANEL a griglia: header / body (scroll) / footer -->
+            <div class="trippy-panel text-white grid grid-rows-[auto,1fr,auto] overflow-hidden">
+
                 <!-- Header -->
                 <div
-                    class="px-5 py-4 border-b border-white/10 flex items-center justify-between sticky top-0 bg-transparent/60 backdrop-blur-sm">
+                    class="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-transparent/60 backdrop-blur-sm">
                     <h3 id="cs-title" class="text-lg font-semibold">Consigliati per te</h3>
                     <button class="p-2 rounded hover:bg-white/10" @click.stop="close()" aria-label="Chiudi">
                         <span class="material-symbols-rounded">close</span>
                     </button>
                 </div>
 
-                <!-- Body -->
-                <div class="px-5 py-4 space-y-4">
-                    <!-- Loader (scheletri) -->
+                <!-- Body: SOLO qui scroll verticale -->
+                <div class="modal-body px-4 py-4 space-y-4 pr-2 -mr-2">
+
+                    <!-- Loader (scheletri compatti) -->
                     <div x-show="typeof loading !== 'undefined' && loading"
-                        class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <template x-for="n in 3" :key="n">
-                            <div class="border border-white/10 rounded-xl overflow-hidden animate-pulse bg-white/5">
-                                <div class="aspect-[4/3] bg-white/10"></div>
-                                <div class="p-3 space-y-2">
-                                    <div class="h-3 bg-white/10 rounded"></div>
-                                    <div class="h-3 w-2/3 bg-white/10 rounded"></div>
-                                    <div class="h-8 bg-white/10 rounded mt-3"></div>
+                        class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <template x-for="n in 6" :key="n">
+                            <div class="border border-white/10 rounded-lg overflow-hidden animate-pulse bg-white/5">
+                                <div class="aspect-[1/1] bg-white/10"></div>
+                                <div class="p-2 space-y-1.5">
+                                    <div class="h-2 bg-white/10 rounded"></div>
+                                    <div class="h-2 w-2/3 bg-white/10 rounded"></div>
+                                    <div class="h-6 bg-white/10 rounded mt-2"></div>
                                 </div>
                             </div>
                         </template>
@@ -43,24 +44,27 @@
                     <!-- Errore -->
                     <div x-show="typeof loading !== 'undefined' && !loading && typeof error !== 'undefined' && error"
                         class="text-sm text-red-300" x-text="error"></div>
-
-                    <!-- Suggeriti -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3"
+                    <!-- Suggeriti (grid 2/3 col + card compatte) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2"
                         x-show="typeof loading !== 'undefined' && !loading && Array.isArray(items) && items.length">
                         <template x-for="p in items" :key="p.id">
-                            <article class="border border-white/10 rounded-xl overflow-hidden flex flex-col bg-white/5">
-                                <a :href="p.permalink" class="block aspect-[4/3] bg-black/20">
+                            <article class="border border-white/10 rounded-lg overflow-hidden flex flex-col bg-white/5">
+                                <a :href="p.permalink" class="block aspect-[1/1] bg-black/20">
                                     <img :src="p.image" :alt="p.title"
                                         class="w-full h-full object-cover" loading="lazy">
                                 </a>
-                                <div class="p-3 flex-1 flex flex-col">
-                                    <h4 class="text-sm font-semibold line-clamp-2" x-text="p.title"></h4>
-                                    <p class="mt-1 text-sm text-white/80" x-text="fmt(p.price)"></p>
+                                <div class="p-2 flex-1 flex flex-col">
+                                    <h4 class="text-[12px] leading-tight font-semibold line-clamp-2" x-text="p.title">
+                                    </h4>
+                                    <span class="text-[10px] uppercase opacity-70"
+                                        x-text="p.type === 'kit' ? 'Kit' : 'Prodotto'"></span>
+
 
                                     <button
-                                        class="mt-auto inline-flex items-center justify-center rounded-lg border border-white/20 px-3 py-2 text-sm font-medium hover:bg-white/10 disabled:opacity-60 disabled:cursor-not-allowed"
+                                        class="mt-auto inline-flex items-center justify-center rounded-md border border-white/20 px-2 py-1 text-[11px] font-medium hover:bg-white/10 disabled:opacity-60 disabled:cursor-not-allowed"
                                         :disabled="wasAdded(p)" @click.stop="add(p)">
-                                        <span class="material-symbols-rounded mr-1 text-base">add_shopping_cart</span>
+                                        <span
+                                            class="material-symbols-rounded mr-1 text-[16px] leading-none">add_shopping_cart</span>
                                         <span x-text="wasAdded(p) ? 'Aggiunto' : 'Aggiungi'"></span>
                                     </button>
                                 </div>
@@ -75,9 +79,9 @@
                     </p>
                 </div>
 
-                <!-- Footer -->
+                <!-- Footer: FISSO in basso alla modale -->
                 <div
-                    class="px-5 py-4 border-t border-white/10 flex gap-2 justify-end sticky bottom-0 bg-transparent/60 backdrop-blur-sm">
+                    class="px-5 py-4 border-t border-white/10 flex gap-2 justify-end bg-transparent/60 backdrop-blur-sm pb-safe">
                     <button
                         class="inline-flex items-center px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10"
                         @click.stop="close()">Continua lo shopping</button>
@@ -86,15 +90,47 @@
                         Vai al checkout
                     </a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
 <style>
+    .modal-body {
+        overflow-y: auto;
+        /* abilita scroll verticale */
+        overscroll-behavior: contain;
+        /* evita scroll della pagina dietro */
+        -webkit-overflow-scrolling: touch;
+        /* momentum scroll iOS */
+        touch-action: pan-y;
+        /* consenti gesture verticali */
+        max-height: 100%;
+        /* non supera l'altezza assegnata dal grid */
+    }
+
+    /* il panel è una grid: header (auto) / body (1fr) / footer (auto) */
+    .trippy-panel {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        overflow: hidden;
+        /* nasconde overflow dei layer interni */
+    }
+
     /* ===== Visual viewport helper ===== */
     .vvh {
         height: 100svh;
+    }
+
+    /* Safe area padding per footer su iOS */
+    .pb-safe {
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Momentum scroll iOS */
+    .ios-scroll {
+        -webkit-overflow-scrolling: touch;
     }
 
     /* ===== Trippy background (non blocca i click) ===== */
@@ -157,7 +193,6 @@
 
             // ——— UTIL ———
             async waitForCartReady() {
-                // aspetta che lo store esista e sia pronto (cartReady true)
                 const ready = () => !!(Alpine.store('cart') && Alpine.store('cartReady'));
                 if (ready()) return;
                 await new Promise((resolve) => {
@@ -183,6 +218,8 @@
             },
             inCart(p) {
                 const items = (Alpine.store('cart')?.items || []);
+                console.log('inCart');
+                console.log(items);
                 return items.some(i => String(i.id) === String(p.id));
             },
             wasAdded(p) {
@@ -195,6 +232,8 @@
                 raw.forEach(i => {
                     const sid = String(i.id || '');
                     if (sid.startsWith('kit:')) {
+                        const kitNum = parseInt(sid.replace('kit:', ''), 10);
+                        if (!isNaN(kitNum)) ids.push(String(kitNum));
                         if (Array.isArray(i.contains)) i.contains.forEach(pid => ids.push(
                             String(pid)));
                     } else {
@@ -210,13 +249,15 @@
                 this.items = [];
                 this.addedIds.clear();
                 try {
-                    // aspetta che il carrello sia idratato, così escludiamo correttamente
                     await this.waitForCartReady();
 
-                    const inCart = this._collectCartIds().filter(id => !String(id).startsWith(
-                        'kit:'));
+                    const excludeIds = this._collectCartIds()
+                        .map(x => parseInt(String(x), 10))
+                        .filter(n => Number.isFinite(n) && n > 0);
+
                     const url = new URL('/related', window.location.origin);
-                    if (inCart.length) url.searchParams.set('in_cart_ids', inCart.join(','));
+                    if (excludeIds.length) url.searchParams.set('in_cart_ids', excludeIds.join(
+                        ','));
                     url.searchParams.set('limit', '3');
 
                     const res = await fetch(url.toString(), {
@@ -227,6 +268,9 @@
                     if (!res.ok) throw new Error('HTTP ' + res.status);
                     const data = await res.json();
                     this.items = Array.isArray(data) ? data : (data.items || []);
+                    console.log('data');
+                    console.log(data);
+
                 } catch (e) {
                     console.error(e);
                     this.error = 'Impossibile caricare i suggerimenti.';
@@ -237,24 +281,23 @@
 
             async add(p) {
                 try {
-                    await this.waitForCartReady(); // 🔑 evita race & stato parziale
-
+                    await this.waitForCartReady();
                     const cart = Alpine.store('cart');
+
+                    // p.type arriva dal backend: 'product' | 'kit'
+                    const idStr = (p.type === 'kit') ? `kit:${p.id}` : String(p.id);
+
                     cart.add({
-                        id: String(p.id),
-                        type: 'product',
+                        id: idStr,
+                        type: p.type || 'product',
                         name: p.title,
-                        image: p.image || null, // passa anche l’immagine
+                        image: p.image || null,
                         price: Number(p.price || 0),
                         qty: 1,
                     });
 
-                    // forza un tick reattivo per eventuali UI “pigre”
+                    this.addedIds.add(String(p.id));
                     if (typeof cart._heartbeat !== 'undefined') cart._heartbeat = Date.now();
-                    cart.touchExpiry?.();
-                    cart.save?.();
-
-                    this.addedIds.add(String(p.id)); // cambia label → "Aggiunto"
                     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
                         navigator.vibrate?.(8);
                 } catch (e) {
@@ -264,7 +307,7 @@
 
             async open() {
                 this.openModal = true;
-                await this.waitForCartReady(); // 🔑 prima idrata, poi fetch correlati
+                await this.waitForCartReady();
                 this.fetchRelated();
                 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) navigator
                     .vibrate?.(12);
@@ -274,7 +317,8 @@
             },
 
             init() {
-                /* hook futuri */ }
+                /* hook futuri */
+            }
         }));
     });
 </script>

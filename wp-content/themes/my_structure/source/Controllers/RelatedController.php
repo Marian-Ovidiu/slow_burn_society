@@ -14,9 +14,6 @@ class RelatedController extends BaseController
      */
     public function related()
     {
-        $this->addJs('cart', 'cart.js');
-        $this->addJs('shop', 'shop.js');
-
         // Sanitizza input
         $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 3;
         if ($limit < 1) $limit = 1;
@@ -125,7 +122,7 @@ class RelatedController extends BaseController
         // Mappatura output
         $items = array_map(function ($p) use ($resolve_image, $resolve_price) {
             $id        = (int)$p->ID;
-            $post_type = get_post_type($id) ?: 'prodotto';
+            $post_type = get_post_type($id) ?: 'prodotto'; // 'prodotto' | 'kit'
             $title     = get_the_title($id);
             $price     = $resolve_price($id, $post_type);
             $image     = $resolve_image($id, $post_type);
@@ -133,6 +130,7 @@ class RelatedController extends BaseController
 
             return [
                 'id'        => $id,
+                'type'      => ($post_type === 'kit' ? 'kit' : 'product'), // 👈 AGGIUNTO
                 'title'     => $title,
                 'price'     => $price,
                 'image'     => $image,
