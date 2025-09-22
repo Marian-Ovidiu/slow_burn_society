@@ -244,7 +244,7 @@
                         </defs>
                         <path
                             d="M200,950 C260,780 420,760 520,610 C640,430 460,330 560,210 C650,110 820,150 900,260
-                                                   C980,370 900,520 820,610 C690,750 600,740 520,860 C470,940 360,1020 260,1000 Z"
+                                                                   C980,370 900,520 820,610 C690,750 600,740 520,860 C470,940 360,1020 260,1000 Z"
                             fill="url(#smokeGrad1)" />
                     </svg>
 
@@ -258,7 +258,7 @@
                         </defs>
                         <path
                             d="M950,980 C880,900 820,840 780,740 C720,590 850,520 820,420 C790,320 670,300 580,350
-                                                   C500,390 520,480 520,560 C520,700 420,760 380,840 C350,900 340,980 420,1020 Z"
+                                                                   C500,390 520,480 520,560 C520,700 420,760 380,840 C350,900 340,980 420,1020 Z"
                             fill="url(#smokeGrad2)" />
                     </svg>
 
@@ -272,8 +272,8 @@
                         </defs>
                         <path
                             d="M240,240 C340,220 460,260 540,340 C600,400 600,480 560,560 C520,640 440,700 420,800
-                                                   C400,900 470,980 560,1000 C650,1020 760,980 800,900 C840,820 780,760 760,680
-                                                   C740,600 800,520 820,440 C840,360 800,300 740,260 C660,210 540,200 460,220 Z"
+                                                                   C400,900 470,980 560,1000 C650,1020 760,980 800,900 C840,820 780,760 760,680
+                                                                   C740,600 800,520 820,440 C840,360 800,300 740,260 C660,210 540,200 460,220 Z"
                             fill="url(#smokeGrad3)" />
                     </svg>
                 </div>
@@ -307,7 +307,7 @@
                 <span class="mx-1" aria-hidden="true">/</span>
                 <span aria-current="page">{{ $product['title'] ?? 'Prodotto' }}</span>
             </nav>
-
+            {{-- Sezione dettagli opzionale --}}
             @if (!empty($product['pretitolo']))
                 <p class="text-xs uppercase tracking-wider text-white/60">{{ $product['pretitolo'] }}</p>
             @endif
@@ -315,7 +315,9 @@
             <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
                 {{ $product['title'] ?? 'Prodotto' }}
             </h1>
-
+            @if (!empty($product['titolo_descrizione']))
+                <h2 class="mt-6 text-sm font-semibold text-white">{{ $product['titolo_descrizione'] }}</h2>
+            @endif
             <div class="flex items-center gap-3">
                 <p class="text-2xl font-semibold text-emerald-300">
                     € <span x-text="priceFormatted()"></span>
@@ -356,74 +358,83 @@
             <p class="text-xs mt-1"
                 :class="$store.cart?.remainingFor(product.id, Number(maxQty)) > 0 ? 'text-green-600' : 'text-red-600'">
                 Disp.: <span x-text="$store.cart?.remainingFor(product.id, Number(maxQty)) ?? 0"></span>
-            </p>
-            {{-- Sezione dettagli opzionale --}}
-            @if (!empty($product['titolo_descrizione']))
-                <h2 class="mt-6 text-sm font-semibold text-white">{{ $product['titolo_descrizione'] }}</h2>
-            @endif
-
-            @if (!empty($product['descrizione']))
-                <div class="prose prose-sm max-w-none">{!! $product['descrizione'] !!}</div>
-            @endif
-        </div>
+            </p </div>
     </section>
 
     {{-- Prodotti correlati --}}
-@if (!empty($relatedItems))
-  @php
-    $hasKit = false; $hasProd = false;
-    foreach ($relatedItems as $r) { if(($r['type'] ?? '') === 'kit') $hasKit = true; if(($r['type'] ?? '') === 'product') $hasProd = true; }
-    $relatedTitle = $hasKit && $hasProd ? 'Consigliati per te' : ($hasKit ? 'Altri kit che potrebbero piacerti' : 'Prodotti correlati');
-  @endphp
+    @if (!empty($relatedItems))
+        @php
+            $hasKit = false;
+            $hasProd = false;
+            foreach ($relatedItems as $r) {
+                if (($r['type'] ?? '') === 'kit') {
+                    $hasKit = true;
+                }
+                if (($r['type'] ?? '') === 'product') {
+                    $hasProd = true;
+                }
+            }
+            $relatedTitle =
+                $hasKit && $hasProd
+                    ? 'Consigliati per te'
+                    : ($hasKit
+                        ? 'Altri kit che potrebbero piacerti'
+                        : 'Prodotti correlati');
+        @endphp
 
-  <section class="mt-12" aria-labelledby="related-title">
-    <h2 id="related-title" class="text-lg font-bold tracking-tight mb-4">{{ $relatedTitle }}</h2>
+        <section class="mt-12" aria-labelledby="related-title">
+            <h2 id="related-title" class="text-lg font-bold tracking-tight mb-4">{{ $relatedTitle }}</h2>
 
-    <ul class="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" role="list">
-      @foreach ($relatedItems as $r)
-        <li role="listitem">
-          <article class="bg-white/10 border border-white/15 rounded-lg p-3 h-full flex flex-col backdrop-blur">
-            <a href="{{ $r['permalink'] }}" class="block">
-              <img src="{{ $r['image'] }}" alt="{{ $r['title'] }}" class="w-full h-40 object-contain rounded mb-2 bg-white">
-            </a>
-            <h3 class="text-sm font-semibold line-clamp-2">
-              <a href="{{ $r['permalink'] }}" class="hover:underline">{{ $r['title'] }}</a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-100">€ {{ $r['price_formatted'] }}</p>
-            <span class="text-[11px] mt-0.5 {{ ($r['available'] ?? false) ? 'text-green-300' : 'text-red-300' }}">
-              {{ ($r['available'] ?? false) ? 'Disponibile' : 'Non disponibile' }}
-            </span>
+            <ul class="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" role="list">
+                @foreach ($relatedItems as $r)
+                    <li role="listitem">
+                        <article
+                            class="bg-white/10 border border-white/15 rounded-lg p-3 h-full flex flex-col backdrop-blur">
+                            <a href="{{ $r['permalink'] }}" class="block">
+                                <img src="{{ $r['image'] }}" alt="{{ $r['title'] }}"
+                                    class="w-full h-40 object-contain rounded mb-2 bg-white">
+                            </a>
+                            <h3 class="text-sm font-semibold line-clamp-2">
+                                <a href="{{ $r['permalink'] }}" class="hover:underline">{{ $r['title'] }}</a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-100">€ {{ $r['price_formatted'] }}</p>
+                            <span
+                                class="text-[11px] mt-0.5 {{ $r['available'] ?? false ? 'text-green-300' : 'text-red-300' }}">
+                                {{ $r['available'] ?? false ? 'Disponibile' : 'Non disponibile' }}
+                            </span>
 
-            {{-- CTA coerente con type --}}
-            @if (($r['type'] ?? '') === 'kit')
-              <button type="button"
-                class="mt-auto w-full text-xs font-semibold py-2 rounded transition {{ ($r['available'] ?? false) ? 'bg-[#45752c] text-white hover:bg-[#386322]' : 'bg-gray-300 text-gray-600 cursor-not-allowed' }}"
-                @click.prevent="$store.cart && $store.cart.add(@js($r['cart']))"
-                {{ ($r['available'] ?? false) ? '' : 'disabled' }}>
-                Aggiungi
-              </button>
-            @else
-              <div class="mt-auto grid grid-cols-2 gap-2">
-                <button type="button"
-                  class="text-xs font-semibold py-2 rounded transition bg-[#45752c] text-white hover:bg-[#386322] disabled:opacity-50 disabled:cursor-not-allowed"
-                  @click.prevent="$store.cart && $store.cart.add(@js($r['cart']))"
-                  {{ ($r['available'] ?? false) ? '' : 'disabled' }}>
-                  Aggiungi
-                </button>
-                <a href="{{ $r['permalink'] }}" class="text-black text-center text-xs font-semibold py-2 rounded border border-gray-300 bg-white hover:bg-gray-50">
-                  Dettagli
-                </a>
-              </div>
-            @endif
-          </article>
-        </li>
-      @endforeach
-    </ul>
-    {{-- @include('components.cartIcon') --}}
-  </section>
-@endif
+                            {{-- CTA coerente con type --}}
+                            @if (($r['type'] ?? '') === 'kit')
+                                <button type="button"
+                                    class="mt-auto w-full text-xs font-semibold py-2 rounded transition {{ $r['available'] ?? false ? 'bg-[#45752c] text-white hover:bg-[#386322]' : 'bg-gray-300 text-gray-600 cursor-not-allowed' }}"
+                                    @click.prevent="$store.cart && $store.cart.add(@js($r['cart']))"
+                                    {{ $r['available'] ?? false ? '' : 'disabled' }}>
+                                    Aggiungi
+                                </button>
+                            @else
+                                <div class="mt-auto grid grid-cols-2 gap-2">
+                                    <button type="button"
+                                        class="text-xs font-semibold py-2 rounded transition bg-[#45752c] text-white hover:bg-[#386322] disabled:opacity-50 disabled:cursor-not-allowed"
+                                        @click.prevent="$store.cart && $store.cart.add(@js($r['cart']))"
+                                        {{ $r['available'] ?? false ? '' : 'disabled' }}>
+                                        Aggiungi
+                                    </button>
+                                    <a href="{{ $r['permalink'] }}"
+                                        class="text-black text-center text-xs font-semibold py-2 rounded border border-gray-300 bg-white hover:bg-gray-50">
+                                        Dettagli
+                                    </a>
+                                </div>
+                            @endif
+                        </article>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
+
 @endsection
-
+@include('components.cartIcon')
+@include('components.cartSuggestModal')
 {{-- === SCRIPT: definizione componente PRIMA di Alpine === --}}
 @push('before_alpine')
     <script>

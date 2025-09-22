@@ -236,7 +236,6 @@
     <main id="main-content" class="flex-1 container mx-auto px-4 py-8 md:py-12">
         <div class="glass rounded-2xl p-4 md:p-6 lg:p-8 shadow-glass card-aura">
             @yield('content')
-           @include('components.cartIcon')
         </div>
     </main>
 

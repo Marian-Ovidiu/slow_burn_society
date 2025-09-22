@@ -39,7 +39,10 @@
         <p class="mt-2 text-white/70 text-sm" id="kit-section-desc">
             Scopri i nostri Kit SlowBurn: selezionati con cura, pronti per il tuo rituale.
         </p>
-
+        <span class="mt-2 inline-block text-white/80 text-[12px] md:text-[13px]">
+            Nota: in questa fase alcuni contenuti sono brandizzati; i materiali ufficiali
+            <span itemprop="brand">Slow Burn Society</span> arriveranno a breve.
+        </span>
         <p class="mt-1 text-xs text-white/60" x-show="$store.cartReady && $store.cart.items.length" aria-live="polite">
             <span
                 x-text="$store.cart.remainingMinutes() > 0
@@ -135,11 +138,12 @@
                     </div>
 
                     <!-- CTA: Aggiungi + Dettagli -->
-                    <div class="mt-2 grid grid-cols-2 gap-2">
+                    <!-- CTA: Aggiungi + Dettagli -->
+                    <div class="mt-2 grid gap-2 grid-cols-1 md:grid-cols-2">
                         <button type="button"
                             :disabled="!@js($available) || isInCart(@js($kitJs['cart'] ?? (object) []))"
                             @click.stop="addToCart(@js($kitJs['cart'] ?? (object) []))"
-                            class="text-xs font-semibold py-1.5 px-3 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="w-full text-xs font-semibold py-1.5 px-3 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
                             :class="(!@js($available) || isInCart(@js($kitJs['cart'] ?? (object) []))) ?
                             'bg-white/20 text-white cursor-not-allowed' :
                             'bg-[#45752c] text-white hover:bg-[#386322]'"
@@ -151,14 +155,12 @@
 
                         @if (!empty($kitUrl))
                             <a href="{{ $kitUrl }}"
-                                class="text-center text-xs font-semibold py-1.5 px-3 rounded
-                        border border-white/30 bg-white/10 text-white hover:bg-white/20">
+                                class="w-full text-center text-xs font-semibold py-1.5 px-3 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20">
                                 Dettagli
                             </a>
                         @else
                             <button type="button"
-                                class="text-center text-xs font-semibold py-1.5 px-3 rounded
-                             border border-white/30 bg-white/10 text-white hover:bg-white/20"
+                                class="w-full text-center text-xs font-semibold py-1.5 px-3 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20"
                                 @click="modalOpen2 = true; selected2 = @js($kitJs ?? (object) [])"
                                 aria-haspopup="dialog" aria-controls="kit-modal"
                                 aria-label="Dettagli rapidi: {{ $kit->nome }}">

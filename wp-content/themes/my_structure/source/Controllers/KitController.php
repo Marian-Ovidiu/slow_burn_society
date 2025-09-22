@@ -250,6 +250,16 @@ class KitController extends BaseController
                 'price_formatted' => number_format($price, 2, ',', '.'),
                 'disponibilita'   => $disp,
                 'available'       => $disp > 0,
+                'cart'            => [
+                    'id'     => 'kit:' . (int) $kk->id,
+                    'kitId'  => (int) $kk->id,
+                    'type'   => 'kit',
+                    'name'   => (string) ($kk->nome ?: $kk->title),
+                    'image'  => $img,
+                    'price'  => (float) $price,
+                    'qty'    => 1,
+                    'maxQty' => (int) $disp,
+                ],
             ];
         }
         wp_reset_postdata();
@@ -290,6 +300,16 @@ class KitController extends BaseController
                 'price_formatted' => number_format($pPrice, 2, ',', '.'),
                 'disponibilita'   => $pDisp,
                 'available'       => ($pDisp > 0),
+                'cart'            => [
+                    'id'       => (string) $pid,   // prodotto -> ID numerico (stringa)
+                    'productId' => (int) $pid,
+                    'type'     => 'product',
+                    'name'     => (string) ($pp->title ?? get_the_title($pid)),
+                    'image'    => $imgUrl,
+                    'price'    => (float) $pPrice,
+                    'qty'      => 1,
+                    'maxQty'   => (int) $pDisp,
+                ],
             ];
         }
         wp_reset_postdata();

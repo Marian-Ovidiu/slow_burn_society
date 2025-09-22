@@ -146,23 +146,15 @@
             </div>
 
             {{-- UNA SOLA IMMAGINE --}}
-            <!-- CONTENITORE IMMAGINE VERTICALE (no crop, un po' più piccola) -->
             <div
                 class="smoke-wrap w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur overflow-hidden grid place-items-center">
-                <!-- layer smoke: riusa i tre <svg> che avevi già -->
-                <div class="smoke-layer">
-                    <!-- ... i tuoi <svg> smoke-1 / smoke-2 / smoke-3 qui ... -->
-                </div>
-
-                <!-- wrapper con ratio verticale + max width per rimpicciolire -->
+                <div class="smoke-layer"><!-- smoke svgs opzionali --></div>
                 <div class="relative z-[1] w-full max-w-[520px] md:max-w-[600px] aspect-[2/3] md:aspect-[3/4] p-4">
                     <img :src="kit.image" :alt="kit.title"
                         class="absolute inset-0 h-full w-full object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,.25)]"
                         width="800" height="1200" loading="eager" decoding="async" />
                 </div>
             </div>
-
-            {{-- NESSUNA THUMB GALLERY --}}
         </div>
 
         {{-- COLONNA DX --}}
@@ -199,12 +191,10 @@
                 <div class="flex items-center rounded-lg border bg-white text-black w-full sm:w-auto">
                     <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="decrement()"
                         aria-label="Diminuisci quantità">−</button>
-
                     <input type="number"
                         class="w-full sm:w-14 text-center py-2 bg-white text-black placeholder:text-black/60 focus:outline-none focus:ring-2 focus:ring-black/20 [color-scheme:light]"
                         x-model.number="qty" min="1" :max="maxQty" :disabled="!inStock"
                         inputmode="numeric">
-
                     <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="increment()"
                         aria-label="Aumenta quantità">+</button>
                 </div>
@@ -223,7 +213,7 @@
 
             {{-- CONTENUTO DEL KIT --}}
             <section class="mt-8">
-                <h2 class="text-sm font-semibold text-gray-900 mb-3 text-white">Cosa c’è dentro il kit</h2>
+                <h2 class="text-sm font-semibold mb-3 text-white">Cosa c’è dentro il kit</h2>
 
                 <ul class="divide-y divide-white/10 rounded-lg border border-white/10 bg-transparent">
                     <template x-if="!itemsList.length">
@@ -234,139 +224,99 @@
                         <li class="p-3 flex items-center gap-3">
                             <img :src="(p.immagine_1 && p.immagine_1.url) ? p.immagine_1.url: (p.image || '')"
                                 alt="" class="h-14 w-14 object-contain rounded bg-white border border-white/20">
-
                             <div class="flex-1 min-w-0">
                                 <h3 class="text-sm font-semibold text-white truncate">
                                     <a :href="p.url || '#'" class="hover:underline" x-text="p.title"></a>
                                 </h3>
-
                                 <p class="text-xs text-white/70 mt-0.5" x-text="p.short || ''"></p>
-
                                 <div class="mt-1 flex items-center gap-3">
-                                    <span class="text-sm text-white/90">
-                                        € <span x-text="fmtPrice(p.price)"></span>
-                                    </span>
+                                    <span class="text-sm text-white/90">€ <span x-text="fmtPrice(p.price)"></span></span>
                                     <span class="text-[11px]"
                                         :class="(Number(p.disponibilita || 0) > 0) ? 'text-green-400' : 'text-red-400'"
-                                        x-text="(Number(p.disponibilita||0)>0) ? 'Disponibile' : 'Non disponibile'">
-                                    </span>
+                                        x-text="(Number(p.disponibilita||0)>0) ? 'Disponibile' : 'Non disponibile'"></span>
                                 </div>
                             </div>
-
                             <a :href="p.url || '#'"
-                                class="text-xs font-semibold px-3 py-1.5 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30">
-                                Dettagli
-                            </a>
+                                class="text-xs font-semibold px-3 py-1.5 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30">Dettagli</a>
                         </li>
                     </template>
                 </ul>
 
-
-                <p class="text-[11px] text-gray-500 mt-2">
-                    La disponibilità del kit dipende dalla disponibilità dei singoli prodotti.
-                </p>
+                <p class="text-[11px] text-gray-500 mt-2">La disponibilità del kit dipende dalla disponibilità dei singoli
+                    prodotti.</p>
             </section>
-
-            @if (!empty($kit['descrizione']))
-                <div class="prose prose-sm max-w-none mt-6">{!! $kit['descrizione'] !!}</div>
-            @endif
         </div>
     </section>
 
     {{-- KIT correlati --}}
-  @if (!empty($relatedKits))
-    <h2 id="related-title" class="text-lg font-bold tracking-tight my-4 ">Prodotti correlati</h2>
-  <ul class="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" role="list">
-    @foreach ($relatedKits as $r)
-      @php
-        // tipo: 'product' oppure 'kit' (default)
-        $entity     = $r['entity'] ?? 'kit';
-        $isProduct  = $entity === 'product';
+    @if (!empty($relatedKits))
+        <section class="mt-8" x-data> {{-- <= importante: abilita Alpine nella sezione --}}
+            <h2 id="related-title" class="text-lg font-bold tracking-tight my-4">Prodotti correlati</h2>
+            <ul class="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" role="list">
+                @foreach ($relatedKits as $r)
+                    @php
+                        $entity = $r['entity'] ?? ($r['type'] ?? 'kit');
+                        $isProduct = $entity === 'product';
+                        $rid = (int) ($r['id'] ?? 0);
+                        $href = (string) ($r['permalink'] ?? '#');
+                        $img = $isProduct ? $r['immagine_1']['url'] ?? ($r['image'] ?? '') : $r['image'] ?? '';
+                        $price = (float) ($r['price'] ?? 0);
+                        $priceFormatted = $r['price_formatted'] ?? number_format($price, 2, ',', '.');
+                        $stock = (int) ($r['disponibilita'] ?? 0);
+                        $available = (bool) ($r['available'] ?? $stock > 0);
 
-        // immagine: prodotti -> immagine_1.url, kit -> image
-        $img = $isProduct
-          ? ($r['immagine_1']['url'] ?? ($r['image'] ?? ''))
-          : ($r['image'] ?? '');
+                        // Payload: se già presente nel dato, usalo; altrimenti costruiscilo ora
+                        $payload = $r['cart'] ?? [
+                            'id' => $isProduct ? (string) $rid : 'kit:' . $rid,
+                            $isProduct ? 'productId' : 'kitId' => $rid,
+                            'type' => $isProduct ? 'product' : 'kit',
+                            'name' => (string) ($r['title'] ?? ''),
+                            'image' => (string) $img,
+                            'price' => (float) $price,
+                            'qty' => 1,
+                            'maxQty' => $stock,
+                        ];
+                    @endphp
 
-        // URL dettaglio
-        $href = $r['permalink'] ?? '#';
+                    <li role="listitem">
+                        <article
+                            class="rounded-lg border border-white/10 bg-white/10 backdrop-blur p-3 h-full flex flex-col text-white transition hover:bg-white/15">
+                            <a href="{{ $href }}" class="block">
+                                <img src="{{ $img }}" alt="{{ $r['title'] ?? '' }}"
+                                    class="w-full h-40 object-contain rounded mb-2 bg-white" loading="lazy" width="560"
+                                    height="320" sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw">
+                            </a>
 
-        // prezzo formattato
-        $priceFormatted = $r['price_formatted']
-          ?? number_format((float)($r['price'] ?? 0), 2, ',', '.');
+                            <h3 class="text-sm font-semibold line-clamp-2">
+                                <a href="{{ $href }}" class="hover:underline">{{ $r['title'] ?? '' }}</a>
+                            </h3>
 
-        // disponibilità
-        $available = $r['available'] ?? ((int)($r['disponibilita'] ?? 0) > 0);
-        $stock     = (int)($r['disponibilita'] ?? 0);
+                            <p class="mt-1 text-sm text-white/90">€ {{ $priceFormatted }}</p>
 
-        // id numerico
-        $rid = (int)($r['id'] ?? 0);
+                            <span class="text-[11px] mt-0.5 {{ $available ? 'text-green-300' : 'text-red-300' }}">
+                                {{ $available ? 'Disponibile' : 'Non disponibile' }}
+                            </span>
 
-        // dati carrello in base al tipo
-        if ($isProduct) {
-          $cartId   = "product:{$rid}";
-          $cartType = 'product';
-          $idKey    = 'productId';
-        } else {
-          $cartId   = "kit:{$rid}";
-          $cartType = 'kit';
-          $idKey    = 'kitId';
-        }
-      @endphp
-
-      <li role="listitem">
-        <article class="rounded-lg border border-white/10 bg-white/10 backdrop-blur p-3 h-full flex flex-col text-white transition hover:bg-white/15">
-          <a href="{{ $href }}" class="block">
-            <img
-              src="{{ $img }}"
-              alt="{{ $r['title'] ?? '' }}"
-              class="w-full h-40 object-contain rounded mb-2 bg-white"
-              loading="lazy"
-              width="560"
-              height="320"
-              sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw"
-            >
-          </a>
-
-          <h3 class="text-sm font-semibold line-clamp-2">
-            <a href="{{ $href }}" class="hover:underline">{{ $r['title'] ?? '' }}</a>
-          </h3>
-
-          <p class="mt-1 text-sm text-white/90">€ {{ $priceFormatted }}</p>
-
-          <span class="text-[11px] mt-0.5 {{ $available ? 'text-green-300' : 'text-red-300' }}">
-            {{ $available ? 'Disponibile' : 'Non disponibile' }}
-          </span>
-
-          <button
-            type="button"
-            class="mt-auto w-full text-xs font-semibold py-2 rounded transition
-                   {{ $available ? 'bg-[#45752c] text-white hover:bg-[#386322] focus:outline-none focus:ring-2 focus:ring-white/30' : 'bg-white/15 text-white cursor-not-allowed disabled:opacity-60' }}"
-            @if ($available)
-              @click.prevent="$store.cart && $store.cart.add({
-                id: '{{ $cartId }}',
-                {{ $idKey }}: {{ $rid }},
-                type: '{{ $cartType }}',
-                name: @js($r['title'] ?? ''),
-                image: @js($img),
-                price: {{ number_format((float)($r['price'] ?? 0), 2, '.', '') }},
-                maxQty: {{ $stock }}
-              })"
-            @else
-              disabled
-            @endif
-          >
-            Aggiungi
-          </button>
-        </article>
-      </li>
-    @endforeach
-  </ul>
-@endif
-@include('components.cartIcon')
+                            <button type="button"
+                                class="mt-auto w-full text-xs font-semibold py-2 rounded transition
+                                       {{ $available ? 'bg-[#45752c] text-white hover:bg-[#386322] focus:outline-none focus:ring-2 focus:ring-white/30' : 'bg-white/15 text-white cursor-not-allowed disabled:opacity-60' }}"
+                                @if ($available) :disabled="!$store.cartReady"
+                                    @click.prevent="if ($store.cartReady && $store.cart && typeof $store.cart.add==='function') { $store.cart.add(@js($payload)); navigator.vibrate?.(8); }"
+                                @else
+                                    disabled @endif>
+                                Aggiungi
+                            </button>
+                        </article>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
 @endsection
 
-{{-- === SCRIPT: definizione componente PRIMA di Alpine === --}}
+@include('components.cartIcon')
+@include('components.cartSuggestModal')
+
 @push('before_alpine')
     <script>
         // Componente pagina KIT (SOLO image, niente gallery)
@@ -410,28 +360,25 @@
                         const kid = Number(initial?.id || 0);
                         const base = initial?.cart || {};
                         return Object.assign({
-                                id: `kit:${kid}`,
-                                kitId: kid,
-                                type: 'kit',
-                                name: String(initial?.title || ''),
-                                image: String(initial?.image || ''),
-                                price: Number(initial?.price || 0)
-                            },
-                            base
-                        );
+                            id: `kit:${kid}`,
+                            kitId: kid,
+                            type: 'kit',
+                            name: String(initial?.title || ''),
+                            image: String(initial?.image || ''),
+                            price: Number(initial?.price || 0)
+                        }, base);
                     })(),
                 },
 
                 qty: 1,
                 maxQty: Number(maxQty || 0),
 
-                // Manteniamo immagine_1 intera (array ACF) per poter usare immagine_1.url in template
                 itemsList: (Array.isArray(items) ? items : []).map(p => ({
                     id: p.id,
                     title: String(p.title || ''),
                     url: String(p.url || ''),
                     immagine_1: (p.immagine_1 && typeof p.immagine_1 === 'object') ? p.immagine_1 : {},
-                    image: String(p.image || ''), // fallback
+                    image: String(p.image || ''),
                     short: String(p.short || ''),
                     price: toNum(p.price || 0),
                     disponibilita: Number(p.disponibilita || 0)

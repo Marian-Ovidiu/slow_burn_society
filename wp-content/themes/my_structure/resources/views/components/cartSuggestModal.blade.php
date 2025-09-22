@@ -8,7 +8,7 @@
         class="fixed inset-0 z-[10001] grid place-items-center p-4 vvh pointer-events-none">
 
         <!-- WRAPPER modale (box) -->
-        <div class="relative w-full max-w-xl rounded-2xl overflow-hidden trippy-bg pointer-events-auto"
+        <div class="relative w-full max-w-xl rounded-2xl overflow-hidden trippy-bg pointer-events-auto scale-[0.75] origin-center"
             @keydown.escape.window="close()" role="dialog" aria-modal="true" aria-labelledby="cs-title">
 
             <!-- PANEL a griglia: header / body (scroll) / footer -->
@@ -24,7 +24,7 @@
                 </div>
 
                 <!-- Body: SOLO qui scroll verticale -->
-                <div class="modal-body px-4 py-4 space-y-4 pr-2 -mr-2">
+                <div class="modal-body px-4 py-4 space-y-4 -mr-2">
 
                     <!-- Loader (scheletri compatti) -->
                     <div x-show="typeof loading !== 'undefined' && loading"
@@ -45,7 +45,7 @@
                     <div x-show="typeof loading !== 'undefined' && !loading && typeof error !== 'undefined' && error"
                         class="text-sm text-red-300" x-text="error"></div>
                     <!-- Suggeriti (grid 2/3 col + card compatte) -->
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2"
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-1"
                         x-show="typeof loading !== 'undefined' && !loading && Array.isArray(items) && items.length">
                         <template x-for="p in items" :key="p.id">
                             <article class="border border-white/10 rounded-lg overflow-hidden flex flex-col bg-white/5">
@@ -80,17 +80,19 @@
                 </div>
 
                 <!-- Footer: FISSO in basso alla modale -->
+                <!-- Footer: FISSO in basso alla modale -->
                 <div
-                    class="px-5 py-4 border-t border-white/10 flex gap-2 justify-end bg-transparent/60 backdrop-blur-sm pb-safe">
+                    class="px-5 py-4 border-t border-white/10 flex flex-col gap-2 sm:flex-row sm:justify-end bg-transparent/60 backdrop-blur-sm pb-safe">
                     <button
-                        class="inline-flex items-center px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10"
-                        @click.stop="close()">Continua lo shopping</button>
+                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 rounded-lg border border-white/20 hover:bg-white/10"
+                        @click.stop="close()">
+                        Continua lo shopping
+                    </button>
                     <a href="/checkout"
-                        class="inline-flex items-center px-4 py-2 rounded-lg bg-[#45752c] text-white hover:bg-[#3b6426]">
+                        class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#45752c] text-white hover:bg-[#3b6426]">
                         Vai al checkout
                     </a>
                 </div>
-
             </div>
         </div>
     </div>

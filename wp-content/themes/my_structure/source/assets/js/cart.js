@@ -4,7 +4,7 @@
   window.__cartStoreInitialized = true;
 
   const LS_KEY = 'cart_v2';
-  const TTL_MINUTES = 1;
+  const TTL_MINUTES = 10;
   const TTL_MS = TTL_MINUTES * 60 * 1000;
 
   const now = () => Date.now();
@@ -73,7 +73,8 @@
         qty: Number(i.qty || 1),
         price: Number(i.price),
         basePrice: Number(i.basePrice ?? i.price),
-        maxQty: toNum(i.maxQty) ?? undefined
+        maxQty: toNum(i.maxQty) ?? undefined,
+        _refreshTick: 0,
       })),
       token: null,
 
@@ -174,6 +175,7 @@
         this.touchExpiry();
         this.items = this.items.slice();   // reattività
         this.save();
+        this._refreshTick = Date.now();
       },
 
 
@@ -186,6 +188,7 @@
           this.items = this.items.slice();
           this.save();
           this.emitChanged?.();
+          this._refreshTick = Date.now();
           return;
         }
 
@@ -198,6 +201,7 @@
         this.items = this.items.slice();
         this.save();
         this.emitChanged?.();
+        this._refreshTick = Date.now();
       },
 
       remove(id) {
@@ -206,6 +210,7 @@
         this._expiredHandled = false;
         this.items = this.items.slice();
         this.save();
+        this._refreshTick = Date.now();
       },
 
       clear() {
@@ -214,6 +219,7 @@
         this._expiredHandled = true;   // evita doppio fire
         this.items = this.items.slice();
         this.save();
+        this._refreshTick = Date.now();
       },
 
       // Totali
@@ -289,6 +295,7 @@
           if (!this._expiredHandled && this.isExpired()) {
             this.clear();
             window.dispatchEvent(new CustomEvent('cart:expired'));
+            this._refreshTick = Date.now();
           }
         }, 15000); // fallback
       },
@@ -301,6 +308,7 @@
           if (!this._expiredHandled && this.isExpired()) {
             this.clear();
             window.dispatchEvent(new CustomEvent('cart:expired'));
+            this._refreshTick = Date.now();
           }
         }, 1000);
       },

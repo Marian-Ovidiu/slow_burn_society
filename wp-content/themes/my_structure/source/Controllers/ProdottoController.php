@@ -15,6 +15,9 @@ class ProdottoController extends BaseController
 
     public function single()
     {
+
+        $this->addJs('cart', 'cart.js');
+        $this->addJs('checkout', 'checkout.js');
         global $wpdb;
 
         $slug = $this->resolveSlug();
@@ -73,7 +76,7 @@ class ProdottoController extends BaseController
 
         // — gallery (immagine_1..4) + fallback featured
         $imgs = [];
-        foreach (['immagine_1','immagine_2','immagine_3','immagine_4'] as $k) {
+        foreach (['immagine_1', 'immagine_2', 'immagine_3', 'immagine_4'] as $k) {
             $val = $prodotto->$k ?? null;
             if (is_array($val) && !empty($val['url']))       $imgs[] = $val['url'];
             elseif (is_string($val) && filter_var($val, FILTER_VALIDATE_URL)) $imgs[] = $val;

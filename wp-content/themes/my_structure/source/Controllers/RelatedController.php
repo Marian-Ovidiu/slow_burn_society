@@ -41,9 +41,10 @@ class RelatedController extends BaseController
             'post_type'      => ['prodotto', 'kit'], // includi entrambi
             'post_status'    => 'publish',
             'posts_per_page' => $limit,
+            'orderby'        => 'rand',
             'post__not_in'   => $in_cart_ids,
-            'orderby'        => 'date',
-            'order'          => 'DESC',
+            'no_found_rows'  => true,
+            'ignore_sticky_posts' => true,
         ];
 
         if (!empty($cat_ids)) {

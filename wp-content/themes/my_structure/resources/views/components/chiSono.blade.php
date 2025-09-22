@@ -6,7 +6,7 @@
     <meta itemprop="name" content="Slow Burn Society" />
 
     {{-- Sfondo: <img> (non LCP → lazy), dimensioni dichiarate per evitare CLS --}}
-    <img src="http://slow-burn-society.local/wp-content/uploads/2025/06/Sigaretta_accesa_nella_notte_con_luci_neon_blu_sullo_sfondo.jpg"
+    <img src="https://slow-burn-society.shop/wp-content/uploads/2025/06/Sigaretta_accesa_nella_notte_con_luci_neon_blu_sullo_sfondo.jpg"
         alt="" class="absolute inset-0 w-full h-full object-cover z-0" loading="lazy" decoding="async"
         width="1920" height="1080" sizes="100vw" aria-hidden="true" />
 
@@ -33,6 +33,7 @@
                 h.marian914@gmail.com
             </a>.
             Grazie di cuore! 🙏
+            <br />
         </p>
 
         {{-- Micro-usp opzionali (leggeri) --}}

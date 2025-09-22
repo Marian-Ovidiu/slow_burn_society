@@ -213,7 +213,7 @@ text-gray-800
     {{-- MAIN --}}
     <main id="main-content" class="flex-1 container mx-auto relative z-10" role="main">
         @yield('content')
-        @include('components.cartIcon')
+     
     </main>
 
     {{-- FOOTER --}}
