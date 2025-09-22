@@ -1,6 +1,5 @@
   <section x-data="shop()" id="shop" aria-labelledby="shop-title"
       class="px-4 md:px-8 lg:px-16 py-10 bg-transparent border-t border-white/10">
-
       <header class="mb-6 text-center">
           <h2 id="shop-title" class="text-xl md:text-2xl font-extrabold tracking-tight text-white">
               Oppure componi il tuo kit da solo
@@ -47,15 +46,17 @@
                           </a>
                       </div>
 
-                      <h3 id="p-ttl-{{ $product->id }}" class="text-sm font-semibold text-white truncate"
+                      <h3 id="p-ttl-{{ $product->id }}" class="text-sm font-semibold text-white clamp-2 break-safe"
                           itemprop="name">
-                          <a href="{{ $product->url }}" class="hover:underline"
+                          <a href="{{ $product->url }}"
+                              class="link-underline hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#386322]"
                               :aria-label="'Vai a: ' + @js($product->title)">
                               <span x-text="truncate(@js($product->title), 35)"></span>
                           </a>
                       </h3>
 
-                      <p id="p-desc-{{ $product->id }}" class="text-xs text-white/70 leading-snug mt-1"
+
+                      <p id="p-desc-{{ $product->id }}" class="text-xs text-white/70 leading-snug mt-1 break-safe"
                           itemprop="description" title="{{ strip_tags($product->descrizione) }}">
                           {{ \Illuminate\Support\Str::limit(strip_tags($product->descrizione), 55) }}
                       </p>
@@ -102,3 +103,18 @@
           @endforeach
       </ul>
   </section>
+  <style>
+      /* sicurezza anti-overflow per testi nelle card */
+      .shop-card .break-safe {
+          white-space: normal;
+          /* assicura il ritorno a capo */
+          overflow-wrap: anywhere;
+          /* spezza anche parole lunghissime */
+          word-break: break-word;
+          /* fallback cross-browser */
+          hyphens: auto;
+          /* trattini dove possibile */
+          max-width: 100%;
+          /* niente “spinta” fuori card */
+      }
+  </style>

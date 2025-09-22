@@ -32,6 +32,13 @@
             display: none !important;
         }
     }
+
+    @media (max-width: 768px) {
+        .cart-floating {
+            right: calc(clamp(12px, 3vw, 50px) * 3) !important;
+            bottom: calc((clamp(12px, 3vw, 50px) + env(safe-area-inset-bottom)) * 4) !important;
+        }
+    }
 </style>
 
 <div x-data="{
@@ -76,7 +83,7 @@
     }
 }" x-cloak x-show="$store.cart ? $store.cartReady : true"
     class="cart-floating fixed z-[9999] print:hidden"
-    style="right:clamp(12px,3vw,50px); bottom:calc(clamp(12px,3vw,50px) + env(safe-area-inset-bottom));"
+    style="right:clamp(12px,4vw,50px); bottom:calc(clamp(12px,6vw,50px) + env(safe-area-inset-bottom));"
     @keydown.enter.window.prevent="$dispatch('suggest:open')">
 
     <span data-live class="sr-only" aria-live="polite"></span>
@@ -92,9 +99,9 @@
 
             <div class="absolute -inset-[5px] rounded-full pointer-events-none"
                 :style="`background: conic-gradient(#45752c ${progress}%, #e5e7eb ${progress}% 100%);
-                                                          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
-                                                          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
-                                                          transition: background 140ms linear;`">
+                                                                          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
+                                                                          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), black 0);
+                                                                          transition: background 140ms linear;`">
             </div>
 
             <div data-cart-btn
