@@ -10,16 +10,12 @@
   const now = () => Date.now();
   const pad2 = (n) => String(n).padStart(2, '0');
 
-  function safeParse(json, fallback) {
-    try { return JSON.parse(json); } catch { return fallback; }
-  }
+  const safeParse = (json, fallback) => { try { return JSON.parse(json); } catch { return fallback; } };
 
   function loadFromStorage() {
     const raw = localStorage.getItem(LS_KEY);
     const data = safeParse(raw, null);
-    if (!data || !Array.isArray(data.items)) {
-      return { items: [], expiresAt: 0 };
-    }
+    if (!data || !Array.isArray(data.items)) return { items: [], expiresAt: 0 };
     return data;
   }
 
@@ -27,11 +23,9 @@
     localStorage.setItem(LS_KEY, JSON.stringify({ items, expiresAt }));
   }
 
-  function formatMoney(n) {
-    return Number(n || 0).toFixed(2);
-  }
+  const formatMoney = (n) => Number(n || 0).toFixed(2);
 
-  // Helpers stock
+  // Helpers numerici / stock
   const toNum = (v) => {
     if (typeof v === 'boolean') return null;
     if (v === null || v === undefined || v === '') return null;
@@ -48,9 +42,10 @@
     toNum(item?.available)
   );
 
-  const init = () => {
+  function init() {
     if (Alpine.store('cart')) return;
 
+    // Flag globale "ready" separata
     Alpine.store('cartReady', false);
 
     const data = loadFromStorage();
@@ -62,12 +57,13 @@
 
     const canonicalId = (id) => {
       const s = String(id ?? '');
-      return s.startsWith('kit:') ? s : s;
+      // Per i kit DEVE già essere in forma 'kit:123'
+      return s;
     };
 
     Alpine.store('cart', {
-      // State
-      items: data.items.map(i => ({
+      // Stato
+      items: (data.items || []).map(i => ({
         ...i,
         id: canonicalId(i.id),
         qty: Number(i.qty || 1),
@@ -78,11 +74,13 @@
       })),
       token: null,
 
-      _expiredHandled: false,      // 👈 guard contro doppi eventi
+      // Interni
+      _expiredHandled: false,
       _expiryTimerId: null,
       _countdownTimerId: null,
       _heartbeat: 0,
 
+      // Token anonimo carrello
       ensureToken() {
         if (this.token) return this.token;
         let t = window.localStorage.getItem('cart_token');
@@ -94,16 +92,12 @@
         return t;
       },
 
-      expiresAt: data.expiresAt || (data.items.length ? now() + TTL_MS : 0),
+      // Scadenza
+      expiresAt: data.expiresAt || ((data.items || []).length ? now() + TTL_MS : 0),
 
-      // TTL
-      remainingMs() {
-        void this._heartbeat;
-        if (!this.expiresAt) return 0;
-        return Math.max(0, this.expiresAt - Date.now());
-      },
-      remainingMinutes() { return Math.ceil(this.remainingMs() / 60000); },
+      remainingMs() { void this._heartbeat; return this.expiresAt ? Math.max(0, this.expiresAt - Date.now()) : 0; },
       remainingSeconds() { return Math.max(0, Math.ceil(this.remainingMs() / 1000)); },
+      remainingMinutes() { return Math.ceil(this.remainingMs() / 60000); },
       remainingFormatted() {
         const s = this.remainingSeconds();
         const m = Math.floor(s / 60);
@@ -111,12 +105,9 @@
         return `${m}:${pad2(sec)}`;
       },
       isExpired() { return this.expiresAt && this.expiresAt <= now(); },
-      touchExpiry() {
-        this.expiresAt = now() + TTL_MS;
-        this._expiredHandled = false;
-      },
+      touchExpiry() { this.expiresAt = now() + TTL_MS; this._expiredHandled = false; },
 
-      // Stock helpers
+      // Helpers stock
       qtyFor(id) { const it = this.items.find(i => String(i.id) === String(id)); return it ? Number(it.qty) : 0; },
       maxFor(id) { const it = this.items.find(i => String(i.id) === String(id)); return toNum(it?.maxQty) ?? null; },
       remainingFor(id, totalStock) {
@@ -128,12 +119,10 @@
 
       // CRUD
       add(item) {
-        // id canonico (stringa); per i kit DEVE arrivare già tipo 'kit:123'
         const incomingId = canonicalId(item.id);
         const price = Number(item.price);
         if (!Number.isFinite(price)) { console.warn('[cart] price non valido', item); return; }
 
-        // prima idrato da LS per evitare rimpiazzi strani
         this._hydrateFromStorageSafely();
 
         const capFromInput = pickMaxFromItem(item);
@@ -173,37 +162,10 @@
         }
 
         this.touchExpiry();
-        this.items = this.items.slice();   // reattività
-        this.save();
-        this._refreshTick = Date.now();
-      },
-
-
-      setQty(id, qty) {
-        const it = this.items.find(i => String(i.id) === String(id));
-        if (!it) return;
-
-        if (isKitId(it.id)) {
-          if (it.qty !== 1) it.qty = 1;
-          this.items = this.items.slice();
-          this.save();
-          this.emitChanged?.();
-          this._refreshTick = Date.now();
-          return;
-        }
-
-        let v = Math.max(1, Math.floor(Number(qty) || 1));
-        const max = Number.isFinite(it.maxQty) ? it.maxQty : (Number.isFinite(it.stock) ? it.stock : null);
-        if (max != null) v = Math.min(v, max);
-        it.qty = v;
-
-        this.touchExpiry();
         this.items = this.items.slice();
         this.save();
-        this.emitChanged?.();
         this._refreshTick = Date.now();
       },
-
       remove(id) {
         this.items = this.items.filter(i => String(i.id) !== String(id));
         if (this.items.length) this.touchExpiry(); else this.expiresAt = 0;
@@ -216,7 +178,7 @@
       clear() {
         this.items = [];
         this.expiresAt = 0;
-        this._expiredHandled = true;   // evita doppio fire
+        this._expiredHandled = true; // evita doppio fire
         this.items = this.items.slice();
         this.save();
         this._refreshTick = Date.now();
@@ -228,7 +190,7 @@
       lineSubtotalFormatted(item) { return formatMoney(this.lineSubtotal(item)); },
       totalFormatted() { return formatMoney(this.total()); },
 
-      // Persistenza
+      // Persistenza + eventi
       save() {
         // Protezione KIT
         this.items.forEach(it => {
@@ -253,24 +215,23 @@
         });
 
         saveToStorage(itemsToSave, exp);
+        this.emitChanged();
+      },
 
-        // Notifica globale
+      emitChanged() {
         window.dispatchEvent(new CustomEvent('cart:changed', {
-          detail: { items: itemsToSave, expiresAt: exp, total: this.total() }
+          detail: { items: this.items, expiresAt: this.expiresAt, total: this.total() }
         }));
       },
+
       _hydrateFromStorageSafely() {
         const data = (function () {
           try { return JSON.parse(localStorage.getItem(LS_KEY) || ''); } catch { return null; }
         })();
         const lsItems = Array.isArray(data?.items) ? data.items : [];
-
         if (!lsItems.length) return;
 
-        // mappa attuale per id
         const byId = new Map(this.items.map(it => [String(it.id), it]));
-
-        // unisci elementi presenti in LS che magari la UI locale non ha ancora
         lsItems.forEach(raw => {
           const key = String(raw.id);
           if (!byId.has(key)) {
@@ -297,14 +258,13 @@
             window.dispatchEvent(new CustomEvent('cart:expired'));
             this._refreshTick = Date.now();
           }
-        }, 15000); // fallback
+        }, 15000);
       },
 
       _startCountdownTicker() {
         if (this._countdownTimerId) clearInterval(this._countdownTimerId);
         this._countdownTimerId = setInterval(() => {
           this._heartbeat = Date.now(); // aggiorna UI timer
-          // check ogni 1s ⬇
           if (!this._expiredHandled && this.isExpired()) {
             this.clear();
             window.dispatchEvent(new CustomEvent('cart:expired'));
@@ -321,7 +281,9 @@
 
     Alpine.store('cartReady', true);
     window.dispatchEvent(new CustomEvent('cart:ready'));
-  };
+    // Primo “changed” per allineare tutte le UI che ascoltano
+    store.emitChanged();
+  }
 
   if (window.Alpine) init();
   else document.addEventListener('alpine:init', init);
@@ -329,6 +291,6 @@
 
 // Esempio toast su superamento stock (customizza come vuoi)
 window.addEventListener('cart:stock_exceeded', (e) => {
-  const { name, max } = e.detail;
+  const { name, max } = e.detail || {};
   alert(`${name}: limite raggiunto (${max})`);
 });

@@ -29,7 +29,7 @@
                     <!-- Loader (scheletri compatti) -->
                     <div x-show="typeof loading !== 'undefined' && loading"
                         class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        <template x-for="n in 6" :key="n">
+                        <template x-for="n in 3" :key="n">
                             <div class="border border-white/10 rounded-lg overflow-hidden animate-pulse bg-white/5">
                                 <div class="aspect-[1/1] bg-white/10"></div>
                                 <div class="p-2 space-y-1.5">
@@ -79,7 +79,6 @@
                     </p>
                 </div>
 
-                <!-- Footer: FISSO in basso alla modale -->
                 <!-- Footer: FISSO in basso alla modale -->
                 <div
                     class="px-5 py-4 border-t border-white/10 flex flex-col gap-2 sm:flex-row sm:justify-end bg-transparent/60 backdrop-blur-sm pb-safe">
@@ -245,41 +244,29 @@
                 return ids.filter(Boolean);
             },
 
-            async fetchRelated() {
-                this.loading = true;
-                this.error = '';
-                this.items = [];
-                this.addedIds.clear();
-                try {
-                    await this.waitForCartReady();
-
-                    const excludeIds = this._collectCartIds()
-                        .map(x => parseInt(String(x), 10))
-                        .filter(n => Number.isFinite(n) && n > 0);
-
-                    const url = new URL('/related', window.location.origin);
-                    if (excludeIds.length) url.searchParams.set('in_cart_ids', excludeIds.join(
-                        ','));
-                    url.searchParams.set('limit', '3');
-
-                    const res = await fetch(url.toString(), {
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
-                    const data = await res.json();
-                    this.items = Array.isArray(data) ? data : (data.items || []);
-                    console.log('data');
-                    console.log(data);
-
-                } catch (e) {
-                    console.error(e);
-                    this.error = 'Impossibile caricare i suggerimenti.';
-                } finally {
-                    this.loading = false;
+            const res = await fetch(url.toString(), {
+                headers: {
+                    'Accept': 'application/json'
                 }
-            },
+            });
+
+            if (!res.ok) {
+                const text = await res.text().catch(() => '');
+                console.error('[cartSuggest] /related NOT OK', res.status, text);
+                throw new Error('HTTP ' + res.status);
+            }
+
+            let data;
+            try {
+                data = await res.json();
+            } catch (e) {
+                const text = await res.text().catch(() => '');
+                console.error('[cartSuggest] JSON parse error. Raw:', text);
+                throw e;
+            }
+
+            this.items = Array.isArray(data) ? data : (data.items || []);
+
 
             async add(p) {
                 try {
@@ -310,7 +297,6 @@
             async open() {
                 this.openModal = true;
                 await this.waitForCartReady();
-                this.fetchRelated();
                 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) navigator
                     .vibrate?.(12);
             },

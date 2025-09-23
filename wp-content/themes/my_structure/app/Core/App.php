@@ -24,6 +24,7 @@ class App extends Init
                 acf_enqueue_scripts();
             }
         });
+        add_action('phpmailer_init', 'phpmailer_init');
     }
 
     public function registerFilters()

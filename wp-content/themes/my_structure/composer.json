@@ -41,7 +41,8 @@
             "app/Helpers/translation_helpers.php",
             "app/Helpers/utility_helpers.php",
             "app/Helpers/inventory.php",
-            "app/Helpers/migrations.php"
+            "app/Helpers/migrations.php",
+            "app/Helpers/email.php"
         ]
     },
     "scripts": {

@@ -42,6 +42,8 @@ class HomeController extends BaseController
                 'category'     => $p->categoria ?? null,
                 'brand'        => $p->brand ?? null,
             ];
+            $permalink = function_exists('get_permalink') ? (get_permalink($p->id) ?: '#') : '#';
+            $forJs['permalink'] = $permalink;
 
             // 👇 aggiunto type: 'product'
             $forJs['cart'] = [
@@ -104,6 +106,8 @@ class HomeController extends BaseController
                     'type'   => 'kit',
                 ],
             ];
+            $permalink = function_exists('get_permalink') ? (get_permalink($k->id) ?: '#') : '#';
+            $kitsForJs[$k->id]['permalink'] = $permalink;
         }
 
         $this->addJs('cart', 'cart.js');

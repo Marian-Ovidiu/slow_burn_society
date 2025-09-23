@@ -3,146 +3,203 @@
 namespace Controllers;
 
 use Core\Bases\BaseController;
-use WP_Query;
+use Models\Prodotto;
+use Models\Kit;
 
 class RelatedController extends BaseController
 {
-    /**
-     * GET /related?in_cart_ids=1,2,3&limit=3
-     * Ritorna prodotti/kit correlati per categoria, esclusi quelli già nel carrello.
-     * Output JSON: [{ id, title, price, image, permalink }]
-     */
-    public function related()
+    public function index()
     {
-        // Sanitizza input
-        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 3;
-        if ($limit < 1) $limit = 1;
-        if ($limit > 6) $limit = 6;
+        try {
+            // Query string: ?in_cart_ids=1,2,3&limit=3
+            $exclude = array_filter(array_map('intval', explode(',', (string) ($_GET['in_cart_ids'] ?? ''))));
+            $limit   = max(1, (int) ($_GET['limit'] ?? 3));
 
-        $in_cart_ids = [];
-        if (!empty($_GET['in_cart_ids'])) {
-            $in_cart_ids = array_filter(array_map('intval', explode(',', $_GET['in_cart_ids'])));
-        }
+            // Raccogli candidati (prodotti + kit), poi filtra con regole “vendibile”
+            $items = array_merge(
+                $this->collectSellableProducts($exclude),
+                $this->collectSellableKits($exclude)
+            ); // <-- niente virgola finale
 
-        // Categorie dai prodotti in carrello (tassonomia product_cat)
-        $cat_ids = [];
-        foreach ($in_cart_ids as $pid) {
-            $terms = get_the_terms($pid, 'product_cat');
-            if (is_array($terms)) {
-                foreach ($terms as $t) {
-                    $cat_ids[$t->term_id] = true;
-                }
-            }
-        }
-        $cat_ids = array_keys($cat_ids);
-
-        // Query principale: stessa/e categoria/e
-        $args = [
-            'post_type'      => ['prodotto', 'kit'], // includi entrambi
-            'post_status'    => 'publish',
-            'posts_per_page' => $limit,
-            'orderby'        => 'rand',
-            'post__not_in'   => $in_cart_ids,
-            'no_found_rows'  => true,
-            'ignore_sticky_posts' => true,
-        ];
-
-        if (!empty($cat_ids)) {
-            $args['tax_query'] = [[
-                'taxonomy' => 'product_cat',
-                'field'    => 'term_id',
-                'terms'    => $cat_ids,
-                'operator' => 'IN',
-            ]];
-        }
-
-        $q = new WP_Query($args);
-        $posts = $q->posts;
-
-        // Fallback: random su entrambi i post type (se nessuna corrispondenza per categoria)
-        if (!$posts) {
-            $fallback = new WP_Query([
-                'post_type'      => ['prodotto', 'kit'],
-                'post_status'    => 'publish',
-                'posts_per_page' => $limit,
-                'post__not_in'   => $in_cart_ids,
-                'orderby'        => 'rand',
-            ]);
-            $posts = $fallback->posts;
-        }
-
-        // Helpers locali
-        $resolve_image = function (int $id, string $post_type): string {
-            // prova in ordine i campi richiesti
-            $field_key = $post_type === 'kit' ? 'immagine_kit' : 'immagine_1';
-
-            // se hai ACF, get_field potrebbe restituire: URL, ID, o array (es. ['ID'=>..,'url'=>..])
-            if (function_exists('get_field')) {
-                $val = get_field($field_key, $id);
-                if (!empty($val)) {
-                    // Array con chiavi note
-                    if (is_array($val)) {
-                        if (!empty($val['url'])) return (string)$val['url'];
-                        if (!empty($val['ID'])) {
-                            $u = wp_get_attachment_image_url((int)$val['ID'], 'medium');
-                            if ($u) return $u;
-                        }
-                    }
-                    // ID numerico
-                    if (is_numeric($val)) {
-                        $u = wp_get_attachment_image_url((int)$val, 'medium');
-                        if ($u) return $u;
-                    }
-                    // URL stringa
-                    if (is_string($val) && filter_var($val, FILTER_VALIDATE_URL)) {
-                        return $val;
-                    }
+            // rimuovi duplicati su id+type
+            $dedup = [];
+            $uniq  = [];
+            foreach ($items as $it) {
+                $key = ($it['type'] ?? 'x') . ':' . ($it['id'] ?? '0');
+                if (!isset($dedup[$key])) {
+                    $dedup[$key] = true;
+                    $uniq[] = $it;
                 }
             }
 
-            // fallback: featured image
-            $thumb = get_the_post_thumbnail_url($id, 'medium');
-            return $thumb ? $thumb : '';
-        };
-
-        $resolve_price = function (int $id, string $post_type): float {
-            // prova varie meta comuni
-            $keys = ['_price', 'price', 'prezzo', 'kit_price', 'prezzo_kit'];
-            foreach ($keys as $k) {
-                $v = get_post_meta($id, $k, true);
-                if ($v !== '' && $v !== null) {
-                    // normalizza decimali con virgola
-                    $v = is_string($v) ? str_replace(['€', ' '], '', $v) : $v;
-                    $num = floatval(str_replace(',', '.', (string)$v));
-                    if ($num > 0) return $num;
-                }
+            // mischia un po' (oppure ordina come vuoi)
+            if (function_exists('shuffle')) {
+                shuffle($uniq);
             }
-            return 0.0;
-        };
 
-        // Mappatura output
-        $items = array_map(function ($p) use ($resolve_image, $resolve_price) {
-            $id        = (int)$p->ID;
-            $post_type = get_post_type($id) ?: 'prodotto'; // 'prodotto' | 'kit'
-            $title     = get_the_title($id);
-            $price     = $resolve_price($id, $post_type);
-            $image     = $resolve_image($id, $post_type);
-            $link      = get_permalink($id);
+            // rispetta il limit
+            $out = array_slice($uniq, 0, $limit);
 
-            return [
-                'id'        => $id,
-                'type'      => ($post_type === 'kit' ? 'kit' : 'product'), // 👈 AGGIUNTO
-                'title'     => $title,
+            // Output coerente: { items: [...] }
+            $payload = ['items' => array_values($out)];
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode($payload, JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (\Throwable $e) {
+            // Logga lato PHP per capire eventuali fatal/notices ecc.
+            error_log('[RelatedController] ERROR: ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+
+            http_response_code(500);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['error' => 'server_error', 'message' => 'Internal error'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // ————————————————————————————————————————————————————————————————————————
+    // PRODUCTS: publish + stock > 0
+    // ————————————————————————————————————————————————————————————————————————
+    protected function collectSellableProducts(array $excludeIds): array
+    {
+        $out = [];
+        $all = Prodotto::all(); // oggetti con id, title, prezzo, immagini, ACF ecc.
+
+        foreach ($all as $p) {
+            $pid = (int) ($p->id ?? 0);
+            if ($pid <= 0) {
+                continue;
+            }
+            if (in_array($pid, $excludeIds, true)) {
+                continue;
+            }
+
+            // status WP
+            $status = function_exists('get_post_status') ? (get_post_status($pid) ?: '') : '';
+            if ($status !== 'publish') {
+                continue;
+            }
+
+            // disponibilità / stock numerico
+            $rawStock = $p->disponibilita ?? ($p->stock ?? 0);
+            $stock    = is_numeric($rawStock) ? (int) $rawStock : (int) ($p->stock ?? 0);
+            if ($stock <= 0) {
+                continue;
+            }
+
+            // prezzo numerico
+            $price = (float) ($p->prezzo ?? 0);
+
+            // immagine (fallback ordinato)
+            $img = '';
+            if (!empty($p->immagine_1['url'])) {
+                $img = $p->immagine_1['url'];
+            } elseif (!empty($p->immagine_2['url'])) {
+                $img = $p->immagine_2['url'];
+            } elseif (!empty($p->immagine_3['url'])) {
+                $img = $p->immagine_3['url'];
+            } elseif (!empty($p->immagine_4['url'])) {
+                $img = $p->immagine_4['url'];
+            }
+
+            // permalink
+            $permalink = function_exists('get_permalink') ? (get_permalink($pid) ?: '#') : '#';
+
+            $out[] = [
+                'id'        => $pid,
+                'type'      => 'product',
+                'title'     => (string) ($p->title ?? ''),
                 'price'     => $price,
-                'image'     => $image,
-                'permalink' => $link,
+                'image'     => (string) $img,
+                'permalink' => (string) $permalink,
             ];
-        }, $posts ?: []);
+        }
 
-        // Output JSON
-        nocache_headers();
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($items, JSON_UNESCAPED_UNICODE);
-        exit;
+        return $out;
+    }
+
+    // ————————————————————————————————————————————————————————————————————————
+    // KITS: publish + prodotti non vuoti + OGNI prodotto (post_type 'prodotto') con stock > 0
+    // ————————————————————————————————————————————————————————————————————————
+    protected function collectSellableKits(array $excludeIds): array
+    {
+        $out = [];
+        $all = Kit::all();
+
+        foreach ($all as $k) {
+            $kid = (int) ($k->id ?? 0);
+            if ($kid <= 0) {
+                continue;
+            }
+            if (in_array($kid, $excludeIds, true)) {
+                continue;
+            }
+
+            // status WP
+            $status = function_exists('get_post_status') ? (get_post_status($kid) ?: '') : '';
+            if ($status !== 'publish') {
+                continue;
+            }
+
+            // prodotti del kit: devono esistere e NON essere vuoti
+            if (empty($k->prodotti) || !is_iterable($k->prodotti)) {
+                continue;
+            }
+
+            // OGNI prodotto del tipo 'prodotto' deve avere disponibilità > 0
+            $allChildrenOk = true;
+            $containsIds   = [];
+
+            foreach ($k->prodotti as $wpPost) {
+                $pid = (int) ($wpPost->ID ?? 0);
+                if ($pid <= 0) {
+                    continue;
+                }
+
+                // Considera il vincolo solo per il post_type 'prodotto'
+                $ptype = function_exists('get_post_type') ? (get_post_type($pid) ?: '') : '';
+                if ($ptype !== 'prodotto') {
+                    continue;
+                }
+
+                $prod = Prodotto::find($pid);
+                if (!$prod) {
+                    $allChildrenOk = false;
+                    break;
+                }
+
+                $rawStock = $prod->disponibilita ?? ($prod->stock ?? 0);
+                $stock    = is_numeric($rawStock) ? (int) $rawStock : (int) ($prod->stock ?? 0);
+                if ($stock <= 0) {
+                    $allChildrenOk = false;
+                    break;
+                }
+
+                $containsIds[] = $pid;
+            }
+
+            if (!$allChildrenOk) {
+                continue;
+            }
+
+            // prezzo numerico (sanitizza "€ 12,50")
+            $priceNumeric = (float) str_replace(['€', ' ', ','], ['', '', '.'], (string) ($k->prezzo ?? 0));
+
+            // immagine / permalink
+            $img = (string) ($k->immagine_kit['url'] ?? '');
+            $permalink = function_exists('get_permalink') ? (get_permalink($kid) ?: '#') : '#';
+
+            $out[] = [
+                'id'        => $kid,
+                'type'      => 'kit',
+                'title'     => (string) ($k->nome ?? ''),
+                'price'     => $priceNumeric,
+                'image'     => $img,
+                'permalink' => (string) $permalink,
+                'contains'  => $containsIds, // utile al FE per dedup
+            ];
+        }
+
+        return $out;
     }
 }
