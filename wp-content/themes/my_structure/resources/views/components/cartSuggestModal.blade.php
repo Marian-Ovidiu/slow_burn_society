@@ -210,19 +210,21 @@
             fmt(val) {
                 try {
                     return new Intl.NumberFormat('it-IT', {
-                        style: 'currency',
-                        currency: 'EUR'
-                    }).format(Number(val || 0));
+                            style: 'currency',
+                            currency: 'EUR'
+                        })
+                        .format(Number(val || 0));
                 } catch (e) {
                     return '€' + (Number(val || 0)).toFixed(2).replace('.', ',');
                 }
             },
+
             inCart(p) {
                 const items = (Alpine.store('cart')?.items || []);
-                console.log('inCart');
-                console.log(items);
-                return items.some(i => String(i.id) === String(p.id));
+                return items.some(i => String(i.id) === String(p.type === 'kit' ? `kit:${p.id}` : p
+                    .id));
             },
+
             wasAdded(p) {
                 return this.inCart(p) || this.addedIds.has(String(p.id));
             },
@@ -233,7 +235,7 @@
                 raw.forEach(i => {
                     const sid = String(i.id || '');
                     if (sid.startsWith('kit:')) {
-                        const kitNum = parseInt(sid.replace('kit:', ''), 10);
+                        const kitNum = parseInt(sid.slice(4), 10);
                         if (!isNaN(kitNum)) ids.push(String(kitNum));
                         if (Array.isArray(i.contains)) i.contains.forEach(pid => ids.push(
                             String(pid)));
@@ -244,36 +246,59 @@
                 return ids.filter(Boolean);
             },
 
-            const res = await fetch(url.toString(), {
-                headers: {
-                    'Accept': 'application/json'
+            // ——— QUI: metodo giusto con fetch e log estesi ———
+            async fetchRelated() {
+                this.loading = true;
+                this.error = '';
+                this.items = [];
+                this.addedIds.clear();
+                try {
+                    await this.waitForCartReady();
+
+                    const excludeIds = this._collectCartIds()
+                        .map(x => parseInt(String(x), 10))
+                        .filter(n => Number.isFinite(n) && n > 0);
+
+                    const url = new URL('/related', window.location.origin);
+                    if (excludeIds.length) url.searchParams.set('in_cart_ids', excludeIds.join(
+                        ','));
+                    url.searchParams.set('limit', '3');
+
+                    const res = await fetch(url.toString(), {
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!res.ok) {
+                        const text = await res.text().catch(() => '');
+                        console.error('[cartSuggest] /related NOT OK', res.status, text);
+                        throw new Error('HTTP ' + res.status);
+                    }
+
+                    let data;
+                    try {
+                        data = await res.json();
+                    } catch (e) {
+                        const text = await res.text().catch(() => '');
+                        console.error('[cartSuggest] JSON parse error. Raw:', text);
+                        throw e;
+                    }
+
+                    this.items = Array.isArray(data) ? data : (data.items || []);
+                } catch (e) {
+                    console.error(e);
+                    this.error = 'Impossibile caricare i suggerimenti.';
+                } finally {
+                    this.loading = false;
                 }
-            });
-
-            if (!res.ok) {
-                const text = await res.text().catch(() => '');
-                console.error('[cartSuggest] /related NOT OK', res.status, text);
-                throw new Error('HTTP ' + res.status);
-            }
-
-            let data;
-            try {
-                data = await res.json();
-            } catch (e) {
-                const text = await res.text().catch(() => '');
-                console.error('[cartSuggest] JSON parse error. Raw:', text);
-                throw e;
-            }
-
-            this.items = Array.isArray(data) ? data : (data.items || []);
-
+            },
 
             async add(p) {
                 try {
                     await this.waitForCartReady();
                     const cart = Alpine.store('cart');
 
-                    // p.type arriva dal backend: 'product' | 'kit'
                     const idStr = (p.type === 'kit') ? `kit:${p.id}` : String(p.id);
 
                     cart.add({
@@ -297,16 +322,17 @@
             async open() {
                 this.openModal = true;
                 await this.waitForCartReady();
+                await this.fetchRelated(); // <— ti mancava questa riga
                 if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) navigator
                     .vibrate?.(12);
             },
+
             close() {
                 this.openModal = false;
             },
 
             init() {
-                /* hook futuri */
-            }
+                /* hook futuri */ }
         }));
     });
 </script>
