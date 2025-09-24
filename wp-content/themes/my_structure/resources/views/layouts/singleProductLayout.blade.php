@@ -29,7 +29,6 @@
 
     {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
-
     {{-- CSS tuo (sovrascrive Tailwind se serve) --}}
     <link rel="stylesheet" href="{{ vite_asset('assets/css/styles.css') }}">
 
@@ -253,20 +252,20 @@
     </footer>
 
     {{-- STACK: componenti PRIMA di Alpine --}}
+    {{-- STACK: componenti PRIMA di Alpine --}}
     @stack('before_alpine')
 
     {{-- Alpine core --}}
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    {{-- STACK: script che dipendono da Alpine --}}
-    @stack('after_alpine')
-
-    {{-- Toastify --}}
+    {{-- Toastify PRIMA degli script che lo usano --}}
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    {{-- STACK: script che dipendono da Alpine e/o Toastify (cart.js, checkout.js, ecc.) --}}
+    @stack('after_alpine')
 
     {!! wp_footer() !!}
 
-    {{-- Start Alpine --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.Alpine) Alpine.start();

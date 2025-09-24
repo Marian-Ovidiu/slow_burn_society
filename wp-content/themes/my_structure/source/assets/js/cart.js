@@ -292,5 +292,18 @@
 // Esempio toast su superamento stock (customizza come vuoi)
 window.addEventListener('cart:stock_exceeded', (e) => {
   const { name, max } = e.detail || {};
-  alert(`${name}: limite raggiunto (${max})`);
+  Toastify({
+    text: `${name}: limite raggiunto (${max})`,
+    duration: 3500,
+    gravity: "top",
+    position: "right",
+    close: true,
+    stopOnFocus: true,
+    style: {
+      background: "rgba(245, 158, 11, .95)", // amber
+      color: "#fff",
+      borderRadius: "10px",
+      backdropFilter: "blur(6px)"
+    }
+  }).showToast();
 });

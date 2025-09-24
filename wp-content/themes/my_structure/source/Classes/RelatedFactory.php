@@ -92,7 +92,6 @@ class RelatedFactory
 
         // ID prodotti dentro al kit (da escludere dal pool prodotti)
         $productIdsInKit = static::productIdsInKit($kit);
-
         // Pool kit (escludi questo)
         $kitsPool = static::allKits(excludeIds: [(int)$kit->id]);
 
@@ -100,6 +99,7 @@ class RelatedFactory
         $productsPool = static::allProducts(excludeIds: $productIdsInKit);
 
         $pool = array_merge($kitsPool, $productsPool);
+
         if (!empty($pool)) shuffle($pool);
 
         // Prendi max, cerca di garantire almeno min se possibile
@@ -111,7 +111,6 @@ class RelatedFactory
             $extra  = array_slice($pool, $take, $needed);
             $selected = array_merge($selected, $extra);
         }
-
         return $selected;
     }
 
@@ -182,7 +181,7 @@ class RelatedFactory
         $raw = get_field('disponibilita', $pid);
         if (is_numeric($raw)) return (int)$raw;
         if (is_bool($raw))    return $raw ? 1 : 0;
-        if (is_string($raw))  return in_array(mb_strtolower(trim($raw)), ['1','true','si','sì','disponibile','available'], true) ? 1 : 0;
+        if (is_string($raw))  return in_array(mb_strtolower(trim($raw)), ['1', 'true', 'si', 'sì', 'disponibile', 'available'], true) ? 1 : 0;
         return 0;
     }
 
@@ -225,8 +224,18 @@ class RelatedFactory
         $title = (string)($kk->nome ?: $kk->title);
         $image = static::imageForKit($kk);
         $price = static::toFloat($kk->prezzo ?? 0);
-        $disp  = (int)($kk->disponibilita ?? 0);
+        $disp  = true;
         $url   = (string)($kk->url ?? get_permalink($id));
+
+        if ($kk && !empty($kk->prodotti)) {
+            $prodotti = $kk->prodotti;
+            foreach ($prodotti as $prod) {
+                if ($prod->disponibilita <= 0) {
+                    $disp = false;
+                    break;
+                }
+            }
+        }
 
         return [
             'type'            => 'kit',
@@ -237,8 +246,7 @@ class RelatedFactory
             'image'           => $image,
             'price'           => $price,
             'price_formatted' => number_format($price, 2, ',', '.'),
-            'disponibilita'   => $disp,
-            'available'       => $disp > 0,
+            'available'       => $disp,
             'cart'            => [
                 'id'     => 'kit:' . $id,
                 'kitId'  => $id,
@@ -269,6 +277,7 @@ class RelatedFactory
         foreach ($q->posts as $p) {
             $res[] = static::kitCard(new Kit($p));
         }
+
         wp_reset_postdata();
         return $res;
     }

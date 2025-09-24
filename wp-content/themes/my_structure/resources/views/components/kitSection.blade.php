@@ -55,8 +55,18 @@
         aria-describedby="kit-section-desc">
         @foreach ($latest as $kit)
             @php
+                $available = true;
                 $kitJs = $kitsForJs[$kit->id] ?? null;
-                $available = !empty(($kitsForJs[$kit->id] ?? [])['disponibilita']);
+                if($kitJs && !empty($kitJs['products'])){
+                    $products = json_decode(json_encode($kitJs['products']));
+                     foreach ($products as $product){
+                        if(!$product->disponibilita){
+                            $available = false;
+                            break;
+                        }
+                     }
+                }
+
                 $kitUrl = $kit->url ?? (get_permalink($kit->id) ?? null);
                 $priceNum = number_format(
                     (float) str_replace(['€', ' ', ','], ['', '', '.'], $kit->prezzo),

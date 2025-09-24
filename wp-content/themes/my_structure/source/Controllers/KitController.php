@@ -28,7 +28,6 @@ class KitController extends BaseController
         $kitForJs  = $k->toJs();
         $items     = $k->itemsLite(); // opzionale: già dentro toJs() come 'products'
         $related   = RelatedFactory::forKit($k, ['min' => 4, 'max' => 4]);
-
         return $this->render('single-kit', [
             'kit'       => $kit,
             'kitForJs'  => $kitForJs,

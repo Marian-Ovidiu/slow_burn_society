@@ -145,6 +145,17 @@ class Kit extends BasePostType
     /** Array coerente per Blade */
     public function toView(): array
     {
+        $avaiable = true;
+        if($this->prodotti && !empty($this->prodotti)){
+            $prodotti = $this->prodotti;
+            foreach($prodotti as $prod){
+                $prod = Prodotto::find($prod->ID);
+                if($prod->disponibilita < 0){
+                    $avaiable = false;
+                    break;
+                }
+            }
+        }
         return [
             'id'               => (int)$this->id,
             'title'            => (string)$this->title,
@@ -159,7 +170,7 @@ class Kit extends BasePostType
             'image'            => $this->primaryImage(),
             'gallery'          => [$this->primaryImage()], // per compatibilità
 
-            'disponibilita'    => $this->stock(),
+            'disponibilita'    => $avaiable,
             'available'        => $this->isAvailable(),
 
             'cart'             => $this->cartPayload(),
@@ -178,7 +189,7 @@ class Kit extends BasePostType
             'gallery'       => $v['gallery'],
             'description'   => $v['description_html'],
             'products'      => $this->itemsLite(),
-            'disponibilita' => $v['disponibilita'],
+            'available' => $v['disponibilita'],
             'cart'          => $v['cart'],
         ];
     }
