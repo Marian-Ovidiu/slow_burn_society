@@ -190,29 +190,17 @@
             <div class="prose prose-sm max-w-none" x-html="descriptionHtml()"></div>
 
             <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div class="flex items-center rounded-lg border bg-white text-black w-full sm:w-auto">
-                    <button type="button" class="px-3 py-2 hover:bg-black/5" @click="decrement()"
-                        aria-label="Diminuisci quantità">−</button>
-                    <input type="number"
-                        class="w-full sm:w-14 text-center py-2 bg-white text-black placeholder:text-black/60 focus:outline-none focus:ring-2 focus:ring-black/20 [color-scheme:light]"
-                        x-model.number="qty" min="1" :max="maxQty" :disabled="!inStock"
-                        inputmode="numeric">
-                    <button type="button" class="px-3 py-2 hover:bg-black/5" @click="increment()"
-                        aria-label="Aumenta quantità">+</button>
-                </div>
-
-                <button type="button" @click.stop="addToCart(kit.cart)" :disabled="!canAdd()"
-                    :aria-label="canAdd() ?
-                        `Aggiungi al carrello: ${kit.title} (qty: ${qty})` :
-                        (cartQty() > 0 ? `Già nel carrello: ${kit.title}` : `Non disponibile: ${kit.title}`)"
+                <button type="button" @click.stop="addToCart(kit.cart)" :disabled="disableCta()"
+                    :aria-label="disableCta() ?
+                        (cartQty() > 0 ? `Già nel carrello: ${kit.title}` : `Non disponibile: ${kit.title}`) :
+                        `Aggiungi al carrello: ${kit.title} (qty: ${qty})`"
                     class="flex-1 py-3 font-semibold rounded-lg transition
-         focus:outline-none focus:ring-2 focus:ring-white/30 disabled:cursor-not-allowed disabled:opacity-70
+         focus:outline-none focus:ring-2 focus:ring-white/30
+         disabled:cursor-not-allowed disabled:opacity-70
          grid place-items-center gap-2"
                     :class="cartQty() > 0 ?
-                        'bg-emerald-600 text-white hover:bg-emerald-600' :
-                        (canAdd() ?
-                            'bg-[#45752c] text-white hover:bg-[#386322]' :
-                            'bg-white/15 text-white')">
+                        'bg-emerald-600 text-white' // label"Aggiunto" + disabled :
+                    (canAdd() ? 'bg-[#45752c] text-white hover:bg-[#386322]' : 'bg-white/15 text-white' )">
 
                     <span class="inline-flex items-center gap-2">
                         <!-- icona spunta quando è nel carrello -->
@@ -227,6 +215,7 @@
                             x-text="cartQty() > 0 ? 'Aggiunto' : (canAdd() ? 'Aggiungi al carrello' : 'Non disponibile')"></span>
                     </span>
                 </button>
+
 
             </div>
 
@@ -286,7 +275,7 @@
         globalThis.productPage = function({
             initial,
             maxQty,
-            items
+            items,
         }) {
             const safeCart = () => {
                 try {
@@ -314,7 +303,10 @@
                 get kit() {
                     return this.entity;
                 },
-
+                disableCta() {
+                    // disattiva se non posso aggiungere OPPURE se è già nel carrello (testo "Aggiunto")
+                    return !this.canAdd() || this.cartQty() > 0;
+                },
                 itemsList: Array.isArray(items) ? items : [],
 
                 qty: 1,
@@ -369,14 +361,6 @@
                 fmtPrice(n) {
                     return Number(n || 0).toFixed(2).replace('.', ',');
                 },
-
-                increment() {
-                    if (this.inStock) this.qty = this.maxQty ? Math.min(this.qty + 1, this.maxQty) : this.qty + 1;
-                },
-                decrement() {
-                    this.qty = Math.max(1, this.qty - 1);
-                },
-
                 addToCart(payload) {
                     if (!this.canAdd()) return;
                     const cart = safeCart();

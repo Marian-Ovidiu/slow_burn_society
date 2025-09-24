@@ -147,23 +147,23 @@
                 opacity: .35;
             }
         }
-
-        /* Solo nella sezione correlati */
-        section[x-data] ul[role="list"] button[disabled],
-        section[x-data] ul[role="list"] button:disabled {
-            opacity: .55 !important;
-            filter: grayscale(35%) saturate(90%) brightness(.95);
-            cursor: not-allowed !important;
-            pointer-events: none;
-            box-shadow: none !important;
-            transform: none !important;
-        }
     </style>
 
-    <section x-data="productPage({
-        initial: @js($productForJs ?? []),
-        maxQty: @js($product['disponibilita'] ?? 0)
-    })" x-init="selectedImage = product.image" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+    <section x-data="(() => {
+        const s = productPage({
+            initial: @js($productForJs ?? []),
+            maxQty: @js($product['disponibilita'] ?? 0)
+        });
+    
+        // helper robusto: accetta stringhe o oggetti {url|src}
+        s.imgUrl = (v) => (typeof v === 'string') ? v : (v?.url ?? v?.src ?? '');
+    
+        // selectedImage vive nello stato Alpine restituito da productPage
+        const g = Array.isArray(s.product?.gallery) ? s.product.gallery : [];
+        s.selectedImage = s.product?.image || (g.length ? s.imgUrl(g[0]) : '');
+    
+        return s;
+    })()" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
 
         {{-- Colonna sinistra: media --}}
         <div class="lg:col-span-6">
@@ -193,8 +193,9 @@
                                 <stop offset="100%" stop-color="#00FFFF" stop-opacity=".16" />
                             </linearGradient>
                         </defs>
-                        <path d="M200,950 C260,780 420,760 520,610 C640,430 460,330 560,210 C650,110 820,150 900,260
-                                     C980,370 900,520 820,610 C690,750 600,740 520,860 C470,940 360,1020 260,1000 Z"
+                        <path
+                            d="M200,950 C260,780 420,760 520,610 C640,430 460,330 560,210 C650,110 820,150 900,260
+                                                             C980,370 900,520 820,610 C690,750 600,740 520,860 C470,940 360,1020 260,1000 Z"
                             fill="url(#smokeGrad1)" />
                     </svg>
                     <svg class="smoke-svg smoke-2" viewBox="0 0 1200 1200" aria-hidden="true">
@@ -205,8 +206,9 @@
                                 <stop offset="100%" stop-color="#FF8800" stop-opacity=".16" />
                             </linearGradient>
                         </defs>
-                        <path d="M950,980 C880,900 820,840 780,740 C720,590 850,520 820,420 C790,320 670,300 580,350
-                                     C500,390 520,480 520,560 C520,700 420,760 380,840 C350,900 340,980 420,1020 Z"
+                        <path
+                            d="M950,980 C880,900 820,840 780,740 C720,590 850,520 820,420 C790,320 670,300 580,350
+                                                             C500,390 520,480 520,560 C520,700 420,760 380,840 C350,900 340,980 420,1020 Z"
                             fill="url(#smokeGrad2)" />
                     </svg>
                     <svg class="smoke-svg smoke-3" viewBox="0 0 1200 1200" aria-hidden="true">
@@ -217,15 +219,17 @@
                                 <stop offset="100%" stop-color="#CCFF00" stop-opacity=".18" />
                             </linearGradient>
                         </defs>
-                        <path d="M240,240 C340,220 460,260 540,340 C600,400 600,480 560,560 C520,640 440,700 420,800
-                                     C400,900 470,980 560,1000 C650,1020 760,980 800,900 C840,820 780,760 760,680
-                                     C740,600 800,520 820,440 C840,360 800,300 740,260 C660,210 540,200 460,220 Z"
+                        <path
+                            d="M240,240 C340,220 460,260 540,340 C600,400 600,480 560,560 C520,640 440,700 420,800
+                                                             C400,900 470,980 560,1000 C650,1020 760,980 800,900 C840,820 780,760 760,680
+                                                             C740,600 800,520 820,440 C840,360 800,300 740,260 C660,210 540,200 460,220 Z"
                             fill="url(#smokeGrad3)" />
                     </svg>
                 </div>
 
-                <img :src="selectedImage || product.image" :alt="product.title"
+                <img :src="selectedImage || imgUrl(product.image)" :alt="product.title"
                     class="relative z-[1] max-h-full max-w-full object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,.25)]" />
+
             </div>
 
             <div class="mt-3 flex gap-2 overflow-x-auto scrollbar-hide" aria-label="Galleria immagini prodotto">
@@ -233,8 +237,8 @@
                     :key="i">
                     <button type="button"
                         class="rounded border bg-white p-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#45752c]"
-                        @click="selectedImage = img" :aria-label="'Seleziona immagine ' + (i + 1)">
-                        <img :src="img" class="h-16 w-16 object-cover rounded" alt="">
+                        @click="selectedImage = imgUrl(img)" :aria-label="'Seleziona immagine ' + (i + 1)">
+                        <img :src="imgUrl(img)" class="h-16 w-16 object-cover rounded" alt="">
                     </button>
                 </template>
             </div>
@@ -274,17 +278,6 @@
             <div class="prose prose-sm max-w-none" x-html="descriptionHtml()"></div>
 
             <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div class="flex items-center rounded-lg border bg-white text-black w-full sm:w-auto">
-                    <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="decrement()"
-                        aria-label="Diminuisci quantità">−</button>
-                    <input type="number"
-                        class="w-full sm:w-14 text-center py-2 bg-white text-black placeholder:text-black/60 focus:outline-none focus:ring-2 focus:ring-black/20 [color-scheme:light]"
-                        x-model.number="qty" min="1" :max="maxQty" :disabled="!inStock"
-                        inputmode="numeric">
-                    <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="increment()"
-                        aria-label="Aumenta quantità">+</button>
-                </div>
-
                 <button type="button" @click.stop="addToCart(product.cart)"
                     :disabled="!inStock || (($store.cart?.remainingFor(product.id, Number(maxQty)) ?? Number(maxQty)) <= 0)"
                     :aria-label="(() => {

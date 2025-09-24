@@ -1,3 +1,14 @@
+   <style>
+          section[x-data] ul[role="list"] button[disabled],
+        section[x-data] ul[role="list"] button:disabled {
+            opacity: .55 !important;
+            filter: grayscale(35%) saturate(90%) brightness(.95);
+            cursor: not-allowed !important;
+            pointer-events: none;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+   </style>
    {{-- Prodotti correlati --}}
  @if (!empty($relatedItems))
         <section class="mt-8" x-data>
