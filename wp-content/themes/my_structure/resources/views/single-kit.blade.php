@@ -1,36 +1,44 @@
 @extends('layouts.singleProductLayout')
 
-{{-- SEO / Title --}}
 @section('title', ($kit['title'] ?? 'Kit') . ' – Slow Burn Society')
 
 @push('head')
-    {{-- JSON-LD del Kit (usa SOLO image) --}}
+    @php
+        $jsonLdImages = [];
+        if (!empty($kit['image'])) {
+            $jsonLdImages[] = $kit['image'];
+        }
+        if (!empty($kit['gallery']) && is_array($kit['gallery'])) {
+            foreach ($kit['gallery'] as $g) {
+                $jsonLdImages[] = is_array($g) ? $g['url'] ?? null : $g;
+            }
+        }
+        $jsonLdImages = array_values(array_filter(array_unique($jsonLdImages)));
+    @endphp
     <script type="application/ld+json">
-  {!! json_encode([
-      '@context' => 'https://schema.org',
-      '@type' => 'Product',
-      'name' => $kit['title'] ?? '',
-      'image' => $kit['image'] ?? '',
-      'description' => strip_tags($kit['descrizione'] ?? ($kit['description_html'] ?? '')),
-      'sku' => $kit['id'] ?? null,
-      'brand' => $kit['brand'] ?? null,
-      'offers' => [
-          '@type' => 'Offer',
-          'price' => number_format($kit['price'] ?? 0, 2, '.', ''),
-          'priceCurrency' => 'EUR',
-          'availability' => ($kit['available'] ?? false) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-          'url' => $kit['permalink'] ?? request()->fullUrl(),
-      ]
-  ], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}
-  </script>
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type'    => 'Product',
+        'name'     => $kit['title'] ?? '',
+        'image'    => $jsonLdImages ?: ($kit['image'] ?? ''),
+        'description' => strip_tags($kit['descrizione'] ?? ($kit['description_html'] ?? '')),
+        'sku'      => $kit['id'] ?? null,
+        'offers'   => [
+            '@type'         => 'Offer',
+            'price'         => number_format($kit['price'] ?? 0, 2, '.', ''),
+            'priceCurrency' => 'EUR',
+            'availability'  => ($kit['available'] ?? false) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            'url'           => $kit['permalink'] ?? request()->fullUrl(),
+        ],
+    ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) !!}
+    </script>
 @endpush
 
 @section('content')
-    {{-- Effetto “smoke” locale alla pagina --}}
     <style>
         .smoke-wrap {
             position: relative;
-            isolation: isolate;
+            isolation: isolate
         }
 
         .smoke-layer {
@@ -38,36 +46,36 @@
             inset: -8%;
             z-index: 0;
             pointer-events: none;
-            opacity: .55;
+            opacity: .55
         }
 
         .smoke-svg {
             width: 100%;
             height: 100%;
             display: block;
-            filter: blur(8px);
+            filter: blur(8px)
         }
 
         .smoke-1 {
             animation: smokeFloat1 22s ease-in-out infinite;
-            transform-origin: 30% 70%;
+            transform-origin: 30% 70%
         }
 
         .smoke-2 {
             animation: smokeFloat2 28s ease-in-out infinite;
             transform-origin: 60% 40%;
-            opacity: .8;
+            opacity: .8
         }
 
         .smoke-3 {
             animation: smokeFloat3 34s ease-in-out infinite;
             transform-origin: 50% 90%;
-            opacity: .6;
+            opacity: .6
         }
 
         .smoke-wrap:hover .smoke-svg {
             opacity: .65;
-            filter: blur(9px);
+            filter: blur(9px)
         }
 
         @keyframes smokeFloat1 {
@@ -106,7 +114,7 @@
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
+        @media (prefers-reduced-motion:reduce) {
 
             .smoke-1,
             .smoke-2,
@@ -121,102 +129,113 @@
         }
     </style>
 
-    <section x-data="kitPage({
-        initial: @js($kitForJs ?? []),
+    <section x-data="productPage({
+        initial: @js($kitForJs ?? []), // {id,title,price,image,gallery,description,products,cart,disponibilita}
         maxQty: @js($kit['disponibilita'] ?? 0),
-        items: @js($items ?? [])
+        items: @js($kitForJs['products'] ?? [])
     })" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
 
-        {{-- COLONNA SX --}}
+        {{-- Colonna sinistra: immagine --}}
         <div class="lg:col-span-6">
-            {{-- Banner TTL carrello --}}
             <div x-show="$store.cart && $store.cart.items.length"
-                class="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-3" role="status">
+                class="mb-4 rounded-xl border border-amber-400/40 bg-amber-400/10 p-3 text-amber-100" role="status">
                 <div class="flex items-center justify-between gap-3">
-                    <p class="text-sm text-amber-900">
+                    <p class="text-sm">
                         Carrello attivo — scade tra
                         <span class="font-semibold" x-text="$store.cart.remainingFormatted()"></span>
                     </p>
                 </div>
-                <div class="mt-2 h-1.5 w-full overflow-hidden rounded bg-gray-200" aria-hidden="true">
+                <div class="mt-2 h-1.5 w-full overflow-hidden rounded bg-white/20" aria-hidden="true">
                     <div class="h-full bg-[#45752c] transition-all"
                         :style="`width:${Math.max(0, Math.min(100, Math.round(($store.cart.remainingSeconds() / $store.cart.ttlSeconds) * 100)))}%`">
                     </div>
                 </div>
             </div>
 
-            {{-- UNA SOLA IMMAGINE --}}
             <div
-                class="smoke-wrap w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur overflow-hidden grid place-items-center">
-                <div class="smoke-layer"><!-- smoke svgs opzionali --></div>
-                <div class="relative z-[1] w-full max-w-[520px] md:max-w-[600px] aspect-[2/3] md:aspect-[3/4] p-4">
-                    <img :src="kit.image" :alt="kit.title"
-                        class="absolute inset-0 h-full w-full object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,.25)]"
-                        width="800" height="1200" loading="eager" decoding="async" />
-                </div>
+                class="smoke-wrap aspect-square w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur grid place-items-center overflow-hidden">
+                <div class="smoke-layer"></div>
+                <img :src="kit.image" :alt="kit.title"
+                    class="relative z-[1] max-h-full max-w-full object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,.25)]" />
             </div>
         </div>
 
-        {{-- COLONNA DX --}}
+        {{-- Colonna destra: dettagli + CTA --}}
         <div class="lg:col-span-6 space-y-4">
-            <nav class="text-xs text-gray-500" aria-label="breadcrumb">
+            <nav class="text-xs text-white/70" aria-label="breadcrumb">
                 <a href="/" class="hover:underline">Home</a>
-                <span class="mx-1" aria-hidden="true">/</span>
+                <span class="mx-1">/</span>
                 <a href="/kit" class="hover:underline">Kit</a>
-                <span class="mx-1" aria-hidden="true">/</span>
+                <span class="mx-1">/</span>
                 <span aria-current="page">{{ $kit['title'] ?? 'Kit' }}</span>
             </nav>
 
             @if (!empty($kit['pretitolo']))
-                <p class="text-xs uppercase tracking-wider text-gray-500">{{ $kit['pretitolo'] }}</p>
+                <p class="text-xs uppercase tracking-wider text-white/60">{{ $kit['pretitolo'] }}</p>
             @endif
 
-            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-white">
                 {{ $kit['title'] ?? 'Kit' }}
             </h1>
 
             <div class="flex items-center gap-3">
-                <p class="text-2xl font-semibold text-green-700">
+                <p class="text-2xl font-semibold text-emerald-300">
                     € <span x-text="priceFormatted()"></span>
                 </p>
                 <span class="text-xs px-2 py-1 rounded"
-                    :class="inStock ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+                    :class="inStock ? 'bg-emerald-400/15 text-emerald-200' : 'bg-red-400/15 text-red-200'"
                     x-text="inStock ? 'Disponibile' : 'Non disponibile'"></span>
             </div>
 
             <div class="prose prose-sm max-w-none" x-html="descriptionHtml()"></div>
 
-            {{-- Qty + CTA --}}
             <div class="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div class="flex items-center rounded-lg border bg-white text-black w-full sm:w-auto">
-                    <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="decrement()"
+                    <button type="button" class="px-3 py-2 hover:bg-black/5" @click="decrement()"
                         aria-label="Diminuisci quantità">−</button>
                     <input type="number"
                         class="w-full sm:w-14 text-center py-2 bg-white text-black placeholder:text-black/60 focus:outline-none focus:ring-2 focus:ring-black/20 [color-scheme:light]"
                         x-model.number="qty" min="1" :max="maxQty" :disabled="!inStock"
                         inputmode="numeric">
-                    <button type="button" class="px-3 py-2 text-black hover:bg-black/5" @click="increment()"
+                    <button type="button" class="px-3 py-2 hover:bg-black/5" @click="increment()"
                         aria-label="Aumenta quantità">+</button>
                 </div>
 
-                <button type="button"
-                    class="flex-1 rounded-lg bg-[#45752c] text-white py-3 font-semibold hover:bg-[#386322] disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="!inStock" @click.stop="addToCart(kit.cart)"
-                    :aria-label="inStock ? `Aggiungi al carrello: ${kit.title} (qty: ${qty})` : `Non disponibile: ${kit.title}`">
-                    Aggiungi
+                <button type="button" @click.stop="addToCart(kit.cart)" :disabled="!canAdd()"
+                    :aria-label="canAdd() ?
+                        `Aggiungi al carrello: ${kit.title} (qty: ${qty})` :
+                        (cartQty() > 0 ? `Già nel carrello: ${kit.title}` : `Non disponibile: ${kit.title}`)"
+                    class="flex-1 py-3 font-semibold rounded-lg transition
+         focus:outline-none focus:ring-2 focus:ring-white/30 disabled:cursor-not-allowed disabled:opacity-70
+         grid place-items-center gap-2"
+                    :class="cartQty() > 0 ?
+                        'bg-emerald-600 text-white hover:bg-emerald-600' :
+                        (canAdd() ?
+                            'bg-[#45752c] text-white hover:bg-[#386322]' :
+                            'bg-white/15 text-white')">
+
+                    <span class="inline-flex items-center gap-2">
+                        <!-- icona spunta quando è nel carrello -->
+                        <svg x-show="cartQty() > 0" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                            fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-2.59a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47 3.97-3.97a.75.75 0 0 1 1.06 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+
+                        <span
+                            x-text="cartQty() > 0 ? 'Aggiunto' : (canAdd() ? 'Aggiungi al carrello' : 'Non disponibile')"></span>
+                    </span>
                 </button>
+
             </div>
 
-            <p class="text-xs mt-1" :class="inStock ? 'text-green-600' : 'text-red-600'">
-                Disp.: <span x-text="maxQty"></span>
-            </p>
-
-            {{-- CONTENUTO DEL KIT --}}
+            {{-- Contenuto del kit --}}
             <section class="mt-8">
                 <h2 class="text-sm font-semibold mb-3 text-white">Cosa c’è dentro il kit</h2>
 
                 <ul class="divide-y divide-white/10 rounded-lg border border-white/10 bg-transparent">
-                    <template x-if="!itemsList.length">
+                    <template x-if="!itemsList?.length">
                         <li class="p-4 text-sm text-white/70">Nessun contenuto specificato.</li>
                     </template>
 
@@ -237,81 +256,25 @@
                                 </div>
                             </div>
                             <a :href="p.url || '#'"
-                                class="text-xs font-semibold px-3 py-1.5 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30">Dettagli</a>
+                                class="text-xs font-semibold px-3 py-1.5 rounded border border-white/30 bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30">
+                                Dettagli
+                            </a>
                         </li>
                     </template>
                 </ul>
 
-                <p class="text-[11px] text-gray-500 mt-2">La disponibilità del kit dipende dalla disponibilità dei singoli
-                    prodotti.</p>
+                <p class="text-[11px] text-white/60 mt-2">
+                    La disponibilità del kit dipende dalla disponibilità dei singoli prodotti.
+                </p>
             </section>
         </div>
     </section>
 
-    {{-- KIT correlati --}}
-    @if (!empty($relatedKits))
-        <section class="mt-8" x-data> {{-- <= importante: abilita Alpine nella sezione --}}
-            <h2 id="related-title" class="text-lg font-bold tracking-tight my-4">Prodotti correlati</h2>
-            <ul class="grid gap-4 sm:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" role="list">
-                @foreach ($relatedKits as $r)
-                    @php
-                        $entity = $r['entity'] ?? ($r['type'] ?? 'kit');
-                        $isProduct = $entity === 'product';
-                        $rid = (int) ($r['id'] ?? 0);
-                        $href = (string) ($r['permalink'] ?? '#');
-                        $img = $isProduct ? $r['immagine_1']['url'] ?? ($r['image'] ?? '') : $r['image'] ?? '';
-                        $price = (float) ($r['price'] ?? 0);
-                        $priceFormatted = $r['price_formatted'] ?? number_format($price, 2, ',', '.');
-                        $stock = (int) ($r['disponibilita'] ?? 0);
-                        $available = (bool) ($r['available'] ?? $stock > 0);
-
-                        // Payload: se già presente nel dato, usalo; altrimenti costruiscilo ora
-                        $payload = $r['cart'] ?? [
-                            'id' => $isProduct ? (string) $rid : 'kit:' . $rid,
-                            $isProduct ? 'productId' : 'kitId' => $rid,
-                            'type' => $isProduct ? 'product' : 'kit',
-                            'name' => (string) ($r['title'] ?? ''),
-                            'image' => (string) $img,
-                            'price' => (float) $price,
-                            'qty' => 1,
-                            'maxQty' => $stock,
-                        ];
-                    @endphp
-
-                    <li role="listitem">
-                        <article
-                            class="rounded-lg border border-white/10 bg-white/10 backdrop-blur p-3 h-full flex flex-col text-white transition hover:bg-white/15">
-                            <a href="{{ $href }}" class="block">
-                                <img src="{{ $img }}" alt="{{ $r['title'] ?? '' }}"
-                                    class="w-full h-40 object-contain rounded mb-2 bg-white" loading="lazy" width="560"
-                                    height="320" sizes="(min-width:1024px) 25vw, (min-width:768px) 33vw, 50vw">
-                            </a>
-
-                            <h3 class="text-sm font-semibold line-clamp-2">
-                                <a href="{{ $href }}" class="hover:underline">{{ $r['title'] ?? '' }}</a>
-                            </h3>
-
-                            <p class="mt-1 text-sm text-white/90">€ {{ $priceFormatted }}</p>
-
-                            <span class="text-[11px] mt-0.5 {{ $available ? 'text-green-300' : 'text-red-300' }}">
-                                {{ $available ? 'Disponibile' : 'Non disponibile' }}
-                            </span>
-
-                            <button type="button"
-                                class="mt-auto w-full text-xs font-semibold py-2 rounded transition
-                                       {{ $available ? 'bg-[#45752c] text-white hover:bg-[#386322] focus:outline-none focus:ring-2 focus:ring-white/30' : 'bg-white/15 text-white cursor-not-allowed disabled:opacity-60' }}"
-                                @if ($available) :disabled="!$store.cartReady"
-                                    @click.prevent="if ($store.cartReady && $store.cart && typeof $store.cart.add==='function') { $store.cart.add(@js($payload)); navigator.vibrate?.(8); }"
-                                @else
-                                    disabled @endif>
-                                Aggiungi
-                            </button>
-                        </article>
-                    </li>
-                @endforeach
-            </ul>
-        </section>
-    @endif
+    {{-- Mappa $related → $relatedItems e usa SEMPRE il componente --}}
+    @php
+        $relatedItems = $relatedItems ?? ($related ?? []);
+    @endphp
+    @include('components.suggestProducts')
 @endsection
 
 @include('components.cartIcon')
@@ -319,8 +282,8 @@
 
 @push('before_alpine')
     <script>
-        // Componente pagina KIT (SOLO image, niente gallery)
-        globalThis.kitPage = function({
+        // Factory unica per product e kit (usata anche dal componente correlati)
+        globalThis.productPage = function({
             initial,
             maxQty,
             items
@@ -332,70 +295,79 @@
                     return null;
                 }
             };
-            const toNum = (v) => {
-                if (typeof v === 'number') return v;
-                if (v == null) return 0;
-                return Number(String(v).replace(/[^\d,.-]/g, '').replace(',', '.')) || 0;
-            };
-            const fmt = (n) => {
-                const val = Number(n || 0);
-                try {
-                    return new Intl.NumberFormat('it-IT', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    }).format(val);
-                } catch {
-                    return val.toFixed(2).replace('.', ',');
-                }
+
+            const entity = {
+                id: Number(initial?.id || 0),
+                title: String(initial?.title || ''),
+                price: Number(initial?.price || 0),
+                image: String(initial?.image || ''),
+                gallery: Array.isArray(initial?.gallery) ? initial.gallery : [],
+                description: String(initial?.description || ''),
+                cart: initial?.cart || null, // <-- contiene id: 'kit:123' per i kit
             };
 
             return {
-                kit: {
-                    id: Number(initial?.id || 0),
-                    title: String(initial?.title || initial?.name || ''),
-                    price: Number(initial?.price || 0),
-                    image: String(initial?.image || ''),
-                    description: String(initial?.description || ''),
-                    cart: (() => {
-                        const kid = Number(initial?.id || 0);
-                        const base = initial?.cart || {};
-                        return Object.assign({
-                            id: `kit:${kid}`,
-                            kitId: kid,
-                            type: 'kit',
-                            name: String(initial?.title || ''),
-                            image: String(initial?.image || ''),
-                            price: Number(initial?.price || 0)
-                        }, base);
-                    })(),
+                entity,
+                get product() {
+                    return this.entity;
                 },
+                get kit() {
+                    return this.entity;
+                },
+
+                itemsList: Array.isArray(items) ? items : [],
 
                 qty: 1,
                 maxQty: Number(maxQty || 0),
-
-                itemsList: (Array.isArray(items) ? items : []).map(p => ({
-                    id: p.id,
-                    title: String(p.title || ''),
-                    url: String(p.url || ''),
-                    immagine_1: (p.immagine_1 && typeof p.immagine_1 === 'object') ? p.immagine_1 : {},
-                    image: String(p.image || ''),
-                    short: String(p.short || ''),
-                    price: toNum(p.price || 0),
-                    disponibilita: Number(p.disponibilita || 0)
-                })),
 
                 get inStock() {
                     return Number.isFinite(this.maxQty) && this.maxQty > 0;
                 },
 
+                // --- NEW: chiave corretta (string 'kit:ID' oppure numero ID prodotto)
+                cartKey() {
+                    const idFromPayload = this.entity?.cart?.id;
+                    if (idFromPayload != null && idFromPayload !== '') return String(idFromPayload);
+                    // fallback: se non abbiamo payload, prova a inferire
+                    return (this.entity?.cart?.type === 'kit') ? `kit:${this.entity.id}` : String(this.entity.id);
+                },
+
+                // --- NEW: qty presente nel carrello per questa entity
+                cartQty() {
+                    const cart = safeCart();
+                    if (!cart) return 0;
+                    const key = this.cartKey();
+                    if (typeof cart.qtyOf === 'function') return Number(cart.qtyOf(key) || 0);
+                    const it = cart.items?.find(i => String(i.id) === String(key));
+                    return Number(it?.qty || 0);
+                },
+
+                // --- NEW: pezzi ancora aggiungibili
+                remaining() {
+                    const cart = safeCart();
+                    const stock = Number(this.maxQty || 0);
+                    const key = this.cartKey();
+                    if (!cart) return stock;
+                    if (typeof cart.remainingFor === 'function') {
+                        const r = Number(cart.remainingFor(key, stock));
+                        return Number.isFinite(r) ? Math.max(0, r) : Math.max(0, stock - this.cartQty());
+                    }
+                    return Math.max(0, stock - this.cartQty());
+                },
+
+                // --- NEW: abilitazione CTA
+                canAdd() {
+                    return this.inStock && this.remaining() > 0;
+                },
+
                 descriptionHtml() {
-                    return this.kit.description;
+                    return this.entity.description;
                 },
                 priceFormatted() {
-                    return fmt(this.kit.price);
+                    return Number(this.entity.price || 0).toFixed(2).replace('.', ',');
                 },
                 fmtPrice(n) {
-                    return fmt(n);
+                    return Number(n || 0).toFixed(2).replace('.', ',');
                 },
 
                 increment() {
@@ -406,26 +378,81 @@
                 },
 
                 addToCart(payload) {
-                    if (!this.inStock) return;
+                    if (!this.canAdd()) return;
                     const cart = safeCart();
                     if (!cart || typeof cart.add !== 'function') return;
 
-                    const id = String(payload?.id || this.kit.cart?.id || `kit:${this.kit.id}`);
-                    const stock = Number(this.maxQty || 0);
                     const want = Math.max(1, Number(this.qty || 1));
-                    const current = (Array.isArray(cart.items) ? cart.items : []).find(i => String(i.id) === id)?.qty ||
-                        0;
-                    const target = Math.min(stock, Number(current) + want);
+                    const canAdd = Math.min(want, this.remaining());
 
-                    if (!current) cart.add(payload);
-                    if (typeof cart.setQty === 'function') {
-                        cart.setQty(id, target);
-                    } else {
-                        let extra = Math.max(0, target - Math.max(1, Number(current) || 0));
-                        while (extra-- > 0) cart.add(payload);
+                    // se non esiste ancora nel carrello, aggiungi il payload
+                    if (this.cartQty() === 0) cart.add(payload);
+
+                    const target = Math.min(this.cartQty() + canAdd, this.maxQty);
+                    if (typeof cart.setQty === 'function') cart.setQty(this.cartKey(), target);
+                    else {
+                        const extra = Math.max(0, target - Math.max(this.cartQty(), 1));
+                        for (let i = 0; i < extra; i++) cart.add(payload);
                     }
                 }
+            };
+        };
+
+        // Helpers globali per il componente correlati
+        window.cartQtyOf = (id) => {
+            try {
+                const cart = Alpine?.store?.('cart');
+                if (!cart) return 0;
+                if (typeof cart.qtyOf === 'function') return Number(cart.qtyOf(id) || 0);
+                return Number((cart.items?.find(i => Number(i.id) === Number(id))?.qty) || 0);
+            } catch {
+                return 0;
+            }
+        };
+        window.isProductMaxed = (id, max) => {
+            const m = Number(max ?? 0);
+            if (m <= 0) return true;
+            return window.cartQtyOf(id) >= m;
+        };
+        window.remainingForUI = (id, max) => {
+            try {
+                const cart = Alpine?.store?.('cart');
+                const m = Number(max ?? 0);
+                if (!cart) return m;
+                if (typeof cart.remainingFor === 'function') {
+                    const r = Number(cart.remainingFor(id, m));
+                    return Number.isFinite(r) ? r : 0;
+                }
+                const current = (typeof cart.qtyOf === 'function') ? Number(cart.qtyOf(id) || 0) :
+                    Number((cart.items?.find(i => Number(i.id) === Number(id))?.qty) || 0);
+                return Math.max(0, m - current);
+            } catch {
+                return Number(max ?? 0);
+            }
+        };
+        window.addRecommendedToCart = (payload) => {
+            try {
+                const cart = Alpine?.store?.('cart');
+                if (!cart || typeof cart.add !== 'function') return;
+                const p = {
+                    ...payload
+                };
+                if (p.type === 'kit') {
+                    if (!String(p.id || '').startsWith('kit:')) p.id = `kit:${p.kitId ?? p.id}`;
+                } else {
+                    p.type = 'product';
+                    p.id = Number(p.id ?? p.productId ?? p.product_id ?? 0);
+                }
+                p.qty = Number(p.qty ?? 1);
+                cart.add(p);
+            } catch (e) {
+                console.error('[recommended:add] errore', e);
             }
         };
     </script>
+@endpush
+
+@push('after_alpine')
+    <script defer src="{{ vite_asset('assets/js/cart.js') }}"></script>
+    <script defer src="{{ vite_asset('assets/js/checkout.js') }}"></script>
 @endpush

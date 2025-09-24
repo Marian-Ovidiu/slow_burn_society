@@ -4,15 +4,6 @@ namespace Models;
 
 use Core\Bases\BasePostType;
 
-/**
- * @property int    $id
- * @property string $nome
- * @property string $mini_descrizione
- * @property string $descrizione
- * @property array  $immagine_kit  // ACF image array
- * @property array  $prodotti      // ACF relationship (IDs o WP_Post[])
- * @property mixed  $prezzo        // può arrivare con € e virgole
- */
 class Kit extends BasePostType
 {
     public static $postType = 'kit';
@@ -20,165 +11,175 @@ class Kit extends BasePostType
     public $nome;
     public $mini_descrizione;
     public $descrizione;
-    public $immagine_kit;
-    public $prodotti;
-    public $prezzo;
-    public $disponibilita;
-
-    public function __construct($post = null)
-    {
-        parent::__construct($post);
-    }
+    public $immagine_kit;  // ACF image array
+    public $prodotti;      // ACF relationship (IDs o WP_Post[])
+    public $prezzo;        // può arrivare con € e virgole
+    public $disponibilita; // ACF “manuale” (opzionale)
 
     public function defineOtherAttributes($post)
     {
         $id = $this->id;
-
         $this->nome             = (string) get_field('nome', $id) ?: get_the_title($id);
         $this->mini_descrizione = (string) get_field('mini_descrizione', $id);
-        $this->descrizione      = (string) get_field('descrizione', $id); // può contenere HTML
+        $this->descrizione      = (string) get_field('descrizione', $id); // HTML
         $this->immagine_kit     = (array)  get_field('immagine_kit', $id) ?: [];
         $this->prodotti         = (array)  get_field('prodotti', $id) ?: [];
         $this->prezzo           = get_field('prezzo', $id);
-        $this->disponibilita    = $this->computeAvailability();
+        $this->disponibilita    = get_field('disponibilita', $id); // opzionale
     }
 
-    public function computeAvailability(): bool
+    // -------------------- Computed / helpers --------------------
+
+    /** Prezzo numerico normalizzato */
+    public function priceNumber(): float
     {
-        if (empty($this->prodotti)) return false;
-
-        foreach ($this->prodotti as $p) {
-            if (!$this->productAvailable($p)) { // <-- niente "!"
-                return false;
-            }
-        }
-        return true;
+        $raw = (string) ($this->prezzo ?? '');
+        $s = str_replace(['€', ' '], '', $raw);
+        $s = str_replace(',', '.', $s);
+        $n = (float) $s;
+        return is_finite($n) ? $n : 0.0;
     }
 
-    private function productAvailable($product): bool
-    {
-        $pid = is_object($product) ? (int) ($product->ID ?? 0) : (int) $product;
-        if ($pid <= 0) return false;
-
-        $prodotto = Prodotto::find($pid);
-        if (!$prodotto) return false;
-
-        $raw = $prodotto->disponibilita;
-
-        if (is_numeric($raw)) return ((int)$raw) > 0;
-        if (is_bool($raw))    return $raw;
-        if (is_string($raw)) {
-            $v = trim(mb_strtolower($raw));
-            return in_array($v, ['1', 'true', 'si', 'sì', 'disponibile', 'available'], true);
-        }
-        return false;
-    }
-
-    private function productStock($product): int
-    {
-        $pid = is_object($product) ? (int) ($product->ID ?? 0) : (int) $product;
-        if ($pid <= 0) return false;
-
-        $prodotto = Prodotto::find($pid);
-
-        if ($prodotto) {
-            $rawDispon = $prodotto->disponibilita;
-            if (is_numeric($rawDispon)) {
-                return $rawDispon == 0 ? false : true;
-            }
-        }
-
-        return false;
-    }
-
-    /** URL immagine principale (safe) */
-    public function imageUrl(): string
-    {
-        if (is_array($this->immagine_kit) && !empty($this->immagine_kit['url'])) {
-            return esc_url($this->immagine_kit['url']);
-        }
-        return '';
-    }
-
-    /** Prezzo in float (normalizza € e virgole) */
-    public function priceFloat(): float
-    {
-        $raw = (string) $this->prezzo;
-
-        $clean = str_replace(['€', ' '], '', $raw);
-
-        // se contiene la virgola come separatore decimale, sostituiscila con punto
-        // ma non toccare i separatori migliaia . perché spesso non ci sono
-        $clean = str_replace(',', '.', $clean);
-
-        return (float) $clean;
-    }
-
-    /** Prezzo formattato “italiano”: 1.234,56 */
     public function priceFormatted(): string
     {
-        return number_format($this->priceFloat(), 2, ',', '.');
+        return number_format($this->priceNumber(), 2, ',', '.');
     }
 
-    /** Mappa i prodotti (relationship) in un payload leggero per il frontend */
-    public function productsLite(): array
+    /** Immagine principale del kit (con fallback alla featured) */
+    public function primaryImage(): string
     {
-        if (empty($this->prodotti)) return [];
-
-        return array_values(array_map(function ($p) {
-            // $p può essere WP_Post o ID
-            $pid   = is_object($p) ? $p->ID : (int) $p;
-            $title = is_object($p) ? ($p->post_title ?? '') : (get_the_title($pid) ?: '');
-
-            $imgArr = (array) get_field('immagine_1', $pid);
-            $imgUrl = !empty($imgArr['url']) ? esc_url($imgArr['url']) : '';
-
-            return [
-                'title' => $title ?: '',
-                'image' => $imgUrl,
-            ];
-        }, $this->prodotti));
+        if (!empty($this->immagine_kit['url'])) return (string) $this->immagine_kit['url'];
+        return $this->featured_image ?: '';
     }
 
-    /** Payload “pronto Alpine” (solo quello che ti serve in JS) */
-    public function toFrontendArray(): array
+    /** Lista di oggetti Prodotto (caricati dai relationship) */
+    public function products(): array
+    {
+        $out = [];
+        foreach ((array)$this->prodotti as $p) {
+            $pid = is_object($p) ? (int)($p->ID ?? $p->id ?? 0) : (int)$p;
+            if ($pid > 0) {
+                $pp = Prodotto::find($pid);
+                if ($pp) $out[] = $pp;
+            }
+        }
+        return $out;
+    }
+
+    /** Stock del kit = minimo stock tra i prodotti (o 0 se nessuno) */
+    public function stock(): int
+    {
+        $products = $this->products();
+        if (empty($products)) {
+            // se c’è un campo manuale numerico lo usiamo, altrimenti 0
+            return is_numeric($this->disponibilita) ? (int)$this->disponibilita : 0;
+        }
+        $min = null;
+        foreach ($products as $p) {
+            // usa la singola fonte di verità del modello Prodotto
+            $s = (int)$p->stock();
+            $min = ($min === null) ? $s : min($min, $s);
+            if ($min <= 0) break;
+        }
+        // consentiamo override manuale se più restrittivo
+        if (is_numeric($this->disponibilita)) {
+            $manual = (int)$this->disponibilita;
+            $min = ($min === null) ? $manual : min($min, $manual);
+        }
+        return (int) max(0, (int)$min);
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->stock() > 0;
+    }
+
+    public function descriptionHtml(): string
+    {
+        // preferisci descrizione ACF se presente, altrimenti content WP
+        $html = $this->descrizione ?: apply_filters('the_content', (string)$this->content);
+        return (string)$html;
+    }
+
+    /** Contenuti del kit in forma “leggera” per il frontend */
+    public function itemsLite(): array
+    {
+        $items = [];
+        foreach ($this->products() as $p) {
+            // immagine del prodotto
+            $img = '';
+            $g = $p->galleryUrls();
+            if (!empty($g)) $img = $g[0];
+
+            $items[] = [
+                'id'              => (int)$p->id,
+                'title'           => (string)$p->title,
+                'url'             => (string)$p->url,
+                'immagine_1'      => is_array($p->immagine_1 ?? null) ? $p->immagine_1 : null,
+                'image'           => $img,
+                'short'           => '', // usa mini_descrizione se la tieni sui prodotti
+                'price'           => (float)$p->priceNumber(),
+                'price_formatted' => $p->priceFormatted(),
+                'disponibilita'   => (int)$p->stock(),
+                'available'       => $p->isAvailable(),
+            ];
+        }
+        return $items;
+    }
+
+    /** Payload per il carrello */
+    public function cartPayload(): array
     {
         return [
-            'id'          => (int) $this->id,
-            'title'       => (string) $this->nome,
-            'description' => (string) $this->descrizione, // può essere mostrata con x-html
-            'image'       => $this->imageUrl(),
-            'price'       => $this->priceFloat(),         // numero: comodo in JS
-            'products'    => $this->productsLite(),
-            'disponibilita' => $this->disponibilita,
+            'id'     => 'kit:' . (int)$this->id,
+            'kitId'  => (int)$this->id,
+            'type'   => 'kit',
+            'name'   => (string)$this->title,
+            'image'  => (string)$this->primaryImage(),
+            'price'  => (float)$this->priceNumber(),
+            'qty'    => 1,
+            'maxQty' => (int)$this->stock(),
         ];
     }
 
-    /** JSON per data-attributes (safe per Blade/Alpine) */
-    public function toFrontendJson(): string
+    /** Array coerente per Blade */
+    public function toView(): array
     {
-        // wp_json_encode gestisce correttamente charset e escaping HTML
-        return wp_json_encode($this->toFrontendArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return [
+            'id'               => (int)$this->id,
+            'title'            => (string)$this->title,
+            'pretitolo'        => (string)($this->mini_descrizione ?? ''), // o un campo dedicato
+            'permalink'        => (string)$this->url,
+            'description_html' => $this->descriptionHtml(),
+            'descrizione'      => (string)($this->descrizione ?? ''),
+
+            'price'            => $this->priceNumber(),
+            'price_formatted'  => $this->priceFormatted(),
+
+            'image'            => $this->primaryImage(),
+            'gallery'          => [$this->primaryImage()], // per compatibilità
+
+            'disponibilita'    => $this->stock(),
+            'available'        => $this->isAvailable(),
+
+            'cart'             => $this->cartPayload(),
+        ];
     }
 
-    /** Helpers di query */
-
-    public static function latest(int $limit = 6): array
+    /** Payload “ridotto” per JS / Alpine */
+    public function toJs(): array
     {
-        $q = new \WP_Query([
-            'post_type'      => static::$postType,
-            'posts_per_page' => $limit,
-            'post_status'    => 'publish',
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-            'no_found_rows'  => true,
-        ]);
-
-        $items = [];
-        foreach ($q->posts as $post) {
-            $items[] = new static($post);
-        }
-        wp_reset_postdata();
-        return $items;
+        $v = $this->toView();
+        return [
+            'id'            => $v['id'],
+            'title'         => $v['title'],
+            'price'         => $v['price'],
+            'image'         => $v['image'],
+            'gallery'       => $v['gallery'],
+            'description'   => $v['description_html'],
+            'products'      => $this->itemsLite(),
+            'disponibilita' => $v['disponibilita'],
+            'cart'          => $v['cart'],
+        ];
     }
 }

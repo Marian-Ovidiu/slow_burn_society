@@ -5,9 +5,7 @@
             <div class="mb-3 flex items-center justify-between">
                 <h2 class="text-lg font-bold tracking-tight">Riepilogo ordine</h2>
 
-                <button
-                    type="button"
-                    class="text-xs font-medium text-gray-600 underline hover:text-gray-900"
+                <button type="button" class="text-xs font-medium text-gray-600 underline hover:text-gray-900"
                     @click="
                         editMode = !editMode;
                         if (!editMode) { $store.cart.items = $store.cart.items.slice(); }
@@ -26,28 +24,25 @@
                 <template x-for="it in $store.cart.items" :key="String(it.id)">
                     <li class="py-3">
                         <div class="flex items-start gap-3">
-                            <img
-                                :src="it.image || 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f3f4f6%22/></svg>'"
+                            <img :src="it.image ||
+                                'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23f3f4f6%22/></svg>'"
                                 :alt="it.name"
                                 class="h-16 w-16 flex-shrink-0 rounded-lg object-cover ring-1 ring-gray-200"
-                                loading="lazy"
-                            >
+                                loading="lazy">
 
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-start justify-between gap-3">
                                     <h3 class="text-sm font-medium text-gray-900 truncate" x-text="it.name"></h3>
-                                    <span class="text-sm font-semibold text-gray-900" x-text="formatEuro(lineTotal(it))"></span>
+                                    <span class="text-sm font-semibold text-gray-900"
+                                        x-text="formatEuro(lineTotal(it))"></span>
                                 </div>
 
                                 <p class="mt-0.5 text-xs text-gray-500" x-show="it.variant" x-text="it.variant"></p>
 
                                 <!-- Riga quantità / azioni -->
                                 <div class="mt-2 flex items-center gap-2" x-show="editMode">
-                                    <button
-                                        type="button"
-                                        class="text-xs text-red-600 underline"
-                                        @click="$store.cart.remove(it.id)"
-                                    >
+                                    <button type="button" class="text-xs text-red-600 underline"
+                                        @click="removeAndRefresh(it.id)">
                                         Rimuovi
                                     </button>
                                 </div>
@@ -73,7 +68,8 @@
                 </div>
 
                 <p class="text-[11px] text-gray-500 mt-1" x-show="remainingToFree() > 0">
-                    Ti mancano € <span x-text="remainingToFree().toFixed(2).replace('.', ',')"></span> per la spedizione gratuita.
+                    Ti mancano € <span x-text="remainingToFree().toFixed(2).replace('.', ',')"></span> per la spedizione
+                    gratuita.
                 </p>
 
                 <div class="flex justify-between text-gray-600">
@@ -90,38 +86,68 @@
         </div>
 
         <p class="text-[11px] leading-snug text-gray-500">
-            Proseguendo accetti i <a href="/termini" class="underline">Termini</a> e la <a href="/privacy" class="underline">Privacy</a>.
+            Proseguendo accetti i <a href="/termini" class="underline">Termini</a> e la <a href="/privacy"
+                class="underline">Privacy</a>.
         </p>
     </div>
 </aside>
 
 <script>
-function cartWrapper() {
-    return {
-        editMode: false,
-        reactiveTotal: 0,
-        reactiveGrandTotal: 0,
+    function cartWrapper() {
+        return {
+            editMode: false,
+            reactiveTotal: 0,
+            reactiveGrandTotal: 0,
 
-        init() {
-            this.update();
-            window.addEventListener('cart:changed', this.update.bind(this));
-            window.addEventListener('cart:ready', this.update.bind(this));
-        },
+            init() {
+                this.update();
+                window.addEventListener('cart:changed', this.update.bind(this));
+                window.addEventListener('cart:ready', this.update.bind(this));
+            },
 
-        update() {
-            const cart = Alpine.store('cart');
-            if (!cart) return;
-            this.reactiveTotal = Number(cart.total?.() ?? 0);
-            this.reactiveGrandTotal = this.reactiveTotal + this.calcShipping();
-        },
+            update() {
+                const cart = Alpine.store('cart');
+                if (!cart) return;
+                this.reactiveTotal = Number(cart.total?.() ?? 0);
+                this.reactiveGrandTotal = this.reactiveTotal + this.calcShipping();
+            },
 
-        lineTotal(it) { return (Number(it.price) || 0) * (Number(it.qty) || 1); },
-        formatEuro(v) { return `€ ${Number(v).toFixed(2).replace('.', ',')}`; },
+            removeAndRefresh(id) {
+                try {
+                    const res = this.$store?.cart?.remove?.(id);
+                    // Se è una Promise, attendi la fine
+                    if (res && typeof res.then === 'function') {
+                        res.then(() => location.reload()).catch(() => location.reload());
+                    } else {
+                        // Altrimenti dai un attimo per propagare lo stato e poi ricarica
+                        setTimeout(() => location.reload(), 80);
+                    }
+                } catch (e) {
+                    // In caso di errore, prova comunque a ricaricare per allineare la UI
+                    location.reload();
+                }
+            },
 
-        calcShipping() { return this.reactiveTotal >= 35 ? 0 : 4.90; },
-        shippingLabel() { return this.reactiveTotal >= 35 ? 'Gratis' : '€ 4,90'; },
-        vatLabel() { const iva = this.reactiveTotal * 0.22; return `€ ${iva.toFixed(2).replace('.', ',')}`; },
-        remainingToFree() { return Math.max(0, 35 - this.reactiveTotal); },
+            lineTotal(it) {
+                return (Number(it.price) || 0) * (Number(it.qty) || 1);
+            },
+            formatEuro(v) {
+                return `€ ${Number(v).toFixed(2).replace('.', ',')}`;
+            },
+
+            calcShipping() {
+                return this.reactiveTotal >= 35 ? 0 : 4.90;
+            },
+            shippingLabel() {
+                return this.reactiveTotal >= 35 ? 'Gratis' : '€ 4,90';
+            },
+            vatLabel() {
+                const iva = this.reactiveTotal * 0.22;
+                return `€ ${iva.toFixed(2).replace('.', ',')}`;
+            },
+            remainingToFree() {
+                return Math.max(0, 35 - this.reactiveTotal);
+            },
+        }
     }
-}
 </script>

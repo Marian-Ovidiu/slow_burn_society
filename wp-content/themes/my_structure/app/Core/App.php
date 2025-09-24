@@ -24,7 +24,10 @@ class App extends Init
                 acf_enqueue_scripts();
             }
         });
-        add_action('phpmailer_init', 'phpmailer_init');
+        add_action('phpmailer_init', 'phpmailer_init_sbs');
+        add_action('wp_mail_failed', function ($err) {
+            error_log('[MAIL FAILED] ' . print_r($err->get_error_message(), true));
+        });
     }
 
     public function registerFilters()

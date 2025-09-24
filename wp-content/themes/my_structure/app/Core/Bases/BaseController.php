@@ -6,7 +6,8 @@ use Core\App;
 
 abstract class BaseController
 {
-    public function __construct(){}
+    public $postType  = 'post';
+    public function __construct() {}
 
     public static function call($method, $params = [])
     {
@@ -17,6 +18,31 @@ abstract class BaseController
             throw new \Exception("Method $method not found in " . static::class);
         }
     }
+
+    // Core\Bases\BasePostType.php
+    public static function findBySlug(string $slug)
+    {
+        // 1) tentativo veloce
+        $post = get_page_by_path($slug, OBJECT, static::$postType);
+        if ($post) return new static($post);
+
+        // 2) fallback robusto (gestisce anche traduzioni/permalink “strani”)
+        $q = new \WP_Query([
+            'post_type'      => static::$postType,
+            'name'           => $slug,
+            'post_status'    => 'publish',
+            'posts_per_page' => 1,
+            'no_found_rows'  => true,
+        ]);
+        if (!empty($q->posts[0])) {
+            $post = $q->posts[0];
+            wp_reset_postdata();
+            return new static($post);
+        }
+        wp_reset_postdata();
+        return null;
+    }
+
 
     protected function addCss($handle, $src, $deps = [], $ver = false)
     {
@@ -54,12 +80,12 @@ abstract class BaseController
         add_action('wp_enqueue_scripts', function () use ($handle, $var_name, $data, $ver, $in_footer) {
             // Enqueue lo script (deve essere registrato o già enqueued altrove)
             wp_enqueue_script($handle, false, [], $ver, $in_footer);
-    
+
             // Localizzazione delle variabili
             wp_localize_script($handle, $var_name, $data);
         });
     }
-    
+
 
     protected function render($view, $data = [])
     {
