@@ -528,7 +528,18 @@ class WPvivid_Uploads_Scanner
     {
         $html = get_post_field( 'post_content', $post );
 
-        $html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' );
+        //$html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' );
+        if (version_compare(PHP_VERSION, '8.2', '>=')) {
+            if (function_exists('mb_encode_numericentity')) {
+                $convmap = [0x80, 0x10FFFF, 0, 0xFFFFFF];
+                $html = mb_encode_numericentity($html, $convmap, 'UTF-8');
+            }
+        } else {
+            if (function_exists('mb_convert_encoding')) {
+                $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+            }
+        }
+
         ob_start();
         $html = do_shortcode( $html );
         ob_clean();

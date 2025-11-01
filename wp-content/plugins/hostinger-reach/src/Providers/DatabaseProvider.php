@@ -2,6 +2,7 @@
 
 namespace Hostinger\Reach\Providers;
 
+use Hostinger\Reach\Admin\Database\CartsTable;
 use Hostinger\Reach\Admin\Database\ContactListsTable;
 use Hostinger\Reach\Admin\Database\FormsTable;
 use Hostinger\Reach\Container;
@@ -16,6 +17,7 @@ class DatabaseProvider implements ProviderInterface {
     public const TABLES = array(
         FormsTable::class,
         ContactListsTable::class,
+        CartsTable::class,
     );
 
     public function register( Container $container ): void {

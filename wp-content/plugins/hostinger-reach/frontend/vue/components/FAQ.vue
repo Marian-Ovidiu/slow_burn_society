@@ -12,7 +12,7 @@ const toggleFAQ = (id: string) => {
 </script>
 
 <template>
-	<section class="faq" role="region" aria-labelledby="faq-heading">
+	<section class="faq" aria-labelledby="faq-heading">
 		<div class="faq__container">
 			<div class="faq__list">
 				<HCard border-radius="20px" padding="16px 28px">
@@ -49,7 +49,7 @@ const toggleFAQ = (id: string) => {
 							:aria-labelledby="`faq-question-${faq.id}`"
 							role="region"
 						>
-							<div v-html="faq.answer" />
+							<div v-html="faq.answer"></div>
 						</div>
 					</div>
 				</HCard>

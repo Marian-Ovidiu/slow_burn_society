@@ -34,7 +34,7 @@ class Assets {
 
         wp_enqueue_script(
             'hostinger-reach',
-            $this->functions->get_frontend_url() . 'main.js',
+            Functions::get_frontend_url() . 'main.js',
             array(),
             filemtime( $this->functions->get_frontend_dir() . 'main.js' ),
             true
@@ -44,7 +44,7 @@ class Assets {
         if ( file_exists( $css_file ) ) {
             wp_enqueue_style(
                 'hostinger-reach-styles',
-                $this->functions->get_frontend_url() . 'main.css',
+                Functions::get_frontend_url() . 'main.css',
                 array(),
                 filemtime( $css_file )
             );
@@ -63,6 +63,7 @@ class Assets {
                 'is_connected'      => $this->reach_api_handler->is_connected(),
                 'is_hostinger_user' => $this->functions->is_hostinger_user(),
                 'is_staging'        => $this->functions->is_staging(),
+                'total_form_pages'  => (int) wp_count_posts( 'page' )->publish,
             )
         );
     }

@@ -133,10 +133,6 @@ class SurveyManager
             // Clear the request transient flag
             delete_transient('hts_eligible_request');
 
-            if (has_action('litespeed_purge_all')) {
-                do_action('litespeed_purge_all');
-            }
-
             if ($isEligible) {
                 set_transient($transientResponseKey, 'eligible', self::CACHE_THREE_HOURS);
 
@@ -247,7 +243,7 @@ class SurveyManager
         $activeSurvey = $this->getHighestPrioritySurvey($allSurveys);
         ob_start();
         ?>
-        <div class="hts-survey-wrapper"
+        <div class="hts-survey-wrapper hts-survey"
              data-survey-id="<?php echo esc_attr($activeSurvey['id']) ?>"
              data-location="<?php echo esc_attr($activeSurvey['location']) ?>"
              data-surveys="<?php echo esc_attr(json_encode($this->getSpecifiedSurvey($activeSurvey))) ?>">
@@ -256,24 +252,76 @@ class SurveyManager
                     <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z"></path>
                 </svg>
             </div>
-            <div id="hostinger-feedback-survey"></div>
+            <div id="hostinger-feedback-survey" class="hostinger-feedback-survey"></div>
             <div id="hts-questionsLeft">
                 <span id="hts-currentQuestion">1</span>
                 <?php
                 echo esc_html(
-                    __(
-                        'Question',
-                        'hostinger-wp-surveys'
-                    )
+                        __(
+                                'Question',
+                                'hostinger-wp-surveys'
+                        )
                 );
                 ?>
                 <?php echo esc_html(__('of ', 'hostinger-wp-surveys')); ?>
                 <span id="hts-allQuestions"></span>
             </div>
         </div>
+        <?php if ( isset($activeSurvey['review_url']) ) { ?>
+            <div id="hts-survey-review"
+                 class="hts-survey-wrapper"
+                 data-review-min-required-score="<?php echo esc_attr($activeSurvey['review_min_required_score']) ?>">
+                <div class="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 24 24">
+                        <path d="M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z"></path>
+                    </svg>
+                </div>
+                <div class="hostinger-feedback-survey">
+                    <div class="sd-question__header">
+                        <h5><?php echo esc_html(__( 'Rate this plugin on WordPress.org', 'hostinger-wp-surveys' ) ); ?></h5>
+                    </div>
+                    <div class="hts-survey-stars">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                                  fill="#673DE6"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                                  fill="#673DE6"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                                  fill="#673DE6"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                                  fill="#673DE6"/>
+                        </svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                                  fill="#673DE6"/>
+                        </svg>
+                    </div>
+                    <div class="hts-survey-footer">
+                        <a href="<?php echo esc_url($activeSurvey['review_url']); ?>" target="_blank" class="hts-submit-review sd-btn"><?php echo esc_html(__( 'Add review', 'hostinger-wp-surveys' ) ); ?></a>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         <?php
         return ob_get_clean();
     }
+
 
     public function defaultWoocommerceSurveyCompleted(): bool
     {
@@ -328,7 +376,17 @@ class SurveyManager
         }
     }
 
-    public static function addSurvey($surveyId, $scoreQuestion, $commentQuestion, $location, $priority)
+    /**
+     * @param string $surveyId The unique ID for this survey
+     * @param string $scoreQuestion The question for the score step
+     * @param string $commentQuestion The question for the comment step
+     * @param string $location The location of the survey
+     * @param int $priority The priority of the survey. The bigger the number, the higher the priority
+     * @param string|null $review_url Optional. The url to review the plugin
+     * @param int $review_min_required_score The minimum rating in the score step to show the Review step
+     * @return array
+     */
+    public static function addSurvey(string $surveyId, string $scoreQuestion, string $commentQuestion, string $location, int $priority, string $review_url = null, int $review_min_required_score = 7 ): array
     {
         $surveyData = [
             'id'        => $surveyId,
@@ -348,6 +406,8 @@ class SurveyManager
             ],
             'location'  => $location,
             'priority'  => $priority,
+            'review_url' => $review_url,
+            'review_min_required_score' => $review_min_required_score,
         ];
 
         $surveys[] = $surveyData;

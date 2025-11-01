@@ -3,17 +3,14 @@ import { HIcon, HLabel, HPopover } from '@hostinger/hcomponents';
 import { computed, ref } from 'vue';
 
 import PluginExpansion from '@/components/PluginExpansion.vue';
-import { INTEGRATION_TO_FORM_TYPE_MAP, PLUGIN_IDS, PLUGIN_STATUSES, type PluginStatus } from '@/data/pluginData';
-import type { Form } from '@/types/models';
+import { PLUGIN_STATUSES, type PluginStatus } from '@/data/pluginData';
+import type { Form, Integration } from '@/types/models';
 import { translate } from '@/utils/translate';
 
 interface Props {
-	pluginId: string;
-	pluginName: string;
-	pluginIcon: string;
+	integration: Integration;
 	pluginStatus: PluginStatus;
 	totalEntries: number;
-	showAddForm: boolean;
 	forms: Form[];
 }
 
@@ -53,12 +50,16 @@ const handleEditForm = (form: Form) => {
 	emit('editForm', form);
 };
 
+const showPopover = computed(
+	() => props.integration.canDeactivate || !!props.integration.addFormUrl || props.integration.isGoToPluginVisible
+);
+
 const expandButtonAriaLabel = computed(() => {
 	const translationKey = isExpanded.value
 		? 'hostinger_reach_plugin_entries_table_collapse_aria'
 		: 'hostinger_reach_plugin_entries_table_expand_aria';
 
-	return translate(translationKey).replace('{pluginName}', props.pluginName);
+	return translate(translationKey).replace('{pluginName}', props.integration.title);
 });
 </script>
 
@@ -70,7 +71,7 @@ const expandButtonAriaLabel = computed(() => {
 					<button
 						class="plugin-entry-row__expand-button"
 						:aria-expanded="isExpanded"
-						:aria-controls="`plugin-expansion-${pluginId}`"
+						:aria-controls="`plugin-expansion-${props.integration.id}`"
 						:aria-label="expandButtonAriaLabel"
 						@click.stop="toggleExpansion"
 					>
@@ -78,9 +79,9 @@ const expandButtonAriaLabel = computed(() => {
 					</button>
 					<div class="plugin-entry-row__plugin-info">
 						<div class="plugin-entry-row__plugin-icon">
-							<img :src="pluginIcon" :alt="pluginName" />
+							<img :src="props.integration.icon" :alt="props.integration.title + ' icon'" />
 						</div>
-						<span class="plugin-entry-row__plugin-name">{{ pluginName }}</span>
+						<span class="plugin-entry-row__plugin-name">{{ props.integration.title }}</span>
 					</div>
 				</div>
 			</div>
@@ -102,7 +103,7 @@ const expandButtonAriaLabel = computed(() => {
 			</div>
 			<div class="plugin-entry-row__cell plugin-entry-row__cell--actions">
 				<HPopover
-					v-if="INTEGRATION_TO_FORM_TYPE_MAP[pluginId] !== PLUGIN_IDS.HOSTINGER_REACH"
+					v-if="showPopover"
 					placement="bottom-end"
 					:show-arrow="false"
 					background-color="neutral--0"
@@ -115,17 +116,29 @@ const expandButtonAriaLabel = computed(() => {
 						</button>
 					</template>
 					<div class="plugin-entry-row__popover-menu">
-						<div v-if="props.showAddForm" class="plugin-entry-row__menu-item" @click="emit('addForm', props.pluginId)">
+						<div
+							v-if="!!props.integration.addFormUrl"
+							class="plugin-entry-row__menu-item"
+							@click="emit('addForm', props.integration.id)"
+						>
 							<HIcon name="ic-plus-16" />
 							<span>{{ translate('hostinger_reach_plugin_entries_table_add_form') }}</span>
 							<HIcon name="ic-arrow-up-right-square-16" />
 						</div>
-						<div class="plugin-entry-row__menu-item" @click="emit('goToPlugin', props.pluginId)">
+						<div
+							v-if="props.integration.isGoToPluginVisible"
+							class="plugin-entry-row__menu-item"
+							@click="emit('goToPlugin', props.integration.id)"
+						>
 							<HIcon name="ic-blocks-plus-16" />
 							<span>{{ translate('hostinger_reach_plugin_entries_table_go_to_plugin') }}</span>
 							<HIcon name="ic-arrow-up-right-square-16" />
 						</div>
-						<div class="plugin-entry-row__menu-item" @click="emit('disconnectPlugin', props.pluginId)">
+						<div
+							v-if="props.integration.canDeactivate"
+							class="plugin-entry-row__menu-item"
+							@click="emit('disconnectPlugin', props.integration.id)"
+						>
 							<HIcon name="ic-cross-circle-16" />
 							<span>{{ translate('hostinger_reach_plugin_entries_table_disconnect_plugin') }}</span>
 						</div>
@@ -135,7 +148,7 @@ const expandButtonAriaLabel = computed(() => {
 		</div>
 		<div v-if="isExpanded" class="plugin-entry-row__expansion">
 			<PluginExpansion
-				:plugin-id="pluginId"
+				:integration="props.integration"
 				:forms="forms"
 				@toggle-form-status="handleToggleFormStatus"
 				@view-form="handleViewForm"

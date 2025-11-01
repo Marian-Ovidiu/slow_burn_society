@@ -1,231 +1,268 @@
-# Copyright (C) 2025 Hostinger
-# This file is distributed under the GPL-2.0+.
+# Translation of Plugins - Hostinger Reach &#8211; AI-Powered Email Marketing for WordPress - Stable (latest release) in Portuguese (Brazil)
+# This file is distributed under the same license as the Plugins - Hostinger Reach &#8211; AI-Powered Email Marketing for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hostinger Reach 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hostinger-reach\n"
-"Last-Translator: \n"
-"Language-Team: Portuguese (Brazil)\n"
+"PO-Revision-Date: 2025-10-28 12:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
-"PO-Revision-Date: 2025-08-14 11:23+0000\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Domain: hostinger-reach\n"
 "Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
+"Project-Id-Version: Plugins - Hostinger Reach &#8211; AI-Powered Email "
+"Marketing for WordPress - Stable (latest release)\n"
+"Language-Team: Portuguese (Brazil)"
 
-#: src/Setup/Assets.php:135
+#: src/Setup/Assets.php:142
 msgid "(no title)"
 msgstr "(sem título)"
 
-#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+#: src/Setup/Assets.php:128 src/Setup/Assets.php:145
 msgid "Active"
 msgstr "Ativo"
 
-#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+#: src/Setup/Assets.php:103 src/Setup/Assets.php:104 src/Setup/Assets.php:120
+#: src/Setup/Assets.php:134
 msgid "Add form"
 msgstr "Adicionar formulário"
 
-#: hostinger-reach.php:49
+#: src/Admin/Surveys/SatisfactionSurvey.php:25
+msgid "Any ideas or feedback to help us improve Hostinger Reach?"
+msgstr ""
+"Tem alguma ideia ou sugestão para nos ajudar a melhorar a Hostinger Reach?"
+
+#: hostinger-reach.php:52
 msgid "Attention:"
 msgstr "Atenção:"
 
-#: src/Setup/Assets.php:87
+#: src/Setup/Assets.php:92
 msgid "Average CTOR"
-msgstr "Média CTOR"
+msgstr "CTOR médio"
 
-#: src/Setup/Assets.php:111
+#: src/Setup/Assets.php:116
 msgid "Background image for"
 msgstr "Imagem de fundo para"
 
-#: src/Setup/Assets.php:110
+#: src/Setup/Assets.php:115
 msgid "Banner background image for"
-msgstr "Imagem de fundo do banner para"
+msgstr "Imagem de fundo de banner para"
 
 #: frontend/blocks/subscription-block/block.json
 msgctxt "block description"
 msgid "Subscription form for Hostinger Reach"
-msgstr "Formulário de assinatura da Hostinger Reach"
+msgstr "Formulário de inscrição da Hostinger Reach"
 
 #: frontend/blocks/subscription-block/block.json
 msgctxt "block title"
 msgid "Reach Subscription Form"
-msgstr "Formulário de assinatura da Reach"
+msgstr "Formulário de inscrição da Reach"
 
-#: src/Setup/Assets.php:85
+#: src/Setup/Assets.php:90
 msgid "Campaigns"
 msgstr "Campanhas"
 
-#: src/Setup/Assets.php:118
+#: src/Setup/Assets.php:123
 msgid "Cancel "
-msgstr "Cancelar"
+msgstr "Cancelar "
 
-#: src/Setup/Assets.php:97
-#| msgid ""
-#| "Choose how you’d like to manage forms on your website. Create a new form "
-#| "with Hostinger Reach or connect a third-party plugin."
+#: src/Setup/Assets.php:102
 msgid ""
 "Choose how you'd like to manage forms on your website. Create a new form "
 "with Hostinger Reach or connect a third-party plugin."
 msgstr ""
-"Escolha como deseja gerenciar os formulários em seu site. Crie um novo "
-"formulário com a Hostinger Reach ou conecte um plugin de terceiros."
+"Escolha como deseja gerenciar os formulários do seu site. Crie um novo "
+"formulário com a Hostinger Reach ou conecte um plugin externo."
 
-#: src/Setup/Assets.php:113
+#: src/Setup/Assets.php:118
 msgid ""
 "Click-to-open rate tells you what percent of opens resulted in a click too. "
 "A good CTOR is 6-17%, depending on your industry."
 msgstr ""
-"A taxa de cliques por abertura informa qual porcentagem de aberturas "
-"resultou em um clique também. Um bom CTOR é de 6 a 17%, dependendo do seu "
-"setor."
+"A taxa de cliques para abertura indica a porcentagem de aberturas que "
+"resultaram em um clique. Um bom CTOR é de 6% a 17%, dependendo do seu setor."
 
-#: src/Setup/Assets.php:133
+#: src/Setup/Assets.php:140
 msgid "Collapse {pluginName} details"
-msgstr "Recolher detalhes de {pluginName}"
+msgstr "Recolher detalhes do {pluginName}"
 
-#: src/Setup/Assets.php:146
+#: src/Admin/Notices/ConnectionNotice.php:104 src/Setup/Assets.php:153
 msgid "Connect"
 msgstr "Conectar"
 
+#: src/Admin/Notices/ConnectionNotice.php:99
+#, fuzzy
+msgid "Connect Hostinger Reach to start Email Marketing"
+msgstr "Conecte o Hostinger Reach para iniciar o marketing por e-mail"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:16
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:49
+#: frontend/dist/blocks/subscription.js:51
+#, fuzzy
 msgid "Connect Now"
 msgstr "Conecte-se agora"
 
-#: src/Setup/Assets.php:74
+#: src/Setup/Assets.php:79
 msgid "Connect site"
 msgstr "Conectar site"
 
-#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+#: src/Admin/Notices/ConnectionNotice.php:100
+#, fuzzy
+msgid ""
+"Connect your Hostinger Reach account to start sending newsletters and "
+"managing subscribers. With Hostinger Reach, it's easy to grow your audience "
+"in just one click."
+msgstr ""
+"Conecte sua conta Hostinger Reach para começar a enviar newsletters e "
+"gerenciar assinantes. Com o Hostinger Reach, é fácil aumentar seu público "
+"com apenas um clique."
+
+#: src/Integrations/ContactForm7/ContactForm7Integration.php:91
+#: src/Setup/Assets.php:136
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
 
-#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/blocks/subscription-block/src/edit.js:111
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:240
+#: frontend/dist/blocks/subscription.js:282
+#, fuzzy
 msgid "Contact List"
 msgstr "Lista de contatos"
 
-#: src/Setup/Assets.php:92
+#: src/Admin/Notices/ConnectionNotice.php:73
+#, fuzzy
+msgid "Could not generate auth URL"
+msgstr "Não foi possível gerar o URL de autenticação"
+
+#: src/Setup/Assets.php:97
 msgid "Create campaign"
 msgstr "Criar campanha"
 
-#: src/Setup/Assets.php:70
+#: src/Setup/Assets.php:75
 msgid ""
 "Create email campaigns using AI-crafted templates that match your style. "
 "Instantly sync with your WordPress site and connect with your audience "
 "easily."
 msgstr ""
 "Crie campanhas de e-mail usando modelos criados por IA que combinam com seu "
-"estilo. Sincronize instantaneamente com seu site WordPress e conecte-se "
-"facilmente com seu público."
+"estilo. Sincronize instantaneamente com seu site WordPress e conecte-se com "
+"seu público facilmente."
 
-#: src/Setup/Assets.php:141
+#: src/Setup/Assets.php:148
 msgid "Create form"
 msgstr "Criar formulário"
 
-#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/blocks/subscription-block/src/edit.js:114
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:243
+#: frontend/dist/blocks/subscription.js:285
+#, fuzzy
 msgid "Create New List"
 msgstr "Criar nova lista"
 
-#: src/Setup/Assets.php:93
+#: src/Setup/Assets.php:98
 msgid "Create template"
 msgstr "Criar modelo"
 
-#: src/Setup/Assets.php:145
+#: frontend/blocks/subscription-block/src/edit.js:30
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:201
+#, fuzzy
+msgid "Default"
+msgstr "Padrão"
+
+#: src/Setup/Assets.php:152
 msgid "Disconnect"
 msgstr "Desconectar"
 
-#: src/Setup/Assets.php:119
+#: src/Setup/Assets.php:124
 msgid "Disconnect "
-msgstr "Desconectar"
+msgstr "Desconectar "
 
-#: src/Setup/Assets.php:72
+#: src/Setup/Assets.php:77
 msgid "Disconnect it to link this site instead."
 msgstr "Desconecte-o para vincular este site."
 
-#: src/Setup/Assets.php:128
+#: src/Setup/Assets.php:133
 msgid "Disconnect plugin"
-msgstr "Desconectar o plugin"
+msgstr "Desconectar plugin"
 
-#: src/Setup/Assets.php:116
+#: src/Setup/Assets.php:121
 msgid "Disconnect plugin?"
-msgstr "Desconectar o plugin?"
+msgstr "Desconectar plugin?"
 
-#: src/Setup/Assets.php:117
+#: src/Setup/Assets.php:122
 msgid ""
 "Disconnecting will stop new contacts from being collected. You can reconnect "
 "or use a different form anytime."
 msgstr ""
-"A desconexão interromperá a coleta de novos contatos. Você pode se "
-"reconectar ou usar outro formulário a qualquer momento."
+"Desconectar impedirá que novos contatos sejam coletados. Você pode "
+"reconectar ou usar um formulário diferente a qualquer momento."
 
-#: src/Setup/Assets.php:126
+#: src/Setup/Assets.php:131
 msgid "Edit form"
 msgstr "Editar formulário"
 
-#: src/Blocks/SubscriptionFormBlock.php:59
-#: frontend/blocks/subscription-block/src/edit.js:181
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:289
+#: src/Integrations/Elementor/ElementorIntegration.php:88
+#: src/Setup/Assets.php:138
+msgid "Elementor"
+msgstr "Elementor"
+
+#: src/Blocks/SubscriptionFormBlock.php:73
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:106
 msgid "Email"
 msgstr "E-mail"
 
 #: src/Admin/Menus.php:20 src/Admin/Menus.php:21 src/Admin/Menus.php:34
 msgid "Email Marketing"
-msgstr "E-mail Marketing"
-
-#: src/Setup/Assets.php:77
-msgid "Email marketing background with gradient design"
-msgstr ""
-" Background de e-mail marketing com design em gradiente\n"
-"\n"
-
-#: src/Setup/Assets.php:78
-msgid ""
-"Email marketing illustration featuring envelopes and communication icons"
-msgstr ""
-"Ilustração de e-mail marketing com envelopes e ícones de comunicação\n"
-"\n"
+msgstr "E-mail marketing"
 
 #: src/Setup/Assets.php:82
+msgid "Email marketing background with gradient design"
+msgstr "Plano de fundo de e-mail marketing com design gradiente"
+
+#: src/Setup/Assets.php:83
+msgid ""
+"Email marketing illustration featuring envelopes and communication icons"
+msgstr "Ilustração de e-mail marketing com envelopes e ícones de comunicação"
+
+#: src/Setup/Assets.php:87
 msgid "Emails"
 msgstr "E-mails"
 
-#: src/Setup/Assets.php:121
+#: src/Setup/Assets.php:126
 msgid "Entries"
 msgstr "Entradas"
 
-#: src/Setup/Assets.php:132
+#: src/Setup/Assets.php:139
 msgid "Expand {pluginName} details"
-msgstr "Expandir os detalhes de {pluginName}"
+msgstr "Expandir detalhes do {pluginName}"
 
-#: src/Setup/Assets.php:102
+#: src/Setup/Assets.php:107
 msgid "FAQ"
-msgstr "Perguntas frequentes"
+msgstr "FAQ"
 
-#: frontend/blocks/subscription-block/src/edit.js:127
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:50
+msgid "Form"
+msgstr "Formulário"
+
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:58
+#: frontend/blocks/subscription-block/src/edit.js:106
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:235
+#: frontend/dist/blocks/subscription.js:277
 msgid "Form ID"
 msgstr "ID do formulário"
 
-#: src/Setup/Assets.php:95
+#: src/Setup/Assets.php:100
 msgid "Forms"
 msgstr "Formulários"
 
-#: src/Setup/Assets.php:127
+#: src/Setup/Assets.php:132
 msgid "Go to plugin"
 msgstr "Ir para o plugin"
 
-#: src/Setup/Assets.php:75
+#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:42
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:131
 msgid "Go to Reach"
 msgstr "Ir para a Reach"
 
@@ -235,23 +272,25 @@ msgid "Hostinger"
 msgstr "Hostinger"
 
 #. Plugin Name of the plugin
-#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
-#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+#: hostinger-reach.php
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:20
+#: src/Integrations/Reach/ReachFormIntegration.php:71 src/Setup/Assets.php:81
+#: src/Setup/Assets.php:135
 msgid "Hostinger Reach"
 msgstr "Hostinger Reach"
 
-#: src/Setup/Assets.php:104
+#: src/Setup/Assets.php:109
 msgid ""
 "Hostinger Reach is an AI-powered email marketing tool for small businesses "
 "and creators. It supports your entire email marketing journey—from building "
 "contact lists to sending campaigns and tracking results."
 msgstr ""
-"A Hostinger Reach é uma ferramenta de e-mail marketing com IA para pequenas "
-"empresas e criadores. Ela acompanha sua jornada de e-mail marketing do "
-"início ao fim, desde a criação de listas de contatos até o envio de "
-"campanhas e o monitoramento de resultados."
+"A Hostinger Reach é uma ferramenta de e-mail marketing com tecnologia de IA "
+"para pequenas empresas e criadores de conteúdo. Ela oferece suporte a toda a "
+"sua jornada de e-mail marketing — desde a criação de listas de contatos até "
+"o envio de campanhas e o monitoramento de resultados."
 
-#: src/Setup/Assets.php:106
+#: src/Setup/Assets.php:111
 msgid ""
 "Hostinger Reach is built for simplicity, speed, and results – no design or "
 "marketing experience needed. Unlike most email tools, at the core of Reach "
@@ -264,141 +303,180 @@ msgid ""
 "built using proven best practices, they're optimized for readability, "
 "accessibility, and reader engagement."
 msgstr ""
-"A Hostinger Reach foi criada para ser simples, rápida e focar em resultados, "
-"dispensando experiência em design ou marketing. Diferente da maioria das "
-"ferramentas de e-mail, o que a torna especial é o seu criador de modelos com "
-"IA. Seja para lançar um produto, divulgar uma oferta especial ou enviar uma "
-"newsletter, ela cria um e-mail profissional e otimizado para dispositivos "
-"movéis instantaneamente. A ferramenta não só escreve o conteúdo para você, "
-"como também sugere o melhor layout para a sua mensagem e salva suas "
-"configurações de estilo para que você nunca comece do zero. Todos os modelos "
-"são personalizáveis, para que seus e-mails reflitam a identidade, o estilo e "
-"a voz da sua marca. E, como eles são construídos com base nas melhores "
-"práticas do mercado, são otimizados para oferecer mais legibilidade, "
-"acessibilidade e engajamento.\n"
-"\n"
+"A Hostinger Reach foi criada para simplicidade, velocidade e resultados – "
+"não é necessária experiência em design ou marketing. Ao contrário da maioria "
+"das ferramentas de e-mail, a Reach é baseada em seu criador de modelos com "
+"tecnologia de IA. Seja para um lançamento de produto, uma oferta especial ou "
+"uma atualização de newsletter, ela cria instantaneamente um e-mail "
+"profissional e otimizado para dispositivos móveis. Ela não apenas escreve o "
+"conteúdo para você, como também sugere o melhor layout para sua mensagem e "
+"salva suas configurações de estilo para que você nunca precise começar do "
+"zero.<br><br>Cada modelo é personalizável, para que seus e-mails reflitam a "
+"aparência, a sensação e a voz da sua marca. E como os modelos são criados "
+"com práticas recomendadas comprovadas, eles são otimizados para legibilidade,"
+" acessibilidade e engajamento do leitor."
+
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:38
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:127
+#, fuzzy
+msgid "Hostinger Reach Logo"
+msgstr "Logotipo da Hostinger Reach"
+
+#: src/Admin/Notices/ConnectionNotice.php:92
+#, fuzzy
+msgid "Hostinger Reach logo"
+msgstr "Logotipo do Hostinger Reach"
 
 #. translators: %s: PHP version
-#: hostinger-reach.php:51
+#: hostinger-reach.php:54
 msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
-msgstr "A Hostinger Reach requer uma versão mínima do PHP de <b>%s</b>."
+msgstr "A Hostinger Reach requer versão PHP mínima de <b>%s</b>. "
 
-#: src/Setup/Assets.php:105
+#: src/Setup/Assets.php:110
 msgid "How is Hostinger Reach different from other email marketing apps?"
 msgstr ""
-"Qual é a diferença entre a Hostinger Reach e outros aplicativos de e-mail "
+"Qual é a diferença entre a Hostinger Reach e os outros aplicativos de e-mail "
 "marketing?"
 
-#: src/Setup/Assets.php:107
+#: src/Setup/Assets.php:112
 msgid "How much does it cost to use Hostinger Reach?"
-msgstr "Quanto custa para usar a Hostinger Reach?"
+msgstr "Quanto custa usar a Hostinger Reach?"
+
+#: src/Admin/Surveys/SatisfactionSurvey.php:21
+msgid "How would you rate your experience with Hostinger Reach so far?"
+msgstr "Como você avalia sua experiência com a Hostinger Reach até agora?"
 
 #. Plugin URI of the plugin
 #: hostinger-reach.php
 msgid "https://hostinger.com"
-msgstr "https://hostinger.com/br"
+msgstr "https://hostinger.com.br"
 
 #. Author URI of the plugin
 #: hostinger-reach.php
 msgid "https://www.hostinger.com/email-marketing"
 msgstr "https://www.hostinger.com/br/email-marketing"
 
-#: src/Setup/Assets.php:124
+#: src/Setup/Assets.php:129
 msgid "Inactive"
 msgstr "Inativo"
 
-#: src/Setup/Assets.php:144
+#: frontend/blocks/subscription-block/src/edit.js:31
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:202
+#, fuzzy
+msgid "Inline"
+msgstr "Em linha"
+
+#: src/Setup/Assets.php:151
 msgid "Install and connect"
 msgstr "Instalar e conectar"
 
-#: src/Setup/Assets.php:143
+#: src/Setup/Assets.php:150
 msgid "Installed plugins"
 msgstr "Plugins instalados"
 
 #. Description of the plugin
 #: hostinger-reach.php
 msgid "Integrate your WordPress site with Hostinger Reach."
-msgstr "Integre seu site WordPress com a Hostinger Reach."
+msgstr "Integre seu site WordPress à Hostinger Reach."
 
-#: src/Setup/Assets.php:139
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:326
+#, fuzzy
+msgid "Layout"
+msgstr "Layout"
+
+#: frontend/blocks/subscription-block/src/edit.js:153
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:324
+#, fuzzy
+msgid "Layout Settings"
+msgstr "Configurações de layout"
+
+#: src/Admin/Notices/ConnectionNotice.php:107
+#, fuzzy
+msgid "Learn more"
+msgstr "Saiba mais"
+
+#: src/Setup/Assets.php:146
 msgid ""
 "Make sure the people you contact expect your emails and are okay with "
 "receiving them."
 msgstr ""
-"Certifique-se de que as pessoas que você contata esperam seus e-mails e "
-"concordam em recebê-los."
+"Certifique-se de que as pessoas com quem você entra em contato esperam seus "
+"e-mails e concordam em recebê-los."
 
-#: src/Setup/Assets.php:73
+#: src/Setup/Assets.php:78
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: src/Blocks/SubscriptionFormBlock.php:67
-#: frontend/blocks/subscription-block/src/edit.js:188
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:296
+#: src/Blocks/SubscriptionFormBlock.php:81
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:114
 msgid "Name"
 msgstr "Nome"
 
-#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/blocks/subscription-block/src/edit.js:134
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:263
+#: frontend/dist/blocks/subscription.js:305
+#, fuzzy
 msgid "Name for the new Contact List"
 msgstr "Nome para a nova lista de contatos"
 
-#: src/Setup/Assets.php:140
+#: src/Setup/Assets.php:147
 msgid "New contact form"
 msgstr "Novo formulário de contato"
 
-#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/blocks/subscription-block/src/edit.js:129
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:258
+#: frontend/dist/blocks/subscription.js:300
+#, fuzzy
 msgid "New Contact List"
 msgstr "Nova lista de contatos"
 
-#: src/Setup/Assets.php:100
+#: src/Setup/Assets.php:105
 msgid "New page"
 msgstr "Nova página"
 
-#: src/Setup/Assets.php:89
+#: src/Setup/Assets.php:94
 msgid "New subscribers"
 msgstr "Novos assinantes"
 
-#: src/Setup/Assets.php:134
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:71
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:83
+msgid "No"
+msgstr "Não"
+
+#: src/Setup/Assets.php:141
 msgid "No forms found for this integration."
-msgstr "Não foram encontrados formulários para essa integração."
+msgstr "Nenhum formulário encontrado para esta integração."
 
-#: src/Setup/Assets.php:101
+#: src/Setup/Assets.php:106
 msgid "No pages available. Create a new page to get started."
-msgstr "Não há páginas disponíveis. Crie uma nova página para começar."
+msgstr "Nenhuma página disponível. Crie uma nova página para começar."
 
-#: src/Setup/Assets.php:109
+#: src/Setup/Assets.php:114
 msgid "opens in new tab"
-msgstr "abre em uma nova guia"
+msgstr "abre em nova aba"
 
-#: src/Setup/Assets.php:120
+#: src/Setup/Assets.php:125
 msgid "Plugin"
 msgstr "Plugin"
 
-#: src/Setup/Assets.php:136
+#: src/Setup/Assets.php:143
 msgid "Plugin connected successfully"
 msgstr "Plugin conectado com sucesso"
 
-#: src/Setup/Assets.php:137
+#: src/Setup/Assets.php:144
 msgid "Plugin disconnected successfully"
 msgstr "Plugin desconectado com sucesso"
 
-#: src/Setup/Assets.php:71
+#: src/Setup/Assets.php:76
 msgid "Reach is already connected to another site."
 msgstr "A Reach já está conectada a outro site."
 
-#: src/Setup/Assets.php:108
-#| msgid ""
-#| "Reach offers a free plan for one year– perfect for getting started. Paid "
-#| "plans are based on how many unique contacts you aim to reach and how many "
-#| "emails you send monthly. As your audience grows, you can upgrade to a "
-#| "plan that fits your needs. Reach does not limit your contact list, so you "
-#| "don't need to worry about lost data and can consistently grow your "
-#| "audience."
+#: src/Setup/Assets.php:113
 msgid ""
 "Reach offers a <b>free plan</b> for one year– perfect for getting started. "
 "Paid plans are based on how many unique contacts you aim to reach and how "
@@ -406,173 +484,206 @@ msgid ""
 "plan that fits your needs. Reach does not limit your contact list, so you "
 "don't need to worry about lost data and can consistently grow your audience."
 msgstr ""
-"A Reach oferece um plano gratuito por um ano - perfeito para começar. Os "
-"planos pagos baseiam-se no número de contatos exclusivos que você pretende "
-"alcançar e no número de e-mails que envia mensalmente. À medida que seu "
+"A Reach oferece um <b>plano grátis</b> por um ano – perfeito para começar. "
+"Os planos pagos são baseados em quantos contatos únicos você pretende "
+"alcançar e em quantos e-mails você envia mensalmente. À medida que seu "
 "público cresce, você pode fazer upgrade para um plano que atenda às suas "
-"necessidades. A Reach não limita sua lista de contatos, portanto, você não "
-"precisa se preocupar com a perda de dados e pode aumentar seu público de "
-"forma consistente."
+"necessidades. A Reach não limita sua lista de contatos, então você não "
+"precisa se preocupar com perda de dados e pode aumentar seu público de forma "
+"consistente."
 
 #: frontend/blocks/subscription-block/src/index.js:9
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:444
+#: frontend/dist/blocks/subscription.js:487
+#, fuzzy
 msgid "Reach Subscription Form"
-msgstr "Formulário de assinatura da Reach"
+msgstr "Formulário de assinatura do Reach"
 
-#: src/Setup/Assets.php:84
+#: src/Setup/Assets.php:89
 msgid "Remaining"
-msgstr "Restante"
+msgstr "Restantes"
 
-#: src/Setup/Assets.php:114
+#: src/Setup/Assets.php:119
 msgid "Select page"
 msgstr "Selecionar página"
 
-#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+#: src/Setup/Assets.php:88 src/Setup/Assets.php:91
 msgid "Sent"
 msgstr "Enviado"
 
-#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: src/Setup/Assets.php:99 frontend/blocks/subscription-block/src/edit.js:102
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:231
+#: frontend/dist/blocks/subscription.js:273
 msgid "Settings"
 msgstr "Configurações"
 
-#: frontend/blocks/subscription-block/src/edit.js:158
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:68
+msgid "Show Name"
+msgstr "Mostrar nome"
+
+#: frontend/blocks/subscription-block/src/edit.js:137
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:266
+#: frontend/dist/blocks/subscription.js:308
+#, fuzzy
 msgid "Show Name Field?"
 msgstr "Mostrar campo de nome?"
 
-#: frontend/blocks/subscription-block/src/edit.js:166
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:80
+msgid "Show Surname"
+msgstr "Mostrar sobrenome"
+
+#: frontend/blocks/subscription-block/src/edit.js:145
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:274
+#: frontend/dist/blocks/subscription.js:316
+#, fuzzy
 msgid "Show Surname Field?"
 msgstr "Mostrar campo de sobrenome?"
 
-#: src/Setup/Assets.php:68
+#: src/Setup/Assets.php:73
 msgid "Something went wrong"
-msgstr "Algo deu errado"
+msgstr "Ocorreu um erro"
 
-#: frontend/blocks/subscription-block/src/edit.js:111
-#: frontend/blocks/subscription-block/src/edit.js:116
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:219
-#: frontend/dist/blocks/subscription.js:224
-msgid "Something went wrong. Please try again"
-msgstr "Algo deu errado. Tente novamente"
-
-#: src/Blocks/SubscriptionFormBlock.php:19
+#: src/Blocks/SubscriptionFormBlock.php:21
 msgid "Something went wrong. Please try again."
-msgstr "Algo deu errado. Tente novamente."
+msgstr "Ocorreu um erro. Tente novamente."
 
-#: src/Setup/Assets.php:96
+#: src/Setup/Assets.php:101
 msgid "Start collecting form submissions"
-msgstr "Comece a coletar envios de formulários"
+msgstr "Comece a receber formulários"
 
-#: src/Setup/Assets.php:122
+#: src/Setup/Assets.php:127
 msgid "Status"
 msgstr "Status"
 
-#: src/Blocks/SubscriptionFormBlock.php:83
+#: src/Blocks/SubscriptionFormBlock.php:97
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:130
 msgid "Subscribe"
-msgstr "Assine"
+msgstr "Assinar"
 
-#: src/Setup/Assets.php:88
+#: templates/optin-checkbox.php:28
+msgid "Subscribe to our Newsletter"
+msgstr "Assine nossa newsletter"
+
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:69
+msgid "Subscribe to our newsletter"
+msgstr "Assine nossa newsletter"
+
+#: src/Setup/Assets.php:93
 msgid "Subscribers"
 msgstr "Assinantes"
 
-#: src/Blocks/SubscriptionFormBlock.php:75
-#: frontend/blocks/subscription-block/src/edit.js:194
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:302
+#: src/Blocks/SubscriptionFormBlock.php:89
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:122
 msgid "Surname"
 msgstr "Sobrenome"
 
-#: frontend/blocks/subscription-block/src/edit.js:108
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:216
-msgid "Thanks for subscribing"
-msgstr "Obrigado por se inscrever"
-
-#: src/Blocks/SubscriptionFormBlock.php:18
+#: src/Blocks/SubscriptionFormBlock.php:20
 msgid "Thanks for subscribing."
-msgstr "Obrigado por se inscrever."
+msgstr "Obrigado por ser um assinante!"
 
-#: src/Setup/Assets.php:79
+#: src/Integrations/Integration.php:158
+msgid ""
+"This form has not an email field. Create an email field in the form to allow "
+"it to be synced with Reach"
+msgstr ""
+"Este formulário não possui um campo de e-mail. Crie um campo de e-mail no "
+"formulário para permitir a sincronização com a Reach."
+
+#: src/Setup/Assets.php:84
 msgid "This month"
 msgstr "Este mês"
 
-#: src/Setup/Assets.php:91
+#: src/Setup/Assets.php:96
 msgid "Total subscribers"
 msgstr "Total de assinantes"
 
-#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/blocks/subscription-block/src/edit.js:108
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:237
+#: frontend/dist/blocks/subscription.js:279
+#, fuzzy
 msgid "Unique identifier for this form"
 msgstr "Identificador exclusivo para este formulário"
 
-#: src/Setup/Assets.php:90
+#: src/Setup/Assets.php:95
 msgid "Unsubscribes"
-msgstr "Cancelamento de inscrição"
+msgstr "Assinaturas canceladas"
 
-#: src/Setup/Assets.php:81
+#: src/Setup/Assets.php:86
 msgid "Upgrade"
-msgstr "Atualização"
+msgstr "Fazer upgrade"
 
-#: src/Setup/Assets.php:112
+#: src/Setup/Assets.php:117
 msgid "usage statistics"
 msgstr "estatísticas de uso"
 
-#: src/Setup/Assets.php:125
+#: src/Setup/Assets.php:130
 msgid "View form"
-msgstr "Exibir formulário"
+msgstr "Ver formulário"
 
-#: src/Setup/Assets.php:142
+#: src/Setup/Assets.php:149
 msgid "View supported plugins"
-msgstr "Exibir plugins compatíveis"
+msgstr "Ver plugins compatíveis"
 
-#: src/Setup/Assets.php:69
+#: src/Setup/Assets.php:74
 msgid "Welcome to Reach"
-msgstr ""
-"Boas-vindas à Reach\n"
-"\n"
+msgstr "Sejam bem vidos à Reach"
 
-#: src/Setup/Assets.php:103
+#: src/Setup/Assets.php:108
 msgid "What is Hostinger Reach email marketing service?"
-msgstr "O que é o serviço de e-mail marketing da Hostinger Reach?"
+msgstr ""
+"O que é o serviço de e-mail marketing Hostinger Reach e como ele funciona?"
 
-#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:164
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:29
+#: src/Setup/Assets.php:137
 msgid "WP Forms Lite"
 msgstr "WP Forms Lite"
 
 #. translators: %s - form id.
-#: src/Integrations/WpFormsLiteIntegration.php:41
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:63
 msgid "WP Forms Lite %s"
 msgstr "WP Forms Lite %s"
 
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:70
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:82
+msgid "Yes"
+msgstr "Sìm"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:7
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:40
+#: frontend/dist/blocks/subscription.js:42
+#, fuzzy
 msgid "You are not connected to Hostinger Reach"
-msgstr "Você não está conectado à Hostinger Reach"
+msgstr "Você não está conectado ao Hostinger Reach"
 
 #: frontend/blocks/subscription-block/src/Components/Connect.js:10
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:43
+#: frontend/dist/blocks/subscription.js:45
+#, fuzzy
 msgid ""
 "You are not connected to Hostinger Reach. To gain full access to this block, "
 "you need to connect your Hostinger Reach account."
 msgstr ""
-"Você não está conectado à Hostinger Reach. Para ter acesso completo, é só "
-"conectar sua conta e começar a usar!"
+"Você não está conectado à Hostinger Reach. Para obter acesso total a esse "
+"bloco, você precisa conectar sua conta do Hostinger Reach."
 
 #. translators: %s: PHP version
-#: hostinger-reach.php:55
+#: hostinger-reach.php:58
 msgid "You are running <b>%s</b> PHP version."
-msgstr "A versão do PHP em uso é <b>%s</b>."
+msgstr "Você está executando a versão <b>%s</b> do PHP."
 
-#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:40
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:129
+#, fuzzy
+msgid "Your form is ready. Go to Reach to complete setup and create templates."
+msgstr ""
+"Seu formulário está pronto. Vá para Reach para concluir a configuração e "
+"criar modelos."
+
+#: src/Setup/Assets.php:85
 msgid "Your plan"
 msgstr "Seu plano"

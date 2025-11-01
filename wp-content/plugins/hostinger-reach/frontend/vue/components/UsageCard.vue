@@ -95,7 +95,7 @@ const SKELETON_CONFIG = {
 							</div>
 						</div>
 
-						<div v-if="isHorizontal && index < metrics.length - 1" class="usage-card__divider" aria-hidden="true" />
+						<div v-if="isHorizontal && index < metrics.length - 1" class="usage-card__divider" aria-hidden="true"></div>
 					</template>
 				</div>
 			</div>

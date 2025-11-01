@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit165e82d911730e51d56a875217170fc5
+class ComposerStaticInit313e69f9685b56c2f319d1e3f6f39c52
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -63,11 +63,13 @@ class ComposerStaticInit165e82d911730e51d56a875217170fc5
         'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php',
         'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/ManifestGenerator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Hostinger\\Reach\\Admin\\Database\\CartsTable' => __DIR__ . '/../..' . '/src/Admin/Database/CartsTable.php',
         'Hostinger\\Reach\\Admin\\Database\\ContactListsTable' => __DIR__ . '/../..' . '/src/Admin/Database/ContactListsTable.php',
         'Hostinger\\Reach\\Admin\\Database\\DatabaseInterface' => __DIR__ . '/../..' . '/src/Admin/Database/DatabaseInterface.php',
         'Hostinger\\Reach\\Admin\\Database\\DatabaseTable' => __DIR__ . '/../..' . '/src/Admin/Database/DatabaseTable.php',
         'Hostinger\\Reach\\Admin\\Database\\FormsTable' => __DIR__ . '/../..' . '/src/Admin/Database/FormsTable.php',
         'Hostinger\\Reach\\Admin\\Menus' => __DIR__ . '/../..' . '/src/Admin/Menus.php',
+        'Hostinger\\Reach\\Admin\\Notices\\ConnectionNotice' => __DIR__ . '/../..' . '/src/Admin/Notices/ConnectionNotice.php',
         'Hostinger\\Reach\\Admin\\Redirects' => __DIR__ . '/../..' . '/src/Admin/Redirects.php',
         'Hostinger\\Reach\\Admin\\Surveys\\SatisfactionSurvey' => __DIR__ . '/../..' . '/src/Admin/Surveys/SatisfactionSurvey.php',
         'Hostinger\\Reach\\Admin\\Surveys\\Survey' => __DIR__ . '/../..' . '/src/Admin/Surveys/Survey.php',
@@ -80,35 +82,55 @@ class ComposerStaticInit165e82d911730e51d56a875217170fc5
         'Hostinger\\Reach\\Api\\Routes\\IntegrationsRoutes' => __DIR__ . '/../..' . '/src/Api/Routes/IntegrationsRoutes.php',
         'Hostinger\\Reach\\Api\\Routes\\ReachRoutes' => __DIR__ . '/../..' . '/src/Api/Routes/ReachRoutes.php',
         'Hostinger\\Reach\\Api\\Routes\\Routes' => __DIR__ . '/../..' . '/src/Api/Routes/Routes.php',
+        'Hostinger\\Reach\\Api\\Webhooks\\Handlers\\CartAbandoned' => __DIR__ . '/../..' . '/src/Api/Webhooks/Handlers/CartAbandoned.php',
+        'Hostinger\\Reach\\Api\\Webhooks\\Handlers\\OrderPurchased' => __DIR__ . '/../..' . '/src/Api/Webhooks/Handlers/OrderPurchased.php',
+        'Hostinger\\Reach\\Api\\Webhooks\\Handlers\\WebhookHandler' => __DIR__ . '/../..' . '/src/Api/Webhooks/Handlers/WebhookHandler.php',
         'Hostinger\\Reach\\Blocks\\Block' => __DIR__ . '/../..' . '/src/Blocks/Block.php',
         'Hostinger\\Reach\\Blocks\\SubscriptionFormBlock' => __DIR__ . '/../..' . '/src/Blocks/SubscriptionFormBlock.php',
         'Hostinger\\Reach\\Boot' => __DIR__ . '/../..' . '/src/Boot.php',
         'Hostinger\\Reach\\Container' => __DIR__ . '/../..' . '/src/Container.php',
+        'Hostinger\\Reach\\Dto\\Cart' => __DIR__ . '/../..' . '/src/Dto/Cart.php',
+        'Hostinger\\Reach\\Dto\\CartItem' => __DIR__ . '/../..' . '/src/Dto/CartItem.php',
+        'Hostinger\\Reach\\Dto\\PluginData' => __DIR__ . '/../..' . '/src/Dto/PluginData.php',
+        'Hostinger\\Reach\\Dto\\Totals' => __DIR__ . '/../..' . '/src/Dto/Totals.php',
         'Hostinger\\Reach\\Functions' => __DIR__ . '/../..' . '/src/Functions.php',
-        'Hostinger\\Reach\\Integrations\\ContactForm7Integration' => __DIR__ . '/../..' . '/src/Integrations/ContactForm7Integration.php',
+        'Hostinger\\Reach\\Integrations\\ContactForm7\\ContactForm7Integration' => __DIR__ . '/../..' . '/src/Integrations/ContactForm7/ContactForm7Integration.php',
         'Hostinger\\Reach\\Integrations\\Elementor\\ElementorIntegration' => __DIR__ . '/../..' . '/src/Integrations/Elementor/ElementorIntegration.php',
         'Hostinger\\Reach\\Integrations\\Elementor\\SubscriptionFormElementorWidget' => __DIR__ . '/../..' . '/src/Integrations/Elementor/SubscriptionFormElementorWidget.php',
         'Hostinger\\Reach\\Integrations\\Integration' => __DIR__ . '/../..' . '/src/Integrations/Integration.php',
         'Hostinger\\Reach\\Integrations\\IntegrationInterface' => __DIR__ . '/../..' . '/src/Integrations/IntegrationInterface.php',
         'Hostinger\\Reach\\Integrations\\IntegrationWithForms' => __DIR__ . '/../..' . '/src/Integrations/IntegrationWithForms.php',
         'Hostinger\\Reach\\Integrations\\PluginManager' => __DIR__ . '/../..' . '/src/Integrations/PluginManager.php',
-        'Hostinger\\Reach\\Integrations\\ReachFormIntegration' => __DIR__ . '/../..' . '/src/Integrations/ReachFormIntegration.php',
+        'Hostinger\\Reach\\Integrations\\Reach\\ReachFormIntegration' => __DIR__ . '/../..' . '/src/Integrations/Reach/ReachFormIntegration.php',
+        'Hostinger\\Reach\\Integrations\\WPFormsLite\\WpFormsLiteIntegration' => __DIR__ . '/../..' . '/src/Integrations/WPFormsLite/WpFormsLiteIntegration.php',
         'Hostinger\\Reach\\Integrations\\WooCommerce\\WooCommerceIntegration' => __DIR__ . '/../..' . '/src/Integrations/WooCommerce/WooCommerceIntegration.php',
-        'Hostinger\\Reach\\Integrations\\WpFormsLiteIntegration' => __DIR__ . '/../..' . '/src/Integrations/WpFormsLiteIntegration.php',
+        'Hostinger\\Reach\\Jobs\\AbandonedCartsJob' => __DIR__ . '/../..' . '/src/Jobs/AbandonedCartsJob.php',
+        'Hostinger\\Reach\\Jobs\\AbstractBatchedJob' => __DIR__ . '/../..' . '/src/Jobs/AbstractBatchedJob.php',
+        'Hostinger\\Reach\\Jobs\\AbstractJob' => __DIR__ . '/../..' . '/src/Jobs/AbstractJob.php',
+        'Hostinger\\Reach\\Jobs\\ActionScheduler' => __DIR__ . '/../..' . '/src/Jobs/ActionScheduler.php',
+        'Hostinger\\Reach\\Jobs\\JobInterface' => __DIR__ . '/../..' . '/src/Jobs/JobInterface.php',
+        'Hostinger\\Reach\\Jobs\\RecurringJobInterface' => __DIR__ . '/../..' . '/src/Jobs/RecurringJobInterface.php',
+        'Hostinger\\Reach\\Models\\Cart' => __DIR__ . '/../..' . '/src/Models/Cart.php',
         'Hostinger\\Reach\\Models\\ContactList' => __DIR__ . '/../..' . '/src/Models/ContactList.php',
         'Hostinger\\Reach\\Models\\Form' => __DIR__ . '/../..' . '/src/Models/Form.php',
         'Hostinger\\Reach\\Models\\Model' => __DIR__ . '/../..' . '/src/Models/Model.php',
+        'Hostinger\\Reach\\Models\\PluginData' => __DIR__ . '/../..' . '/src/Models/PluginData.php',
         'Hostinger\\Reach\\Providers\\AssetsProvider' => __DIR__ . '/../..' . '/src/Providers/AssetsProvider.php',
         'Hostinger\\Reach\\Providers\\BlocksProvider' => __DIR__ . '/../..' . '/src/Providers/BlocksProvider.php',
         'Hostinger\\Reach\\Providers\\ContainerProvider' => __DIR__ . '/../..' . '/src/Providers/ContainerProvider.php',
         'Hostinger\\Reach\\Providers\\DatabaseProvider' => __DIR__ . '/../..' . '/src/Providers/DatabaseProvider.php',
         'Hostinger\\Reach\\Providers\\IntegrationsProvider' => __DIR__ . '/../..' . '/src/Providers/IntegrationsProvider.php',
+        'Hostinger\\Reach\\Providers\\JobsProvider' => __DIR__ . '/../..' . '/src/Providers/JobsProvider.php',
         'Hostinger\\Reach\\Providers\\MenusProvider' => __DIR__ . '/../..' . '/src/Providers/MenusProvider.php',
+        'Hostinger\\Reach\\Providers\\NoticesProvider' => __DIR__ . '/../..' . '/src/Providers/NoticesProvider.php',
         'Hostinger\\Reach\\Providers\\ProviderInterface' => __DIR__ . '/../..' . '/src/Providers/ProviderInterface.php',
         'Hostinger\\Reach\\Providers\\RedirectsProvider' => __DIR__ . '/../..' . '/src/Providers/RedirectsProvider.php',
         'Hostinger\\Reach\\Providers\\RoutesProvider' => __DIR__ . '/../..' . '/src/Providers/RoutesProvider.php',
         'Hostinger\\Reach\\Providers\\SurveysProvider' => __DIR__ . '/../..' . '/src/Providers/SurveysProvider.php',
+        'Hostinger\\Reach\\Providers\\TrackingProvider' => __DIR__ . '/../..' . '/src/Providers/TrackingProvider.php',
+        'Hostinger\\Reach\\Providers\\WebhooksProvider' => __DIR__ . '/../..' . '/src/Providers/WebhooksProvider.php',
         'Hostinger\\Reach\\Providers\\WpdbProvider' => __DIR__ . '/../..' . '/src/Providers/WpdbProvider.php',
+        'Hostinger\\Reach\\Repositories\\CartRepository' => __DIR__ . '/../..' . '/src/Repositories/CartRepository.php',
         'Hostinger\\Reach\\Repositories\\ContactListRepository' => __DIR__ . '/../..' . '/src/Repositories/ContactListRepository.php',
         'Hostinger\\Reach\\Repositories\\FormRepository' => __DIR__ . '/../..' . '/src/Repositories/FormRepository.php',
         'Hostinger\\Reach\\Repositories\\Repository' => __DIR__ . '/../..' . '/src/Repositories/Repository.php',
@@ -117,6 +139,7 @@ class ComposerStaticInit165e82d911730e51d56a875217170fc5
         'Hostinger\\Reach\\Setup\\Assets' => __DIR__ . '/../..' . '/src/Setup/Assets.php',
         'Hostinger\\Reach\\Setup\\Blocks' => __DIR__ . '/../..' . '/src/Setup/Blocks.php',
         'Hostinger\\Reach\\Setup\\Database' => __DIR__ . '/../..' . '/src/Setup/Database.php',
+        'Hostinger\\Reach\\Tracking\\AbandonedCarts' => __DIR__ . '/../..' . '/src/Tracking/AbandonedCarts.php',
         'Hostinger\\Surveys\\Ajax' => __DIR__ . '/..' . '/hostinger/hostinger-wp-surveys/src/Ajax.php',
         'Hostinger\\Surveys\\Assets' => __DIR__ . '/..' . '/hostinger/hostinger-wp-surveys/src/Assets.php',
         'Hostinger\\Surveys\\Loader' => __DIR__ . '/..' . '/hostinger/hostinger-wp-surveys/src/Loader.php',
@@ -138,9 +161,9 @@ class ComposerStaticInit165e82d911730e51d56a875217170fc5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit165e82d911730e51d56a875217170fc5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit165e82d911730e51d56a875217170fc5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit165e82d911730e51d56a875217170fc5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit313e69f9685b56c2f319d1e3f6f39c52::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit313e69f9685b56c2f319d1e3f6f39c52::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit313e69f9685b56c2f319d1e3f6f39c52::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -33,14 +33,14 @@ onUnmounted(() => {
 <template>
 	<div class="base-modal">
 		<div class="base-modal__header">
-			<slot name="back-button" />
+			<slot name="back-button"></slot>
 			<span
 				class="base-modal__title-container"
 				:class="{
 					'base-modal__title-container--centered': titleAlignment === 'centered'
 				}"
 			>
-				<slot name="title-icon" />
+				<slot name="title-icon"></slot>
 				<h2 v-if="title" class="base-modal__title">{{ title }}</h2>
 			</span>
 		</div>
@@ -53,7 +53,7 @@ onUnmounted(() => {
 		>
 			{{ subtitle }}
 		</p>
-		<slot />
+		<slot></slot>
 	</div>
 </template>
 

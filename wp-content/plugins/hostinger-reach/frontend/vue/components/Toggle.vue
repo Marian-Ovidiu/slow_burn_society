@@ -30,7 +30,7 @@ const handleClick = (event: Event) => {
 			@click="handleClick"
 		>
 			<input type="checkbox" :checked="value" :disabled="isDisabled" style="display: none" />
-			<span class="controlled-toggle__slider" />
+			<span class="controlled-toggle__slider"></span>
 		</label>
 	</div>
 </template>

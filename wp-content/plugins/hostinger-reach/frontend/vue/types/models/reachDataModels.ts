@@ -5,6 +5,7 @@ export interface ReachData {
 	pluginUrl: string;
 	translations: Record<string, string>;
 	isConnected: boolean;
+	totalFormPages: number;
 	isHostingerUser: boolean;
 	isStaging: boolean;
 }
@@ -19,6 +20,7 @@ export interface HstReachDataRaw {
 	is_connected: boolean;
 	is_hostinger_user: boolean;
 	is_staging: boolean;
+	total_form_pages: number;
 }
 
 export interface OverviewData {

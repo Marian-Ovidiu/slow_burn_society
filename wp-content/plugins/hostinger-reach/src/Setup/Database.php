@@ -24,7 +24,7 @@ class Database {
             ''
         );
 
-        if ( HOSTINGER_REACH_DB_VERSION !== $database_version ) {
+        if ( $database_version !== HOSTINGER_REACH_DB_VERSION ) {
             $this->create_tables();
             update_option( $db_version_option, HOSTINGER_REACH_DB_VERSION, false );
         }

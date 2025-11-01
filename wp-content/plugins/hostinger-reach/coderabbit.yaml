@@ -1,0 +1,131 @@
+language: "en-US"
+early_access: false
+tone_instructions: "Expert Vue 3, TypeScript & WordPress PHP reviewer for enterprise development. Provide concise, clear advice based on project's actual patterns. Elaborate only when requested."
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+
+  auto_review:
+    enabled: true
+    drafts: true
+    ignore_title_keywords:
+      - "WIP"
+      - "Draft"
+      - "DO NOT MERGE"
+      - "TEMP"
+
+  path_instructions:
+    - path: "**/*.{vue,ts,js}"
+      instructions: |
+        **No English Text:** Never use hardcoded English text - always use translation slugs
+        **Translation Slugs:** Use project pattern: `hostinger_reach_section_element_type`
+        **Translation Functions:** Use `translate()` function: `translate("hostinger_reach_section_element")`
+        **Repository Pattern:** Create repositories for API calls - don't make direct HTTP requests in components
+        **Naming:** Use camelCase for all variables and functions - no snake_case in frontend code
+
+    - path: "**/*.vue"
+      instructions: |
+        **Props:** Type with interfaces: `defineProps<{ userId: string }>()`
+        **Emits:** Explicit declarations: `defineEmits<{ update: [value: string] }>()`
+        **Keys:** Use `:key="item.id"` not `:key="index"` in v-for
+        **Reactivity:** Use `ref()` for primitives, `computed()` for derived state
+        **Heavy Computations:** Place complex computations in parent components and pass results as props
+        **Accessibility:** Use semantic HTML and ARIA attributes - `<button aria-label="close">` not `<div @click>`
+        **Conditionals:** Use `v-if` for conditional DOM, `v-show` for visibility toggle
+        **Cleanup:** Clear timers/listeners in `onUnmounted`
+        **Component Design:** Single responsibility, extend via props/slots, minimal prop requirements
+
+    - path: "**/*.ts"
+      instructions: |
+        **Type Safety:** Use strict TypeScript - avoid `any`, prefer specific types
+        **Union Types:** `type Status = 'pending' | 'success' | 'error'`
+        **Interface Design:** Prefer interfaces over types for object shapes
+        **Generics:** Use generics for reusable type definitions
+        **Utility Types:** Leverage TypeScript utility types: `Partial<T>`, `Required<T>`, `Pick<T, K>`
+
+    - path: "**/*.php"
+      instructions: |
+        **PHPCS Compliance:** Follow coding standards defined in `.phpcs.xml` - formatting, spacing, naming conventions
+        **Project Architecture:** Repository pattern for DB queries, DTO classes for data transfer, dependency injection via constructors
+        **WordPress Integration:** Escape output with `esc_html()`, `esc_url()`, verify nonces with `wp_verify_nonce()`
+        **Naming Conventions:** Database tables/options prefixed with `hostinger_`, class suffixes: `UserFactory`, `UserDto`, `UserRepository`
+        **Code Organization:** Constants in dedicated classes, translations in static methods, early returns over else statements
+        **Error Handling:** Prefix error logs: `error_log('Hostinger Reach: error message')`
+
+    - path: "**/stores/**/*.ts"
+      instructions: |
+        **Store Pattern:** Use `defineStore` with setup syntax matching your `generalDataStore` pattern
+        **State:** Use `ref()` for reactive state, `computed()` for derived values
+        **File Naming:** `{camelCase}Store.ts`
+        **Destructuring:** Use `storeToRefs()` when needed
+
+    - path: "**/composables/**/*.ts"
+      instructions: |
+        **Naming:** Use 'use' prefix: `useOverviewData`, `useModal`
+        **File Naming:** `use{PascalCase}.ts`
+        **Return:** Return refs that can be destructured: `return { data, loading, error }`
+
+    - path: "**/repositories/**/*.ts"
+      instructions: |
+        **Repository Pattern:** Export default object like your `formsRepo`, `reachRepo` pattern
+        **Method Naming:** Use descriptive names: `getForms`, `toggleFormStatus`, `getOverview`
+        **Headers:** Include correlation ID and nonce like your existing repos
+        **Typing:** Use proper TypeScript types: `httpService.get<Form[]>`
+
+    - path: "**/*.test.ts"
+      instructions: |
+        **Structure:** Use `describe/it` blocks: `describe('ConfirmDisconnectModal', () => { it('should render', () => {}) })`
+        **Imports:** Import `vi` from vitest: `import { vi } from 'vitest'`
+        **Mounting:** Use `mount` from `@vue/test-utils`
+        **Mocking:** Use `vi.mock()` for stores and composables like your existing tests
+        **Store Mocking:** Mock stores with return objects matching your pattern
+
+    - path: "**/tests/**/*.php"
+      instructions: |
+        **Test Structure:** Extend from `WP_UnitTestCase` class following WordPress core standards
+        **Setup Methods:** Use `set_up(): void` with `parent::set_up()` FIRST LINE (snake_case required)
+        **Teardown Methods:** Use `tear_down(): void` with `parent::tear_down()` as LAST LINE  
+        **Method Names:** `snake_case` for test methods: `test_integrations_constant()`
+        **Fixtures:** Use `self::factory()->user->create()` for test data creation
+        **Mocking:** Use `createMock()` for dependencies like your existing tests
+        **Assertions:** Use most specific assertion: `assertSame()`, `assertContains()`, `assertTrue()`
+        **WordPress Methods:** Use snake_case versions: `set_up_before_class()`, `tear_down_after_class()`
+
+    - path: "**/*"
+      instructions: |
+        **Commit Messages:** Follow semantic format: `<type>(<scope>): <subject>`
+        **Commit Types:** Use `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+        **Deep Review:** Mark complex PRs with "deep review wanted" label and provide clear testing instructions
+        **File Structure:** PHP files under `src/`, Vue under `frontend/vue/`, React/Gutenberg under `frontend/blocks/`
+        **PSR-4:** Follow PSR-4 autoloader standard with proper namespace mapping
+
+  path_filters:
+    - "**/*.vue"
+    - "**/*.ts"
+    - "**/*.php"
+    - "**/*.{test,spec}.{ts,php}"
+    - "package.json"
+    - "composer.json"
+    - "!**/node_modules"
+    - "!**/vendor"
+    - "!**/dist"
+    - "!coverage/**"
+    - "!**/*.min.js"
+    - "!**/*.min.css"
+    - "!**/*.d.ts"
+    - "!package-lock.json"
+    - "!composer.lock"
+
+  tools:
+    eslint:
+      enabled: true
+    phpcs:
+      enabled: true
+
+chat:
+  auto_reply: true

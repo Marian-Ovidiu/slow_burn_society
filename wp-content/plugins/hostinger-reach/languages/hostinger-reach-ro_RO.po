@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
-"PO-Revision-Date: 2025-08-17 13:16+0000\n"
+"PO-Revision-Date: 2025-10-28 12:35+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: hostinger-reach\n"
 "Language: ro_RO\n"
@@ -18,31 +18,38 @@ msgstr ""
 "=0)))? 2 : 1));\n"
 "X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
 
-#: src/Setup/Assets.php:135
+#: src/Setup/Assets.php:142
 msgid "(no title)"
 msgstr "(fără titlu)"
 
-#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+#: src/Setup/Assets.php:128 src/Setup/Assets.php:145
 msgid "Active"
 msgstr "Activ"
 
-#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+#: src/Setup/Assets.php:103 src/Setup/Assets.php:104 src/Setup/Assets.php:120
+#: src/Setup/Assets.php:134
 msgid "Add form"
 msgstr "Adaugă formular"
 
-#: hostinger-reach.php:49
+#: src/Admin/Surveys/SatisfactionSurvey.php:25
+#, fuzzy
+msgid "Any ideas or feedback to help us improve Hostinger Reach?"
+msgstr ""
+"Aveți idei sau feedback pentru a ne ajuta să îmbunătățim Hostinger Reach?"
+
+#: hostinger-reach.php:52
 msgid "Attention:"
 msgstr "Atenție:"
 
-#: src/Setup/Assets.php:87
+#: src/Setup/Assets.php:92
 msgid "Average CTOR"
 msgstr "CTOR mediu"
 
-#: src/Setup/Assets.php:111
+#: src/Setup/Assets.php:116
 msgid "Background image for"
 msgstr "Imagine de fundal pentru"
 
-#: src/Setup/Assets.php:110
+#: src/Setup/Assets.php:115
 msgid "Banner background image for"
 msgstr "Banner imagine de fundal pentru"
 
@@ -56,15 +63,15 @@ msgctxt "block title"
 msgid "Reach Subscription Form"
 msgstr "Formular de abonare Reach"
 
-#: src/Setup/Assets.php:85
+#: src/Setup/Assets.php:90
 msgid "Campaigns"
 msgstr "Campanii"
 
-#: src/Setup/Assets.php:118
+#: src/Setup/Assets.php:123
 msgid "Cancel "
 msgstr "Anulează"
 
-#: src/Setup/Assets.php:97
+#: src/Setup/Assets.php:102
 #| msgid ""
 #| "Choose how you’d like to manage forms on your website. Create a new form "
 #| "with Hostinger Reach or connect a third-party plugin."
@@ -76,7 +83,7 @@ msgstr ""
 "Creează un formular nou cu Hostinger Reach sau conectează un plugin de la un "
 "terț."
 
-#: src/Setup/Assets.php:113
+#: src/Setup/Assets.php:118
 msgid ""
 "Click-to-open rate tells you what percent of opens resulted in a click too. "
 "A good CTOR is 6-17%, depending on your industry."
@@ -84,39 +91,63 @@ msgstr ""
 "Rata click-to-open îți spune ce procent din deschideri au dus și la un click."
 " Un CTOR bun este de 6-17%, în funcție de industrie."
 
-#: src/Setup/Assets.php:133
+#: src/Setup/Assets.php:140
 msgid "Collapse {pluginName} details"
 msgstr "Închide detaliile {pluginName}"
 
-#: src/Setup/Assets.php:146
+#: src/Admin/Notices/ConnectionNotice.php:104 src/Setup/Assets.php:153
 msgid "Connect"
 msgstr "Conectează"
 
+#: src/Admin/Notices/ConnectionNotice.php:99
+#, fuzzy
+msgid "Connect Hostinger Reach to start Email Marketing"
+msgstr "Conectați Hostinger Reach pentru a începe Email Marketing"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:16
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:49
+#: frontend/dist/blocks/subscription.js:51
+#, fuzzy
 msgid "Connect Now"
-msgstr "Conectează acum"
+msgstr "Conectați-vă acum"
 
-#: src/Setup/Assets.php:74
+#: src/Setup/Assets.php:79
 msgid "Connect site"
 msgstr "Conectează site-ul"
 
-#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+#: src/Admin/Notices/ConnectionNotice.php:100
+#, fuzzy
+msgid ""
+"Connect your Hostinger Reach account to start sending newsletters and "
+"managing subscribers. With Hostinger Reach, it's easy to grow your audience "
+"in just one click."
+msgstr ""
+"Conectați-vă contul Hostinger Reach pentru a începe să trimiteți buletine "
+"informative și să gestionați abonații. Cu Hostinger Reach, este ușor să vă "
+"măriți audiența cu un singur clic."
+
+#: src/Integrations/ContactForm7/ContactForm7Integration.php:91
+#: src/Setup/Assets.php:136
 msgid "Contact Form 7"
 msgstr "Formular de contact 7"
 
-#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/blocks/subscription-block/src/edit.js:111
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:240
+#: frontend/dist/blocks/subscription.js:282
+#, fuzzy
 msgid "Contact List"
 msgstr "Lista de contacte"
 
-#: src/Setup/Assets.php:92
+#: src/Admin/Notices/ConnectionNotice.php:73
+#, fuzzy
+msgid "Could not generate auth URL"
+msgstr "Nu s-a putut genera URL-ul de autentificare"
+
+#: src/Setup/Assets.php:97
 msgid "Create campaign"
 msgstr "Creează campanie"
 
-#: src/Setup/Assets.php:70
+#: src/Setup/Assets.php:75
 msgid ""
 "Create email campaigns using AI-crafted templates that match your style. "
 "Instantly sync with your WordPress site and connect with your audience "
@@ -126,41 +157,49 @@ msgstr ""
 "stilului tău. Sincronizează instantaneu cu site-ul tău WordPress și "
 "conectează-te facil cu publicul tău."
 
-#: src/Setup/Assets.php:141
+#: src/Setup/Assets.php:148
 msgid "Create form"
 msgstr "Creează formular"
 
-#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/blocks/subscription-block/src/edit.js:114
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:243
+#: frontend/dist/blocks/subscription.js:285
+#, fuzzy
 msgid "Create New List"
-msgstr "Creează o listă nouă"
+msgstr "Creați o listă nouă"
 
-#: src/Setup/Assets.php:93
+#: src/Setup/Assets.php:98
 msgid "Create template"
 msgstr "Creează un șablon"
 
-#: src/Setup/Assets.php:145
+#: frontend/blocks/subscription-block/src/edit.js:30
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:201
+#, fuzzy
+msgid "Default"
+msgstr "Implicit"
+
+#: src/Setup/Assets.php:152
 msgid "Disconnect"
 msgstr "Deconectează"
 
-#: src/Setup/Assets.php:119
+#: src/Setup/Assets.php:124
 msgid "Disconnect "
 msgstr "Deconectează"
 
-#: src/Setup/Assets.php:72
+#: src/Setup/Assets.php:77
 msgid "Disconnect it to link this site instead."
 msgstr "Deconectează-l pentru a lega acest site în schimb."
 
-#: src/Setup/Assets.php:128
+#: src/Setup/Assets.php:133
 msgid "Disconnect plugin"
 msgstr "Deconectează pluginul"
 
-#: src/Setup/Assets.php:116
+#: src/Setup/Assets.php:121
 msgid "Disconnect plugin?"
 msgstr "Deconectezi pluginul?"
 
-#: src/Setup/Assets.php:117
+#: src/Setup/Assets.php:122
 msgid ""
 "Disconnecting will stop new contacts from being collected. You can reconnect "
 "or use a different form anytime."
@@ -168,14 +207,18 @@ msgstr ""
 "Deconectarea va opri colectarea de noi contacte. Poți reconecta sau poți "
 "utiliza un alt formular oricând."
 
-#: src/Setup/Assets.php:126
+#: src/Setup/Assets.php:131
 msgid "Edit form"
 msgstr "Editează formularul"
 
-#: src/Blocks/SubscriptionFormBlock.php:59
-#: frontend/blocks/subscription-block/src/edit.js:181
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:289
+#: src/Integrations/Elementor/ElementorIntegration.php:88
+#: src/Setup/Assets.php:138
+#, fuzzy
+msgid "Elementor"
+msgstr "Elementor"
+
+#: src/Blocks/SubscriptionFormBlock.php:73
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:106
 msgid "Email"
 msgstr "Email"
 
@@ -183,46 +226,55 @@ msgstr "Email"
 msgid "Email Marketing"
 msgstr "Email marketing"
 
-#: src/Setup/Assets.php:77
+#: src/Setup/Assets.php:82
 msgid "Email marketing background with gradient design"
 msgstr "Fundal email marketing cu design gradient"
 
-#: src/Setup/Assets.php:78
+#: src/Setup/Assets.php:83
 msgid ""
 "Email marketing illustration featuring envelopes and communication icons"
 msgstr "Ilustrație email marketing cu plicuri și pictograme de comunicare"
 
-#: src/Setup/Assets.php:82
+#: src/Setup/Assets.php:87
 msgid "Emails"
 msgstr "Emailuri"
 
-#: src/Setup/Assets.php:121
+#: src/Setup/Assets.php:126
 msgid "Entries"
 msgstr "Intrări"
 
-#: src/Setup/Assets.php:132
+#: src/Setup/Assets.php:139
 msgid "Expand {pluginName} details"
 msgstr "Extinde detaliile {pluginName}"
 
-#: src/Setup/Assets.php:102
+#: src/Setup/Assets.php:107
 msgid "FAQ"
 msgstr "Întrebări frecvente"
 
-#: frontend/blocks/subscription-block/src/edit.js:127
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:50
+#, fuzzy
+msgid "Form"
+msgstr "Forma"
+
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:58
+#: frontend/blocks/subscription-block/src/edit.js:106
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:235
+#: frontend/dist/blocks/subscription.js:277
 msgid "Form ID"
 msgstr "ID formular"
 
-#: src/Setup/Assets.php:95
+#: src/Setup/Assets.php:100
 msgid "Forms"
 msgstr "Formulare"
 
-#: src/Setup/Assets.php:127
+#: src/Setup/Assets.php:132
 msgid "Go to plugin"
 msgstr "Mergi la plugin"
 
-#: src/Setup/Assets.php:75
+#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:42
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:131
 msgid "Go to Reach"
 msgstr "Mergi la Reach"
 
@@ -232,12 +284,14 @@ msgid "Hostinger"
 msgstr "Hostinger"
 
 #. Plugin Name of the plugin
-#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
-#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+#: hostinger-reach.php
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:20
+#: src/Integrations/Reach/ReachFormIntegration.php:71 src/Setup/Assets.php:81
+#: src/Setup/Assets.php:135
 msgid "Hostinger Reach"
 msgstr "Hostinger Reach"
 
-#: src/Setup/Assets.php:104
+#: src/Setup/Assets.php:109
 msgid ""
 "Hostinger Reach is an AI-powered email marketing tool for small businesses "
 "and creators. It supports your entire email marketing journey—from building "
@@ -248,7 +302,7 @@ msgstr ""
 "email marketing - de la crearea listelor de contacte la trimiterea "
 "campaniilor și urmărirea rezultatelor."
 
-#: src/Setup/Assets.php:106
+#: src/Setup/Assets.php:111
 msgid ""
 "Hostinger Reach is built for simplicity, speed, and results – no design or "
 "marketing experience needed. Unlike most email tools, at the core of Reach "
@@ -274,20 +328,37 @@ msgstr ""
 "șabloanele sunt create folosind cele mai bune practici dovedite, ele sunt "
 "optimizate pentru lizibilitate, accesibilitate și implicarea cititorilor."
 
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:38
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:127
+#, fuzzy
+msgid "Hostinger Reach Logo"
+msgstr "Logo-ul Hostinger Reach"
+
+#: src/Admin/Notices/ConnectionNotice.php:92
+#, fuzzy
+msgid "Hostinger Reach logo"
+msgstr "Logo-ul Hostinger Reach"
+
 #. translators: %s: PHP version
-#: hostinger-reach.php:51
+#: hostinger-reach.php:54
 msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
 msgstr "Hostinger Reach necesită minim o versiune PHP <b>%s</b>."
 
-#: src/Setup/Assets.php:105
+#: src/Setup/Assets.php:110
 msgid "How is Hostinger Reach different from other email marketing apps?"
 msgstr ""
 "Care este diferența dintre Hostinger Reach și alte aplicații de email "
 "marketing?"
 
-#: src/Setup/Assets.php:107
+#: src/Setup/Assets.php:112
 msgid "How much does it cost to use Hostinger Reach?"
 msgstr "Cât costă să folosești Hostinger Reach?"
+
+#: src/Admin/Surveys/SatisfactionSurvey.php:21
+#, fuzzy
+msgid "How would you rate your experience with Hostinger Reach so far?"
+msgstr "Cum ați evalua experiența dumneavoastră cu Hostinger Reach până acum?"
 
 #. Plugin URI of the plugin
 #: hostinger-reach.php
@@ -299,15 +370,22 @@ msgstr "https://hostinger.com"
 msgid "https://www.hostinger.com/email-marketing"
 msgstr "https://www.hostinger.com/email-marketing"
 
-#: src/Setup/Assets.php:124
+#: src/Setup/Assets.php:129
 msgid "Inactive"
 msgstr "Inactiv"
 
-#: src/Setup/Assets.php:144
+#: frontend/blocks/subscription-block/src/edit.js:31
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:202
+#, fuzzy
+msgid "Inline"
+msgstr "În linie"
+
+#: src/Setup/Assets.php:151
 msgid "Install and connect"
 msgstr "Instalează și conectează"
 
-#: src/Setup/Assets.php:143
+#: src/Setup/Assets.php:150
 msgid "Installed plugins"
 msgstr "Plugin-uri instalate"
 
@@ -316,7 +394,26 @@ msgstr "Plugin-uri instalate"
 msgid "Integrate your WordPress site with Hostinger Reach."
 msgstr "Integrează site-ul WordPress cu Hostinger Reach."
 
-#: src/Setup/Assets.php:139
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:326
+#, fuzzy
+msgid "Layout"
+msgstr "Layout"
+
+#: frontend/blocks/subscription-block/src/edit.js:153
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:324
+#, fuzzy
+msgid "Layout Settings"
+msgstr "Setări de aspect"
+
+#: src/Admin/Notices/ConnectionNotice.php:107
+#, fuzzy
+msgid "Learn more"
+msgstr "Aflați mai multe"
+
+#: src/Setup/Assets.php:146
 msgid ""
 "Make sure the people you contact expect your emails and are okay with "
 "receiving them."
@@ -324,70 +421,76 @@ msgstr ""
 "Asigură-te că persoanele pe care le contactezi așteaptă emailurile tale și "
 "sunt de acord să le primească."
 
-#: src/Setup/Assets.php:73
+#: src/Setup/Assets.php:78
 msgid "Manage"
 msgstr "Gestionează"
 
-#: src/Blocks/SubscriptionFormBlock.php:67
-#: frontend/blocks/subscription-block/src/edit.js:188
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:296
+#: src/Blocks/SubscriptionFormBlock.php:81
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:114
 msgid "Name"
 msgstr "Nume"
 
-#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/blocks/subscription-block/src/edit.js:134
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:263
+#: frontend/dist/blocks/subscription.js:305
+#, fuzzy
 msgid "Name for the new Contact List"
 msgstr "Nume pentru noua listă de contacte"
 
-#: src/Setup/Assets.php:140
+#: src/Setup/Assets.php:147
 msgid "New contact form"
 msgstr "Formular de contact nou"
 
-#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/blocks/subscription-block/src/edit.js:129
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:258
+#: frontend/dist/blocks/subscription.js:300
+#, fuzzy
 msgid "New Contact List"
-msgstr "Listă de contacte nouă"
+msgstr "Noua listă de contacte"
 
-#: src/Setup/Assets.php:100
+#: src/Setup/Assets.php:105
 msgid "New page"
 msgstr "Pagină nouă"
 
-#: src/Setup/Assets.php:89
+#: src/Setup/Assets.php:94
 msgid "New subscribers"
 msgstr "Abonați noi"
 
-#: src/Setup/Assets.php:134
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:71
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:83
+#, fuzzy
+msgid "No"
+msgstr "Nu"
+
+#: src/Setup/Assets.php:141
 msgid "No forms found for this integration."
 msgstr "Nu s-au găsit formulare pentru această integrare."
 
-#: src/Setup/Assets.php:101
+#: src/Setup/Assets.php:106
 msgid "No pages available. Create a new page to get started."
 msgstr "Nu există pagini disponibile. Creează o pagină nouă pentru a începe."
 
-#: src/Setup/Assets.php:109
+#: src/Setup/Assets.php:114
 msgid "opens in new tab"
 msgstr "se deschide în fila nouă"
 
-#: src/Setup/Assets.php:120
+#: src/Setup/Assets.php:125
 msgid "Plugin"
 msgstr "Plugin"
 
-#: src/Setup/Assets.php:136
+#: src/Setup/Assets.php:143
 msgid "Plugin connected successfully"
 msgstr "Plugin conectat cu succes"
 
-#: src/Setup/Assets.php:137
+#: src/Setup/Assets.php:144
 msgid "Plugin disconnected successfully"
 msgstr "Plugin deconectat cu succes"
 
-#: src/Setup/Assets.php:71
+#: src/Setup/Assets.php:76
 msgid "Reach is already connected to another site."
 msgstr "Reach este deja conectat la un alt site."
 
-#: src/Setup/Assets.php:108
+#: src/Setup/Assets.php:113
 #| msgid ""
 #| "Reach offers a free plan for one year– perfect for getting started. Paid "
 #| "plans are based on how many unique contacts you aim to reach and how many "
@@ -411,161 +514,202 @@ msgstr ""
 
 #: frontend/blocks/subscription-block/src/index.js:9
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:444
+#: frontend/dist/blocks/subscription.js:487
+#, fuzzy
 msgid "Reach Subscription Form"
-msgstr "Formular de abonare Reach"
+msgstr "Formular de abonament Reach"
 
-#: src/Setup/Assets.php:84
+#: src/Setup/Assets.php:89
 msgid "Remaining"
 msgstr "Rămase "
 
-#: src/Setup/Assets.php:114
+#: src/Setup/Assets.php:119
 msgid "Select page"
 msgstr "Selectează pagina"
 
-#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+#: src/Setup/Assets.php:88 src/Setup/Assets.php:91
 msgid "Sent"
 msgstr "Trimis"
 
-#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: src/Setup/Assets.php:99 frontend/blocks/subscription-block/src/edit.js:102
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:231
+#: frontend/dist/blocks/subscription.js:273
 msgid "Settings"
 msgstr "Setări"
 
-#: frontend/blocks/subscription-block/src/edit.js:158
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:68
+#, fuzzy
+msgid "Show Name"
+msgstr "Nume spectacol"
+
+#: frontend/blocks/subscription-block/src/edit.js:137
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:266
+#: frontend/dist/blocks/subscription.js:308
+#, fuzzy
 msgid "Show Name Field?"
-msgstr "Afișezi câmpul Nume?"
+msgstr "Afișare câmp Nume?"
 
-#: frontend/blocks/subscription-block/src/edit.js:166
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:80
+#, fuzzy
+msgid "Show Surname"
+msgstr "Arată numele de familie"
+
+#: frontend/blocks/subscription-block/src/edit.js:145
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:274
+#: frontend/dist/blocks/subscription.js:316
+#, fuzzy
 msgid "Show Surname Field?"
-msgstr "Afișezi câmpul de Nume de familie?"
+msgstr "Afișați câmpul de nume de familie?"
 
-#: src/Setup/Assets.php:68
+#: src/Setup/Assets.php:73
 msgid "Something went wrong"
 msgstr "Ceva nu a mers bine"
 
-#: frontend/blocks/subscription-block/src/edit.js:111
-#: frontend/blocks/subscription-block/src/edit.js:116
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:219
-#: frontend/dist/blocks/subscription.js:224
-msgid "Something went wrong. Please try again"
-msgstr "Ceva nu a mers bine. Te rugăm să încerci din nou"
-
-#: src/Blocks/SubscriptionFormBlock.php:19
+#: src/Blocks/SubscriptionFormBlock.php:21
 msgid "Something went wrong. Please try again."
 msgstr "Ceva nu a mers bine. Te rugăm să încerci din nou."
 
-#: src/Setup/Assets.php:96
+#: src/Setup/Assets.php:101
 msgid "Start collecting form submissions"
 msgstr "Începe să colectezi formulare"
 
-#: src/Setup/Assets.php:122
+#: src/Setup/Assets.php:127
 msgid "Status"
 msgstr "Statut"
 
-#: src/Blocks/SubscriptionFormBlock.php:83
+#: src/Blocks/SubscriptionFormBlock.php:97
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:130
 msgid "Subscribe"
 msgstr "Abonează-te"
 
-#: src/Setup/Assets.php:88
+#: templates/optin-checkbox.php:28
+#, fuzzy
+msgid "Subscribe to our Newsletter"
+msgstr "Abonați-vă la newsletter-ul nostru"
+
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:69
+#, fuzzy
+msgid "Subscribe to our newsletter"
+msgstr "Abonați-vă la newsletter-ul nostru"
+
+#: src/Setup/Assets.php:93
 msgid "Subscribers"
 msgstr "Abonați "
 
-#: src/Blocks/SubscriptionFormBlock.php:75
-#: frontend/blocks/subscription-block/src/edit.js:194
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:302
+#: src/Blocks/SubscriptionFormBlock.php:89
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:122
 msgid "Surname"
 msgstr "Nume de familie"
 
-#: frontend/blocks/subscription-block/src/edit.js:108
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:216
-msgid "Thanks for subscribing"
-msgstr "Îți mulțumim pentru abonament"
-
-#: src/Blocks/SubscriptionFormBlock.php:18
+#: src/Blocks/SubscriptionFormBlock.php:20
 msgid "Thanks for subscribing."
 msgstr "Îți mulțumim pentru abonament."
 
-#: src/Setup/Assets.php:79
+#: src/Integrations/Integration.php:158
+#, fuzzy
+msgid ""
+"This form has not an email field. Create an email field in the form to allow "
+"it to be synced with Reach"
+msgstr ""
+"Acest formular nu are un câmp de e-mail. Creați un câmp de e-mail în "
+"formular pentru a permite sincronizarea cu Reach"
+
+#: src/Setup/Assets.php:84
 msgid "This month"
 msgstr "Luna aceasta "
 
-#: src/Setup/Assets.php:91
+#: src/Setup/Assets.php:96
 msgid "Total subscribers"
 msgstr "Total abonați "
 
-#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/blocks/subscription-block/src/edit.js:108
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:237
+#: frontend/dist/blocks/subscription.js:279
+#, fuzzy
 msgid "Unique identifier for this form"
 msgstr "Identificator unic pentru acest formular"
 
-#: src/Setup/Assets.php:90
+#: src/Setup/Assets.php:95
 msgid "Unsubscribes"
 msgstr "Dezabonare"
 
-#: src/Setup/Assets.php:81
+#: src/Setup/Assets.php:86
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: src/Setup/Assets.php:112
+#: src/Setup/Assets.php:117
 msgid "usage statistics"
 msgstr "statistici de utilizare "
 
-#: src/Setup/Assets.php:125
+#: src/Setup/Assets.php:130
 msgid "View form"
 msgstr "Vezi formularul"
 
-#: src/Setup/Assets.php:142
+#: src/Setup/Assets.php:149
 msgid "View supported plugins"
 msgstr "Vezi pluginurile acceptate"
 
-#: src/Setup/Assets.php:69
+#: src/Setup/Assets.php:74
 msgid "Welcome to Reach"
 msgstr "Bine ai venit la Reach"
 
-#: src/Setup/Assets.php:103
+#: src/Setup/Assets.php:108
 msgid "What is Hostinger Reach email marketing service?"
 msgstr "Ce este serviciul de email marketing Hostinger Reach?"
 
-#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:164
+#, fuzzy
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:29
+#: src/Setup/Assets.php:137
 msgid "WP Forms Lite"
 msgstr "WP Forms Lite "
 
 #. translators: %s - form id.
-#: src/Integrations/WpFormsLiteIntegration.php:41
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:63
 msgid "WP Forms Lite %s"
 msgstr "WP Forms Lite %s "
 
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:70
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:82
+#, fuzzy
+msgid "Yes"
+msgstr "Da"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:7
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:40
+#: frontend/dist/blocks/subscription.js:42
+#, fuzzy
 msgid "You are not connected to Hostinger Reach"
-msgstr "Nu ești conectat la Hostinger Reach"
+msgstr "Nu sunteți conectat la Hostinger Reach"
 
 #: frontend/blocks/subscription-block/src/Components/Connect.js:10
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:43
+#: frontend/dist/blocks/subscription.js:45
+#, fuzzy
 msgid ""
 "You are not connected to Hostinger Reach. To gain full access to this block, "
 "you need to connect your Hostinger Reach account."
 msgstr ""
-"Nu ești conectat la Hostinger Reach. Pentru a obține acces complet la acest "
-"bloc, trebuie să te conectezi la contul Hostinger Reach."
+"Nu sunteți conectat la Hostinger Reach. Pentru a obține acces complet la "
+"acest bloc, trebuie să vă conectați contul Hostinger Reach."
 
 #. translators: %s: PHP version
-#: hostinger-reach.php:55
+#: hostinger-reach.php:58
 msgid "You are running <b>%s</b> PHP version."
 msgstr "Utilizezi versiunea PHP <b>%s</b>."
 
-#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:40
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:129
+#, fuzzy
+msgid "Your form is ready. Go to Reach to complete setup and create templates."
+msgstr ""
+"Formularul dvs. este gata. Mergeți la Reach pentru a finaliza configurarea "
+"și a crea șabloane."
+
+#: src/Setup/Assets.php:85
 msgid "Your plan"
 msgstr "Planul tău"

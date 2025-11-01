@@ -1,6 +1,7 @@
 <?php
 
 namespace Hostinger\Reach\Integrations\Elementor;
+
 use Elementor\Controls_Manager;
 use Elementor\Widget_Base;
 use Hostinger\Reach\Blocks\SubscriptionFormBlock;

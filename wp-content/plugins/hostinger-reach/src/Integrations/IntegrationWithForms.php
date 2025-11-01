@@ -14,12 +14,7 @@ abstract class IntegrationWithForms extends Integration {
     public FormRepository $form_repository;
 
     public function __construct( FormRepository $form_repository ) {
-        parent::__construct();
         $this->form_repository = $form_repository;
-    }
-
-    public function init(): void {
-        add_action( 'hostinger_reach_forms', array( $this, 'load_forms' ), 10, 2 );
     }
 
     abstract public function get_form_ids( WP_Post $post ): array;
@@ -45,11 +40,8 @@ abstract class IntegrationWithForms extends Integration {
         $this->form_repository->delete_all_from_post( $post->ID, $this->get_name() );
     }
 
-    public function get_forms( array $args ): array {
-        if ( ! isset( $args['type'] ) ) {
-            $args['type'] = $this->get_name();
-        }
-
+    public function get_forms(): array {
+        $args['type'] = $this->get_name();
         return $this->form_repository->all( $args );
     }
 }

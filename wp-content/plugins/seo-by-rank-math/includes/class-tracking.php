@@ -96,7 +96,7 @@ class Tracking {
 	 * @param bool $status The new opt-in status.
 	 */
 	public function track_optin_change( $status ): void {
-		$this->mixpanel->identify( $this->user_email );
+		$this->identify_user();
 		$this->mixpanel->track_optin( $status );
 	}
 
@@ -107,7 +107,7 @@ class Tracking {
 	 * @param string $state     The new state (on/off).
 	 */
 	public function track_module_option_change( $module_id, $state ): void {
-		if ( ! $this->optin->is_enabled() ) {
+		if ( ! $this->is_opted_in() ) {
 			return;
 		}
 
@@ -120,8 +120,7 @@ class Tracking {
 			'language'       => $this->user_language,
 		];
 
-		$this->mixpanel->identify( $this->user_email );
-		$this->mixpanel->track( 'Option Changed', $properties );
+		$this->track_event( 'Option Changed', $properties );
 	}
 
 	/**
@@ -142,14 +141,14 @@ class Tracking {
 	 * Track setup wizard step views.
 	 */
 	public function track_setup_wizard_step_view() {
-		if ( ! $this->optin->is_enabled() ) {
+		if ( ! $this->is_opted_in() ) {
 			return;
 		}
 
 		// Get the actual admin page URL from the request referer.
 		$referer     = wp_get_referer();
 		$current_url = $referer ? $referer : Helper::get_current_page_url();
-		$path        = wp_parse_url( $current_url, PHP_URL_PATH ) . '?' . wp_parse_url( $current_url, PHP_URL_QUERY );
+		$path        = $this->get_current_path_with_query();
 
 		// Parse the referer URL to get the current step being viewed.
 		$url_parts = wp_parse_url( $referer );
@@ -170,15 +169,14 @@ class Tracking {
 			'language'    => $this->user_language,
 		];
 
-		$this->mixpanel->identify( $this->user_email );
-		$this->mixpanel->track( 'Page Viewed', $properties );
+		$this->track_event( 'Page Viewed', $properties );
 	}
 
 	/**
 	 * Enqueue Mixpanel script on Block Editor pages.
 	 */
 	public function enqueue_mixpanel(): void {
-		if ( ! $this->optin->is_enabled() ) {
+		if ( ! $this->optin->can_track() ) {
 			return;
 		}
 
@@ -202,7 +200,7 @@ class Tracking {
 	 * Track admin page views.
 	 */
 	public function track_admin_page_view() {
-		if ( ! $this->optin->is_enabled() ) {
+		if ( ! $this->optin->can_track() ) {
 			return;
 		}
 
@@ -222,7 +220,7 @@ class Tracking {
 
 		// Get the current admin page URL.
 		$current_url = Helper::get_current_page_url();
-		$path        = wp_parse_url( $current_url, PHP_URL_PATH ) . '?' . wp_parse_url( $current_url, PHP_URL_QUERY );
+		$path        = $this->get_current_path_with_query();
 
 		$properties = [
 			'current_url' => $current_url,
@@ -231,8 +229,10 @@ class Tracking {
 			'language'    => $this->user_language,
 		];
 
-		$this->mixpanel->identify( $this->user_email );
-		$this->mixpanel->track( 'Page Viewed', $properties );
+		// Determine capability based on current Rank Math page and pass it to Mixpanel.
+		$page             = (string) Param::get( 'page' );
+		$event_capability = $this->get_event_capability_for_page( $page );
+		$this->track_event( 'Page Viewed', $properties, $event_capability );
 	}
 
 	/**
@@ -247,7 +247,7 @@ class Tracking {
 		}
 
 		$json['canAddUsageTracking']    = current_user_can( 'manage_options' );
-		$json['data']['usage_tracking'] = $this->optin->is_enabled();
+		$json['data']['usage_tracking'] = $this->optin->can_track();
 
 		return $json;
 	}
@@ -283,7 +283,7 @@ class Tracking {
 			return $data;
 		}
 
-		$data['usage_tracking'] = $this->optin->is_enabled();
+		$data['usage_tracking'] = $this->optin->can_track();
 		return $data;
 	}
 
@@ -299,6 +299,64 @@ class Tracking {
 		}
 
 		$this->optin->disable();
+	}
+
+	/**
+	 * Check if usage tracking is enabled (opt-in).
+	 *
+	 * @return bool
+	 */
+	public function is_opted_in(): bool {
+		return $this->optin->is_enabled();
+	}
+
+	/**
+	 * Track a custom event for Rank Math.
+	 *
+	 * @param string $event            Event name.
+	 * @param array  $properties       Additional properties to merge.
+	 * @param string $event_capability The capability required to track the event.
+	 */
+	public function track_event( string $event, array $properties = [], string $event_capability = '' ): void {
+		$defaults = [
+			'context'  => 'wp_plugin',
+			'language' => $this->user_language,
+		];
+
+		$this->identify_user();
+		$this->mixpanel->track( $event, array_merge( $properties, $defaults ), $event_capability );
+	}
+
+	/**
+	 * Get the current request path with query string, suitable for tracking.
+	 * Handles AJAX and REST requests by using referer when available.
+	 *
+	 * @return string
+	 */
+	public function get_current_path_with_query(): string {
+		// For AJAX/REST requests, use referer to get the originating page.
+		$referer     = wp_get_referer();
+		$current_url = $referer ? $referer : Helper::get_current_page_url();
+		$path        = wp_parse_url( $current_url, PHP_URL_PATH ) . '?' . wp_parse_url( $current_url, PHP_URL_QUERY );
+
+		return $path;
+	}
+
+	/**
+	 * Identify the current user in Mixpanel.
+	 * Safe to call multiple times; no-ops when opt-out.
+	 */
+	public function identify_user(): void {
+		$this->mixpanel->identify( $this->user_email );
+	}
+
+	/**
+	 * Get the current plugin label (with version) used in tracking payloads.
+	 *
+	 * @return string
+	 */
+	public function get_plugin_label(): string {
+		return $this->plugin;
 	}
 
 	/**
@@ -327,5 +385,30 @@ class Tracking {
 
 		$user = wp_get_current_user();
 		return isset( $user->user_email ) ? (string) $user->user_email : '';
+	}
+
+	/**
+	 * Get the capability required for tracking based on the current Rank Math page.
+	 *
+	 * @param string $page The `page` query arg, e.g., 'rank-math-options-general'.
+	 *
+	 * @return string Capability name or empty for default behavior.
+	 */
+	private function get_event_capability_for_page( string $page ): string {
+		// Map known Rank Math admin pages to their capabilities.
+		$map = [
+			'rank-math-options-general'          => 'rank_math_general',
+			'rank-math-options-titles'           => 'rank_math_titles',
+			'rank-math-options-sitemap'          => 'rank_math_sitemap',
+			'rank-math-options-instant-indexing' => 'rank_math_general',
+			'rank-math-404-monitor'              => 'rank_math_404_monitor',
+			'rank-math-redirections'             => 'rank_math_redirections',
+			'rank-math-role-manager'             => 'rank_math_role_manager',
+			'rank-math-analytics'                => 'rank_math_analytics',
+			'rank-math-seo-analysis'             => 'rank_math_site_analysis',
+			'rank-math-content-ai-page'          => 'rank_math_content_ai',
+		];
+
+		return isset( $map[ $page ] ) ? $map[ $page ] : '';
 	}
 }

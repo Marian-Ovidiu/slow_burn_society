@@ -3,12 +3,12 @@ import { HIcon, HLabel, HPopover } from '@hostinger/hcomponents';
 import { computed } from 'vue';
 
 import Toggle from '@/components/Toggle.vue';
-import { PLUGIN_IDS } from '@/data/pluginData';
-import type { Form } from '@/types/models';
+import type { Form, Integration } from '@/types/models';
 import { translate } from '@/utils/translate';
 
 interface Props {
 	form: Form;
+	integration: Integration;
 }
 
 const props = defineProps<Props>();
@@ -19,7 +19,9 @@ const emit = defineEmits<{
 	editForm: [form: Form];
 }>();
 
-const pluginTitle = computed(() => props.form.post?.postTitle || translate('hostinger_reach_forms_no_title'));
+const pluginTitle = computed(
+	() => props.form.formTitle || props.form.post?.postTitle || translate('hostinger_reach_forms_no_title')
+);
 
 const getStatusLabel = () =>
 	props.form.isActive
@@ -28,11 +30,7 @@ const getStatusLabel = () =>
 
 const getStatusColor = () => (props.form.isActive ? 'success' : 'gray');
 
-const canToggle = computed(
-	() => props.form.type !== PLUGIN_IDS.HOSTINGER_REACH && props.form.type !== PLUGIN_IDS.ELEMENTOR
-);
-
-const hasActions = computed(() => !props.form.isViewFormHidden || !props.form.isEditFormHidden);
+const hasActions = computed(() => !props.integration.isViewFormHidden || !props.integration.isEditFormHidden);
 </script>
 
 <template>
@@ -40,7 +38,7 @@ const hasActions = computed(() => !props.form.isViewFormHidden || !props.form.is
 		<div class="form-item__cell form-item__cell--plugin">
 			<div class="form-item__form-content">
 				<Toggle
-					v-if="canToggle"
+					v-if="props.integration.canToggleForms"
 					:value="props.form.isActive"
 					:is-disabled="form.isLoading"
 					@toggle="(status) => emit('toggleStatus', props.form, status)"
@@ -81,11 +79,11 @@ const hasActions = computed(() => !props.form.isViewFormHidden || !props.form.is
 					</button>
 				</template>
 				<div class="form-item__popover-menu">
-					<div v-if="!form.isViewFormHidden" class="form-item__menu-item" @click="emit('viewForm', props.form)">
+					<div v-if="!integration.isViewFormHidden" class="form-item__menu-item" @click="emit('viewForm', props.form)">
 						<HIcon name="ic-arrow-up-right-square-16" />
 						<span>{{ translate('hostinger_reach_plugin_entries_table_view_form') }}</span>
 					</div>
-					<div v-if="!form.isEditFormHidden" class="form-item__menu-item" @click="emit('editForm', props.form)">
+					<div v-if="!integration.isEditFormHidden" class="form-item__menu-item" @click="emit('editForm', props.form)">
 						<HIcon name="ic-edit-16" />
 						<span>{{ translate('hostinger_reach_plugin_entries_table_edit_form') }}</span>
 					</div>
@@ -217,10 +215,12 @@ const hasActions = computed(() => !props.form.isViewFormHidden || !props.form.is
 
 		&__cell--plugin,
 		&__cell--entries,
-		&__cell--status,
-		&__cell--actions {
+		&__cell--status {
 			width: 100%;
 			justify-content: flex-start;
+		}
+		&__cell--actions {
+			width: 100%;
 		}
 
 		&__cell--entries,

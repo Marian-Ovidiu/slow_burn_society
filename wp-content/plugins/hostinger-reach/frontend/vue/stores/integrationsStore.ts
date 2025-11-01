@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 
 import { useToast } from '@/composables/useToast';
-import { DEFAULT_PLUGIN_DATA, INTEGRATION_TO_FORM_TYPE_MAP } from '@/data/pluginData';
+import { HOSTINGER_REACH_ID } from '@/data/pluginData';
 import { formsRepo } from '@/data/repositories/formsRepo';
 import { STORE_PERSISTENT_KEYS } from '@/types/enums';
 import type { Form, Integration } from '@/types/models';
@@ -21,9 +21,7 @@ export const useIntegrationsStore = defineStore(
 
 		const activeIntegrations = computed(() => integrations.value.filter((integration) => integration.isActive));
 
-		const availableIntegrations = computed(() =>
-			integrations.value.filter(({ id }) => id !== DEFAULT_PLUGIN_DATA.hostingerReach.id)
-		);
+		const availableIntegrations = computed(() => integrations.value.filter(({ id }) => id !== HOSTINGER_REACH_ID));
 
 		const hasAnyForms = computed(() =>
 			integrations.value.some((integration) => integration.forms && integration.forms.length > 0)
@@ -31,13 +29,12 @@ export const useIntegrationsStore = defineStore(
 
 		const isIntegrationLoading = (integrationId: string) => loadingIntegrations.value[integrationId] || false;
 
-		const mapAndFilterForms = (formsData: Form[], integrationId: string) =>
+		const mapAndFilterForms = (formsData: Form[], integration: Integration) =>
 			formsData
-				?.filter((form) => INTEGRATION_TO_FORM_TYPE_MAP[integrationId] === form.type)
+				?.filter((form) => integration.id === form.type)
 				.map((form) => ({
 					...form,
-					isViewFormHidden: DEFAULT_PLUGIN_DATA[integrationId].isViewFormHidden,
-					isEditFormHidden: DEFAULT_PLUGIN_DATA[integrationId].isEditFormHidden
+					integration
 				})) || [];
 
 		const loadIntegrations = async () => {
@@ -55,16 +52,9 @@ export const useIntegrationsStore = defineStore(
 			}
 
 			if (integrationsData) {
-				integrations.value = Object.entries(integrationsData).map(([id, integration]) => ({
-					id,
-					isActive: integration.isActive,
-					title: integration.title,
-					url: integration.url,
-					adminUrl: integration.adminUrl,
-					addFormUrl: integration.addFormUrl,
-					isPluginActive: integration.isPluginActive,
-					editUrl: integration.editUrl,
-					forms: mapAndFilterForms(formsData || [], id)
+				integrations.value = Object.values(integrationsData).map((integration) => ({
+					...integration,
+					forms: mapAndFilterForms(formsData || [], integration)
 				}));
 			}
 

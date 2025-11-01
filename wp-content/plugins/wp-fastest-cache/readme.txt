@@ -4,7 +4,7 @@ Donate link: https://profiles.wordpress.org/emrevona/
 Tags: cache, Optimize, performance, PageSpeed, core web vitals
 Requires at least: 5.3
 Tested up to: 6.8
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,7 +69,7 @@ The free version is enough to speed up your site but in the premium version ther
 7. Defer Javascript - Eliminate render-blocking JavaScript resources. Consider delivering critical JS inline and deferring all non-critical JS
 8. Optimize Images - Optimized images load faster and consume less cellular data
 9. Convert WebP - Serve images in next-gen formats. Image formats like JPEG 2000, JPEG XR, and WebP often provide better compression than PNG or JPEG, which means faster downloads and less data consumption
-10. Database Cleanup - The Database Cleanup feature clears out all of the garbage datas such as post revisions, trashed posts & pages, comments from trash & spam, trackbacks and pingbacks, transient options etc.
+10. Database Cleanup - The Database Cleanup feature clears out all of the garbage datas such as post revisions, trashed posts & pages, comments from trash & spam, trackbacks and pingbacks, transient options, orphaned post meta, comment meta, user meta, term meta, and term relationship etc.
 11. Google Fonts Async
 12. Lazy Load - Defer offscreen images. Consider lazy-loading offscreen and hidden images after all critical resources have finished loading to lower time to interactive
 12. Delay JS - The Delay JavaScript feature helps reduce the 'Reduce unused JavaScript' warning in the Google PageSpeed Insights tool
@@ -117,6 +117,11 @@ Chinese Simplified (China), Chinese Traditional (Taiwan), Czech, Dutch (Belgium)
 18. Database Cleanup
 
 == Changelog ==
+
+= 1.4.1 =
+* Added display of orphaned post meta, comment meta, user meta, term meta, and term relationship counts 
+* Added nonce verification and capability checks to the wpfc_db_fix AJAX action to prevent unauthorized database cleanup requests
+* Added a validation to ensure Elementor’s CSS Print Method is set to “Internal Embedding,” displaying an error with a help link if misconfigured [<a target="_blank" href="https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/">Details</a>]
 
 = 1.4.0 =
 * Fixed: support both old (elementor_experiment-e_element_cache) and new (elementor_element_cache_ttl) Elementor cache options for compatibility

@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { HSkeletonLoader } from '@hostinger/hcomponents';
+
+const SKELETON_COUNT = 3;
 </script>
 
 <template>
@@ -9,7 +11,7 @@ import { HSkeletonLoader } from '@hostinger/hcomponents';
 		</div>
 
 		<div class="plugins-section-skeleton__list">
-			<div v-for="i in 3" :key="`skeleton-${i}`" class="plugins-section-skeleton__item">
+			<div v-for="i in SKELETON_COUNT" :key="`skeleton-${i}`" class="plugins-section-skeleton__item">
 				<div class="plugins-section-skeleton__item-info">
 					<div class="plugins-section-skeleton__item-icon">
 						<HSkeletonLoader width="40px" height="40px" border-radius="sm" />

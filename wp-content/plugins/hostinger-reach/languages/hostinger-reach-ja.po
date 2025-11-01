@@ -10,38 +10,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
-"PO-Revision-Date: 2025-08-14 09:33+0000\n"
+"PO-Revision-Date: 2025-10-28 12:35+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: hostinger-reach\n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
 
-#: src/Setup/Assets.php:135
+#: src/Setup/Assets.php:142
 msgid "(no title)"
 msgstr "（タイトルなし）"
 
-#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+#: src/Setup/Assets.php:128 src/Setup/Assets.php:145
 msgid "Active"
 msgstr "アクティブ"
 
-#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+#: src/Setup/Assets.php:103 src/Setup/Assets.php:104 src/Setup/Assets.php:120
+#: src/Setup/Assets.php:134
 msgid "Add form"
 msgstr "フォームを追加"
 
-#: hostinger-reach.php:49
+#: src/Admin/Surveys/SatisfactionSurvey.php:25
+#, fuzzy
+msgid "Any ideas or feedback to help us improve Hostinger Reach?"
+msgstr "Hostinger Reachを改善するためのアイデアやフィードバックはありますか？"
+
+#: hostinger-reach.php:52
 msgid "Attention:"
 msgstr "注意："
 
-#: src/Setup/Assets.php:87
+#: src/Setup/Assets.php:92
 msgid "Average CTOR"
 msgstr "平均CTOR"
 
-#: src/Setup/Assets.php:111
+#: src/Setup/Assets.php:116
 msgid "Background image for"
 msgstr "背景画像の対象："
 
-#: src/Setup/Assets.php:110
+#: src/Setup/Assets.php:115
 msgid "Banner background image for"
 msgstr "バナー背景画像の対象："
 
@@ -55,15 +61,15 @@ msgctxt "block title"
 msgid "Reach Subscription Form"
 msgstr "Reachメルマガ登録フォーム"
 
-#: src/Setup/Assets.php:85
+#: src/Setup/Assets.php:90
 msgid "Campaigns"
 msgstr "キャンペーン"
 
-#: src/Setup/Assets.php:118
+#: src/Setup/Assets.php:123
 msgid "Cancel "
 msgstr "キャンセル"
 
-#: src/Setup/Assets.php:97
+#: src/Setup/Assets.php:102
 #| msgid ""
 #| "Choose how you’d like to manage forms on your website. Create a new form "
 #| "with Hostinger Reach or connect a third-party plugin."
@@ -74,42 +80,69 @@ msgstr ""
 "Webサイト上でフォームを管理する方法を選択してください。Hostinger "
 "Reachでフォームを新規作成するか、サードパーティのプラグインを接続できます。"
 
-#: src/Setup/Assets.php:113
+#: src/Setup/Assets.php:118
 msgid ""
 "Click-to-open rate tells you what percent of opens resulted in a click too. "
 "A good CTOR is 6-17%, depending on your industry."
 msgstr ""
 "クリック率（CTOR）は、開封されたメールのうち何パーセントがクリックにつながったかを示します。業種にもよりますが、良好なCTORは6～17％とされています。"
 
-#: src/Setup/Assets.php:133
+#: src/Setup/Assets.php:140
 msgid "Collapse {pluginName} details"
 msgstr "{pluginName}の詳細を非表示にする"
 
-#: src/Setup/Assets.php:146
+#: src/Admin/Notices/ConnectionNotice.php:104 src/Setup/Assets.php:153
 msgid "Connect"
 msgstr "接続"
 
+#: src/Admin/Notices/ConnectionNotice.php:99
+#, fuzzy
+msgid "Connect Hostinger Reach to start Email Marketing"
+msgstr "Hostinger Reachと接続してメールマーケティングを開始"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:16
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:51
+#, fuzzy
 msgid "Connect Now"
 msgstr "今すぐ接続"
 
-#: src/Setup/Assets.php:74
+#: src/Setup/Assets.php:79
 msgid "Connect site"
 msgstr "サイトを紐づける"
 
-#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+#: src/Admin/Notices/ConnectionNotice.php:100
+#, fuzzy
+msgid ""
+"Connect your Hostinger Reach account to start sending newsletters and "
+"managing subscribers. With Hostinger Reach, it's easy to grow your audience "
+"in just one click."
+msgstr ""
+"Hostinger Reachアカウントを接続して、ニュースレターの送信と購読者の管理を開始します。Hostinger "
+"Reachを使えば、ワンクリックで簡単に購読者を増やすことができます。"
+
+#: src/Integrations/ContactForm7/ContactForm7Integration.php:91
+#: src/Setup/Assets.php:136
 msgid "Contact Form 7"
 msgstr "お問い合わせフォーム7"
 
-#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/blocks/subscription-block/src/edit.js:111
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:282
+#, fuzzy
 msgid "Contact List"
-msgstr "顧客リスト"
+msgstr "連絡先リスト"
 
-#: src/Setup/Assets.php:92
+#: src/Admin/Notices/ConnectionNotice.php:73
+#, fuzzy
+msgid "Could not generate auth URL"
+msgstr "認証URLを生成できませんでした"
+
+#: src/Setup/Assets.php:97
 msgid "Create campaign"
 msgstr "キャンペーン作成"
 
-#: src/Setup/Assets.php:70
+#: src/Setup/Assets.php:75
 msgid ""
 "Create email campaigns using AI-crafted templates that match your style. "
 "Instantly sync with your WordPress site and connect with your audience "
@@ -117,50 +150,66 @@ msgid ""
 msgstr ""
 "AIが作成したテンプレートを活用して、自分のスタイルに合ったメールキャンペーンを作成できます。WordPressサイトと即座に同期できるので、オーディエンスとつながるのも今まで以上に簡単です。"
 
-#: src/Setup/Assets.php:141
+#: src/Setup/Assets.php:148
 msgid "Create form"
 msgstr "フォームを作成"
 
-#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/blocks/subscription-block/src/edit.js:114
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:285
+#, fuzzy
 msgid "Create New List"
-msgstr "リストを新規作成"
+msgstr "新規リスト作成"
 
-#: src/Setup/Assets.php:93
+#: src/Setup/Assets.php:98
 msgid "Create template"
 msgstr "テンプレートを作成"
 
-#: src/Setup/Assets.php:145
+#: frontend/blocks/subscription-block/src/edit.js:30
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:201
+#, fuzzy
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/Setup/Assets.php:152
 msgid "Disconnect"
 msgstr "切断"
 
-#: src/Setup/Assets.php:119
+#: src/Setup/Assets.php:124
 msgid "Disconnect "
 msgstr "切断"
 
-#: src/Setup/Assets.php:72
+#: src/Setup/Assets.php:77
 msgid "Disconnect it to link this site instead."
 msgstr "このサイトを紐づけるために、現在の設定を解除します。"
 
-#: src/Setup/Assets.php:128
+#: src/Setup/Assets.php:133
 msgid "Disconnect plugin"
 msgstr "プラグインを切断"
 
-#: src/Setup/Assets.php:116
+#: src/Setup/Assets.php:121
 msgid "Disconnect plugin?"
 msgstr "プラグインを切断しますか？"
 
-#: src/Setup/Assets.php:117
+#: src/Setup/Assets.php:122
 msgid ""
 "Disconnecting will stop new contacts from being collected. You can reconnect "
 "or use a different form anytime."
 msgstr "接続を解除すると、新規の顧客情報が収集されなくなります。いつでも再接続または別のフォームを使用できます。"
 
-#: src/Setup/Assets.php:126
+#: src/Setup/Assets.php:131
 msgid "Edit form"
 msgstr "フォームを編集"
 
-#: src/Blocks/SubscriptionFormBlock.php:59
-#: frontend/blocks/subscription-block/src/edit.js:181
+#: src/Integrations/Elementor/ElementorIntegration.php:88
+#: src/Setup/Assets.php:138
+#, fuzzy
+msgid "Elementor"
+msgstr "エレメンタ"
+
+#: src/Blocks/SubscriptionFormBlock.php:73
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:106
 msgid "Email"
 msgstr "メール"
 
@@ -168,44 +217,55 @@ msgstr "メール"
 msgid "Email Marketing"
 msgstr "メールマーケティング"
 
-#: src/Setup/Assets.php:77
+#: src/Setup/Assets.php:82
 msgid "Email marketing background with gradient design"
 msgstr "グラデーションデザインの背景を用いたメールマーケティング"
 
-#: src/Setup/Assets.php:78
+#: src/Setup/Assets.php:83
 msgid ""
 "Email marketing illustration featuring envelopes and communication icons"
 msgstr "封筒とコミュニケーションのアイコンをフィーチャーしたメールマーケティングのイラスト"
 
-#: src/Setup/Assets.php:82
+#: src/Setup/Assets.php:87
 msgid "Emails"
 msgstr "メール"
 
-#: src/Setup/Assets.php:121
+#: src/Setup/Assets.php:126
 msgid "Entries"
 msgstr "投稿"
 
-#: src/Setup/Assets.php:132
+#: src/Setup/Assets.php:139
 msgid "Expand {pluginName} details"
 msgstr "{pluginName}の詳細を表示"
 
-#: src/Setup/Assets.php:102
+#: src/Setup/Assets.php:107
 msgid "FAQ"
 msgstr "よくある質問"
 
-#: frontend/blocks/subscription-block/src/edit.js:127
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:50
+#, fuzzy
+msgid "Form"
+msgstr "フォーム"
+
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:58
+#: frontend/blocks/subscription-block/src/edit.js:106
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:277
 msgid "Form ID"
 msgstr "フォームID"
 
-#: src/Setup/Assets.php:95
+#: src/Setup/Assets.php:100
 msgid "Forms"
 msgstr "フォーム"
 
-#: src/Setup/Assets.php:127
+#: src/Setup/Assets.php:132
 msgid "Go to plugin"
 msgstr "プラグインへ移動"
 
-#: src/Setup/Assets.php:75
+#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:42
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:131
 msgid "Go to Reach"
 msgstr "Reachへ移動"
 
@@ -215,12 +275,14 @@ msgid "Hostinger"
 msgstr "Hostinger"
 
 #. Plugin Name of the plugin
-#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
-#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+#: hostinger-reach.php
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:20
+#: src/Integrations/Reach/ReachFormIntegration.php:71 src/Setup/Assets.php:81
+#: src/Setup/Assets.php:135
 msgid "Hostinger Reach"
 msgstr "Hostinger Reach"
 
-#: src/Setup/Assets.php:104
+#: src/Setup/Assets.php:109
 msgid ""
 "Hostinger Reach is an AI-powered email marketing tool for small businesses "
 "and creators. It supports your entire email marketing journey—from building "
@@ -229,7 +291,7 @@ msgstr ""
 "Hostinger "
 "Reachは、中小企業やクリエイターのために設計されたAI搭載型メールマーケティングツールです。顧客リストの作成からキャンペーンの送信、結果のトラッキングまで、メールマーケティング全体をサポートします。"
 
-#: src/Setup/Assets.php:106
+#: src/Setup/Assets.php:111
 msgid ""
 "Hostinger Reach is built for simplicity, speed, and results – no design or "
 "marketing experience needed. Unlike most email tools, at the core of Reach "
@@ -247,18 +309,35 @@ msgstr ""
 "><br>"
 "すべてのテンプレートはカスタマイズ可能なので、メールにブランドのルック＆フィールやトーンを反映させることができます。また、テンプレートは実績のあるベストプラクティスを使用して構築されているため、読みやすさ、アクセシビリティ、読者のエンゲージメントに向けて最適化されています。"
 
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:38
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:127
+#, fuzzy
+msgid "Hostinger Reach Logo"
+msgstr "ホスティンガー・リーチのロゴ"
+
+#: src/Admin/Notices/ConnectionNotice.php:92
+#, fuzzy
+msgid "Hostinger Reach logo"
+msgstr "Hostinger Reachのロゴ"
+
 #. translators: %s: PHP version
-#: hostinger-reach.php:51
+#: hostinger-reach.php:54
 msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
 msgstr "Hostinger Reachを利用するには、PHPバージョン<b>%s</b>以上が必要です。"
 
-#: src/Setup/Assets.php:105
+#: src/Setup/Assets.php:110
 msgid "How is Hostinger Reach different from other email marketing apps?"
 msgstr "Hostinger Reachは他のメールマーケティングアプリとどう違うのですか？"
 
-#: src/Setup/Assets.php:107
+#: src/Setup/Assets.php:112
 msgid "How much does it cost to use Hostinger Reach?"
 msgstr "Hostinger Reachの利用料金はいくらですか？"
+
+#: src/Admin/Surveys/SatisfactionSurvey.php:21
+#, fuzzy
+msgid "How would you rate your experience with Hostinger Reach so far?"
+msgstr "これまでのHostinger Reachでの経験をどう評価しますか？"
 
 #. Plugin URI of the plugin
 #: hostinger-reach.php
@@ -270,15 +349,22 @@ msgstr "https://hostinger.jp"
 msgid "https://www.hostinger.com/email-marketing"
 msgstr "https://www.hostinger.com/jp/email-marketing"
 
-#: src/Setup/Assets.php:124
+#: src/Setup/Assets.php:129
 msgid "Inactive"
 msgstr "非アクティブ"
 
-#: src/Setup/Assets.php:144
+#: frontend/blocks/subscription-block/src/edit.js:31
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:202
+#, fuzzy
+msgid "Inline"
+msgstr "インライン"
+
+#: src/Setup/Assets.php:151
 msgid "Install and connect"
 msgstr "インストールと接続"
 
-#: src/Setup/Assets.php:143
+#: src/Setup/Assets.php:150
 msgid "Installed plugins"
 msgstr "インストールされているプラグイン"
 
@@ -287,70 +373,101 @@ msgstr "インストールされているプラグイン"
 msgid "Integrate your WordPress site with Hostinger Reach."
 msgstr "WordPressサイトをHostinger Reachに連携しましょう。"
 
-#: src/Setup/Assets.php:139
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:326
+#, fuzzy
+msgid "Layout"
+msgstr "レイアウト"
+
+#: frontend/blocks/subscription-block/src/edit.js:153
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:324
+#, fuzzy
+msgid "Layout Settings"
+msgstr "レイアウト設定"
+
+#: src/Admin/Notices/ConnectionNotice.php:107
+#, fuzzy
+msgid "Learn more"
+msgstr "さらに詳しく"
+
+#: src/Setup/Assets.php:146
 msgid ""
 "Make sure the people you contact expect your emails and are okay with "
 "receiving them."
 msgstr "配信メールの宛先が、受信することを承諾するかを必ず確認しましょう。"
 
-#: src/Setup/Assets.php:73
+#: src/Setup/Assets.php:78
 msgid "Manage"
 msgstr "管理"
 
-#: src/Blocks/SubscriptionFormBlock.php:67
-#: frontend/blocks/subscription-block/src/edit.js:188
+#: src/Blocks/SubscriptionFormBlock.php:81
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:114
 msgid "Name"
 msgstr "名称"
 
-#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/blocks/subscription-block/src/edit.js:134
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:305
+#, fuzzy
 msgid "Name for the new Contact List"
-msgstr "新しい顧客リストの名称"
+msgstr "新しいコンタクトリストの名前"
 
-#: src/Setup/Assets.php:140
+#: src/Setup/Assets.php:147
 msgid "New contact form"
 msgstr "新しいお問い合わせフォーム"
 
-#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:300
+#, fuzzy
 msgid "New Contact List"
-msgstr "新しい顧客リスト"
+msgstr "新しい連絡先リスト"
 
-#: src/Setup/Assets.php:100
+#: src/Setup/Assets.php:105
 msgid "New page"
 msgstr "新しいページ"
 
-#: src/Setup/Assets.php:89
+#: src/Setup/Assets.php:94
 msgid "New subscribers"
 msgstr "新規登録者"
 
-#: src/Setup/Assets.php:134
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:71
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:83
+#, fuzzy
+msgid "No"
+msgstr "いいえ"
+
+#: src/Setup/Assets.php:141
 msgid "No forms found for this integration."
 msgstr "この連携に関するフォームは見つかりませんでした。"
 
-#: src/Setup/Assets.php:101
+#: src/Setup/Assets.php:106
 msgid "No pages available. Create a new page to get started."
 msgstr "利用可能なページはありません。ページを新規作成してください。"
 
-#: src/Setup/Assets.php:109
+#: src/Setup/Assets.php:114
 msgid "opens in new tab"
 msgstr "新しいタブで開く"
 
-#: src/Setup/Assets.php:120
+#: src/Setup/Assets.php:125
 msgid "Plugin"
 msgstr "プラグイン"
 
-#: src/Setup/Assets.php:136
+#: src/Setup/Assets.php:143
 msgid "Plugin connected successfully"
 msgstr "プラグインが正常に接続されました"
 
-#: src/Setup/Assets.php:137
+#: src/Setup/Assets.php:144
 msgid "Plugin disconnected successfully"
 msgstr "プラグインは正常に切断されました"
 
-#: src/Setup/Assets.php:71
+#: src/Setup/Assets.php:76
 msgid "Reach is already connected to another site."
 msgstr "Reachはすでに別のサイトに紐づけられています。"
 
-#: src/Setup/Assets.php:108
+#: src/Setup/Assets.php:113
 #| msgid ""
 #| "Reach offers a free plan for one year– perfect for getting started. Paid "
 #| "plans are based on how many unique contacts you aim to reach and how many "
@@ -369,140 +486,198 @@ msgstr ""
 "を提供しています。有料プランは、顧客情報の数（ユニーク）と毎月配信するメールの数に基づいています。利用者が増えれば、ニーズに合ったプランにアップグレードできます。Reachは顧客リストを制限しないので、データの紛失を心配する必要がなく、一貫してオーディエンスを増やせます。"
 
 #: frontend/blocks/subscription-block/src/index.js:9
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:487
+#, fuzzy
 msgid "Reach Subscription Form"
-msgstr "Reachメルマガ登録フォーム"
+msgstr "リーチ購読フォーム"
 
-#: src/Setup/Assets.php:84
+#: src/Setup/Assets.php:89
 msgid "Remaining"
 msgstr "残り"
 
-#: src/Setup/Assets.php:114
+#: src/Setup/Assets.php:119
 msgid "Select page"
 msgstr "ページを選択"
 
-#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+#: src/Setup/Assets.php:88 src/Setup/Assets.php:91
 msgid "Sent"
 msgstr "送信済み"
 
-#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: src/Setup/Assets.php:99 frontend/blocks/subscription-block/src/edit.js:102
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:273
 msgid "Settings"
 msgstr "設定"
 
-#: frontend/blocks/subscription-block/src/edit.js:158
-msgid "Show Name Field?"
-msgstr "名前欄を表示しますか？"
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:68
+#, fuzzy
+msgid "Show Name"
+msgstr "ショー名"
 
-#: frontend/blocks/subscription-block/src/edit.js:166
+#: frontend/blocks/subscription-block/src/edit.js:137
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:308
+#, fuzzy
+msgid "Show Name Field?"
+msgstr "名前フィールドを表示しますか？"
+
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:80
+#, fuzzy
+msgid "Show Surname"
+msgstr "苗字を表示"
+
+#: frontend/blocks/subscription-block/src/edit.js:145
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:316
+#, fuzzy
 msgid "Show Surname Field?"
 msgstr "苗字欄を表示しますか？"
 
-#: src/Setup/Assets.php:68
+#: src/Setup/Assets.php:73
 msgid "Something went wrong"
 msgstr "エラーが発生しました"
 
-#: frontend/blocks/subscription-block/src/edit.js:111
-#: frontend/blocks/subscription-block/src/edit.js:116
-msgid "Something went wrong. Please try again"
-msgstr "エラーが発生しました。もう一度お試しください。"
-
-#: src/Blocks/SubscriptionFormBlock.php:19
+#: src/Blocks/SubscriptionFormBlock.php:21
 msgid "Something went wrong. Please try again."
 msgstr "エラーが発生しました。もう一度お試しください。"
 
-#: src/Setup/Assets.php:96
+#: src/Setup/Assets.php:101
 msgid "Start collecting form submissions"
 msgstr "フォームの利用を開始"
 
-#: src/Setup/Assets.php:122
+#: src/Setup/Assets.php:127
 msgid "Status"
 msgstr "ステータス"
 
-#: src/Blocks/SubscriptionFormBlock.php:83
+#: src/Blocks/SubscriptionFormBlock.php:97
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:130
 msgid "Subscribe"
 msgstr "メルマガ登録"
 
-#: src/Setup/Assets.php:88
+#: templates/optin-checkbox.php:28
+#, fuzzy
+msgid "Subscribe to our Newsletter"
+msgstr "ニュースレターを購読する"
+
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:69
+#, fuzzy
+msgid "Subscribe to our newsletter"
+msgstr "ニュースレターを購読する"
+
+#: src/Setup/Assets.php:93
 msgid "Subscribers"
 msgstr "メルマガ登録者"
 
-#: src/Blocks/SubscriptionFormBlock.php:75
-#: frontend/blocks/subscription-block/src/edit.js:194
+#: src/Blocks/SubscriptionFormBlock.php:89
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:122
 msgid "Surname"
 msgstr "苗字"
 
-#: frontend/blocks/subscription-block/src/edit.js:108
-msgid "Thanks for subscribing"
-msgstr "メルマガにご登録いただきありがとうございます。"
-
-#: src/Blocks/SubscriptionFormBlock.php:18
+#: src/Blocks/SubscriptionFormBlock.php:20
 msgid "Thanks for subscribing."
 msgstr "メルマガにご登録いただきありがとうございます。"
 
-#: src/Setup/Assets.php:79
+#: src/Integrations/Integration.php:158
+#, fuzzy
+msgid ""
+"This form has not an email field. Create an email field in the form to allow "
+"it to be synced with Reach"
+msgstr "このフォームにはEメールフィールドがありません。Reachと同期できるように、フォームにEメールフィールドを作成してください。"
+
+#: src/Setup/Assets.php:84
 msgid "This month"
 msgstr "今月"
 
-#: src/Setup/Assets.php:91
+#: src/Setup/Assets.php:96
 msgid "Total subscribers"
 msgstr "総登録者数"
 
-#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/blocks/subscription-block/src/edit.js:108
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:279
+#, fuzzy
 msgid "Unique identifier for this form"
-msgstr "このフォームのユニーク識別子"
+msgstr "このフォームのユニークな識別子"
 
-#: src/Setup/Assets.php:90
+#: src/Setup/Assets.php:95
 msgid "Unsubscribes"
 msgstr "配信停止"
 
-#: src/Setup/Assets.php:81
+#: src/Setup/Assets.php:86
 msgid "Upgrade"
 msgstr "アップグレード"
 
-#: src/Setup/Assets.php:112
+#: src/Setup/Assets.php:117
 msgid "usage statistics"
 msgstr "利用統計"
 
-#: src/Setup/Assets.php:125
+#: src/Setup/Assets.php:130
 msgid "View form"
 msgstr "フォームを表示"
 
-#: src/Setup/Assets.php:142
+#: src/Setup/Assets.php:149
 msgid "View supported plugins"
 msgstr "対応プラグインを表示"
 
-#: src/Setup/Assets.php:69
+#: src/Setup/Assets.php:74
 msgid "Welcome to Reach"
 msgstr "Reachをご利用いただきありがとうございます"
 
-#: src/Setup/Assets.php:103
+#: src/Setup/Assets.php:108
 msgid "What is Hostinger Reach email marketing service?"
 msgstr "Hostinger Reachメールマーケティングサービスとは何ですか？"
 
-#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:164
+#, fuzzy
+msgid "WooCommerce"
+msgstr "ウーコマース"
+
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:29
+#: src/Setup/Assets.php:137
 msgid "WP Forms Lite"
 msgstr "WPForms Lite"
 
 #. translators: %s - form id.
-#: src/Integrations/WpFormsLiteIntegration.php:41
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:63
 msgid "WP Forms Lite %s"
 msgstr "WPForms Lite %s"
 
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:70
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:82
+#, fuzzy
+msgid "Yes"
+msgstr "はい"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:7
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:42
+#, fuzzy
 msgid "You are not connected to Hostinger Reach"
 msgstr "Hostinger Reachに接続されていません。"
 
 #: frontend/blocks/subscription-block/src/Components/Connect.js:10
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:45
+#, fuzzy
 msgid ""
 "You are not connected to Hostinger Reach. To gain full access to this block, "
 "you need to connect your Hostinger Reach account."
 msgstr ""
-"Hostinger Reachに接続されていません。このブロックを利用するには、お客様のHostinger Reachアカウントを紐づけてください。"
+"Hostinger Reachに接続していません。このブロックに完全にアクセスするには、Hostinger Reachアカウントに接続する必要があります。"
 
 #. translators: %s: PHP version
-#: hostinger-reach.php:55
+#: hostinger-reach.php:58
 msgid "You are running <b>%s</b> PHP version."
 msgstr "稼働中のPHPバージョンは<b>%s</b>です。"
 
-#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:40
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:129
+#, fuzzy
+msgid "Your form is ready. Go to Reach to complete setup and create templates."
+msgstr "フォームの準備ができました。Reachに移動してセットアップを完了し、テンプレートを作成します。"
+
+#: src/Setup/Assets.php:85
 msgid "Your plan"
 msgstr "ご利用中のプラン"

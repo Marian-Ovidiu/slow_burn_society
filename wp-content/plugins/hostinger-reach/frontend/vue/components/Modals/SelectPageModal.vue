@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { HSkeletonLoader } from '@hostinger/hcomponents';
-import { ref } from 'vue';
+import { HButton, HIcon, HSkeletonLoader, HText } from '@hostinger/hcomponents';
+import { computed, onMounted, ref } from 'vue';
 
 import BaseModal from '@/components/Modals/Base/BaseModal.vue';
-import type { Page } from '@/types/models/pagesModels';
+import Pagination from '@/components/Pagination.vue';
+import { usePagesStore } from '@/stores/pagesStore';
+import type { Page, WordPressPage } from '@/types/models/pagesModels';
 import { translate } from '@/utils/translate';
 
 interface Props {
@@ -14,17 +16,51 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const pagesStore = usePagesStore();
+
 const NEW_FORM_BUTTON_LINK = '/wp-admin/post-new.php?post_type=page&hostinger_reach_add_block=1';
 
 const loadingPageId = ref<string | null>(null);
 const isNewFormButtonLoading = ref(false);
 
-const handlePageClick = (page: Page) => {
+const currentPages = computed(() => {
+	const storePages = pagesStore.items;
+
+	return storePages && storePages.length > 0 ? storePages : props.pages || [];
+});
+
+const getPageDisplayName = (page: Page | WordPressPage): string => {
+	if ('name' in page && page.name) {
+		return page.name;
+	}
+
+	if ('title' in page && page.title?.rendered) {
+		return page.title.rendered;
+	}
+
+	return translate('hostinger_reach_forms_no_title');
+};
+
+const isPageAdded = (page: Page | WordPressPage): boolean => ('isAdded' in page ? page.isAdded || false : false);
+
+const isLoading = computed(() => pagesStore.isLoading);
+const currentPage = computed(() => pagesStore.currentPage);
+const totalItems = computed(() => pagesStore.totalItems);
+const itemsPerPage = computed(() => pagesStore.itemsPerPage);
+
+const handlePageChange = async (page: number) => {
+	await pagesStore.goToPage(page);
+};
+
+const handlePageClick = (page: Page | WordPressPage) => {
 	if (loadingPageId.value) return;
 
-	loadingPageId.value = page.id;
+	loadingPageId.value = String(page.id);
 
-	window.location.href = page.link;
+	const pageUrl = page.link;
+	if (pageUrl) {
+		window.location.href = pageUrl;
+	}
 };
 
 const handleNewFormClick = () => {
@@ -41,6 +77,10 @@ const handleBackClick = () => {
 		backButtonAction();
 	}
 };
+
+onMounted(async () => {
+	await pagesStore.resetToFirstPage();
+});
 </script>
 
 <template>
@@ -53,41 +93,70 @@ const handleBackClick = () => {
 
 		<div class="select-page-modal">
 			<div class="select-page-modal__content">
-				<div v-if="pages && pages.length > 0" class="select-page-modal__pages">
-					<div
-						v-for="page in pages"
-						:key="page.id"
-						class="select-page-modal__page-item"
-						:class="{
-							'select-page-modal__page-item--selected': page.isAdded,
-							'select-page-modal__page-item--loading': loadingPageId === page.id
-						}"
-						@click="handlePageClick(page)"
-					>
-						<div v-if="loadingPageId === page.id" class="select-page-modal__page-loading">
-							<HSkeletonLoader width="60%" height="20px" border-radius="sm" />
+				<div class="select-page-modal__pages">
+					<template v-if="isLoading">
+						<div
+							v-for="n in itemsPerPage"
+							:key="`skeleton-${n}`"
+							class="select-page-modal__page-item select-page-modal__page-item--loading"
+						>
+							<div class="select-page-modal__page-loading">
+								<HSkeletonLoader width="60%" height="20px" border-radius="sm" />
+							</div>
 						</div>
-						<template v-else>
-							<div class="select-page-modal__page-content">
-								<HText variant="body-2-bold" as="span" class="select-page-modal__page-name">
-									{{ page.name || translate('hostinger_reach_forms_no_title') }}
-								</HText>
-							</div>
+					</template>
 
-							<div>
-								<HIcon
-									:name="page.isAdded ? 'ic-checkmark-circle-filled-24' : 'ic-circle-empty-24'"
-									:color="page.isAdded ? 'primary--500' : 'neutral--200'"
-								/>
+					<template v-else-if="currentPages && currentPages.length > 0">
+						<div
+							v-for="page in currentPages"
+							:key="page.id"
+							class="select-page-modal__page-item"
+							:class="{
+								'select-page-modal__page-item--selected': isPageAdded(page),
+								'select-page-modal__page-item--loading': loadingPageId === String(page.id)
+							}"
+							@click="handlePageClick(page)"
+						>
+							<div v-if="loadingPageId === String(page.id)" class="select-page-modal__page-loading">
+								<HSkeletonLoader width="60%" height="20px" border-radius="sm" />
 							</div>
-						</template>
-					</div>
+							<template v-else>
+								<div class="select-page-modal__page-content">
+									<HText variant="body-2-bold" as="span" class="select-page-modal__page-name">
+										{{ getPageDisplayName(page) }}
+									</HText>
+								</div>
+
+								<div>
+									<HIcon
+										:name="isPageAdded(page) ? 'ic-checkmark-circle-filled-24' : 'ic-circle-empty-24'"
+										:color="isPageAdded(page) ? 'primary--500' : 'neutral--200'"
+									/>
+								</div>
+							</template>
+						</div>
+					</template>
+
+					<template v-else-if="!isLoading">
+						<div class="select-page-modal__no-pages">
+							<HText variant="body-2" as="p" class="select-page-modal__no-pages-text">
+								{{ translate('hostinger_reach_forms_no_pages_available') }}
+							</HText>
+						</div>
+					</template>
 				</div>
-				<div v-else class="select-page-modal__no-pages">
-					<HText variant="body-2" as="p" class="select-page-modal__no-pages-text">
-						{{ translate('hostinger_reach_forms_no_pages_available') }}
-					</HText>
-				</div>
+			</div>
+
+			<div class="select-page-modal__pagination">
+				<Pagination
+					:current-page="currentPage"
+					:total-items="totalItems"
+					:items-per-page="itemsPerPage"
+					:total-visible="5"
+					:disabled="isLoading"
+					@page-change="handlePageChange"
+					@update:current-page="handlePageChange"
+				/>
 			</div>
 
 			<div class="select-page-modal__footer">
@@ -148,30 +217,6 @@ const handleBackClick = () => {
 		gap: 8px;
 		width: 100%;
 		max-width: 100%;
-		max-height: 400px;
-		overflow-y: auto;
-		padding-right: 4px;
-
-		&::-webkit-scrollbar {
-			width: 6px;
-		}
-
-		&::-webkit-scrollbar-track {
-			background: var(--neutral--100);
-			border-radius: 3px;
-		}
-
-		&::-webkit-scrollbar-thumb {
-			background: var(--neutral--300);
-			border-radius: 3px;
-
-			&:hover {
-				background: var(--neutral--400);
-			}
-		}
-
-		scrollbar-width: thin;
-		scrollbar-color: var(--neutral--300) var(--neutral--100);
 	}
 
 	&__page-item {
@@ -219,10 +264,7 @@ const handleBackClick = () => {
 	}
 
 	&__page-name {
-		font-family: 'DM Sans', sans-serif;
 		font-weight: 700;
-		font-size: 14px;
-		line-height: 20px;
 	}
 
 	&__checkmark {
@@ -255,6 +297,14 @@ const handleBackClick = () => {
 		margin: 0;
 	}
 
+	&__pagination {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 16px 0;
+		margin-bottom: 8px;
+	}
+
 	&__footer {
 		display: flex;
 		justify-content: flex-end;
@@ -262,10 +312,6 @@ const handleBackClick = () => {
 	}
 
 	@media (max-width: 640px) {
-		&__pages {
-			max-height: 300px;
-		}
-
 		&__page-item {
 			padding: 16px;
 		}
@@ -283,7 +329,6 @@ const handleBackClick = () => {
 	@media (max-width: 480px) {
 		&__pages {
 			gap: 6px;
-			max-height: 250px;
 		}
 
 		&__page-item {

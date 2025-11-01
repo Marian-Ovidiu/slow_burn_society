@@ -1,4 +1,4 @@
-import { DirectiveBinding } from 'vue';
+import type { DirectiveBinding } from 'vue';
 
 import { translate } from '@/utils/translate';
 
@@ -22,7 +22,7 @@ const getCurrentRotation = (el: HTMLElement) => {
 		computedStyles.getPropertyValue('-o-transform') ||
 		computedStyles.getPropertyValue('transform') ||
 		'none';
-	if (transformProp != 'none') {
+	if (transformProp !== 'none') {
 		const values = transformProp.split('(')[1].split(')')[0].split(',');
 
 		const angle = Math.round(Math.atan2(Number(values[1]), Number(values[0])) * (180 / Math.PI));

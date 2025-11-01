@@ -20,6 +20,14 @@
 
 // ** Database settings - You can get this info from your web host ** //
 
+define('SMTP_HOST', 'smtp.sendgrid.net');
+define('SMTP_PORT', 587);
+define('SMTP_SECURE', 'tls');
+define('SMTP_USER', 'apikey');
+define('SMTP_PASS', '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');
+define('SMTP_FROM', 'shop@slow-burn-society.shop');
+define('SMTP_NAME', "Slow Burn Society");
+
 define( 'DB_NAME', 'slow_burn' );
 define( 'DB_USER', 'root' );
 define( 'DB_PASSWORD', 'root' );
@@ -85,10 +93,11 @@ $table_prefix = 'wp_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+define( 'WP_DEBUG', true );
 define('WP_CACHE', false);
 define( 'WP_DEBUG_LOG', true );
-define( 'WP_DEBUG_DISPLAY', false );
+define( 'WP_DEBUG_DISPLAY', true );
+
 
 /* Add any custom values between this line and the "stop editing" line. */
 

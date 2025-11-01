@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Repositories;
 
-
 use Exception;
 use Hostinger\Reach\Admin\Database\FormsTable;
 use Hostinger\Reach\Models\Form;

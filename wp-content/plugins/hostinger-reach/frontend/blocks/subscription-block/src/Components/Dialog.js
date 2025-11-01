@@ -1,8 +1,37 @@
 import {__} from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
 import './Dialog.scss'
 import reachLogo from '../reach-logo.svg';
 
+const SIDEBAR_SELECTORS = [
+	'.interface-navigable-region.interface-interface-skeleton__secondary-sidebar',
+	'.spectra-ee-quick-access-container .spectra-ee-quick-access__sidebar'
+];
+
 const Dialog = ( { onClose } ) => {
+
+	useEffect(() => {
+		const sidebars = SIDEBAR_SELECTORS
+			.map(selector => document.querySelector(selector))
+			.filter(Boolean);
+
+		sidebars.forEach(sidebar => {
+			sidebar.style.zIndex = '0';
+		});
+
+		const timeoutId = setTimeout(() => {
+			onClose();
+		}, 10000);
+
+		return () => {
+			sidebars.forEach(sidebar => {
+				sidebar.style.zIndex = '';
+			});
+
+			clearTimeout(timeoutId);
+		};
+	}, []);
+
 	return <div id="hostinger-reach-block-dialog" className="hostinger-reach-block-dialog">
 		<div className="hostinger-reach-block-dialog__close" onClick={onClose}></div>
 		<div className="hostinger-reach-block-dialog__logo">

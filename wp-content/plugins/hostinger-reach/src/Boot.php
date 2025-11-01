@@ -11,11 +11,15 @@ use Hostinger\Reach\Providers\BlocksProvider;
 use Hostinger\Reach\Providers\ContainerProvider;
 use Hostinger\Reach\Providers\DatabaseProvider;
 use Hostinger\Reach\Providers\IntegrationsProvider;
+use Hostinger\Reach\Providers\JobsProvider;
 use Hostinger\Reach\Providers\MenusProvider;
+use Hostinger\Reach\Providers\NoticesProvider;
 use Hostinger\Reach\Providers\ProviderInterface;
 use Hostinger\Reach\Providers\RedirectsProvider;
 use Hostinger\Reach\Providers\RoutesProvider;
 use Hostinger\Reach\Providers\SurveysProvider;
+use Hostinger\Reach\Providers\TrackingProvider;
+use Hostinger\Reach\Providers\WebhooksProvider;
 use Hostinger\Reach\Providers\WpdbProvider;
 
 class Boot {
@@ -33,6 +37,10 @@ class Boot {
         BlocksProvider::class,
         IntegrationsProvider::class,
         RedirectsProvider::class,
+        WebhooksProvider::class,
+        TrackingProvider::class,
+        JobsProvider::class,
+        NoticesProvider::class,
     );
 
     private array $hostinger_providers = array(

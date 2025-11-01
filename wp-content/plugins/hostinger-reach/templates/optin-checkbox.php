@@ -2,7 +2,6 @@
 
 /**
  * Override this template by copying it to yourtheme/hostinger-reach/optin-checkbox.php
-
  */
 
 namespace Hostinger\Reach;

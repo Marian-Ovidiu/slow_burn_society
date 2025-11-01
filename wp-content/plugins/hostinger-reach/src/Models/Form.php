@@ -2,7 +2,7 @@
 
 namespace Hostinger\Reach\Models;
 
-use Hostinger\Reach\Integrations\ReachFormIntegration;
+use Hostinger\Reach\Integrations\Reach\ReachFormIntegration;
 use WP_Post;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,7 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Form implements Model {
     private string $form_id;
-    private int $contact_list_id = 0;
+    private string|null $form_title = null;
+    private int $contact_list_id    = 0;
     private string $type;
     private WP_Post|null $post = null;
     private bool $is_active;
@@ -29,6 +30,10 @@ class Form implements Model {
 
         if ( isset( $db_array['post_id'] ) ) {
             $this->set_post( $db_array['post_id'] );
+        }
+
+        if ( isset( $db_array['form_title'] ) ) {
+            $this->set_form_title( $db_array['form_title'] );
         }
 
         if ( isset( $db_array['submissions'] ) ) {
@@ -50,6 +55,14 @@ class Form implements Model {
 
     public function get_type(): string {
         return $this->type;
+    }
+
+    public function set_form_title( string $form_title ): void {
+        $this->form_title = $form_title;
+    }
+
+    public function get_form_title(): string|null {
+        return $this->form_title;
     }
 
     public function set_form_id( string $form_id ): void {
@@ -94,6 +107,7 @@ class Form implements Model {
     public function to_array(): array {
         return array(
             'form_id'         => $this->get_form_id(),
+            'form_title'      => $this->get_form_title(),
             'is_active'       => $this->get_is_active(),
             'type'            => $this->get_type(),
             'contact_list_id' => $this->get_contact_list_id(),

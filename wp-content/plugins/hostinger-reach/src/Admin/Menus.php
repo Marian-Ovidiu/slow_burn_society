@@ -45,4 +45,8 @@ class Menus {
         <div id="hostinger-reach-app" class="hostinger-reach-app"></div>
         <?php
     }
+
+    public static function get_reach_admin_url(): string {
+        return admin_url( 'admin.php?page=hostinger-reach' );
+    }
 }

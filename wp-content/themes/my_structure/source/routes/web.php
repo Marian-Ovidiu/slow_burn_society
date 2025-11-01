@@ -3,6 +3,9 @@ use Controllers\CartController;
 use Controllers\PageController;
 use Controllers\PaymentsController;
 use Controllers\RelatedController;
+use Middleware\AccessMiddleware;
+
+AccessMiddleware::handle($_SERVER['REQUEST_URI']);
 
 $router = \Core\Router::getInstance();
 

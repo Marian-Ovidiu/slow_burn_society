@@ -9,7 +9,7 @@ export const useGeneralDataStore = defineStore(
 	'generalDataStore',
 	() => {
 		const data = ref<ReachData>(snakeToCamelObj(hostinger_reach_reach_data) as ReachData);
-
+		const totalFormPages = computed(() => data.value.totalFormPages);
 		const siteUrl = computed(() => data.value.siteUrl);
 		const isHostingerUser = computed(() => data.value.isHostingerUser);
 		const ajaxUrl = computed(() => data.value.ajaxUrl);
@@ -26,6 +26,7 @@ export const useGeneralDataStore = defineStore(
 			nonce,
 			isConnected,
 			isHostingerUser,
+			totalFormPages,
 			isStaging,
 			pluginUrl,
 			translations

@@ -10,6 +10,7 @@ use Hostinger\Reach\Api\Routes\FormsRoutes;
 use Hostinger\Reach\Api\Routes\IntegrationsRoutes;
 use Hostinger\Reach\Api\Routes\ReachRoutes;
 use Hostinger\Reach\Container;
+use Hostinger\Reach\Repositories\ContactListRepository;
 
 if ( ! defined( 'ABSPATH' ) ) {
     die;
@@ -21,6 +22,7 @@ class RoutesProvider implements ProviderInterface {
             ReachRoutes::class        => array(
                 $container->get( ReachApiHandler::class ),
                 $container->get( ApiKeyManager::class ),
+                $container->get( ContactListRepository::class ),
             ),
             FormsRoutes::class        => array(
                 $container->get( FormsApiHandler::class ),

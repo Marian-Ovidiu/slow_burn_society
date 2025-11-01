@@ -5,12 +5,10 @@ namespace Hostinger\Reach\Integrations\Elementor;
 use Elementor\Core\Documents_Manager;
 use Elementor\Plugin as ElementorPlugin;
 use Elementor\Widget_Base;
-use Hostinger\Reach\Api\Handlers\IntegrationsApiHandler;
-use Hostinger\Reach\Api\Handlers\ReachApiHandler;
 use Hostinger\Reach\Integrations\IntegrationInterface;
 use Hostinger\Reach\Integrations\IntegrationWithForms;
-use Hostinger\Reach\Repositories\FormRepository;
 use Exception;
+use Hostinger\Reach\Dto\PluginData;
 use WP_Post;
 
 if ( ! DEFINED( 'ABSPATH' ) ) {
@@ -20,24 +18,17 @@ if ( ! DEFINED( 'ABSPATH' ) ) {
 class ElementorIntegration extends IntegrationWithForms implements IntegrationInterface {
 
     public const INTEGRATION_NAME = 'elementor';
-    protected ReachApiHandler $reach_api_handler;
-    protected IntegrationsApiHandler $integrations_api_handler;
     protected SubscriptionFormElementorWidget $widget;
-
-    public function __construct( ReachApiHandler $reach_api_handler, IntegrationsApiHandler $integrations_api_handler, FormRepository $form_repository ) {
-        parent::__construct( $form_repository );
-        $this->integrations_api_handler = $integrations_api_handler;
-        $this->reach_api_handler        = $reach_api_handler;
-    }
 
     public function init(): void {
         parent::init();
         add_action( 'hostinger_reach_integration_activated', array( $this, 'set_elementor_onboarding' ) );
-        if ( $this->integrations_api_handler->is_active( self::INTEGRATION_NAME ) ) {
-            add_action( 'elementor/widgets/register', array( $this, 'register_new_widgets' ) );
-            add_action( 'transition_post_status', array( $this, 'handle_transition_post_status' ), 10, 3 );
-            add_filter( 'hostinger_reach_get_group', array( $this, 'filter_hostinger_reach_get_group' ), 10, 2 );
-        }
+    }
+
+    public function active_integration_hooks(): void {
+        add_action( 'elementor/widgets/register', array( $this, 'register_new_widgets' ) );
+        add_action( 'transition_post_status', array( $this, 'handle_transition_post_status' ), 10, 3 );
+        add_filter( 'hostinger_reach_get_group', array( $this, 'filter_hostinger_reach_get_group' ), 10, 2 );
     }
 
     public function set_elementor_onboarding( string $integration_name ): void {
@@ -85,25 +76,28 @@ class ElementorIntegration extends IntegrationWithForms implements IntegrationIn
         return $this->get_elementor_form_ids_from_content( $post->post_content );
     }
 
-    public function get_plugin_data( array $plugin_data ): array {
+    public function get_plugin_data(): PluginData {
         if ( class_exists( 'Elementor\Core\Documents_Manager' ) ) {
             $add_form_url = Documents_Manager::get_create_new_post_url();
         } else {
-            $add_form_url = null;
+            $add_form_url = '';
         }
 
-        $plugin_data[ self::INTEGRATION_NAME ] = array(
-            'folder'       => 'elementor',
-            'file'         => 'elementor.php',
-            'admin_url'    => 'admin.php?page=elementor',
-            'add_form_url' => $add_form_url,
-            'edit_url'     => 'post.php?post={post_id}&action=elementor',
-            'url'          => 'https://wordpress.org/plugins/elementor/',
-            'download_url' => 'https://downloads.wordpress.org/plugin/elementor.zip',
-            'title'        => __( 'Elementor', 'hostinger-reach' ),
+        return new PluginData(
+            self::INTEGRATION_NAME,
+            __( 'Elementor', 'hostinger-reach' ),
+            'elementor',
+            'elementor.php',
+            'admin.php?page=elementor',
+            $add_form_url,
+            'post.php?post={post_id}&action=elementor',
+            'https://wordpress.org/plugins/elementor/',
+            'https://downloads.wordpress.org/plugin/elementor.zip',
+            null,
+            false,
+            false,
+            false,
         );
-
-        return $plugin_data;
     }
 
     private function get_widget(): Widget_Base {

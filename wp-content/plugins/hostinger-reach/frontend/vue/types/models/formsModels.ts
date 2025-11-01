@@ -6,13 +6,12 @@ export interface ContactList {
 export interface Form {
 	id?: number;
 	formId: string;
+	formTitle?: string;
 	postId?: number;
 	contactListId: number;
 	type: string;
 	isActive: boolean;
 	isLoading?: boolean;
-	isViewFormHidden?: boolean;
-	isEditFormHidden?: boolean;
 	submissions: number;
 	post?: {
 		ID: number;
@@ -56,41 +55,24 @@ export interface FormsFilter {
 	offset?: number;
 }
 
-export interface FormSubmissionData {
-	formId: string;
-	contactListId?: number;
-	postId?: number;
-	type: string;
-	isActive?: boolean;
-}
-
-export interface FormUpdateData {
-	formId: string;
-	contactListId?: number;
-	isActive?: boolean;
-}
-
 export interface Integration {
 	id: string;
+	icon: string;
 	isActive: boolean;
 	title: string;
 	url: string;
 	adminUrl: string;
 	addFormUrl: string;
 	isPluginActive: boolean;
+	canDeactivate: boolean;
+	isGoToPluginVisible: boolean;
+	isViewFormHidden: boolean;
+	isEditFormHidden: boolean;
+	canToggleForms: boolean;
 	editUrl?: string;
 	forms?: Form[];
 }
 
 export interface IntegrationsResponse {
-	[key: string]: {
-		isActive: boolean;
-		title: string;
-		url: string;
-		adminUrl: string;
-		addFormUrl: string;
-		editUrl: string;
-		isAvailable: boolean;
-		isPluginActive: boolean;
-	};
+	[key: string]: Integration;
 }

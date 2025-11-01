@@ -4,7 +4,8 @@ namespace Hostinger\Reach\Api\Handlers;
 
 use Hostinger\Reach\Functions;
 use Hostinger\Reach\Integrations\PluginManager;
-use Hostinger\Reach\Integrations\ReachFormIntegration;
+use Hostinger\Reach\Integrations\Reach\ReachFormIntegration;
+use Hostinger\Reach\Dto\PluginData;
 use Hostinger\Reach\Providers\IntegrationsProvider;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -21,6 +22,18 @@ class IntegrationsApiHandler extends ApiHandler {
     public function __construct( Functions $functions, PluginManager $plugin_manager ) {
         parent::__construct( $functions );
         $this->plugin_manager = $plugin_manager;
+    }
+
+    public static function get_integrations(): array {
+        return apply_filters( 'hostinger_reach_integrations', IntegrationsProvider::INTEGRATIONS );
+    }
+
+    public function init_hooks(): void {
+        add_action( 'init', array( $this, 'trigger_active_integrations' ) );
+    }
+
+    public function trigger_active_integrations(): void {
+        do_action( 'hostinger_reach_integrations_loaded', $this->get_integrations_data() );
     }
 
     public function is_active( string $integration_name ): bool {
@@ -64,7 +77,7 @@ class IntegrationsApiHandler extends ApiHandler {
     }
 
     public function activate_integration( string $integration_name ): bool {
-        $integration_class = IntegrationsProvider::INTEGRATIONS[ $integration_name ];
+        $integration_class = self::get_integrations()[ $integration_name ];
         if ( ! isset( $integration_class ) ) {
             return false;
         }
@@ -89,7 +102,7 @@ class IntegrationsApiHandler extends ApiHandler {
     }
 
     public function get_integrations_data(): array {
-        $available_integrations       = IntegrationsProvider::INTEGRATIONS;
+        $available_integrations       = self::get_integrations();
         $integrations_state           = get_option( self::INTEGRATIONS_OPTION_NAME, array() );
         $available_integrations_state = array_intersect_key( $integrations_state, $available_integrations );
         $integrations                 = array();
@@ -98,18 +111,25 @@ class IntegrationsApiHandler extends ApiHandler {
 
             $is_hostinger_reach = $integration_name === ReachFormIntegration::INTEGRATION_NAME;
 
-            $plugin_data = $this->plugin_manager->get_plugin( $integration_name );
-            $is_active   = $this->plugin_manager->is_active( $integration_name ) && ( $available_integrations_state[ $integration_name ]['is_active'] ?? false );
+            $plugin = $this->plugin_manager->get_plugin( $integration_name );
 
-            $integrations[ $integration_name ] = array(
-                'is_plugin_active' => $is_hostinger_reach || $this->plugin_manager->is_active( $integration_name ),
-                'is_active'        => $is_hostinger_reach || $is_active,
-                'title'            => $plugin_data['title'] ?? '',
-                'url'              => $plugin_data['url'] ?? '',
-                'admin_url'        => $plugin_data['admin_url'] ?? '',
-                'edit_url'         => $plugin_data['edit_url'] ?? '',
-                'add_form_url'     => $plugin_data['add_form_url'] ?? '',
+            if ( ! $plugin instanceof PluginData ) {
+                continue;
+            }
+
+            $is_active                         = $this->plugin_manager->is_active( $integration_name ) && ( $available_integrations_state[ $integration_name ]['is_active'] ?? false );
+            $integrations[ $integration_name ] = $plugin->to_array();
+
+            $integrations[ $integration_name ] = array_merge(
+                $integrations[ $integration_name ],
+                array(
+                    'is_plugin_active'        => $is_hostinger_reach || $this->plugin_manager->is_active( $integration_name ),
+                    'is_active'               => $is_hostinger_reach || $is_active,
+                    'can_deactivate'          => ! $is_hostinger_reach,
+                    'is_go_to_plugin_visible' => ! $is_hostinger_reach,
+                )
             );
+
         }
 
         return $integrations;

@@ -139,4 +139,19 @@ class PageController extends BaseController
 
         return $this->render('grazie', ['o' => $order]);
     }
+
+    public function workInProgress()
+    {
+        return $this->render('workInProgress');
+    }
+
+    public function contatti ()
+    {
+        return $this->render('contatti');
+    }
+
+    public function page404 ()
+    {
+        return $this->render('page-404');
+    }
 }

@@ -15,6 +15,7 @@ class WPvivid_Post_List extends WP_List_Table
 {
     public $post_ids;
     public $page_num;
+    public $user_posts_count = 0;
 
     public function __construct( $args = array() ) {
         global $post_type_object, $wpdb;
@@ -801,7 +802,7 @@ class WPvivid_Exporter_task
     public function new_backup_task($options)
     {
         $id=uniqid('wpvivid-');
-        $this->task=false;
+        $this->task=array();
         $this->task['id']=$id;
 
         $this->task['status']['start_time']=time();
@@ -1882,7 +1883,7 @@ class WPvivid_Exporter
         }
     }
 
-    private function wxr_authors_list( array $post_ids = null )
+    private function wxr_authors_list( array $post_ids = array() )
     {
         global $wpdb;
 

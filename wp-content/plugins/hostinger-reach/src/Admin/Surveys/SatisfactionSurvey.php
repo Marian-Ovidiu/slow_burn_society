@@ -45,4 +45,12 @@ class SatisfactionSurvey extends Survey {
     protected function is_hostinger_page(): bool {
         return str_contains( $_SERVER['REQUEST_URI'], 'hostinger' );
     }
+
+    protected function get_review_url(): string {
+        return 'https://wordpress.org/support/plugin/hostinger-reach/reviews/#new-post';
+    }
+
+    protected function get_review_min_required_score(): int {
+        return 7;
+    }
 }

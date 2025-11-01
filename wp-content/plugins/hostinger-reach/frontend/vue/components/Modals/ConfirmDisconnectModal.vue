@@ -1,9 +1,6 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-
 import BaseModal from '@/components/Modals/Base/BaseModal.vue';
 import { useModal } from '@/composables';
-import { INTEGRATION_TO_FORM_TYPE_MAP } from '@/data/pluginData';
 import { useIntegrationsStore } from '@/stores';
 import { translate } from '@/utils/translate';
 
@@ -14,12 +11,6 @@ interface Props {
 const { closeModal } = useModal();
 const integrationsStore = useIntegrationsStore();
 const props = defineProps<Props>();
-
-const integration = computed(() => {
-	const integrationId = props.data?.integration;
-
-	return integrationId ? INTEGRATION_TO_FORM_TYPE_MAP[integrationId] || integrationId : undefined;
-});
 
 const dismiss = () => {
 	const backButtonAction = props.data?.backButtonRedirectAction;
@@ -55,8 +46,8 @@ const handleDisconnect = async (integrationId: string) => {
 				<HButton
 					color="danger"
 					size="small"
-					:is-disabled="integrationsStore.isIntegrationLoading(integration)"
-					@click="handleDisconnect(integration)"
+					:is-disabled="integrationsStore.isIntegrationLoading(props.data?.integration)"
+					@click="handleDisconnect(props.data?.integration)"
 				>
 					{{ translate('hostinger_reach_confirm_disconnect_modal_disconnect') }}
 				</HButton>

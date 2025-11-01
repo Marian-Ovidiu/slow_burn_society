@@ -1,0 +1,133 @@
+.hostinger-reach-notice {
+	position: relative;
+	padding: 0;
+	border: none;
+	border-left: 4px solid #673DE6;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+	.hostinger-reach-notice-wrap {
+		display: flex;
+	}
+
+	.hostinger-reach-notice-aside {
+		display: none;
+
+		@media screen and (min-width: 756px) {
+			display: block;
+		}
+
+		background: #f8f8ff;
+		padding: 10px;
+	}
+
+	.hostinger-reach-notice-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		cursor: pointer;
+		background: none;
+		border: none;
+		display: block;
+		font-size: .8125rem;
+		font-style: normal;
+		height: 20px;
+		line-height: 20px;
+		margin: 0;
+		padding: 10px;
+		text-align: center;
+		width: 20px;
+		color: #9ca3af;
+		transition: color 0.2s ease;
+
+		&:hover,
+		&:focus {
+			color: #673DE6;
+		}
+
+		&:before {
+			content: '\00d7';
+			position: relative;
+			display: inline-block;
+			font-size: 20px;
+			line-height: 20px;
+			font-weight: 400;
+		}
+	}
+
+	.notice-dismiss {
+		display: none;
+	}
+
+	.hostinger-reach-notice-content {
+		padding: 20px 25px;
+
+		h3 {
+			margin: 0 0 8px;
+			padding: 0;
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 1.4;
+			color: #1e1e1e;
+		}
+
+		p {
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+			line-height: 1.6;
+			color: #6c757d;
+		}
+	}
+
+	.hostinger-reach-notice-actions {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 0 25px 25px;
+		margin-right: 32px;
+
+		.hostinger-reach-button {
+			padding: 10px 20px;
+			font-size: 12px;
+			font-weight: 500;
+			line-height: 1.4;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			white-space: nowrap;
+
+			&.button-primary {
+				background: #673DE6;
+				color: #fff;
+				box-shadow: 0 2px 4px rgba(103, 61, 230, 0.2);
+
+				&:hover,
+				&:focus {
+					background: #5633B8;
+					box-shadow: 0 4px 8px rgba(103, 61, 230, 0.3);
+					transform: translateY(-1px);
+				}
+
+				&:active {
+					transform: translateY(0);
+				}
+			}
+
+			&.button-secondary {
+				background: transparent;
+				color: #673DE6;
+				border: 1px solid #673DE6;
+				box-shadow: none;
+
+				&:hover,
+				&:focus {
+					background: #f8f5ff;
+					border-color: #5633B8;
+					color: #5633B8;
+				}
+			}
+		}
+	}
+}
+

@@ -78,7 +78,7 @@ class Admin_Menu implements Runner {
 			[
 				'position'   => 50,
 				'menu_title' => 'Rank Math',
-				'capability' => 'level_1',
+				'capability' => 'manage_options',
 				'icon'       => 'data:image/svg+xml;base64,' . \base64_encode( '<svg viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg" width="20"><g fill="#fff"><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"/><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"/></g></svg>' ), // phpcs:ignore -- This should not cause any issue as we only pass a static svg code.
 				'render'     => Admin_Helper::get_view( 'dashboard' ),
 				'classes'    => [ 'rank-math-page' ],
@@ -148,7 +148,7 @@ class Admin_Menu implements Runner {
 			return;
 		}
 
-		$submenu['rank-math'][] = [ esc_html__( 'Help &amp; Support', 'rank-math' ) . '<i class="dashicons dashicons-external" style="font-size:12px;vertical-align:-2px;height:10px;"></i>', 'level_1', KB::get( 'knowledgebase', 'Sidebar Help Link' ) ]; // phpcs:ignore -- A custom link to our KB article.
+		$submenu['rank-math'][] = [ esc_html__( 'Help &amp; Support', 'rank-math' ) . '<i class="dashicons dashicons-external" style="font-size:12px;vertical-align:-2px;height:10px;"></i>', 'manage_options', KB::get( 'knowledgebase', 'Sidebar Help Link' ) ]; // phpcs:ignore -- A custom link to our KB article.
 		$this->add_offer_link( $submenu );
 
 		// Store ID of first_menu item so we can use it in the Admin menu item.
@@ -236,7 +236,7 @@ class Admin_Menu implements Runner {
 			return;
 		}
 
-		$submenu['rank-math'][] = [ current( $offer ) . '&nbsp;', 'level_1', KB::get( 'offer', 'Offer Menu Item' ) ];
+		$submenu['rank-math'][] = [ current( $offer ) . '&nbsp;', 'manage_options', KB::get( 'offer', 'Offer Menu Item' ) ];
 	}
 
 	/**
@@ -260,30 +260,35 @@ class Admin_Menu implements Runner {
 		$timezone     = new \DateTimeZone( 'Asia/Kolkata' );
 		$current_date = new \DateTime( 'now', $timezone );
 		$dates        = [
-			'christmas'    => [
-				'start' => '2023-12-17',
-				'end'   => '2023-12-26',
-				'text'  => esc_html__( 'Christmas Sale', 'rank-math' ),
-			],
-			'new-year'     => [
-				'start' => '2023-12-31',
-				'end'   => '2024-01-05',
-				'text'  => esc_html__( 'New Year Sale', 'rank-math' ),
+			'halloween'    => [
+				'start' => '2025-10-29',
+				'end'   => '2025-11-05',
+				'text'  => esc_html__( 'Halloween Sale', 'rank-math' ),
 			],
 			'anniversary'  => [
-				'start' => '2024-11-06',
-				'end'   => '2024-11-13',
+				'start' => '2025-11-05',
+				'end'   => '2025-11-12',
 				'text'  => esc_html__( 'Anniversary Sale', 'rank-math' ),
 			],
 			'black-friday' => [
-				'start' => '2024-11-27',
-				'end'   => '2024-12-01',
+				'start' => '2025-11-12',
+				'end'   => '2025-11-29',
 				'text'  => esc_html__( 'Black Friday Sale', 'rank-math' ),
 			],
 			'cyber-monday' => [
-				'start' => '2024-12-02',
-				'end'   => '2024-12-04',
+				'start' => '2025-11-29',
+				'end'   => '2025-12-03',
 				'text'  => esc_html__( 'Cyber Monday Sale', 'rank-math' ),
+			],
+			'christmas'    => [
+				'start' => '2025-12-24',
+				'end'   => '2025-12-31',
+				'text'  => esc_html__( 'Christmas Sale', 'rank-math' ),
+			],
+			'new-year'     => [
+				'start' => '2025-12-31',
+				'end'   => '2026-01-07',
+				'text'  => esc_html__( 'New Year Sale', 'rank-math' ),
 			],
 		];
 

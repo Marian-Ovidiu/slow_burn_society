@@ -3,7 +3,6 @@
 namespace Hostinger\Reach\Api\Routes;
 
 use Hostinger\Reach\Api\Handlers\IntegrationsApiHandler;
-use Hostinger\Reach\Providers\IntegrationsProvider;
 
 if ( ! defined( 'ABSPATH' ) ) {
     die;
@@ -40,7 +39,7 @@ class IntegrationsRoutes extends Routes {
                         'required'          => true,
                         'type'              => 'string',
                         'validate_callback' => function ( $param ) {
-                            return array_key_exists( $param, IntegrationsProvider::INTEGRATIONS );
+                            return array_key_exists( $param, IntegrationsApiHandler::get_integrations() );
                         },
                     ),
                     'is_active'   => array(

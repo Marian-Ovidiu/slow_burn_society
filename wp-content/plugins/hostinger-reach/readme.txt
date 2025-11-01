@@ -4,7 +4,7 @@ Contributors: hostinger
 Requires at least: 6.0
 Requires PHP: 8.0
 Tested up to: 6.8
-Stable tag: 1.0.9
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -225,3 +225,50 @@ Not yet. Currently, Reach is focused on one-time newsletters and promotional cam
 - Feature: Send metadata with contacts
 - Feature: Readme update
 - Feature: Dependency update
+
+1.0.10 (2025-09-25)
+
+- Fix: Context menu dropdown
+- Fix: Change elementor logo
+- Tweak: Refactor FE Integration logic
+- tweak: Integrate Review plugin step in CSAT
+- Dev: Implement Coderabbit
+- Dev: Add automated Jira integration for release workflow
+- Dev: Fix Release Updater errors
+- Dev: Bump dependencies
+
+1.0.11 (2025-09-30)
+
+- Tweak: Add Pagination in Add form pages list
+- Tweak:  Include platform metadata in contact submission
+- Tweak: Bump dependencies
+
+1.0.12 (2025-10-07)
+
+- Fix: Broken links in pagination
+
+1.0.13 (2025-10-09)
+
+- Dev: Workflow optimisation
+- Fix: Prevent sending non existent contact list
+
+1.0.14 (2025-10-14)
+
+- Fix: Dialog style (z-index, link color, hide after 10s)
+
+1.1.0 (2025-10-21)
+
+- Feature: Allow 3rd party integrations
+
+1.1.1 (2025-10-21)
+
+- Fix: Fatal error on plugin installation
+- Tweak: Update translations
+- Dev: Remove unused workflows
+
+1.2.0 (2025-10-28)
+
+- Feature: Tracking for Abandoned carts
+- Feature: Tracking for Purchases
+- Feature: Add WordPress Admin Notice for Connecting Reach
+- Tweak: Updated Translations

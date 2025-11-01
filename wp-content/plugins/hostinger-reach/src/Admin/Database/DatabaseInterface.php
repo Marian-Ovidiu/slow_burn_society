@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Admin\Database;
 
-
 if ( ! defined( 'ABSPATH' ) ) {
     die;
 }

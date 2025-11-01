@@ -60,13 +60,15 @@ class ReachFormIntegration extends IntegrationWithForms implements IntegrationIn
 
     public function get_plugin_data( array $plugin_data ): array {
         $plugin_data[ self::INTEGRATION_NAME ] = array(
-            'is_active'        => true,
-            'is_plugin_active' => true,
-            'title'            => __( 'Hostinger Reach', 'hostinger-reach' ),
-            'admin_url'        => 'admin.php?page=hostinger-reach',
-            'add_form_url'     => 'post-new.php?post_type=page&hostinger_reach_add_block=1',
-            'edit_url'         => 'post.php?post={post_id}&action=edit',
-            'url'              => 'https://wordpress.org/plugins/hostinger-reach',
+            'is_active'           => true,
+            'is_plugin_active'    => true,
+            'title'               => __( 'Hostinger Reach', 'hostinger-reach' ),
+            'admin_url'           => 'admin.php?page=hostinger-reach',
+            'add_form_url'        => 'post-new.php?post_type=page&hostinger_reach_add_block=1',
+            'edit_url'            => 'post.php?post={post_id}&action=edit',
+            'url'                 => 'https://wordpress.org/plugins/hostinger-reach',
+            'is_view_form_hidden' => false,
+            'can_toggle_forms'    => false,
         );
 
         return $plugin_data;

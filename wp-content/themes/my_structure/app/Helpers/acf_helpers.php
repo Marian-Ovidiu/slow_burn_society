@@ -194,3 +194,123 @@ function my_acf_location_options_page($match, $rule, $options)
     }
     return $match;
 }
+// 1. Estrai primo paragrafo utile dai blocchi
+function sbs_first_paragraph_from_blocks($post_id) {
+  $post = get_post($post_id);
+  if (!$post) return '';
+  $blocks = parse_blocks($post->post_content);
+
+  $walker = function($blocks) use (&$walker) {
+    foreach ($blocks as $b) {
+      if ($b['blockName'] === 'core/paragraph') {
+        $html = render_block($b);
+        $text = wp_strip_all_tags($html);
+        if (trim($text) !== '') return $text;
+      }
+      if (!empty($b['innerBlocks'])) {
+        $found = $walker($b['innerBlocks']);
+        if ($found) return $found;
+      }
+    }
+    return '';
+  };
+
+  return $walker($blocks) ?: '';
+}
+
+// 2. Estrai FAQ: preferisci blocchi core/details; fallback a sezione "FAQ" con H3 + paragrafi
+function sbs_faq_from_blocks($post_id) {
+  $post = get_post($post_id);
+  if (!$post) return [];
+  $blocks = parse_blocks($post->post_content);
+  $faq = [];
+
+  $scan = function($blocks) use (&$scan, &$faq) {
+    $last_h = null;
+    foreach ($blocks as $b) {
+      // A) core/details → summary = domanda, inner content = risposta
+      if ($b['blockName'] === 'core/details') {
+        $summary = $b['attrs']['summary'] ?? '';
+        if (!$summary) {
+          // a seconda della versione WP il summary può essere dentro innerHTML
+          $summary = wp_strip_all_tags($b['innerHTML'] ?? '');
+          $summary = preg_replace('/\s+/', ' ', $summary);
+        }
+        $answerHtml = render_block($b);
+        $answerText = wp_strip_all_tags(preg_replace('/^.*<\/summary>/s', '', $answerHtml));
+        if ($summary && trim($answerText)) {
+          $faq[] = ['q' => trim($summary), 'a' => trim($answerText)];
+        }
+      }
+
+      // B) Pattern H3 + paragrafo immediato (sezione FAQ)
+      if ($b['blockName'] === 'core/heading' && isset($b['attrs']['level']) && (int)$b['attrs']['level'] === 3) {
+        $hText = wp_strip_all_tags(render_block($b));
+        $last_h = trim($hText);
+      } elseif ($last_h && $b['blockName'] === 'core/paragraph') {
+        $pText = wp_strip_all_tags(render_block($b));
+        if (trim($pText) !== '') {
+          $faq[] = ['q' => $last_h, 'a' => trim($pText)];
+          $last_h = null;
+        }
+      } else {
+        $last_h = null;
+      }
+
+      if (!empty($b['innerBlocks'])) $scan($b['innerBlocks']);
+    }
+  };
+
+  $scan($blocks);
+  return $faq;
+}
+
+// 3. Estrai CTA prodotti da gruppi con classe .sbs-product
+function sbs_products_from_blocks($post_id) {
+  $post = get_post($post_id);
+  if (!$post) return [];
+  $blocks = parse_blocks($post->post_content);
+  $out = [];
+
+  $scan = function($blocks) use (&$scan, &$out) {
+    foreach ($blocks as $b) {
+      $class = $b['attrs']['className'] ?? '';
+      if ($b['blockName'] === 'core/group' && is_string($class) && strpos($class, 'sbs-product') !== false) {
+        $html = render_block($b);
+        // fallback semplice via DOM: titolo (h4/h3), img, primo link
+        $doc = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $doc->loadHTML('<?xml encoding="utf-8" ?>'.$html);
+        libxml_clear_errors();
+
+        $xpath = new DOMXPath($doc);
+        $titleNode = $xpath->query('//h3|//h4')->item(0);
+        $imgNode   = $xpath->query('//img')->item(0);
+        $linkNode  = $xpath->query('//a[@href]')->item(0);
+
+        $name = $titleNode ? trim($titleNode->textContent) : '';
+        $img  = $imgNode ? $imgNode->getAttribute('src') : '';
+        $url  = $linkNode ? $linkNode->getAttribute('href') : '';
+        if ($name || $url) {
+          $out[] = ['name'=>$name, 'image'=>$img, 'url'=>$url];
+        }
+      }
+      if (!empty($b['innerBlocks'])) $scan($b['innerBlocks']);
+    }
+  };
+
+  $scan($blocks);
+  return $out;
+}
+
+// 4. Reading time auto con override opzionale via ACF (se proprio lo vuoi)
+function sbs_reading_time_minutes($post_id) {
+  $content = wp_strip_all_tags(get_post_field('post_content', $post_id));
+  $words = str_word_count($content);
+  $auto = max(1, (int) ceil($words / 220));
+  if (function_exists('get_field')) {
+    $ov = (int) get_field('reading_time_override', $post_id);
+    if ($ov > 0) return $ov;
+  }
+  return $auto;
+}

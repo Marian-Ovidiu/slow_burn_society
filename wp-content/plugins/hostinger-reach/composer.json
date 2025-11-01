@@ -57,7 +57,8 @@
         "hostinger/hostinger-wp-menu-manager": "^1.2",
         "psr/container": "^2.0@dev",
         "hostinger/hostinger-wp-surveys": "^1.0",
-        "hostinger/hostinger-wp-helper": "^1.0"
+        "hostinger/hostinger-wp-helper": "^1.0",
+        "woocommerce/action-scheduler": "^3.9"
     },
     "minimum-stability": "dev"
 }

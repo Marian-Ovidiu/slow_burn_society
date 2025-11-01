@@ -3,10 +3,9 @@
 namespace Hostinger\Reach\Integrations\WooCommerce;
 
 use Automattic\WooCommerce\Internal\Admin\Onboarding\OnboardingProfile;
-use Hostinger\Reach\Api\Handlers\IntegrationsApiHandler;
-use Hostinger\Reach\Api\Handlers\ReachApiHandler;
 use Hostinger\Reach\Integrations\IntegrationInterface;
 use Hostinger\Reach\Integrations\IntegrationWithForms;
+use Hostinger\Reach\Dto\PluginData;
 use Hostinger\Reach\Repositories\FormRepository;
 use WC_Order;
 use WP_Post;
@@ -14,18 +13,10 @@ use WP_REST_Request;
 
 class WooCommerceIntegration extends IntegrationWithForms implements IntegrationInterface {
     public FormRepository $form_repository;
-    protected IntegrationsApiHandler $integrations_api_handler;
-    protected ReachApiHandler $reach_api_handler;
 
     public const INTEGRATION_NAME     = 'woocommerce';
     public const OPTIN_KEY            = 'hostinger_reach_optin';
     public const ORDER_META_OPTIN_KEY = '_wc_other/hostinger-reach/newsletter-optin';
-
-    public function __construct( FormRepository $form_repository, IntegrationsApiHandler $integrations_api_handler, ReachApiHandler $reach_api_handler ) {
-        parent::__construct( $form_repository );
-        $this->reach_api_handler        = $reach_api_handler;
-        $this->integrations_api_handler = $integrations_api_handler;
-    }
 
     public static function get_name(): string {
         return self::INTEGRATION_NAME;
@@ -34,10 +25,10 @@ class WooCommerceIntegration extends IntegrationWithForms implements Integration
     public function init(): void {
         parent::init();
         add_action( 'hostinger_reach_integration_activated', array( $this, 'set_woocommerce_onboarding_skipped' ) );
-        if ( $this->integrations_api_handler->is_active( self::INTEGRATION_NAME ) ) {
-            $this->add_form();
-        }
+    }
 
+    public function active_integration_hooks(): void {
+        $this->add_form();
         if ( $this->form_repository->is_form_active( self::INTEGRATION_NAME ) ) {
             $this->init_optin_actions();
 
@@ -54,7 +45,15 @@ class WooCommerceIntegration extends IntegrationWithForms implements Integration
             add_action( 'woocommerce_blocks_loaded', array( $this, 'register_checkout_blocks_field' ) );
         }
 
-        add_action( 'woocommerce_store_api_checkout_update_order_from_request', array( $this, 'handle_checkout_blocks_optin' ), 10, 2 );
+        add_action(
+            'woocommerce_store_api_checkout_update_order_from_request',
+            array(
+                $this,
+                'handle_checkout_blocks_optin',
+            ),
+            10,
+            2
+        );
         add_action( 'woocommerce_checkout_after_terms_and_conditions', array( $this, 'add_optin_checkbox' ) );
     }
 
@@ -136,7 +135,8 @@ class WooCommerceIntegration extends IntegrationWithForms implements Integration
         $name    = $order->get_billing_first_name();
         $surname = $order->get_billing_last_name();
         if ( $email ) {
-            $this->reach_api_handler->post_contact(
+            do_action(
+                'hostinger_reach_submit',
                 array(
                     'group'    => self::INTEGRATION_NAME,
                     'email'    => $email,
@@ -150,19 +150,21 @@ class WooCommerceIntegration extends IntegrationWithForms implements Integration
         }
     }
 
-    public function get_plugin_data( array $plugin_data ): array {
-        $plugin_data[ self::INTEGRATION_NAME ] = array(
-            'folder'       => 'woocommerce',
-            'file'         => 'woocommerce.php',
-            'admin_url'    => 'admin.php?page=wc-admin',
-            'add_form_url' => null,
-            'edit_url'     => null,
-            'url'          => 'https://wordpress.org/plugins/woocommerce/',
-            'download_url' => 'https://downloads.wordpress.org/plugin/woocommerce.zip',
-            'title'        => __( 'WooCommerce', 'hostinger-reach' ),
+    public function get_plugin_data(): PluginData {
+        return PluginData::from_array(
+            array(
+                'id'                  => self::INTEGRATION_NAME,
+                'folder'              => 'woocommerce',
+                'file'                => 'woocommerce.php',
+                'admin_url'           => 'admin.php?page=wc-admin',
+                'add_form_url'        => null,
+                'edit_url'            => null,
+                'url'                 => 'https://wordpress.org/plugins/woocommerce/',
+                'download_url'        => 'https://downloads.wordpress.org/plugin/woocommerce.zip',
+                'title'               => __( 'WooCommerce', 'hostinger-reach' ),
+                'is_edit_form_hidden' => true,
+            )
         );
-
-        return $plugin_data;
     }
 
     public function get_form_ids( WP_Post $post ): array {

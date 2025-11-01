@@ -20,7 +20,7 @@ class Functions {
         return HOSTINGER_REACH_PLUGIN_DIR . 'frontend/dist/';
     }
 
-    public function get_frontend_url(): string {
+    public static function get_frontend_url(): string {
         return HOSTINGER_REACH_PLUGIN_URL . 'frontend/dist/';
     }
 
@@ -39,7 +39,7 @@ class Functions {
     }
 
     public function get_blocks_url(): string {
-        return $this->get_frontend_url() . 'blocks/';
+        return Functions::get_frontend_url() . 'blocks/';
     }
 
     public function need_to_load_assets(): bool {
@@ -194,5 +194,10 @@ class Functions {
         }
 
         return $parsed_blocks;
+    }
+
+    public function get_icon_url( string $icon = 'hostinger-reach' ): string {
+        $icon_url = HOSTINGER_REACH_PLUGIN_URL . "frontend/dist/icons/$icon.svg";
+        return $icon_url;
     }
 }

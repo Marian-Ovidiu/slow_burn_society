@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Repositories;
 
-
 use Exception;
 use Hostinger\Reach\Admin\Database\ContactListsTable;
 use Hostinger\Reach\Models\ContactList;

@@ -3,7 +3,7 @@
  * Plugin Name:       Hostinger Reach
  * Plugin URI:        https://hostinger.com
  * Description:       Integrate your WordPress site with Hostinger Reach.
- * Version:           1.0.9
+ * Version:           1.2.0
  * Author:            Hostinger
  * Requires PHP:      8.0
  * Requires at least: 6.0
@@ -25,8 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     die;
 }
 
-define( 'HOSTINGER_REACH_PLUGIN_VERSION', '1.0.9' );
-define( 'HOSTINGER_REACH_DB_VERSION', '1.0.0' );
+define( 'HOSTINGER_REACH_PLUGIN_VERSION', '1.2.0' );
+define( 'HOSTINGER_REACH_DB_VERSION', '1.1.1' );
 define( 'HOSTINGER_REACH_MINIMUM_PHP_VERSION', '8.0' );
 define( 'HOSTINGER_REACH_PLUGIN_FILE', __FILE__ );
 define( 'HOSTINGER_REACH_PLUGIN_SLUG', basename( __FILE__, '.php' ) );
@@ -35,6 +35,8 @@ define( 'HOSTINGER_REACH_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HOSTINGER_REACH_PLUGIN_REST_API_BASE', 'hostinger-reach/v1' );
 define( 'HOSTINGER_REACH_REST_URI', 'https://reach.hostinger.com' );
 define( 'HOSTINGER_REACH_DEFAULT_CONTACT_LIST', 'WordPress' );
+define( 'HOSTINGER_INTEGRATIONS_SUPPORTED', true );
+define( 'HOSTINGER_REACH_DEFAULT_ABANDONED_CART_THRESHOLD', 4 * HOUR_IN_SECONDS );
 
 $hostinger_dir_parts        = explode( '/', __DIR__ );
 $hostinger_server_root_path = '/' . $hostinger_dir_parts[1] . '/' . $hostinger_dir_parts[2];
@@ -99,3 +101,4 @@ if ( ! function_exists( 'hostinger_add_surveys' ) ) {
 if ( ! empty( $_SERVER['H_PLATFORM'] ) && ! has_action( 'plugins_loaded', 'hostinger_add_surveys' ) ) {
     add_action( 'plugins_loaded', 'hostinger_add_surveys' );
 }
+

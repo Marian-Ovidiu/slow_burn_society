@@ -3,7 +3,7 @@
         'name' => 'hostinger/hostinger-reach',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f142ef65484ad1fe1e0378202523859b3ba8e771',
+        'reference' => 'd8deb73dc5cc9123fffaa17f9be5b211e572c1d4',
         'type' => 'plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'automattic/jetpack-autoloader' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => '272f0a1e119175623b440699e7af79de2a6ed44b',
+            'reference' => 'efcd7efe42929949dfd96c174e93ed0c8f0f7b0b',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/../automattic/jetpack-autoloader',
             'aliases' => array(
@@ -24,7 +24,7 @@
         'hostinger/hostinger-reach' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f142ef65484ad1fe1e0378202523859b3ba8e771',
+            'reference' => 'd8deb73dc5cc9123fffaa17f9be5b211e572c1d4',
             'type' => 'plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -49,9 +49,9 @@
             'dev_requirement' => false,
         ),
         'hostinger/hostinger-wp-surveys' => array(
-            'pretty_version' => '1.1.15',
-            'version' => '1.1.15.0',
-            'reference' => 'c27cc360f85cbc30f572b8e8bca9774487e64cfb',
+            'pretty_version' => '1.1.17',
+            'version' => '1.1.17.0',
+            'reference' => 'aa4be24d62556614524caebcda8c8965bc719e63',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hostinger/hostinger-wp-surveys',
             'aliases' => array(),
@@ -66,6 +66,15 @@
             'aliases' => array(
                 0 => '2.0.x-dev',
             ),
+            'dev_requirement' => false,
+        ),
+        'woocommerce/action-scheduler' => array(
+            'pretty_version' => '3.9.3',
+            'version' => '3.9.3.0',
+            'reference' => 'c58cdbab17651303d406cd3b22cf9d75c71c986c',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../woocommerce/action-scheduler',
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
     ),

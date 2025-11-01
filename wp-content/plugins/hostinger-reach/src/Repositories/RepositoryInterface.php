@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Repositories;
 
-
 if ( ! defined( 'ABSPATH' ) ) {
     die;
 }

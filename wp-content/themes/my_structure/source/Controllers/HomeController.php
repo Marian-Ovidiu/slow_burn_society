@@ -122,4 +122,77 @@ class HomeController extends BaseController
             'kitsForJs'     => $kitsForJs,
         ]);
     }
+
+    public function blog()
+    {
+    // --- Filtri da querystring ---
+    $q     = isset($_GET['q'])   ? sanitize_text_field($_GET['q']) : '';
+    $cat   = isset($_GET['cat']) ? sanitize_key($_GET['cat'])      : ''; // slug categoria
+    $sort  = isset($_GET['sort'])? sanitize_key($_GET['sort'])     : 'new';
+    $paged = max(1, get_query_var('paged') ?: (isset($_GET['paged']) ? (int) $_GET['paged'] : 1));
+
+    // --- Query articoli ---
+    $args = [
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => 10,
+        'paged'          => $paged,
+        's'              => $q,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ];
+
+    if ($cat) {
+        // Slug della categoria (es. "cbd", "accessori")
+        $args['category_name'] = $cat;
+    }
+
+    // Ordina per "più letti" se richiesto (usa la tua meta key views)
+    if ($sort === 'pop') {
+        $args['meta_key'] = 'post_views_count'; // cambia se usi un'altra chiave
+        $args['orderby']  = 'meta_value_num';
+        $args['order']    = 'DESC';
+    }
+
+    $query = new \WP_Query($args);
+
+    // --- Featured: preferisci sticky; se non c'è, prendi il primo della lista ---
+    $featured = null;
+    $sticky   = get_option('sticky_posts');
+
+    if (!empty($sticky)) {
+        $featQ = new \WP_Query([
+            'post__in'            => $sticky,
+            'posts_per_page'      => 1,
+            'ignore_sticky_posts' => 1,
+        ]);
+        if ($featQ->have_posts()) {
+            $featQ->the_post();
+            $featured = get_post();
+            wp_reset_postdata();
+        }
+    }
+    if (!$featured && $query->have_posts()) {
+        $featured = $query->posts[0];
+    }
+
+    // --- Dati sidebar ---
+    $categories  = get_categories(['hide_empty' => true]);
+    $popularTags = get_terms([
+        'taxonomy'   => 'post_tag',
+        'orderby'    => 'count',
+        'order'      => 'DESC',
+        'number'     => 12,
+        'hide_empty' => true,
+    ]);
+
+    // --- Pagination compat con i tuoi helper Blade (usa il WP global) ---
+    global $wp_query;
+    $wp_query = $query; // così get_next_posts_link / get_previous_posts_link funzionano
+
+    // La tua view usa $latest come lista dei post
+    $latest = $query->posts;
+
+    $this->render('home_for_blog', compact('latest', 'featured', 'categories', 'popularTags'));
+    }
 }

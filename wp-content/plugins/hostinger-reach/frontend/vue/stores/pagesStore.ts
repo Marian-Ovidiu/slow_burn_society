@@ -1,33 +1,32 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 
+import { useServerPagination } from '@/composables/useServerPagination';
 import { pagesRepo } from '@/data/repositories/pagesRepo';
 import { STORE_PERSISTENT_KEYS } from '@/types/enums';
-import type { WordPressPagesList } from '@/types/models/pagesModels';
+import type { WordPressPage } from '@/types/models/pagesModels';
 
 export const usePagesStore = defineStore(
 	'pagesStore',
 	() => {
-		const pages = ref<WordPressPagesList>([]);
-		const isPagesLoading = ref(false);
-
-		const loadPages = async () => {
-			isPagesLoading.value = true;
-
-			const [data, err] = await pagesRepo.getPagesWithSubscriptionBlock();
-			isPagesLoading.value = false;
-
-			if (err) {
-				return;
+		const serverPagination = useServerPagination<WordPressPage>(
+			async (page: number, perPage: number) =>
+				await pagesRepo.getPagesWithSubscriptionBlock({ page, perPage }, undefined),
+			{
+				itemsPerPage: 10,
+				initialPage: 1,
+				autoLoad: false
 			}
+		);
 
-			pages.value = data ?? [];
+		const resetToFirstPage = async () => {
+			await serverPagination.goToPage(1);
 		};
 
 		return {
-			pages,
-			isPagesLoading,
-			loadPages
+			pages: serverPagination.items,
+			isPagesLoading: serverPagination.isLoading,
+			resetToFirstPage,
+			...serverPagination
 		};
 	},
 	{

@@ -1,7 +1,7 @@
 import { useGeneralDataStore } from '@/stores/generalDataStore';
 import { Header } from '@/types/enums';
-import { AuthorizeRequestHeaders } from '@/types/models';
-import { OverviewData } from '@/types/models/reachDataModels';
+import type { AuthorizeRequestHeaders } from '@/types/models';
+import type { OverviewData } from '@/types/models/reachDataModels';
 import { generateCorrelationId } from '@/utils/helpers';
 import httpService from '@/utils/services/httpService';
 

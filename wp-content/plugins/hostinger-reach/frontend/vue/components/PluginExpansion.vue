@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import FormItem from '@/components/FormItem.vue';
-import type { Form } from '@/types/models';
+import type { Form, Integration } from '@/types/models';
 import { toKebabCase } from '@/utils/caseConversion';
 import { translate } from '@/utils/translate';
 
 interface Props {
-	pluginId: string;
+	integration: Integration;
 	forms: Form[];
 }
 
-const { pluginId, forms } = defineProps<Props>();
+const { integration, forms } = defineProps<Props>();
 
 const emit = defineEmits<{
 	toggleFormStatus: [form: Form, status: boolean];
@@ -19,11 +19,12 @@ const emit = defineEmits<{
 </script>
 
 <template>
-	<div :id="`plugin-expansion-${toKebabCase(pluginId)}`" class="plugin-expansion-content">
+	<div :id="`plugin-expansion-${toKebabCase(integration.id)}`" class="plugin-expansion-content">
 		<div v-if="forms.length > 0" class="plugin-expansion-content__forms-list">
 			<FormItem
 				v-for="(form, index) in forms"
 				:key="form.formId"
+				:integration="integration"
 				:form="form"
 				:class="{
 					'plugin-expansion-content__form-item--with-top-spacing': forms.length > 1 && index !== 0,

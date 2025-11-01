@@ -4,6 +4,7 @@ namespace Hostinger\Reach\Api\Routes;
 
 use Hostinger\Reach\Api\ApiKeyManager;
 use Hostinger\Reach\Api\Handlers\ReachApiHandler;
+use Hostinger\Reach\Repositories\ContactListRepository;
 use WP_REST_Request;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,9 +15,12 @@ class ReachRoutes extends Routes {
     private ReachApiHandler $handler;
     private ApiKeyManager $api_key_manager;
 
-    public function __construct( ReachApiHandler $handler, ApiKeyManager $api_key_manager ) {
-        $this->handler         = $handler;
-        $this->api_key_manager = $api_key_manager;
+    private ContactListRepository $contact_list_repository;
+
+    public function __construct( ReachApiHandler $handler, ApiKeyManager $api_key_manager, ContactListRepository $contact_list_repository ) {
+        $this->handler                 = $handler;
+        $this->api_key_manager         = $api_key_manager;
+        $this->contact_list_repository = $contact_list_repository;
     }
 
     public function register_routes(): void {
@@ -33,9 +37,10 @@ class ReachRoutes extends Routes {
                         'type'     => 'string',
                     ),
                     'group'    => array(
-                        'required' => false,
-                        'default'  => HOSTINGER_REACH_DEFAULT_CONTACT_LIST,
-                        'type'     => 'string',
+                        'required'          => false,
+                        'default'           => HOSTINGER_REACH_DEFAULT_CONTACT_LIST,
+                        'type'              => 'string',
+                        'validate_callback' => array( $this, 'is_valid_contact_list' ),
                     ),
                     'email'    => array(
                         'required'          => true,
@@ -110,5 +115,9 @@ class ReachRoutes extends Routes {
                 'permission_callback' => array( $this, 'permission_check' ),
             )
         );
+    }
+
+    public function is_valid_contact_list( string $param ): bool {
+        return $param === '' || $this->contact_list_repository->exists( $param );
     }
 }

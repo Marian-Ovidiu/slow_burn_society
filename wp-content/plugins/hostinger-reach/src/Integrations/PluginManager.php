@@ -2,6 +2,7 @@
 
 namespace Hostinger\Reach\Integrations;
 
+use Hostinger\Reach\Dto\PluginData;
 use Plugin_Upgrader;
 use Plugin_Upgrader_Skin;
 use WP_Error;
@@ -27,8 +28,12 @@ class PluginManager {
         require_once ABSPATH . 'wp-admin/includes/theme.php';
 
         $plugin = $this->get_plugin( $plugin_name );
+        if ( is_null( $plugin ) ) {
+            return new WP_Error( 'plugin_not_found', 'Plugin not found' );
+        }
 
-        $temp_file = download_url( $plugin['download_url'] );
+        $plugin_data = $plugin->to_array();
+        $temp_file   = download_url( $plugin_data['download_url'] );
 
         if ( is_wp_error( $temp_file ) ) {
             return $temp_file;
@@ -70,17 +75,22 @@ class PluginManager {
 
     public function get_plugin_path( string $plugin_name ): string {
         $plugin = $this->get_plugin( $plugin_name );
-
-        if ( ! isset( $plugin['folder'] ) || ! isset( $plugin['file'] ) ) {
+        if ( is_null( $plugin ) ) {
             return '/';
         }
 
-        return $plugin['folder'] . '/' . $plugin['file'];
+        $plugin_data = $plugin->to_array();
+
+        if ( ! isset( $plugin_data['folder'] ) || ! isset( $plugin_data['file'] ) ) {
+            return '/';
+        }
+
+        return $plugin_data['folder'] . '/' . $plugin_data['file'];
     }
 
-    public function get_plugin( string $plugin_name ): array {
+    public function get_plugin( string $plugin_name ): ?PluginData {
         $plugin_data = self::plugin_data();
 
-        return $plugin_data[ $plugin_name ] ?? array();
+        return $plugin_data[ $plugin_name ] ?? null;
     }
 }

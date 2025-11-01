@@ -15,6 +15,15 @@ class App extends Init
     public function registerHook()
     {
         add_action('after_setup_theme', 'my_theme_setup');
+        add_action('after_setup_theme', function () {
+            add_theme_support('wp-block-styles');     // stili base blocchi
+            add_theme_support('align-wide');          // allineamento wide/full
+            add_theme_support('responsive-embeds');   // embed responsive
+            add_theme_support('editor-styles');
+            add_theme_support('post-thumbnails', ['post']); // aggiungi CPT se vuoi
+            add_image_size('sbs-card', 800, 450, true);     // 16:9 per card
+            add_image_size('sbs-hero', 1600, 900, true);    // 16:9 per hero      // CSS custom nell’editor
+        });
         add_action('widgets_init', 'register_my_widgets');
         add_action('admin_menu', 'my_custom_options_page');
         add_action('load-toplevel_page_opzioni-generali', 'acf_form_head');

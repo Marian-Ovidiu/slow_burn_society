@@ -40,6 +40,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24..48,100..700,0..1,-50..200"
         rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
     <style>
         .material-symbols-rounded {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -178,6 +181,25 @@
                     opacity: .35
                 }
             }
+
+            h1,
+            h2,
+            h3 {
+                font-family: 'Bebas Neue', sans-serif;
+                letter-spacing: .5px;
+                text-transform: uppercase;
+            }
+
+            body {
+                font-family: 'Nunito Sans', sans-serif;
+                color: #1a1a1a;
+                background-color: #f9f7f4;
+            }
+
+            strong,
+            a {
+                color: #ff5a00;
+            }
         </style>
     @endif
 
@@ -190,7 +212,7 @@
     class="min-h-screen bg-transparent font-sans flex flex-col antialiased @hasSection('trippy')
 text-white
 @else
-text-gray-800
+text-gray-600
 @endif">
 
     {{-- BACKGROUND TRIPPY (render solo se @section('trippy') è presente nella pagina) --}}
@@ -213,7 +235,7 @@ text-gray-800
     {{-- MAIN --}}
     <main id="main-content" class="flex-1 container mx-auto relative z-10" role="main">
         @yield('content')
-     
+
     </main>
 
     {{-- FOOTER --}}

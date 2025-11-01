@@ -10,38 +10,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-31T11:19:40+03:00\n"
-"PO-Revision-Date: 2025-08-16 08:02+0000\n"
+"PO-Revision-Date: 2025-10-28 12:35+0000\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: hostinger-reach\n"
 "Language: he_IL\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.8.0; wp-6.8.2; php-8.2.27"
 
-#: src/Setup/Assets.php:135
+#: src/Setup/Assets.php:142
 msgid "(no title)"
 msgstr "(ללא כותרת)"
 
-#: src/Setup/Assets.php:123 src/Setup/Assets.php:138
+#: src/Setup/Assets.php:128 src/Setup/Assets.php:145
 msgid "Active"
 msgstr "פעיל"
 
-#: src/Setup/Assets.php:98 src/Setup/Assets.php:99 src/Setup/Assets.php:115
+#: src/Setup/Assets.php:103 src/Setup/Assets.php:104 src/Setup/Assets.php:120
+#: src/Setup/Assets.php:134
 msgid "Add form"
 msgstr "הוסף טופס"
 
-#: hostinger-reach.php:49
+#: src/Admin/Surveys/SatisfactionSurvey.php:25
+#, fuzzy
+msgid "Any ideas or feedback to help us improve Hostinger Reach?"
+msgstr "יש לכם רעיונות או משוב שיעזרו לנו לשפר את Hostinger Reach?"
+
+#: hostinger-reach.php:52
 msgid "Attention:"
 msgstr "שימו לב:"
 
-#: src/Setup/Assets.php:87
+#: src/Setup/Assets.php:92
 msgid "Average CTOR"
 msgstr "CTOR ממוצע"
 
-#: src/Setup/Assets.php:111
+#: src/Setup/Assets.php:116
 msgid "Background image for"
 msgstr "תמונת רקע עבור"
 
-#: src/Setup/Assets.php:110
+#: src/Setup/Assets.php:115
 msgid "Banner background image for"
 msgstr "תמונת רקע לבאנר עבור"
 
@@ -56,15 +62,15 @@ msgid "Reach Subscription Form"
 msgstr ""
 "טופס הרשמה Reach\n"
 
-#: src/Setup/Assets.php:85
+#: src/Setup/Assets.php:90
 msgid "Campaigns"
 msgstr "קמפיינים"
 
-#: src/Setup/Assets.php:118
+#: src/Setup/Assets.php:123
 msgid "Cancel "
 msgstr "ביטול"
 
-#: src/Setup/Assets.php:97
+#: src/Setup/Assets.php:102
 #| msgid ""
 #| "Choose how you’d like to manage forms on your website. Create a new form "
 #| "with Hostinger Reach or connect a third-party plugin."
@@ -75,7 +81,7 @@ msgstr ""
 "בחרו כיצד ברצונכם לנהל טפסים באתר שלכם. צרו טופס חדש באמצעות Hostinger Reach "
 "או חברו תוסף צד-שלישי."
 
-#: src/Setup/Assets.php:113
+#: src/Setup/Assets.php:118
 msgid ""
 "Click-to-open rate tells you what percent of opens resulted in a click too. "
 "A good CTOR is 6-17%, depending on your industry."
@@ -83,39 +89,62 @@ msgstr ""
 "שיעור הקליקים לפתיחה מציין איזה אחוז מהפתיחות הובילו גם לקליק. שיעור קליקים "
 "לפתיחה טוב הוא 6-17%, בהתאם לתעשייה שבה אתם פועלים."
 
-#: src/Setup/Assets.php:133
+#: src/Setup/Assets.php:140
 msgid "Collapse {pluginName} details"
 msgstr "הסתר פרטי {pluginName}"
 
-#: src/Setup/Assets.php:146
+#: src/Admin/Notices/ConnectionNotice.php:104 src/Setup/Assets.php:153
 msgid "Connect"
 msgstr "התחברו"
 
+#: src/Admin/Notices/ConnectionNotice.php:99
+#, fuzzy
+msgid "Connect Hostinger Reach to start Email Marketing"
+msgstr "חבר את Hostinger Reach כדי להתחיל בשיווק בדוא\"ל"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:16
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:49
+#: frontend/dist/blocks/subscription.js:51
+#, fuzzy
 msgid "Connect Now"
-msgstr "התחברו עכשיו"
+msgstr "התחבר עכשיו"
 
-#: src/Setup/Assets.php:74
+#: src/Setup/Assets.php:79
 msgid "Connect site"
 msgstr "חברו אתר"
 
-#: src/Integrations/PluginManager.php:24 src/Setup/Assets.php:130
+#: src/Admin/Notices/ConnectionNotice.php:100
+#, fuzzy
+msgid ""
+"Connect your Hostinger Reach account to start sending newsletters and "
+"managing subscribers. With Hostinger Reach, it's easy to grow your audience "
+"in just one click."
+msgstr ""
+"חבר את חשבון Hostinger Reach שלך כדי להתחיל לשלוח ניוזלטרים ולנהל מנויים. עם "
+"Hostinger Reach, קל להגדיל את קהל היעד שלך בלחיצה אחת בלבד."
+
+#: src/Integrations/ContactForm7/ContactForm7Integration.php:91
+#: src/Setup/Assets.php:136
 msgid "Contact Form 7"
 msgstr "טופס יצירת קשר 7"
 
-#: frontend/blocks/subscription-block/src/edit.js:132
+#: frontend/blocks/subscription-block/src/edit.js:111
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:240
+#: frontend/dist/blocks/subscription.js:282
+#, fuzzy
 msgid "Contact List"
 msgstr "רשימת אנשי קשר"
 
-#: src/Setup/Assets.php:92
+#: src/Admin/Notices/ConnectionNotice.php:73
+#, fuzzy
+msgid "Could not generate auth URL"
+msgstr "לא ניתן ליצור כתובת URL לאימות"
+
+#: src/Setup/Assets.php:97
 msgid "Create campaign"
 msgstr "צרו קמפיין"
 
-#: src/Setup/Assets.php:70
+#: src/Setup/Assets.php:75
 msgid ""
 "Create email campaigns using AI-crafted templates that match your style. "
 "Instantly sync with your WordPress site and connect with your audience "
@@ -125,41 +154,49 @@ msgstr ""
 "לסגנון שלכם. סנכרנו באופן מיידי עם אתר WordPress שלכם וצרו קשר עם הקהל שלכם "
 "בקלות."
 
-#: src/Setup/Assets.php:141
+#: src/Setup/Assets.php:148
 msgid "Create form"
 msgstr "צרו טופס"
 
-#: frontend/blocks/subscription-block/src/edit.js:135
+#: frontend/blocks/subscription-block/src/edit.js:114
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:243
+#: frontend/dist/blocks/subscription.js:285
+#, fuzzy
 msgid "Create New List"
-msgstr "צרו רשימה חדשה"
+msgstr "צור רשימה חדשה"
 
-#: src/Setup/Assets.php:93
+#: src/Setup/Assets.php:98
 msgid "Create template"
 msgstr "צרו תבנית"
 
-#: src/Setup/Assets.php:145
+#: frontend/blocks/subscription-block/src/edit.js:30
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:201
+#, fuzzy
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: src/Setup/Assets.php:152
 msgid "Disconnect"
 msgstr "התנתקות"
 
-#: src/Setup/Assets.php:119
+#: src/Setup/Assets.php:124
 msgid "Disconnect "
 msgstr "התנתקות"
 
-#: src/Setup/Assets.php:72
+#: src/Setup/Assets.php:77
 msgid "Disconnect it to link this site instead."
 msgstr "נתקו אותו כדי לקשר את האתר הזה במקומו."
 
-#: src/Setup/Assets.php:128
+#: src/Setup/Assets.php:133
 msgid "Disconnect plugin"
 msgstr "נתקו את התוסף"
 
-#: src/Setup/Assets.php:116
+#: src/Setup/Assets.php:121
 msgid "Disconnect plugin?"
 msgstr "לנתק את התוסף?"
 
-#: src/Setup/Assets.php:117
+#: src/Setup/Assets.php:122
 msgid ""
 "Disconnecting will stop new contacts from being collected. You can reconnect "
 "or use a different form anytime."
@@ -167,14 +204,18 @@ msgstr ""
 "ניתוק ימנע איסוף אנשי קשר חדשים. תוכלו להתחבר מחדש או להשתמש בטופס אחר בכל "
 "עת."
 
-#: src/Setup/Assets.php:126
+#: src/Setup/Assets.php:131
 msgid "Edit form"
 msgstr "עריכת טופס"
 
-#: src/Blocks/SubscriptionFormBlock.php:59
-#: frontend/blocks/subscription-block/src/edit.js:181
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:289
+#: src/Integrations/Elementor/ElementorIntegration.php:88
+#: src/Setup/Assets.php:138
+#, fuzzy
+msgid "Elementor"
+msgstr "Elementor"
+
+#: src/Blocks/SubscriptionFormBlock.php:73
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:106
 msgid "Email"
 msgstr "אימייל"
 
@@ -182,48 +223,57 @@ msgstr "אימייל"
 msgid "Email Marketing"
 msgstr "שיווק באימייל"
 
-#: src/Setup/Assets.php:77
+#: src/Setup/Assets.php:82
 msgid "Email marketing background with gradient design"
 msgstr ""
 "רקע לשיווק באימייל עם עיצוב גרדיאנט\n"
 
-#: src/Setup/Assets.php:78
+#: src/Setup/Assets.php:83
 msgid ""
 "Email marketing illustration featuring envelopes and communication icons"
 msgstr ""
 "איור שיווק באימייל עם מעטפות ואייקוני תקשורת\n"
 
-#: src/Setup/Assets.php:82
+#: src/Setup/Assets.php:87
 msgid "Emails"
 msgstr "מיילים"
 
-#: src/Setup/Assets.php:121
+#: src/Setup/Assets.php:126
 msgid "Entries"
 msgstr "רשומות"
 
-#: src/Setup/Assets.php:132
+#: src/Setup/Assets.php:139
 msgid "Expand {pluginName} details"
 msgstr "הרחבת פרטי {pluginName}"
 
-#: src/Setup/Assets.php:102
+#: src/Setup/Assets.php:107
 msgid "FAQ"
 msgstr "שאלות נפוצות"
 
-#: frontend/blocks/subscription-block/src/edit.js:127
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:50
+#, fuzzy
+msgid "Form"
+msgstr "טופס"
+
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:58
+#: frontend/blocks/subscription-block/src/edit.js:106
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:235
+#: frontend/dist/blocks/subscription.js:277
 msgid "Form ID"
 msgstr "מזהה טופס"
 
-#: src/Setup/Assets.php:95
+#: src/Setup/Assets.php:100
 msgid "Forms"
 msgstr "טפסים"
 
-#: src/Setup/Assets.php:127
+#: src/Setup/Assets.php:132
 msgid "Go to plugin"
 msgstr "מעבר לתוסף"
 
-#: src/Setup/Assets.php:75
+#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:42
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:131
 msgid "Go to Reach"
 msgstr "מעבר אל Reach"
 
@@ -233,12 +283,14 @@ msgid "Hostinger"
 msgstr "Hostinger"
 
 #. Plugin Name of the plugin
-#: hostinger-reach.php src/Integrations/ReachFormIntegration.php:63
-#: src/Setup/Assets.php:76 src/Setup/Assets.php:129
+#: hostinger-reach.php
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:20
+#: src/Integrations/Reach/ReachFormIntegration.php:71 src/Setup/Assets.php:81
+#: src/Setup/Assets.php:135
 msgid "Hostinger Reach"
 msgstr "Hostinger Reach"
 
-#: src/Setup/Assets.php:104
+#: src/Setup/Assets.php:109
 msgid ""
 "Hostinger Reach is an AI-powered email marketing tool for small businesses "
 "and creators. It supports your entire email marketing journey—from building "
@@ -248,7 +300,7 @@ msgstr ""
 "תומך בכל מסע השיווק במייל שלכם – מבניית רשימות אנשי קשר ועד לשליחת קמפיינים "
 "ומעקב אחר התוצאות.\n"
 
-#: src/Setup/Assets.php:106
+#: src/Setup/Assets.php:111
 msgid ""
 "Hostinger Reach is built for simplicity, speed, and results – no design or "
 "marketing experience needed. Unlike most email tools, at the core of Reach "
@@ -270,18 +322,35 @@ msgstr ""
 "והקול של המותג שלכם. וכיוון שהתבניות נבנות לפי שיטות עבודה מומלצות מוכחות, "
 "הן מותאמות לקריאות, נגישות, ומעורבות גבוהה של הקוראים.\n"
 
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:38
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:127
+#, fuzzy
+msgid "Hostinger Reach Logo"
+msgstr "לוגו Hostinger Reach"
+
+#: src/Admin/Notices/ConnectionNotice.php:92
+#, fuzzy
+msgid "Hostinger Reach logo"
+msgstr "לוגו Hostinger Reach"
+
 #. translators: %s: PHP version
-#: hostinger-reach.php:51
+#: hostinger-reach.php:54
 msgid "Hostinger Reach requires minimum PHP version of <b>%s</b>. "
 msgstr "Hostinger Reach דורש גרסת PHP מינימלית של <b>%s</b>."
 
-#: src/Setup/Assets.php:105
+#: src/Setup/Assets.php:110
 msgid "How is Hostinger Reach different from other email marketing apps?"
 msgstr "במה Hostinger Reach שונה מאפליקציות אחרות לשיווק בדוא\"ל?"
 
-#: src/Setup/Assets.php:107
+#: src/Setup/Assets.php:112
 msgid "How much does it cost to use Hostinger Reach?"
 msgstr "כמה עולה השימוש ב-Hostinger Reach?"
+
+#: src/Admin/Surveys/SatisfactionSurvey.php:21
+#, fuzzy
+msgid "How would you rate your experience with Hostinger Reach so far?"
+msgstr "איך הייתם מדרגים את החוויה שלכם עם Hostinger Reach עד כה?"
 
 #. Plugin URI of the plugin
 #: hostinger-reach.php
@@ -293,15 +362,22 @@ msgstr "https://hostinger.com"
 msgid "https://www.hostinger.com/email-marketing"
 msgstr "https://www.hostinger.com/email-marketing"
 
-#: src/Setup/Assets.php:124
+#: src/Setup/Assets.php:129
 msgid "Inactive"
 msgstr "לא פעיל"
 
-#: src/Setup/Assets.php:144
+#: frontend/blocks/subscription-block/src/edit.js:31
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:202
+#, fuzzy
+msgid "Inline"
+msgstr "מובנה"
+
+#: src/Setup/Assets.php:151
 msgid "Install and connect"
 msgstr "התקן וחבר"
 
-#: src/Setup/Assets.php:143
+#: src/Setup/Assets.php:150
 msgid "Installed plugins"
 msgstr "תוספים מותקנים"
 
@@ -311,77 +387,102 @@ msgid "Integrate your WordPress site with Hostinger Reach."
 msgstr ""
 "שלבו את אתר ה-WordPress שלכם עם Hostinger Reach.\n"
 
-#: src/Setup/Assets.php:139
+#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:326
+#, fuzzy
+msgid "Layout"
+msgstr "פריסה"
+
+#: frontend/blocks/subscription-block/src/edit.js:153
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:324
+#, fuzzy
+msgid "Layout Settings"
+msgstr "הגדרות פריסה"
+
+#: src/Admin/Notices/ConnectionNotice.php:107
+#, fuzzy
+msgid "Learn more"
+msgstr "למידע נוסף"
+
+#: src/Setup/Assets.php:146
 msgid ""
 "Make sure the people you contact expect your emails and are okay with "
 "receiving them."
 msgstr ""
 "ודאו שהאנשים שאתם פונים אליהם מצפים למיילים שלכם ומסכימים לקבל אותם.\n"
 
-#: src/Setup/Assets.php:73
+#: src/Setup/Assets.php:78
 msgid "Manage"
 msgstr "נהלו"
 
-#: src/Blocks/SubscriptionFormBlock.php:67
-#: frontend/blocks/subscription-block/src/edit.js:188
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:296
+#: src/Blocks/SubscriptionFormBlock.php:81
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:114
 msgid "Name"
 msgstr "שם"
 
-#: frontend/blocks/subscription-block/src/edit.js:155
+#: frontend/blocks/subscription-block/src/edit.js:134
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:263
+#: frontend/dist/blocks/subscription.js:305
+#, fuzzy
 msgid "Name for the new Contact List"
 msgstr "שם לרשימת אנשי הקשר החדשה"
 
-#: src/Setup/Assets.php:140
+#: src/Setup/Assets.php:147
 msgid "New contact form"
 msgstr "טופס יצירת קשר חדש"
 
-#: frontend/blocks/subscription-block/src/edit.js:150
+#: frontend/blocks/subscription-block/src/edit.js:129
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:258
+#: frontend/dist/blocks/subscription.js:300
+#, fuzzy
 msgid "New Contact List"
 msgstr "רשימת אנשי קשר חדשה"
 
-#: src/Setup/Assets.php:100
+#: src/Setup/Assets.php:105
 msgid "New page"
 msgstr "דף חדש"
 
-#: src/Setup/Assets.php:89
+#: src/Setup/Assets.php:94
 msgid "New subscribers"
 msgstr "מנויים חדשים"
 
-#: src/Setup/Assets.php:134
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:71
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:83
+#, fuzzy
+msgid "No"
+msgstr "לא"
+
+#: src/Setup/Assets.php:141
 msgid "No forms found for this integration."
 msgstr "לא נמצאו טפסים עבור אינטגרציה זו."
 
-#: src/Setup/Assets.php:101
+#: src/Setup/Assets.php:106
 msgid "No pages available. Create a new page to get started."
 msgstr "אין דפים זמינים. צרו דף חדש כדי להתחיל."
 
-#: src/Setup/Assets.php:109
+#: src/Setup/Assets.php:114
 msgid "opens in new tab"
 msgstr "נפתח בלשונית חדשה"
 
-#: src/Setup/Assets.php:120
+#: src/Setup/Assets.php:125
 msgid "Plugin"
 msgstr "תוסף"
 
-#: src/Setup/Assets.php:136
+#: src/Setup/Assets.php:143
 msgid "Plugin connected successfully"
 msgstr "התוסף התחבר בהצלחה"
 
-#: src/Setup/Assets.php:137
+#: src/Setup/Assets.php:144
 msgid "Plugin disconnected successfully"
 msgstr "התוסף נותק בהצלחה"
 
-#: src/Setup/Assets.php:71
+#: src/Setup/Assets.php:76
 msgid "Reach is already connected to another site."
 msgstr "Reach כבר מחובר לאתר אחר."
 
-#: src/Setup/Assets.php:108
+#: src/Setup/Assets.php:113
 #| msgid ""
 #| "Reach offers a free plan for one year– perfect for getting started. Paid "
 #| "plans are based on how many unique contacts you aim to reach and how many "
@@ -404,164 +505,201 @@ msgstr ""
 
 #: frontend/blocks/subscription-block/src/index.js:9
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:444
+#: frontend/dist/blocks/subscription.js:487
+#, fuzzy
 msgid "Reach Subscription Form"
-msgstr ""
-"טופס הרשמה Reach\n"
+msgstr "טופס מנוי Reach"
 
-#: src/Setup/Assets.php:84
+#: src/Setup/Assets.php:89
 msgid "Remaining"
 msgstr "נותרו"
 
-#: src/Setup/Assets.php:114
+#: src/Setup/Assets.php:119
 msgid "Select page"
 msgstr "בחירת דף"
 
-#: src/Setup/Assets.php:83 src/Setup/Assets.php:86
+#: src/Setup/Assets.php:88 src/Setup/Assets.php:91
 msgid "Sent"
 msgstr "נשלחו"
 
-#: src/Setup/Assets.php:94 frontend/blocks/subscription-block/src/edit.js:123
+#: src/Setup/Assets.php:99 frontend/blocks/subscription-block/src/edit.js:102
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:231
+#: frontend/dist/blocks/subscription.js:273
 msgid "Settings"
 msgstr "הגדרות"
 
-#: frontend/blocks/subscription-block/src/edit.js:158
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:68
+#, fuzzy
+msgid "Show Name"
+msgstr "שם התוכנית"
+
+#: frontend/blocks/subscription-block/src/edit.js:137
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:266
+#: frontend/dist/blocks/subscription.js:308
+#, fuzzy
 msgid "Show Name Field?"
-msgstr "להציג שדה שם?"
+msgstr "הצג שדה שם?"
 
-#: frontend/blocks/subscription-block/src/edit.js:166
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:80
+#, fuzzy
+msgid "Show Surname"
+msgstr "הצג שם משפחה"
+
+#: frontend/blocks/subscription-block/src/edit.js:145
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:274
+#: frontend/dist/blocks/subscription.js:316
+#, fuzzy
 msgid "Show Surname Field?"
-msgstr "להציג שדה שם משפחה?"
+msgstr "הצג שדה שם משפחה?"
 
-#: src/Setup/Assets.php:68
+#: src/Setup/Assets.php:73
 msgid "Something went wrong"
 msgstr "משהו השתבש"
 
-#: frontend/blocks/subscription-block/src/edit.js:111
-#: frontend/blocks/subscription-block/src/edit.js:116
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:219
-#: frontend/dist/blocks/subscription.js:224
-msgid "Something went wrong. Please try again"
-msgstr "משהו השתבש. אנא נסו שוב"
-
-#: src/Blocks/SubscriptionFormBlock.php:19
+#: src/Blocks/SubscriptionFormBlock.php:21
 msgid "Something went wrong. Please try again."
 msgstr "משהו השתבש. אנא נסו שוב."
 
-#: src/Setup/Assets.php:96
+#: src/Setup/Assets.php:101
 msgid "Start collecting form submissions"
 msgstr "התחילו לאסוף טפסים שנשלחו"
 
-#: src/Setup/Assets.php:122
+#: src/Setup/Assets.php:127
 msgid "Status"
 msgstr "סטטוס"
 
-#: src/Blocks/SubscriptionFormBlock.php:83
+#: src/Blocks/SubscriptionFormBlock.php:97
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:130
 msgid "Subscribe"
 msgstr "הירשמו"
 
-#: src/Setup/Assets.php:88
+#: templates/optin-checkbox.php:28
+#, fuzzy
+msgid "Subscribe to our Newsletter"
+msgstr "הירשם לניוזלטר שלנו"
+
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:69
+#, fuzzy
+msgid "Subscribe to our newsletter"
+msgstr "הירשם לניוזלטר שלנו"
+
+#: src/Setup/Assets.php:93
 msgid "Subscribers"
 msgstr "מנויים"
 
-#: src/Blocks/SubscriptionFormBlock.php:75
-#: frontend/blocks/subscription-block/src/edit.js:194
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:302
+#: src/Blocks/SubscriptionFormBlock.php:89
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:122
 msgid "Surname"
 msgstr "שם משפחה"
 
-#: frontend/blocks/subscription-block/src/edit.js:108
-#: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:216
-msgid "Thanks for subscribing"
-msgstr "תודה על ההרשמה"
-
-#: src/Blocks/SubscriptionFormBlock.php:18
+#: src/Blocks/SubscriptionFormBlock.php:20
 msgid "Thanks for subscribing."
 msgstr "תודה על ההרשמה."
 
-#: src/Setup/Assets.php:79
+#: src/Integrations/Integration.php:158
+#, fuzzy
+msgid ""
+"This form has not an email field. Create an email field in the form to allow "
+"it to be synced with Reach"
+msgstr ""
+"בטופס זה אין שדה דוא\"ל. צור שדה דוא\"ל בטופס כדי לאפשר סנכרון עם Reach"
+
+#: src/Setup/Assets.php:84
 msgid "This month"
 msgstr "החודש"
 
-#: src/Setup/Assets.php:91
+#: src/Setup/Assets.php:96
 msgid "Total subscribers"
 msgstr "סך המנויים"
 
-#: frontend/blocks/subscription-block/src/edit.js:129
+#: frontend/blocks/subscription-block/src/edit.js:108
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:237
+#: frontend/dist/blocks/subscription.js:279
+#, fuzzy
 msgid "Unique identifier for this form"
 msgstr "מזהה ייחודי לטופס זה"
 
-#: src/Setup/Assets.php:90
+#: src/Setup/Assets.php:95
 msgid "Unsubscribes"
 msgstr ""
 "ביטולי הרשמה\n"
 
-#: src/Setup/Assets.php:81
+#: src/Setup/Assets.php:86
 msgid "Upgrade"
 msgstr "שדרוג"
 
-#: src/Setup/Assets.php:112
+#: src/Setup/Assets.php:117
 msgid "usage statistics"
 msgstr "סטטיסטיקת שימוש"
 
-#: src/Setup/Assets.php:125
+#: src/Setup/Assets.php:130
 msgid "View form"
 msgstr "הצג טופס"
 
-#: src/Setup/Assets.php:142
+#: src/Setup/Assets.php:149
 msgid "View supported plugins"
 msgstr "הצג תוספים נתמכים"
 
-#: src/Setup/Assets.php:69
+#: src/Setup/Assets.php:74
 msgid "Welcome to Reach"
 msgstr "ברוכים הבאים ל-Reach"
 
-#: src/Setup/Assets.php:103
+#: src/Setup/Assets.php:108
 msgid "What is Hostinger Reach email marketing service?"
 msgstr "מהו שירות השיווק בדוא\"ל Hostinger Reach?"
 
-#: src/Integrations/PluginManager.php:33 src/Setup/Assets.php:131
+#: src/Integrations/WooCommerce/WooCommerceIntegration.php:164
+#, fuzzy
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:29
+#: src/Setup/Assets.php:137
 msgid "WP Forms Lite"
 msgstr "WP Forms Lite"
 
 #. translators: %s - form id.
-#: src/Integrations/WpFormsLiteIntegration.php:41
+#: src/Integrations/WPFormsLite/WpFormsLiteIntegration.php:63
 msgid "WP Forms Lite %s"
 msgstr "WP Forms Lite %s"
 
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:70
+#: src/Integrations/Elementor/SubscriptionFormElementorWidget.php:82
+#, fuzzy
+msgid "Yes"
+msgstr "כן"
+
 #: frontend/blocks/subscription-block/src/Components/Connect.js:7
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:40
+#: frontend/dist/blocks/subscription.js:42
+#, fuzzy
 msgid "You are not connected to Hostinger Reach"
-msgstr "אתם לא מחוברים ל-Hostinger Reach"
+msgstr "אינך מחובר ל-Hostinger Reach"
 
 #: frontend/blocks/subscription-block/src/Components/Connect.js:10
 #: frontend/dist/blocks/subscription.js:1
-#: frontend/dist/blocks/subscription.js:43
+#: frontend/dist/blocks/subscription.js:45
+#, fuzzy
 msgid ""
 "You are not connected to Hostinger Reach. To gain full access to this block, "
 "you need to connect your Hostinger Reach account."
 msgstr ""
-"אינכם מחוברים ל־Hostinger Reach. כדי לקבל גישה מלאה לבלוק זה, עליכם לחבר את "
-"חשבון ה־Hostinger Reach שלכם.\n"
+"אינך מחובר ל-Hostinger Reach. כדי לקבל גישה מלאה לבלוק זה, עליך לחבר את "
+"חשבון Hostinger Reach שלך."
 
 #. translators: %s: PHP version
-#: hostinger-reach.php:55
+#: hostinger-reach.php:58
 msgid "You are running <b>%s</b> PHP version."
 msgstr ""
 "אתם מריצים גרסת PHP ‏<b>%s</b>.\n"
 
-#: src/Setup/Assets.php:80
+#: frontend/blocks/subscription-block/src/Components/Dialog.js:40
+#: frontend/dist/blocks/subscription.js:1
+#: frontend/dist/blocks/subscription.js:129
+#, fuzzy
+msgid "Your form is ready. Go to Reach to complete setup and create templates."
+msgstr "הטופס שלך מוכן. עבור אל Reach כדי להשלים את ההגדרה וליצור תבניות."
+
+#: src/Setup/Assets.php:85
 msgid "Your plan"
 msgstr "התוכנית שלכם"

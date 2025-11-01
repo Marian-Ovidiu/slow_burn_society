@@ -4,7 +4,7 @@ namespace Hostinger\Reach\Api\Routes;
 
 use Hostinger\Reach\Api\ApiKeyManager;
 use Hostinger\Reach\Api\Handlers\FormsApiHandler;
-use Hostinger\Reach\Providers\IntegrationsProvider;
+use Hostinger\Reach\Api\Handlers\IntegrationsApiHandler;
 use WP_REST_Request;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -58,7 +58,7 @@ class FormsRoutes extends Routes {
                         'required'          => false,
                         'type'              => 'string',
                         'validate_callback' => function ( $param ) {
-                            return array_key_exists( $param, IntegrationsProvider::INTEGRATIONS );
+                            return array_key_exists( $param, IntegrationsApiHandler::get_integrations() );
                         },
                     ),
                 ),

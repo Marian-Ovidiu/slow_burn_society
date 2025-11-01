@@ -3,7 +3,7 @@
 namespace Hostinger\Reach\Blocks;
 
 
-use Hostinger\Reach\Integrations\ReachFormIntegration;
+use Hostinger\Reach\Integrations\Reach\ReachFormIntegration;
 
 if ( ! defined( 'ABSPATH' ) ) {
     die;

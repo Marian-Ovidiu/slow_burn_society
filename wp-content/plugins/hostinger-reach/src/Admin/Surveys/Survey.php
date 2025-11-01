@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Admin\Surveys;
 
-
 use Hostinger\Surveys\SurveyManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -53,7 +52,9 @@ abstract class Survey {
             $this->get_score_question(),
             $this->get_comment_question(),
             $this->get_location(),
-            $this->get_priority()
+            $this->get_priority(),
+            $this->get_review_url(),
+            $this->get_review_min_required_score()
         );
     }
 
@@ -64,4 +65,6 @@ abstract class Survey {
     abstract protected function get_id(): string;
 
     abstract protected function get_location(): string;
+    abstract protected function get_review_url(): string;
+    abstract protected function get_review_min_required_score(): int;
 }

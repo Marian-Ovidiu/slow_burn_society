@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 import { camelToSnakeObj, snakeToCamelObj } from '@/utils/caseConversion';
 import { asyncCall } from '@/utils/helpers';

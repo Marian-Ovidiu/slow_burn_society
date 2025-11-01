@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
 interface BaseApiResponse<T> {
 	success?: boolean;

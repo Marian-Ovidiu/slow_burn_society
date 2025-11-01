@@ -2,7 +2,6 @@
 
 namespace Hostinger\Reach\Providers;
 
-
 use Hostinger\Reach\Admin\Surveys\SatisfactionSurvey;
 use Hostinger\Reach\Admin\Surveys\Survey;
 use Hostinger\Reach\Container;

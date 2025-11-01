@@ -422,6 +422,16 @@
 			            );
 			        }
 			    }
+
+
+			    $elementor_css_print_method_option = get_option("elementor_css_print_method");
+
+			    if($elementor_css_print_method_option && $elementor_css_print_method_option != "internal"){
+			    	return array(
+		                "You have to set the <u><a target='_blank' href='https://www.wpfastestcache.com/tutorial/elementor-plugin-settings/'>CSS Print Method</a></u> option of the Elementor plugin to Internal Embedding",
+		                "error"
+		            );
+			    }
 			}
 
 
@@ -2243,73 +2253,103 @@
 
 				    		<div class="integration-page" style="display: block;width:98%;float:left;">
 
-				    			<div wpfc-db-name="all_warnings" class="int-item int-item-left">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-technology"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">ALL <span class="db-number">(0)</span></div>
-				    					<p>Clean all of them</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
 
-				    			<div wpfc-db-name="post_revisions" class="int-item int-item-right">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-draft"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">Post Revisions <span class="db-number">(0)</span></div>
-				    					<p>Clean all post revisions</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
+							<?php
 
-				    			<div wpfc-db-name="trashed_contents" class="int-item int-item-left">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-recycling"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">Trashed Contents <span class="db-number">(0)</span></div>
-				    					<p>Clean all trashed posts & pages</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
+							$items = [
+							    [
+							        "name" => "all_warnings",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-technology",
+							        "title" => "ALL",
+							        "desc"  => "Clean all of them"
+							    ],
+							    [
+							        "name" => "post_revisions",
+							        "class" => "int-item-right",
+							        "icon"  => "flaticon-draft",
+							        "title" => "Post Revisions",
+							        "desc"  => "Clean all post revisions"
+							    ],
+							    [
+							        "name" => "trashed_contents",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-recycling",
+							        "title" => "Trashed Contents",
+							        "desc"  => "Clean all trashed posts & pages"
+							    ],
+							    [
+							        "name" => "trashed_spam_comments",
+							        "class" => "int-item-right",
+							        "icon"  => "flaticon-interface",
+							        "title" => "Trashed & Spam Comments",
+							        "desc"  => "Clean all comments from trash & spam"
+							    ],
+							    [
+							        "name" => "trackback_pingback",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-pingback",
+							        "title" => "Trackbacks and Pingbacks",
+							        "desc"  => "Clean all trackbacks and pingbacks"
+							    ],
+							    [
+							        "name" => "transient_options",
+							        "class" => "int-item-right",
+							        "icon"  => "flaticon-file",
+							        "title" => "Transient Options",
+							        "desc"  => "Clean all transient options"
+							    ],
+							    [
+							        "name" => "orphaned_post_meta",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-xxx",
+							        "title" => "Orphaned Post Meta",
+							        "desc"  => "Clean all orphaned post meta"
+							    ],
+							    [
+							        "name" => "orphaned_comment_meta",
+							        "class" => "int-item-right",
+							        "icon"  => "flaticon-xxx",
+							        "title" => "Orphaned Comment Meta",
+							        "desc"  => "Clean all orphaned comment meta"
+							    ],
+							    [
+							        "name" => "orphaned_user_meta",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-user",
+							        "title" => "Orphaned User Meta",
+							        "desc"  => "Clean all orphaned user meta"
+							    ],
+							    [
+							        "name" => "orphaned_term_meta",
+							        "class" => "int-item-right",
+							        "icon"  => "flaticon-tag",
+							        "title" => "Orphaned Term Meta",
+							        "desc"  => "Clean all orphaned term meta"
+							    ],
+							    [
+							        "name" => "orphaned_term_relationships",
+							        "class" => "int-item-left",
+							        "icon"  => "flaticon-connection",
+							        "title" => "Orphaned Term Relationships",
+							        "desc"  => "Clean all orphaned term relationships"
+							    ]
+							];
 
-				    			<div wpfc-db-name="trashed_spam_comments" class="int-item int-item-right">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-interface"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">Trashed & Spam Comments <span class="db-number">(0)</span></div>
-				    					<p>Clean all comments from trash & spam</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
 
-				    			<div wpfc-db-name="trackback_pingback" class="int-item int-item-left">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-pingback"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">Trackbacks and Pingbacks <span class="db-number">(0)</span></div>
-				    					<p>Clean all trackbacks and pingbacks</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
-
-				    			<div wpfc-db-name="transient_options" class="int-item int-item-right">
-				    				<div style="float:left;width:45px;height:45px;margin-right:12px;">
-				    					<span class="flaticon-file"></span> 
-				    				</div>
-				    				<div class="app db">
-				    					<div style="font-weight:bold;font-size:14px;">Transient Options <span class="db-number">(0)</span></div>
-				    					<p>Clean all transient options</p>
-				    				</div>
-				    				<div class="meta"></div>
-				    			</div>
-
-
+								foreach ($items as $item) {
+								    echo '<div wpfc-db-name="'.$item['name'].'" class="int-item '.$item['class'].'">
+								            <div style="display:none;float:left;width:45px;height:45px;margin-right:12px;">
+								                <span class="'.$item['icon'].'"></span> 
+								            </div>
+								            <div class="app db">
+								                <div style="font-weight:bold;font-size:14px;">'.$item['title'].' <span class="db-number">(0)</span></div>
+								                <p>'.$item['desc'].'</p>
+								            </div>
+								            <div class="meta"></div>
+								          </div>';
+								}
+							?>
 
 
 				    		</div>

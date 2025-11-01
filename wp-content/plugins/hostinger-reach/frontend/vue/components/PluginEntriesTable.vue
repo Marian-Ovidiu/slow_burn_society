@@ -3,16 +3,13 @@ import { computed } from 'vue';
 
 import PluginEntry from '@/components/PluginEntry.vue';
 import PluginEntrySkeleton from '@/components/skeletons/PluginEntrySkeleton.vue';
-import { getPluginInfo, PLUGIN_STATUSES, type PluginStatus } from '@/data/pluginData';
+import { PLUGIN_STATUSES, type PluginStatus } from '@/data/pluginData';
 import type { Form, Integration } from '@/types/models';
 import { translate } from '@/utils/translate';
 
 interface PluginEntryData {
-	id: string;
-	name: string;
-	icon: string;
+	integration: Integration;
 	entries: number;
-	showAddForm: boolean;
 	status: PluginStatus;
 	forms: Form[];
 }
@@ -44,18 +41,14 @@ const pluginEntries = computed((): PluginEntryData[] => {
 	return props.integrations
 		.filter((integration) => integration.isPluginActive)
 		.map((integration) => {
-			const pluginInfo = getPluginInfo(integration);
 			const forms = integration.forms || [];
 			const totalSubmissions = forms.reduce((sum, form) => sum + (form.submissions || 0), 0);
 
 			return {
-				id: integration.id,
-				name: integration.title,
-				icon: pluginInfo.icon || '',
+				integration,
 				entries: totalSubmissions,
 				status: integration.isActive ? PLUGIN_STATUSES.ACTIVE : PLUGIN_STATUSES.INACTIVE,
-				forms,
-				showAddForm: !!integration.addFormUrl
+				forms
 			} as PluginEntryData;
 		})
 		.filter((pluginEntry) => pluginEntry.status === PLUGIN_STATUSES.ACTIVE);
@@ -81,7 +74,7 @@ const pluginEntries = computed((): PluginEntryData[] => {
 						{{ translate('hostinger_reach_plugin_entries_table_status_header') }}
 					</span>
 				</div>
-				<div class="plugin-entries-table__header-cell plugin-entries-table__header-cell--actions" />
+				<div class="plugin-entries-table__header-cell plugin-entries-table__header-cell--actions"></div>
 			</div>
 
 			<template v-if="isLoading">
@@ -91,12 +84,9 @@ const pluginEntries = computed((): PluginEntryData[] => {
 			<template v-else>
 				<PluginEntry
 					v-for="(pluginEntry, index) in pluginEntries"
-					:key="pluginEntry.id"
-					:plugin-id="pluginEntry.id"
-					:plugin-name="pluginEntry.name"
-					:plugin-icon="pluginEntry.icon"
+					:key="pluginEntry.integration.id"
+					:integration="pluginEntry.integration"
 					:plugin-status="pluginEntry.status"
-					:show-add-form="pluginEntry.showAddForm"
 					:total-entries="pluginEntry.entries"
 					:forms="pluginEntry.forms"
 					:class="{
