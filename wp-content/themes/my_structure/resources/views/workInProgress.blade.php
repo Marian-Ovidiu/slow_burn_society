@@ -84,7 +84,7 @@
           <article class="group relative overflow-hidden rounded-2xl md:rounded-3xl glass hover:brightness-110 transition">
             <a href="{{ esc_url($permalink) }}" class="absolute inset-0" aria-label="Leggi: {{ esc_attr($title) }}"></a>
 
-            <div class="aspect-[16/9] overflow-hidden">
+            <div class="aspect-[1/1] overflow-hidden">
               <img
                 src="{{ esc_url($thumb) }}"
                 alt=""
